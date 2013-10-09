@@ -1,4 +1,4 @@
-package tomorrow.ver1
+ package tomorrow.ver1
 
 import cpu.AbstractCPU
 import tomorrow.ver1.arithmetic._
@@ -17,7 +17,7 @@ class Tomorrow extends AbstractCPU(
     		new Sll(), new Srl(), new Sra()),
     HashMap(("HI" -> new IntegerRegister()), ("LO" -> new IntegerRegister())) ++ 
             (new Range(0, 32, 1).map((i:Int)=>(s"r${i}"->new IntegerRegister()))) toMap,
-    0x004000000){
+    0x04000000){
     
 	/**
      * 命令の格納されるメモリ空間の先頭アドレス

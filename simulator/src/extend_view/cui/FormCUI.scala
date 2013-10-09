@@ -46,13 +46,13 @@ abstract class FormCUI extends Form {
 	    def helpCommand = "help" ^^ ((str:String) => {Console.out.print(
 s"""usage: simulator [<file path>]
 commands are:
-	help							Show help
-	load/l <file path>				Load file and set executable to CPU
-	run/r <instruction num>			Execute <instruction num> instruction
-	step/s							Step execute
-	print/p register				Show all register data
-	print/p memory <begin> <end>	Show memory data in <begin>...<end>
-	end								End simulator
+	help                          Show help
+	load/l <file path>            Load file and set executable to CPU
+	run/r <instruction num>       Execute <instruction num> instruction
+	step/s                        Step execute
+	print/p register              Show all register data
+	print/p memory <begin> <end>  Show memory data in <begin>...<end>
+	end                           End simulator
 """)
 			true
 	    })

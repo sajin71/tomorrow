@@ -11,10 +11,12 @@ import scala.collection.immutable.HashMap
  * @todo Decoder->OpcodeにprogramCounter, Register, Memoryを渡す必要
  * @todo このクラスは抽象CPUだと見ているが、CPU内で違うのはInstructionSetとregisters, MemorySizeだけなの？<-fetchとかを変えました。まる。
  */
-abstract class AbstractCPU(instructionSet: Set[Opcode], registers: Map[String, Register], memorySize: Int) {
+abstract class AbstractCPU(instructionSet: Set[Opcode], registers: Map[String, Register], memory: Memory) {
     private val decoder = new Decoder(instructionSet)
     protected var programCounter = new IntegerRegister()
-    protected var memory = new Memory(memorySize)
+    
+    def this(instructionSet: Set[Opcode], registers: Map[String, Register], size: Long) = this(instructionSet, registers, new Memory(size toInt))
+
     
     /**
      * 命令の格納されるメモリ空間の先頭アドレス

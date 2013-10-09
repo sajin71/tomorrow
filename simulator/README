@@ -1,0 +1,22 @@
+1, コンパイル・インストール
+ubuntuの場合は以下のコマンドで可能(だと思う)
+$ wget http://www.scala-lang.org/files/archive/scala-2.10.3.tgz
+$ tar zxvf scala-2.10.3.tgz
+$ cd scala-2.10.3
+$ sudo ln -s bin/scala /usr/bin
+$ sudo ln -s bin/scalac /usr/bin
+
+$ cd <workspace path>
+$ cd simulator
+$ make
+ 
+apt-getで入れると多分バージョンが古くて文字列補間が入っていない気がするので、tarから入れて欲しい。
+
+2, 実行
+1) 以下で起動
+$ ./simulator
+
+2) 実行するファイルを指定する場合は、
+$ ./simulator <filepath>
+
+3) ヘルプは、./simulatorで起動後、helpで見られる。
