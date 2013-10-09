@@ -74,7 +74,11 @@ commands are:
 	    })
 	    def printRegister = ("print" | "p") ~ "register" ^^ (result => {
 	    	val memonto = simulator.getCPUState()
-	    	println("pc:\t" + memonto.programCounter.mkString)
+	    	print("pc:\t")
+	    	for(byte <- memonto.programCounter) {
+	    		printf("%02x", byte)
+	    	}
+	    	println()
 	    	var isLeft = true
 	    	memonto.registers.keys.toList.sortWith((l, r)/*アルファベット + 数字->まず、文字部分の比較 -> 数字同士の比較、最後が数字でない->常にそちらが上*/ 
 	    	        => { l < r
@@ -91,7 +95,10 @@ commands are:
 	    	        	}
 	    	        }) foreach ((key) => {
 	    	    if(!isLeft) print("\t")
-	    	    print(s"${key}:\t${memonto.registers(key).mkString}")
+	    	    print(s"${key}:\t")
+	    	    for(byte <- memonto.registers(key)) {
+	    	        printf("%02x", byte)
+	    	    }
 	    	    if(isLeft) print("\t")
 	    	    else println()
 	    	    isLeft = !isLeft
