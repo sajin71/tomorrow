@@ -81,8 +81,7 @@ commands are:
 	    	println()
 	    	var isLeft = true
 	    	memonto.registers.keys.toList.sortWith((l, r)/*アルファベット + 数字->まず、文字部分の比較 -> 数字同士の比較、最後が数字でない->常にそちらが上*/ 
-	    	        => { l < r
-	    	        	val reg = """([a-zA-Z])(\d+)""".r
+	    	        => {val reg = """([a-zA-Z])(\d+)""".r
 	    	        	l match {
 	    	        	    case reg(ls, ld) => r match {
 	    	        	        case reg(rs, rd) => if(ls < rs) true else ((ld toInt) < (rd toInt))
