@@ -1,0 +1,2 @@
+Manifest-Version: 1.0
+Main-Class: tomorrow.ver1.TomorrowFormCUI
