@@ -3,3 +3,6 @@
 bin
 *.bin
 *.jar
+simulator/.project
+simulator/.cache
+simulator/.classpath
