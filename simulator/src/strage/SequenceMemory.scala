@@ -24,7 +24,14 @@ class SequenceMemory(size: Int) extends Memory{
         }
     }
     
-    def get(addr: Long): Option[Byte] = if(addr >= size) None else Some(data(addr toInt))
+    def get(addr: Long): Option[Byte] ={
+    	if(addr >= size) 
+    	    None 
+    	else 
+    	    Some(data(addr toInt))  
+    } 
     def iterator: Iterator[(Long, Byte)] = new SequenceMemoryIterator(size)
-    def update(index: Long, elem: Byte) = (data(index toInt) = elem)
+    def update(index: Long, elem: Byte) = {
+        (data(index toInt) = elem)
     }
+}

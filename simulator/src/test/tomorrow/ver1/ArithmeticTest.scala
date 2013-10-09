@@ -21,7 +21,7 @@ class ArithmeticTestSuite extends JUnitSuite with ShouldMatchersForJUnit {
     @Test def addTest() {
     	val testCode = Array[Byte](0x20, 0x01, 0x00, 0x10, 
     	        				   0x00, 0x21, 0x10, 0x20)
-    	        				   /*
+    	        				   /*t
     	        				    * addi r1 <- r0 + 0x10
     	        				    * add r2 <- r1 + r1
     	        				    */

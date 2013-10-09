@@ -47,7 +47,7 @@ class Subst extends Opcode {
 }
 
 class TestCPU extends AbstractCPU(HashSet(new Add(), new Subst()), HashMap[String, Register](("r1"->new IntegerRegister()), ("r2"->new IntegerRegister()), ("r3"->new IntegerRegister())), 1024) {
-	protected val executableAddress = 0x200
+	protected val executableAddress = 0x200 toLong
 	protected def instructionLength = 2 //< 2byte固定長
 }
 
