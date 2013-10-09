@@ -8,7 +8,7 @@ import cpu.AbstractCPU
 import cpu.instruction.Opcode
 import cpu.instruction.Operate
 import cpu.instruction.Instruction
-import strage.Memory
+import strage.SequenceMemory
 import strage.Register
 import strage.IntegerRegister
 import scala.collection.immutable.HashMap

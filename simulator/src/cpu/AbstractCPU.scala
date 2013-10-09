@@ -4,8 +4,9 @@ import cpu.instruction.Instruction
 import cpu.instruction.Opcode
 import strage.IntegerRegister
 import strage.Register
-import strage.Memory
+import strage.SequenceMemory
 import scala.collection.immutable.HashMap
+import strage.Memory
 
 /**
  * @todo Decoder->OpcodeにprogramCounter, Register, Memoryを渡す必要
@@ -15,7 +16,7 @@ abstract class AbstractCPU(instructionSet: Set[Opcode], registers: Map[String, R
     private val decoder = new Decoder(instructionSet)
     protected var programCounter = new IntegerRegister()
     
-    def this(instructionSet: Set[Opcode], registers: Map[String, Register], size: Long) = this(instructionSet, registers, new Memory(size toInt))
+    def this(instructionSet: Set[Opcode], registers: Map[String, Register], size: Long) = this(instructionSet, registers, new SequenceMemory(size toInt))
 
     
     /**
@@ -26,13 +27,13 @@ abstract class AbstractCPU(instructionSet: Set[Opcode], registers: Map[String, R
      * 次にフェッチする命令長を返す。PCは動かさないことが望まれるが、CPU設計次第では、動かす可能性は否定しない。
      * 単位はbyte
      */
-    protected def instructionLength : Int
+    protected def instructionLength : Long
     
 	def stepExecute(): Unit = {
 	    executeInstruction(fetch())
 	}
 	def getState(): CPUMemonto = {
-	    new CPUMemonto(programCounter.bytes, registers.map((elem:(String, Register))=>(elem._1, elem._2.bytes)), memory.data)
+	    new CPUMemonto(programCounter.bytes, registers.map((elem:(String, Register))=>(elem._1, elem._2.bytes)), Array[Byte]())
 	}
 	
 	/**
@@ -42,14 +43,18 @@ abstract class AbstractCPU(instructionSet: Set[Opcode], registers: Map[String, R
 		programCounter.data = executableAddress
 		var addr = executableAddress
 		for(i <- data){
-		    memory.data(addr) = i
+		    memory(addr) = i
 		    addr += 1
 		}
 	}
 	
 	private def fetch(): Instruction = {
 	    val length = instructionLength
-	    new Instruction(memory.data.slice(programCounter.data, programCounter.data + length))
+	    val pc = programCounter.data
+	    new Instruction(
+	            (memory filterKeys ((data) => (pc <= data) && (data <= pc + length))).values.toSeq
+	            )
+	    //new Instruction(memory.data.slice(programCounter.data, programCounter.data + length))
 	}
 	
 	private def executeInstruction(instruction: Instruction): Unit = {

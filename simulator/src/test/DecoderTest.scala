@@ -14,6 +14,7 @@ import strage.IntegerRegister
 import strage.Memory
 import strage.Register
 import scala.collection.immutable.HashMap
+import strage.SequenceMemory
 
 class DecoderTestSuite extends JUnitSuite with ShouldMatchersForJUnit {
     var testResult: String = ""
@@ -36,7 +37,7 @@ class DecoderTestSuite extends JUnitSuite with ShouldMatchersForJUnit {
     var decoder: Decoder = _ 
     val pc = new IntegerRegister()
     val registers = HashMap[String, Register]()
-    val memory = new Memory(0)
+    val memory = new SequenceMemory(0)
     @Before def initialize() {
         decoder = new Decoder(HashSet(
                 	new Opcode1, 

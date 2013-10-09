@@ -16,7 +16,7 @@ class LW extends ImmediateOperandOpcode(0x23) {
 		val begin = (BigEndianInterpreter interpretAsSignedInteger operand.rs) + operand.constant
 		var data = new Array[Byte](4)
 		for(i <- 0 until 4){
-		    data(i) = memory.data(begin + i)
+		    data(i) = memory(begin + i)
 		}
 		operand.rt.bytes = data
 	    programCounter.data += 4		
@@ -28,7 +28,7 @@ class SW extends ImmediateOperandOpcode(0x2B) {
 		val begin = (BigEndianInterpreter interpretAsSignedInteger operand.rs) + operand.constant
 		val data = operand.rt.bytes
 		for(i <- 0 until (data.length)){
-			memory.data(begin+i) = data(i)
+			memory(begin+i) = data(i)
 		}
 	    programCounter.data += 4		
 	}

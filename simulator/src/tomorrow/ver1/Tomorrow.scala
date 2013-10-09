@@ -27,5 +27,5 @@ class Tomorrow extends AbstractCPU(
      * 次にフェッチする命令長を返す。PCは動かさないことが望まれるが、CPU設計次第では、動かす可能性は否定しない。
      * 単位はbyte
      */
-    protected def instructionLength : Int = 4
+    protected def instructionLength : Long = 4
 }
