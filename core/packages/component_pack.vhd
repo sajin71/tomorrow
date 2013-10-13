@@ -11,7 +11,6 @@ package component_pack is
       WRITE_DATA : in  std_logic_vector(31 downto 0);
       READ_DATA1 : out std_logic_vector(31 downto 0);  -- NOT SYNCRONIZED
       READ_DATA2 : out std_logic_vector(31 downto 0);
-      RST        : in  std_logic;
       REG_WRITE  : in  std_logic);
   end component;
 
