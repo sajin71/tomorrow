@@ -12,7 +12,7 @@ entity sram_simulator is
     ADVA   : in   std_logic;                       -- ADVignore
     XLBO   : in   std_logic;                       -- LBOignore
     ZZA    : in   std_logic;                       -- ZZ ignore
-    XFT    : in   std_logic;                       -- FT ignore
+    XFT    : in   std_logic;                       -- FT
     XZBE   : in   std_logic_vector (0 to 3);       -- BA, BBignore
     ZCLKMA : in   std_logic_vector (0 to 1);       -- GIVE CLOCK
     XWA    : in   std_logic;                       -- WRITE ENABLE
