@@ -5,7 +5,7 @@ package ram_component_pack is
 
   component ram_input_control
     generic (
-      BRAMBW : integer := 15);
+      BRAMBW : integer);
 
     port (
       PC         : in  std_logic_vector(31 downto 0);
@@ -34,7 +34,7 @@ package ram_component_pack is
 
   component blockram
     generic (
-      BRAMBW : integer := 15);
+      BRAMBW : integer);
 
     port (
       CLK       : in  std_logic;
@@ -49,7 +49,7 @@ package ram_component_pack is
 
   component d_ff
     generic (
-      WIDTH : integer := 32);
+      WIDTH : integer);
 
     port (
       CLK      : in  std_logic;
