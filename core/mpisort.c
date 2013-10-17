@@ -12,6 +12,7 @@
 #define DATA_EXP 10
 
 void merge(int *a,int *b,int *res,int n,int m){
+    printf("merge n: %d m :%d\n", m, n);
   int i = 0,j = 0,k = 0;
 
   while(i<n && j<m){
@@ -52,6 +53,7 @@ int log_2(int n){
 }
 
 int check_if_sorted(int *a,int len){
+    printf("check_if_sorted a: %p len: %d\n", a, len);
   int i;
   int flag = 0;
   
@@ -139,7 +141,7 @@ int main(int argc,char *argv[]){
 
   flag = check_if_sorted(buf,unko_length);
 
-  MPI_Gather(&flag,1,MPI_INT,flagc,processnum,MPI_INT,0,MPI_COMM_WORLD);
+  //MPI_Gather(&flag,1,MPI_INT,flagc,processnum,MPI_INT,0,MPI_COMM_WORLD);
 
   
   if(myrank == 0){
@@ -151,13 +153,18 @@ int main(int argc,char *argv[]){
     }
 
     free(mainbuf[0]);
+    puts("freed mainbuf[0]");
     free(mainbuf[1]);
+    puts("freed mainbuf[1]");
     free(flagc);
+    puts("freed flagc");
   }
 
   free(buf);
+  puts("freed buf");
 
   MPI_Finalize();
+  puts("finalized");
 
   return 0;
 }
