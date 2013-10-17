@@ -89,9 +89,15 @@ int main(int argc,char *argv[]){
   int *mainbuf[2];
   int flag;
   int *flagc;
+  int current_data_size;
+  int kuso;
   
   MPI_Init(&argc,&argv);
   MPI_Comm_rank(MPI_COMM_WORLD,&myrank);
+
+  printf("myrank = %d\n",myrank);
+
+
   MPI_Comm_size(MPI_COMM_WORLD,&processnum);
 
   total_data_size = 1 << DATA_EXP;
@@ -119,9 +125,13 @@ int main(int argc,char *argv[]){
 
   MPI_Gather(buf,unko_length,MPI_INT,mainbuf[log_2(processnum) % 2],unko_length,MPI_INT,0,MPI_COMM_WORLD);
 
-  for(i=processnum;i>1;i = (i >> 1)){
-    for(j=0;j<i;j+=2){
-      merge(mainbuf[log_2(i) % 2]+(j*(total_data_size/i)),mainbuf[log_2(i) % 2]+((j+1)*(total_data_size/i)),mainbuf[1-(log_2(i) % 2)]+(j*(total_data_size/i)),total_data_size/i,total_data_size/i);
+  if(myrank == 0){
+    for(i=processnum;i>1;i = (i >> 1)){
+      for(j=0;j<i;j+=2){
+	current_data_size = total_data_size/i;
+	kuso = log_2(i) % 2;
+	merge(mainbuf[kuso]+(j*(current_data_size)),mainbuf[kuso]+((j+1)*(current_data_size)),mainbuf[1-(kuso)]+(j*(current_data_size)),current_data_size,current_data_size);
+      }
     }
   }
 
@@ -131,7 +141,6 @@ int main(int argc,char *argv[]){
 
   MPI_Gather(&flag,1,MPI_INT,flagc,processnum,MPI_INT,0,MPI_COMM_WORLD);
 
-  printf("myrank = %d\n",myrank);
   
   if(myrank == 0){
     if(check_flag(flagc,processnum) == 0){
