@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <string.h>
 
+#include <iostream>
 #include <vector>
 #include <map>
 #include <string>
@@ -13,6 +14,7 @@
 #define dprintf printf
 
 typedef uint32_t inst_t;
+typedef int16_t imm_t;
 
 // for VC++
 #ifdef _MSC_VER
@@ -38,6 +40,7 @@ const tInstR InstR[] = {
 { "DIV",    0x00, 0x1A, 2, {0,1,3}, false },
 { "MFHI",   0x00, 0x10, 1, {3,3,0}, false },
 { "MFLO",   0x00, 0x12, 1, {3,3,0}, false },
+{ "JR",     0x00, 0x03, 1, {0,3,3}, false },
 
 { "NOP",    0x00, 0x00, 0, {3,3,3}, false },
 { "SLL",    0x00, 0x00, 2, {1,0,3}, true },
@@ -54,28 +57,58 @@ struct tInstI {
 	const char *mnemonic;
 	unsigned char opcode;
 	int opercnt; //オペランドで指定するレジスタの数
-	char type; //即値の形式 0...ふつう 1...オフセット
+	char type; //即値の形式 0...ふつう 1...PC相対 2...メモリオフセット
 	int oporder[2]; //ふつう形式: 0...sに対応するのはアセンブラコードでいうと何番目？ 1...t  (2を指定すると0固定)
 };
 const tInstI InstI[] = {
 { "ADDI",   0x08, 2, 0, {1,0}},
 { "ANDI",   0x0C, 2, 0, {1,0}},
 { "ORI",    0x0D, 2, 0, {1,0}},
-{ "LW",     0x23, 2, 1, {}   },
-{ "SW",     0x2B, 2, 1, {}   },
+{ "LW",     0x23, 2, 2, {}   },
+{ "SW",     0x2B, 2, 2, {}   },
 { "LUI",    0x0F, 2, 0, {2,0}},
+{ "BEQ",    0x04, 2, 1, {0,1}},
+{ "BNE",    0x05, 2, 1, {0,1}},
 };
 
+
+struct tInstJ {
+	const char *mnemonic;
+	unsigned char opcode;
+};
+const tInstJ InstJ[] = {
+{ "J",      0x02},
+{ "JAL",    0x03},
+};
+
+
+// ラベルが使用されているところの情報
+struct tLabelPoint {
+	unsigned int pnum;
+	std::string label;
+	char type; //0...I 1...J
+	int linenum;
+};
+
+// グローバル変数的なひとたち
 struct tState {
 	int linenum;
 	std::vector<inst_t> dest;
 	std::string nextlabel;
 	
 	std::map<std::string, int> labels;
+	std::vector<tLabelPoint> lplaces;
+	
+	unsigned int getPnum() {
+		return this->dest.size();
+	}
 };
 
 bool is_blank(char c) {
 	return (c==' ') || (c=='\t') || (c=='\r') || (c=='\n');
+}
+bool is_labelhead(char c) {
+	return (c=='_') || ('a'<=c&&c<='z') || ('A'<=c&&c<='Z');
 }
 
 // 冒頭末尾の空白を削除
@@ -90,6 +123,7 @@ char* trim(char *str) {
 	char *tail = str + strlen(str) -1;
 	while ( is_blank(*tail) && tail > head ) {
 		*tail = '\0';
+		tail--;
 	}
 	
 	return head;
@@ -114,10 +148,12 @@ const char *nregname[32][2] = {
 {"24", "t8"},   {"25", "t9"}, {"26", "k0"}, {"27", "k1"}, {"28", "gp"}, {"29", "sp"}, {"30", "fp"}, {"31", "ra"}
 };
 
+// 文字列を整数に変換
 long str2long(char* op) {
+	
 	char *endptr = NULL;
 	long ret = strtol(op, &endptr, 0);
-	if ( endptr != NULL ) {
+	if ( op[0] == '\0' || *endptr != '\0' ) {
 		throw std::string("Invalid numeric constant `") + std::string(op) + std::string("'");
 	}
 	
@@ -137,7 +173,7 @@ short numreg(char* op) {
 		}
 	}
 	
-	throw std::string("Invalid operand `") + std::string(op) + std::string("'");
+	throw std::string("Invalid register operand `") + std::string(op) + std::string("'");
 }
 
 
@@ -186,6 +222,17 @@ void proc(char* mnemonic, char* operand, tState *state) {
 		if ( label[0] == '\0' ) {
 			throw std::string("Unknown label delimiter `:'");
 		}
+		if ( !is_labelhead(label[0]) ) {
+			throw std::string("Invalid label name");
+		}
+		
+		if ( !state->nextlabel.empty() ) {
+			throw std::string("double label not allowed");
+		}
+		
+		if ( state->labels.find(label) != state->labels.end() ) {
+			throw std::string("label `") + label + std::string("' has previous declaration");
+		}
 		
 		state->nextlabel = label;
 		
@@ -197,60 +244,200 @@ void proc(char* mnemonic, char* operand, tState *state) {
 	
 	// ラベルを登録する
 	if ( !state->nextlabel.empty() ) {
-		if ( state->labels.find(state->nextlabel) != state->labels.end() ) {
-			throw std::string("label `") + state->nextlabel + std::string("' has previous declaration");
-		}
-		state->labels.insert( std::map<std::string, int>::value_type( state->nextlabel, 4* state->dest.size() ) );
+		state->labels.insert( std::map<std::string, int>::value_type( state->nextlabel, state->getPnum() ) );
 		state->nextlabel = "";
 	}
 	
 	
+	// オペランドを分解
+	char *op[3];
+	int opcnt = opersplit(operand, op);
+	
 	// *** R形式をチェック ***
+	{
 	const tInstR *ir = NULL;
-	for (unsigned int i=0; i< ARRSIZE(InstR); i++) {
-		if ( strcasecmp(InstR[i].mnemonic, mnemonic) == 0 ) {
-			ir = &InstR[i];
-			break;
-		}
-	}
-	if ( ir ) {
-		inst_t inst;
-		char *op[3];
-		int opcnt = opersplit(operand, op);
-		if ( opcnt != (ir->opercnt + (ir->shift?1:0) ) ) {
-			throw std::string("Operand count not match");
-		}
-		
-		// オペランドのレジスタを読み取る
-		short opn[4] = {0,0,0,0};
-		for(int o=0; o< ir->opercnt; o++) {
-			opn[o] = numreg(trim(op[o]));
-		}
-		short shift = 0;
-		if ( ir->shift ) {
-			long lshi = str2long(trim(op[ir->opercnt]));
-			if ( lshi >= 32 ) {
-				throw std::string("constant shift value too big");
+		for (unsigned int i=0; i< ARRSIZE(InstR); i++) {
+			if ( strcasecmp(InstR[i].mnemonic, mnemonic) == 0 ) {
+				ir = &InstR[i];
+				break;
 			}
-			shift = (short)lshi;
 		}
-		
-		inst = (ir->opcode<<26)
-		     | (opn[ ir->oporder[0] ]<<21)
-		     | (opn[ ir->oporder[1] ]<<16)
-		     | (opn[ ir->oporder[2] ]<<11)
-		     | (shift<<6)
-		     | ir->funct;
-		printf("0x%x\n", inst);
-		
-		state->dest.push_back(inst);
-		return;
+		if ( ir ) {
+			if ( opcnt != (ir->opercnt + (ir->shift?1:0) ) ) {
+				throw std::string("Operand count not match");
+			}
+			
+			// オペランドのレジスタを読み取る
+			short opn[3+1] = {0,0,0,0};
+			for(int o=0; o< ir->opercnt; o++) {
+				opn[o] = numreg(trim(op[o]));
+			}
+			// シフト数
+			short shift = 0;
+			if ( ir->shift ) {
+				long lshi = str2long(trim(op[ir->opercnt]));
+				if ( lshi >= 32 || lshi<0 ) {
+					throw std::string("constant shift value is out of range");
+				}
+				shift = (short)lshi;
+			}
+			
+			
+			// 命令を組み立てて追加
+			inst_t inst;
+			inst = (ir->opcode<<26)
+			     | (opn[ ir->oporder[0] ]<<21)
+			     | (opn[ ir->oporder[1] ]<<16)
+			     | (opn[ ir->oporder[2] ]<<11)
+			     | (shift<<6)
+			     | ir->funct;
+			dprintf("0x%x\n", inst);
+			
+			state->dest.push_back(inst);
+			return;
+		}
 	}
 	
 	
 	// *** I形式をチェック ***
+	{
+		const tInstI *ii = NULL;
+		for (unsigned int i=0; i< ARRSIZE(InstI); i++) {
+			if ( strcasecmp(InstI[i].mnemonic, mnemonic) == 0 ) {
+				ii = &InstI[i];
+				break;
+			}
+		}
+		if ( ii ) {
+			char rs, rt;
+			imm_t con; //16bit
+			
+			
+			if ( ii->type == 2 ) {
+			// メモリアドレスのオフセットを指定してるやつ
+				rt = numreg(trim(op[0]));
+				
+				// かっこをほぐす
+				char *kakko1 = strchr(op[1], '(');
+				if ( kakko1 == NULL ) {
+					throw std::string("Unknown addressing operand. `(' not found");
+				}
+				*kakko1 = '\0';
+				
+				char *kreg = kakko1+1;
+				char *kakko2 = strchr(kreg, ')');
+				if ( kakko2 == NULL ) {
+					throw std::string("Unknown addressing operand. `)' not found");
+				}
+				*kakko2 = '\0';
+				if ( *(kakko2+1) != '\0' ) {
+					throw std::string("Unexpected string `") + std::string(kakko2+1) + std::string("'");
+				}
+				
+				con = (imm_t)str2long(trim(op[1]));
+				rs = numreg(trim(kreg));
+			} else {
+			// 0...最後のオペランドが定数になってるふつう形式
+			// 1...PC相対（ラベルかも？）
+				
+				if ( opcnt != (ii->opercnt+1) ) {
+					throw std::string("Operand count not match");
+				}
+				// オペランドのレジスタを読み取る
+				short opn[2+1] = {0,0,0};
+				for(int o=0; o< ii->opercnt; o++) {
+					opn[o] = numreg(trim(op[o]));
+				}
+				rs = opn[ ii->oporder[0] ];
+				rt = opn[ ii->oporder[1] ];
+				
+				char *opcon = trim(op[ii->opercnt]);
+				
+				if ( ii->type == 0 ) {
+					// 定数を読み取る
+					con = (imm_t)str2long(opcon);
+				} else {
+					if ( is_labelhead(opcon[0]) ) {
+						con = 0;
+						// ラベル位置を登録
+						tLabelPoint tlp;
+						tlp.pnum = state->getPnum();
+						tlp.label = std::string(opcon);
+						tlp.type = 0;
+						tlp.linenum = state->linenum;
+						
+						state->lplaces.push_back(tlp);
+					} else {
+						long lc = str2long(opcon);
+						if ( lc%4 != 0 ) {
+							throw std::string("branch address must be multiples of 4");
+						}
+						con = (imm_t)(lc/4);
+					}
+				}
+			}
+			
+			// 命令を組み立てて追加
+			inst_t inst;
+			inst = (ii->opcode<<26)
+			     | (rs<<21)
+			     | (rt<<16)
+			     | (con & 0xFFFF);
+			dprintf("0x%x\n", inst);
+			
+			state->dest.push_back(inst);
+			return;
+		}
+	}
 	
-	dprintf("NOT\n");
+	
+	// *** J形式をチェック ***
+	{
+		const tInstJ *ij = NULL;
+		for (unsigned int i=0; i< ARRSIZE(InstJ); i++) {
+			if ( strcasecmp(InstJ[i].mnemonic, mnemonic) == 0 ) {
+				ij = &InstJ[i];
+				break;
+			}
+		}
+		if ( ij ) {
+			if ( opcnt != 1 ) {
+				throw std::string("Operand count not match");
+			}
+			
+			long con;
+			
+			char *opcon = trim(op[0]);
+			if ( is_labelhead(opcon[0]) ) {
+				con = 0;
+				// ラベル位置を登録
+				tLabelPoint tlp;
+				tlp.pnum = state->getPnum();
+				tlp.label = std::string(opcon);
+				tlp.type = 1;
+				tlp.linenum = state->linenum;
+				
+				state->lplaces.push_back(tlp);
+			} else {
+				long lc = str2long(opcon);
+				if ( lc%4 != 0 ) {
+					throw std::string("jump address must be multiples of 4");
+				}
+				con = lc/4;
+			}
+			
+			// 命令を組み立てて追加
+			inst_t inst;
+			inst = (ij->opcode<<26)
+			     | (con & 0x3FFFFFF);
+			dprintf("0x%x\n", inst);
+			
+			state->dest.push_back(inst);
+			return;
+		}
+	}
+	
+	throw std::string("Unknown mnemonic `") + std::string(mnemonic) + std::string("'");
 }
 
 // 一行をニーモニックとオペランドに分ける
@@ -285,37 +472,94 @@ void procline(char *str, tState *state) {
 
 int main() {
 
-	FILE *fp = fopen("test.s", "r");
+	FILE *ifp = fopen("test.s", "r");
 	
 	tState state;
 	state.linenum = 0;
 	
 	char buf[BUFSIZE];
-	while ( fgets(buf, BUFSIZE-10, fp) ) {
+	while ( fgets(buf, BUFSIZE-10, ifp) ) {
 		state.linenum++;
 		
-		char *sline = trim(buf);
-		
-		// コメントを捨てる
-		// TODO: 文字リテラル
-		delafter(sline, ';');
-		delafter(sline, '#');
-		
-		char *pos = sline;
-		// ラベルで行を分ける
-		while ( char *colon = strchr(pos, ':') ) {
-			char tmp = *(colon+1);
+		try { 
+			char *sline = trim(buf);
 			
-			//次の文字を一時的にアレして投げる
-			*(colon+1) = '\0';
+			// コメントを捨てる
+			// TODO: 文字リテラル
+			delafter(sline, ';');
+			delafter(sline, '#');
+			
+			char *pos = sline;
+			// ラベルで行を分ける
+			while ( char *colon = strchr(pos, ':') ) {
+				char tmp = *(colon+1);
+				
+				//次の文字を一時的にアレして投げる
+				*(colon+1) = '\0';
+				procline(pos, &state);
+				*(colon+1) = tmp;
+				
+				pos = colon+1;
+			}
+			
 			procline(pos, &state);
-			*(colon+1) = tmp;
-			
-			pos = colon+1;
+		} catch ( std::string excepstr ) {
+			std::cerr << "Error line " << state.linenum << ": " << excepstr << std::endl;
+			fclose(ifp);
+			return -1;
 		}
-		
-		procline(pos, &state);
-
 	}
+	
+	fclose(ifp);
+	
+	
+	// ラベルの解決
+	for(unsigned int i=0; i<state.lplaces.size(); i++) {
+		std::map<std::string, int>::iterator it = state.labels.find( state.lplaces[i].label );
+		
+		try {
+			if ( it == state.labels.end() ) {
+				throw std::string("not found");
+			}
+			
+			int from = state.lplaces[i].pnum;
+			int to   = (*it).second;
+			
+			if ( state.lplaces[0].type == 0 ) {
+			// I形式 branch (PC相対)
+				int c = to - (from+1);
+				if ( c < -32768 || 32767 < c ) {
+					throw std::string("branch too far");
+				}
+				
+				state.dest [ state.lplaces[i].pnum ] |= (c & 0xFFFF);
+			} else {
+			// J形式 jump
+				
+			}
+			
+			
+			
+		} catch ( std::string excepstr ) {
+			std::cerr << "Label Error line " << state.lplaces[i].linenum << " label `" << state.lplaces[0].label << "': " << excepstr << std::endl;
+			return -1;
+		}
+	}
+	
+	
+	FILE *ofp = fopen("a.bin", "wb");
+	for(unsigned int i=0; i<state.dest.size(); i++) {
+		union {
+			inst_t inst;
+			unsigned char b[4];
+		} b;
+		
+		b.inst = state.dest[i];
+		fwrite(&b.b[3], 1, 1, ofp);
+		fwrite(&b.b[2], 1, 1, ofp);
+		fwrite(&b.b[1], 1, 1, ofp);
+		fwrite(&b.b[0], 1, 1, ofp);
+	}
+	fclose(ofp);
 
 }
