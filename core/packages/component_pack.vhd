@@ -29,38 +29,6 @@ package component_pack is
       OPER  : out std_logic_vector(2 downto 0));
   end component;
 
-  component ram
-    generic (
-      BRAMBW : integer);
-
-    port (
-      CLK        : in  std_logic;
-      PC         : in  std_logic_vector(31 downto 0);
-      FROMALU    : in  std_logic_vector(31 downto 0);
-      DATA_WRITE : in  std_logic_vector(31 downto 0);
-      IR         : out std_logic_vector(31 downto 0);
-      MDR        : out std_logic_vector(31 downto 0);
-      MemWrite   : in  std_logic;
-      IRWrite    : in  std_logic;
-
-      XE1    : out   std_logic;                       -- E1
-      E2A    : out   std_logic;                       -- E2
-      XE3    : out   std_logic;                       -- E3
-      XGA    : out   std_logic;                       -- G
-      XZCKE  : out   std_logic;                       -- CKE
-      ADVA   : out   std_logic;                       -- ADV
-      XLBO   : out   std_logic;                       -- LBO
-      ZZA    : out   std_logic;                       -- ZZ
-      XFT    : out   std_logic;                       -- FT
-      XZBE   : out   std_logic_vector (0 to 3);       -- BA, BB
-      ZCLKMA : out   std_logic_vector (0 to 1);       -- GIVE CLOCK
-      XWA    : out   std_logic;                       -- WRITE ENABLE
-      ZA     : out   std_logic_vector (19 downto 0);  -- ADDRESS
-      ZD     : inout std_logic_vector (31 downto 0);  -- DATA
-      ZDP    : inout std_logic_vector (3 downto 0)    -- PARITY
-      );
-  end component;
-
   component d_ff
     generic (
       WIDTH : integer);

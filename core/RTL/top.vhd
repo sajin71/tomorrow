@@ -47,7 +47,13 @@ architecture RTL of top is
   signal ALUSrcB     : std_logic_vector(1 downto 0);
   signal ALUOp       : std_logic_vector(1 downto 0);
   signal PCSource    : std_logic_vector(1 downto 0);
-  signal OP          : std_logic_vector(5 downto 0);
+
+  signal IR         : std_logic_vector(31 downto 0);
+  signal MDR        : std_logic_vector(31 downto 0);
+  signal PC         : std_logic_vector(31 downto 0);
+  signal FROMALU    : std_logic_vector(31 downto 0);
+  signal DATA_WRITE : std_logic_vector(31 downto 0);
+
 
 begin  -- RTL
   ib : IBUFG port map (
@@ -58,10 +64,29 @@ begin  -- RTL
     o => clk);
 
   datapath_map : datapath
-    generic map (
-      BRAMBW => 15)
     port map (
       CLK         => clk,
+      PCWriteCond => PCWriteCond,
+      PCWrite     => PCWrite,
+      MemtoReg    => MemtoReg,
+      RegDst      => RegDst,
+      RegWrite    => RegWrite,
+      ALUSrcA     => ALUSrcA,
+      ALUSrcB     => ALUSrcB,
+      ALUOp       => ALUOp,
+      PCSource    => PCSource,
+
+      IR         => IR,
+      MDR        => MDR,
+      PC_OUT     => PC,
+      FROMALU    => FROMALU,
+      DATA_WRITE => DATA_WRITE
+      );
+
+  controller_map : controller
+    port map (
+      CLK         => clk,
+      OP          => IR(31 downto 26),
       PCWriteCond => PCWriteCond,
       PCWrite     => PCWrite,
       MemWrite    => MemWrite,
@@ -72,8 +97,20 @@ begin  -- RTL
       ALUSrcA     => ALUSrcA,
       ALUSrcB     => ALUSrcB,
       ALUOp       => ALUOp,
-      PCSource    => PCSource,
-      OP          => OP,
+      PCSource    => PCSource);
+
+  ram_map : ram
+    generic map (
+      BRAMBW => 15)
+    port map (
+      CLK        => clk,
+      PC         => PC,
+      FROMALU    => FROMALU,
+      DATA_WRITE => DATA_WRITE,
+      IR         => IR,
+      MDR        => MDR,
+      MemWrite   => MemWrite,
+      IRWrite    => IRWrite,
 
       XE1    => XE1,
       E2A    => E2A,
@@ -91,20 +128,5 @@ begin  -- RTL
       ZD     => ZD,
       ZDP    => ZDP);
 
-  controller_map : controller
-    port map (
-      CLK         => clk,
-      OP          => OP,
-      PCWriteCond => PCWriteCond,
-      PCWrite     => PCWrite,
-      MemWrite    => MemWrite,
-      MemtoReg    => MemtoReg,
-      IRWrite     => IRWrite,
-      RegDst      => RegDst,
-      RegWrite    => RegWrite,
-      ALUSrcA     => ALUSrcA,
-      ALUSrcB     => ALUSrcB,
-      ALUOp       => ALUOp,
-      PCSource    => PCSource);
 
 end RTL;
