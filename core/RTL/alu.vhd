@@ -3,8 +3,8 @@ use ieee.std_logic_1164.all;
 use ieee.std_logic_arith.all;
 use ieee.std_logic_unsigned.all;
 
-library tomorrow_1_lib;
-use tomorrow_1_lib.alu_pack.all;
+library tomorrow_1;
+use tomorrow_1.alu_pack.all;
 
 entity alu is
   
