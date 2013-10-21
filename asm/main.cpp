@@ -11,7 +11,8 @@
 #define BUFSIZE 2048
 #define ARRSIZE(x) (sizeof(x) / sizeof(x[0]))
 
-#define dprintf printf
+//#define dprintf printf
+int dprintf(...) { return 0; }
 
 typedef uint32_t inst_t;
 typedef int16_t imm_t;
@@ -470,9 +471,22 @@ void procline(char *str, tState *state) {
 }
 
 
-int main() {
+int main(int argc, char *argv[]) {
+	
+	const char *outfile = "a.bin";
+	if ( argc == 3 ) {
+		outfile = argv[2];
+	} else if ( argc == 2 ) {
+	} else {
+		fprintf(stderr, "Usage: %s <input asm> [output bin]\n", argv[0]);
+		return 1;
+	}
 
-	FILE *ifp = fopen("test.s", "r");
+	FILE *ifp = fopen(argv[1], "r");
+	if ( ifp == NULL ) {
+		fprintf(stderr, "input error\n");
+		return -1;
+	}
 	
 	tState state;
 	state.linenum = 0;
@@ -522,12 +536,12 @@ int main() {
 				throw std::string("not found");
 			}
 			
-			int from = state.lplaces[i].pnum;
-			int to   = (*it).second;
+			unsigned int from = state.lplaces[i].pnum + 1;
+			unsigned int to   = (*it).second;
 			
 			if ( state.lplaces[0].type == 0 ) {
 			// I形式 branch (PC相対)
-				int c = to - (from+1);
+				int c = to - from;
 				if ( c < -32768 || 32767 < c ) {
 					throw std::string("branch too far");
 				}
@@ -535,7 +549,10 @@ int main() {
 				state.dest [ state.lplaces[i].pnum ] |= (c & 0xFFFF);
 			} else {
 			// J形式 jump
-				
+				if ( (from&0xFC000000) != (to&0xFC000000) ) {
+					throw std::string("jump different segment");
+				}
+				state.dest [ state.lplaces[i].pnum ] |= (to & 0x3FFFFFF);
 			}
 			
 			
@@ -547,7 +564,12 @@ int main() {
 	}
 	
 	
-	FILE *ofp = fopen("a.bin", "wb");
+	FILE *ofp = fopen(outfile, "wb");
+	if ( ofp == NULL ) {
+		fprintf(stderr, "output error\n");
+		return -1;
+	}
+	
 	for(unsigned int i=0; i<state.dest.size(); i++) {
 		union {
 			inst_t inst;
