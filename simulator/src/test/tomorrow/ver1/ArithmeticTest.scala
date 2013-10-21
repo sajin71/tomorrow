@@ -12,11 +12,12 @@ import tomorrow.ver1.arithmetic._
 import tomorrow.ver1.Tomorrow
 import interpreter.{BigEndianInterpreter => I}
 import interpreter.BigEndianInterpreter
+import usb.USB
 
 class ArithmeticTestSuite extends JUnitSuite with ShouldMatchersForJUnit {
     var cpu: AbstractCPU = _
     @Before def initialize() {
-        cpu = new Tomorrow()
+        cpu = new Tomorrow(new USB())
     }
     @Test def addTest() {
     	val testCode = Array[Byte](0x20, 0x01, 0x00, 0x10, 

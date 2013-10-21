@@ -2,7 +2,7 @@ package extend_view.cui
 
 
 import extend_view.Form
-import simulator.Simulator
+import usb.Simulator
 import cpu.AbstractCPU
 import scala.util.parsing.combinator.RegexParsers
 import scala.util.control.Breaks
@@ -14,6 +14,11 @@ import scala.collection.immutable.ListMap
  */
 abstract class FormCUI extends Form {
     val prefix = "simulator $ "
+        
+    def updateUSBData(data: Seq[Byte]) = {
+        data foreach ((byte:Byte) => Console.out.print("%02x ".format(byte)))
+        Console.out.println()
+    }
         
     def parseArgument(args: Array[String]): Unit = {
         if(args.length == 1){

@@ -10,9 +10,12 @@ import cpu.AbstractCPU
  import scala.collection.immutable.HashMap
  import strage.IntegerRegister
  import strage.DividedMemory
+ import usb.USB
+ import tomorrow.ver1.io.Output
 
-class Tomorrow extends AbstractCPU(
-    HashSet(new Add(), new Sub(), new Mul(), new Div(), new Addi(),
+class Tomorrow(usb:USB) extends AbstractCPU(
+        usb, 
+    HashSet(new Output(), new Add(), new Sub(), new Mul(), new Div(), new Addi(),
             new Jump(), new JumpRegister(), new Jal(), new Beq(), new Bne(), 
     		new And(), new Andi(), new Or(), new Ori(), new Xor(), new Nor(), new LW(), new SW(), new MFHI(), new MFLO(),
     		new Sll(), new Srl(), new Sra()),

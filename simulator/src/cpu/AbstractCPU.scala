@@ -7,14 +7,15 @@ import strage.Register
 import strage.SequenceMemory
 import scala.collection.immutable.HashMap
 import strage.Memory
+import usb.USB
 
 /**
  */
-abstract class AbstractCPU(instructionSet: Set[Opcode], registers: Map[String, Register], memory: Memory) {
+abstract class AbstractCPU(usb: USB, instructionSet: Set[Opcode], registers: Map[String, Register], memory: Memory) {
     private val decoder = new Decoder(instructionSet)
     protected var programCounter = new IntegerRegister()
     
-    def this(instructionSet: Set[Opcode], registers: Map[String, Register], size: Long) = this(instructionSet, registers, new SequenceMemory(size toInt))
+    def this(usb: USB, instructionSet: Set[Opcode], registers: Map[String, Register], size: Long) = this(usb, instructionSet, registers, new SequenceMemory(size toInt))
 
     
     /**
@@ -49,7 +50,7 @@ abstract class AbstractCPU(instructionSet: Set[Opcode], registers: Map[String, R
 	private def fetch(): Instruction = {
 	    val length = instructionLength
 	    val pc = programCounter.data
-	    var code = new Array[Byte](4)
+	    var code = new Array[Byte](length)
 	    for(i <- 0 until length){
 	        code(i) = memory((pc+i) toLong) 
 	    }
@@ -58,7 +59,7 @@ abstract class AbstractCPU(instructionSet: Set[Opcode], registers: Map[String, R
 	
 	private def executeInstruction(instruction: Instruction): Unit = {
         val operate = decoder decode instruction
-        operate(programCounter, registers, memory)
+        operate(usb, programCounter, registers, memory)
     }
 
 }

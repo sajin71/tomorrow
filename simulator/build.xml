@@ -6,7 +6,7 @@
               as the first entry and export the buildfile again. -->
 <project basedir="." default="build" name="IS.CPUSimulator">
     <property environment="env"/>
-    <property name="ECLIPSE_HOME" value="../../../../../Java/eclipse"/>
+    <property name="ECLIPSE_HOME" value="../../../../../../Java/eclipse"/>
     <property name="junit.output.dir" value="junit"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.6"/>
@@ -25,10 +25,15 @@
         <pathelement location="bin"/>
         <path refid="Scala Library [2.10.2].libraryclasspath"/>
         <path refid="JUnit 4.libraryclasspath"/>
-        <pathelement location="../../../../../Java/scalatest_2.10-2.0.M5b.jar"/>
-        <pathelement location="../../../../../Java/jna.jar"/>
+        <pathelement location="../../../../../../Java/scalatest_2.10-2.0.M5b.jar"/>
+        <pathelement location="../../../../../../Java/jna.jar"/>
     </path>
     <path id="run.Register32bitTestSuite.bootclasspath">
+        <path refid="Scala Library [2.10.2].libraryclasspath"/>
+        <fileset dir="${java.home}/lib" includes="*.jar"/>
+        <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
+    </path>
+    <path id="run.SequenceMemoryTestSuite.bootclasspath">
         <path refid="Scala Library [2.10.2].libraryclasspath"/>
         <fileset dir="${java.home}/lib" includes="*.jar"/>
         <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
@@ -108,12 +113,37 @@
         <fileset dir="${java.home}/lib" includes="*.jar"/>
         <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
     </path>
+    <path id="run.AbstractCPUTestSuite (1).bootclasspath">
+        <path refid="Scala Library [2.10.2].libraryclasspath"/>
+        <fileset dir="${java.home}/lib" includes="*.jar"/>
+        <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
+    </path>
+    <path id="run.BigEndianInterpreterTestSuite.bootclasspath">
+        <path refid="Scala Library [2.10.2].libraryclasspath"/>
+        <fileset dir="${java.home}/lib" includes="*.jar"/>
+        <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
+    </path>
     <path id="run.Integer32bitRegisterTestSuite.bytesTest.bootclasspath">
         <path refid="Scala Library [2.10.2].libraryclasspath"/>
         <fileset dir="${java.home}/lib" includes="*.jar"/>
         <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
     </path>
     <path id="run.AbstractCPUTestSuite.bootclasspath">
+        <path refid="Scala Library [2.10.2].libraryclasspath"/>
+        <fileset dir="${java.home}/lib" includes="*.jar"/>
+        <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
+    </path>
+    <path id="run.DividedMemoryTestSuite.bootclasspath">
+        <path refid="Scala Library [2.10.2].libraryclasspath"/>
+        <fileset dir="${java.home}/lib" includes="*.jar"/>
+        <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
+    </path>
+    <path id="run.test.tomorrow.ver1.bootclasspath">
+        <path refid="Scala Library [2.10.2].libraryclasspath"/>
+        <fileset dir="${java.home}/lib" includes="*.jar"/>
+        <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
+    </path>
+    <path id="run.ArithmeticTestSuite (1).bootclasspath">
         <path refid="Scala Library [2.10.2].libraryclasspath"/>
         <fileset dir="${java.home}/lib" includes="*.jar"/>
         <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
@@ -161,6 +191,17 @@
             <classpath refid="IS.CPUSimulator.classpath"/>
             <bootclasspath>
                 <path refid="run.Register32bitTestSuite.bootclasspath"/>
+            </bootclasspath>
+        </junit>
+    </target>
+    <target name="SequenceMemoryTestSuite">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="test.SequenceMemoryTestSuite" todir="${junit.output.dir}"/>
+            <classpath refid="IS.CPUSimulator.classpath"/>
+            <bootclasspath>
+                <path refid="run.SequenceMemoryTestSuite.bootclasspath"/>
             </bootclasspath>
         </junit>
     </target>
@@ -234,12 +275,6 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="test.AbstractCPUTestSuite" todir="${junit.output.dir}"/>
-            <test name="test.ByteArrayInterpreterTestSuite" todir="${junit.output.dir}"/>
-            <test name="test.ConvertFloatIntTestSuite" todir="${junit.output.dir}"/>
-            <test name="test.DecoderTestSuite" todir="${junit.output.dir}"/>
-            <test name="test.FunctionTestSuite" todir="${junit.output.dir}"/>
-            <test name="test.Integer32bitRegisterTestSuite" todir="${junit.output.dir}"/>
             <classpath refid="IS.CPUSimulator.classpath"/>
             <bootclasspath>
                 <path refid="run.test (2).bootclasspath"/>
@@ -261,17 +296,6 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="test.AbstractCPUTestSuite" todir="${junit.output.dir}"/>
-            <test name="test.ByteArrayInterpreterTestSuite" todir="${junit.output.dir}"/>
-            <test name="test.ConvertFloatIntTestSuite" todir="${junit.output.dir}"/>
-            <test name="test.DecoderTestSuite" todir="${junit.output.dir}"/>
-            <test name="test.FunctionTestSuite" todir="${junit.output.dir}"/>
-            <test name="test.Integer32bitRegisterTestSuite" todir="${junit.output.dir}"/>
-            <test name="test.tomorrow.ver1.ArithmeticTestSuite" todir="${junit.output.dir}"/>
-            <test name="test.tomorrow.ver1.JumpTestSuite" todir="${junit.output.dir}"/>
-            <test name="test.tomorrow.ver1.LoadStoreTestSuite" todir="${junit.output.dir}"/>
-            <test name="test.tomorrow.ver1.LogicTestSuite" todir="${junit.output.dir}"/>
-            <test name="test.tomorrow.ver1.ShiftTestSuite" todir="${junit.output.dir}"/>
             <classpath refid="IS.CPUSimulator.classpath"/>
             <bootclasspath>
                 <path refid="run.IS.CPUSimulator.bootclasspath"/>
@@ -344,6 +368,28 @@
             </bootclasspath>
         </junit>
     </target>
+    <target name="AbstractCPUTestSuite (1)">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="test.AbstractCPUTestSuite" todir="${junit.output.dir}"/>
+            <classpath refid="IS.CPUSimulator.classpath"/>
+            <bootclasspath>
+                <path refid="run.AbstractCPUTestSuite (1).bootclasspath"/>
+            </bootclasspath>
+        </junit>
+    </target>
+    <target name="BigEndianInterpreterTestSuite">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="test.BigEndianInterpreterTestSuite" todir="${junit.output.dir}"/>
+            <classpath refid="IS.CPUSimulator.classpath"/>
+            <bootclasspath>
+                <path refid="run.BigEndianInterpreterTestSuite.bootclasspath"/>
+            </bootclasspath>
+        </junit>
+    </target>
     <target name="Integer32bitRegisterTestSuite.bytesTest">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
@@ -363,6 +409,41 @@
             <classpath refid="IS.CPUSimulator.classpath"/>
             <bootclasspath>
                 <path refid="run.AbstractCPUTestSuite.bootclasspath"/>
+            </bootclasspath>
+        </junit>
+    </target>
+    <target name="DividedMemoryTestSuite">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="test.DividedMemoryTestSuite" todir="${junit.output.dir}"/>
+            <classpath refid="IS.CPUSimulator.classpath"/>
+            <bootclasspath>
+                <path refid="run.DividedMemoryTestSuite.bootclasspath"/>
+            </bootclasspath>
+        </junit>
+    </target>
+    <target name="test.tomorrow.ver1">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="test.tomorrow.ver1.JumpTestSuite" todir="${junit.output.dir}"/>
+            <test name="test.tomorrow.ver1.LogicTestSuite" todir="${junit.output.dir}"/>
+            <test name="test.tomorrow.ver1.ShiftTestSuite" todir="${junit.output.dir}"/>
+            <classpath refid="IS.CPUSimulator.classpath"/>
+            <bootclasspath>
+                <path refid="run.test.tomorrow.ver1.bootclasspath"/>
+            </bootclasspath>
+        </junit>
+    </target>
+    <target name="ArithmeticTestSuite (1)">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="test.tomorrow.ver1.ArithmeticTestSuite" todir="${junit.output.dir}"/>
+            <classpath refid="IS.CPUSimulator.classpath"/>
+            <bootclasspath>
+                <path refid="run.ArithmeticTestSuite (1).bootclasspath"/>
             </bootclasspath>
         </junit>
     </target>
