@@ -1,4 +1,4 @@
-package simulator
+package usb
 
 import cpu.AbstractCPU
 import cpu.CPUMemonto

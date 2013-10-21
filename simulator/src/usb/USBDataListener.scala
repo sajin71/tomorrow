@@ -1,6 +1,4 @@
-package simulator
-
-import cpu.CPUMemonto
+package usb
 
 /**
  * ・ Callbackを受け取る形になった際に必要な可能性大
@@ -10,5 +8,6 @@ import cpu.CPUMemonto
  * 　これがModelから依存されていて、さらに継承したControllerとViewがModelへ依存する。
  * @todo 今は何もしない
  */
-class SimulatorObserver() {
+trait USBDataListener {
+    def updateUSBData(data: Seq[Byte])
 }

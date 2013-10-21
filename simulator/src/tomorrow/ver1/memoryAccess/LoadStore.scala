@@ -10,9 +10,10 @@ import interpreter.{BigEndianInterpreter=>I}
 import tomorrow.ver1.ImmediateOperandOpcode
 import tomorrow.ver1.ThreeRegisterOperandOpcode
 import interpreter.BigEndianInterpreter
+import usb.USB
 
 class LW extends ImmediateOperandOpcode(0x23) {
-	protected def apply(operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
+	protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
 		val begin = (BigEndianInterpreter interpretAsSignedInteger operand.rs) + operand.constant
 		var data = new Array[Byte](4)
 		for(i <- 0 until 4){
@@ -24,7 +25,7 @@ class LW extends ImmediateOperandOpcode(0x23) {
 }
 
 class SW extends ImmediateOperandOpcode(0x2B) {
-	protected def apply(operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
+	protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
 		val begin = (BigEndianInterpreter interpretAsSignedInteger operand.rs) + operand.constant
 		val data = operand.rt.bytes
 		for(i <- 0 until (data.length)){
@@ -35,13 +36,13 @@ class SW extends ImmediateOperandOpcode(0x2B) {
 }
 
 class MFHI extends ThreeRegisterOperandOpcode(0x00, 0x10) {
-	protected def apply(operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
+	protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
 	    operand.rd.bytes = registers("HI").bytes
 	    programCounter.data += 4	    
 	}
 }
 class MFLO extends ThreeRegisterOperandOpcode(0x00, 0x12) {
-	protected def apply(operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
+	protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
 	    operand.rd.bytes = registers("LO").bytes
 	    programCounter.data += 4	    
 	}

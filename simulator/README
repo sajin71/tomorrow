@@ -1,5 +1,6 @@
 1, コンパイル・インストール
 ubuntuの場合は以下のコマンドで可能(だと思う)
+$ sudo aptitude libjna-java
 $ wget http://www.scala-lang.org/files/archive/scala-2.10.3.tgz
 $ tar zxvf scala-2.10.3.tgz
 $ cd scala-2.10.3
@@ -10,7 +11,7 @@ $ cd <workspace path>
 $ cd simulator
 $ make
  
-apt-getで入れると多分バージョンが古くて文字列補間が入っていない気がするので、tarから入れて欲しい。
+scala本体は、apt-getで入れると多分バージョンが古くて文字列補間が入っていない気がするので、tarから入れて欲しい。jnaはaptからで大丈夫なはず
 
 2, 実行
 1) 以下で起動

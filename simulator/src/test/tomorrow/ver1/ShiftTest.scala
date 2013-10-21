@@ -12,11 +12,12 @@ import tomorrow.ver1.arithmetic._
 import tomorrow.ver1.Tomorrow
 import interpreter.{BigEndianInterpreter => I}
 import interpreter.BigEndianInterpreter
+import usb.USB
 
 class ShiftTestSuite extends JUnitSuite with ShouldMatchersForJUnit {
     var cpu: AbstractCPU = _
     @Before def initialize() {
-        cpu = new Tomorrow()
+        cpu = new Tomorrow(new USB)
     }
     @Test def sllTest() {
     	val testCode = Array[Byte](0x20, 0x01, 0x00, 0x10, 
@@ -28,7 +29,6 @@ class ShiftTestSuite extends JUnitSuite with ShouldMatchersForJUnit {
     	cpu.setExecutable(testCode)
     	cpu.stepExecute
     	cpu.stepExecute
-    	println("hoge")
     	BigEndianInterpreter interpretAsSignedInteger (cpu.getState.registers("r1")) should be (0x20)
     }
     @Test def srlTest() {
