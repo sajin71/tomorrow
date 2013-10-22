@@ -185,6 +185,11 @@ short numreg(char* op) {
 // オペランドを切り分ける
 // 返り値: オペランドの数
 int opersplit(char *operand, char *op[3]) {
+	
+	if ( operand == NULL || operand[0] == '\0' ) {
+		return 0;
+	}
+	
 	char *pos = operand;
 	char *comma;
 	
