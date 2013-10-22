@@ -43,7 +43,10 @@ const tInstR InstR[] = {
 { "MFLO",   0x00, 0x12, 1, {3,3,0}, false },
 { "JR",     0x00, 0x03, 1, {0,3,3}, false },
 
-{ "NOP",    0x00, 0x00, 0, {3,3,3}, false },
+{ "MOV" ,   0x00, 0x20, 2, {1,3,0}, false }, //pseudo
+{ "MOVE",   0x00, 0x20, 2, {1,3,0}, false }, //pseudo
+
+{ "NOP",    0x00, 0x00, 0, {3,3,3}, false }, //pseudo
 { "SLL",    0x00, 0x00, 2, {1,0,3}, true },
 { "SRL",    0x00, 0x02, 2, {1,0,3}, true },
 { "SRA",    0x00, 0x03, 2, {1,0,3}, true },
@@ -67,6 +70,7 @@ const tInstI InstI[] = {
 { "ORI",    0x0D, 2, 0, {1,0}},
 { "LW",     0x23, 2, 2, {}   },
 { "SW",     0x2B, 2, 2, {}   },
+{ "LLI",    0x08, 1, 0, {2,0}}, //pseudo
 { "LUI",    0x0F, 2, 0, {2,0}},
 { "BEQ",    0x04, 2, 1, {0,1}},
 { "BNE",    0x05, 2, 1, {0,1}},
