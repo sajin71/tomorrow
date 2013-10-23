@@ -5,7 +5,7 @@ use ieee.std_logic_unsigned.all;
 entity receiver is
   
   generic (
-    WTIME : std_logic_vector(15 downto 0) := x"1B16");
+    WTIME : std_logic_vector(15 downto 0) := x"0243");  -- baudrate 115200
 
   port (
     CLK   : in  std_logic;
@@ -28,12 +28,13 @@ architecture RTL of receiver is
   signal letternum       : std_logic_vector(2 downto 0);
   signal next_letternum  : std_logic_vector(2 downto 0);
   signal arrow           : std_logic_vector(3 downto 0);
+  signal t               : std_logic;
   
 begin  -- RTL
 
-  arrow <= "0001" when state = "00" and RX = '0' else
+  arrow <= "0001" when state = "00" and t = '0' else
            "0010" when state = "01" and countdown /= x"0000" else
-           "0011" when state = "01" and RX = '1'             else
+           "0011" when state = "01" and t = '1'              else
            "0100" when state = "01"                          else
            "0101" when state = "10" and countdown /= x"0000" else
            "0110" when state = "10" and letternum /= "111"   else
@@ -55,7 +56,7 @@ begin  -- RTL
                     letternum + 1 when arrow = "0110" else
                     letternum;
 
-  next_recbuf <= RX & recbuf(7 downto 1) when arrow = "0110" or arrow = "0111" else
+  next_recbuf <= t & recbuf(7 downto 1) when arrow = "0110" or arrow = "0111" else
                  recbuf;
 
   next_outdatabuf <= recbuf when arrow = "1001" else
@@ -74,6 +75,7 @@ begin  -- RTL
       countdown  <= next_countdown;
       letternum  <= next_letternum;
       FRESH      <= next_fresh;
+      t          <= RX;
     end if;
   end process latch;
 end RTL;
