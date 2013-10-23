@@ -550,7 +550,7 @@ int main(int argc, char *argv[]) {
 			unsigned int from = state.lplaces[i].pnum + 1;
 			unsigned int to   = (*it).second;
 			
-			if ( state.lplaces[0].type == 0 ) {
+			if ( state.lplaces[i].type == 0 ) {
 			// I形式 branch (PC相対)
 				int c = to - from;
 				if ( c < -32768 || 32767 < c ) {
