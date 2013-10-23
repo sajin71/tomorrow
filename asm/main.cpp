@@ -37,6 +37,7 @@ const tInstR InstR[] = {
 { "OR",     0x00, 0x25, 3, {1,2,0}, false },
 { "XOR",    0x00, 0x26, 3, {1,2,0}, false },
 { "NOR",    0x00, 0x27, 3, {1,2,0}, false },
+{ "SLT",    0x00, 0x2A, 3, {1,2,0}, false },
 { "MULT",   0x00, 0x18, 2, {0,1,3}, false },
 { "DIV",    0x00, 0x1A, 2, {0,1,3}, false },
 { "MFHI",   0x00, 0x10, 1, {3,3,0}, false },
@@ -67,6 +68,7 @@ struct tInstI {
 const tInstI InstI[] = {
 { "ADDI",   0x08, 2, 0, {1,0}},
 { "ANDI",   0x0C, 2, 0, {1,0}},
+{ "SLTI",   0x0A, 2, 0, {1,0}},
 { "ORI",    0x0D, 2, 0, {1,0}},
 { "LW",     0x23, 2, 2, {}   },
 { "SW",     0x2B, 2, 2, {}   },
