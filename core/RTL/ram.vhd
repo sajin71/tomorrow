@@ -104,19 +104,13 @@ begin  -- RTL
   XZBE  <= "0000";
   ZDP   <= "0000";
 
-  memwrite_dff : process (CLK)
+  bit_dff : process (CLK)
   begin  -- process memwrite_dff
     if rising_edge(CLK) then
       reg_memwrite <= MemWrite;
+      topbit       <= FROMALU(31);
     end if;
-  end process memwrite_dff;
-
-  topbit_dff : process (CLK)
-  begin  -- process topbit_dff
-    if rising_edge(CLK) then
-      topbit <= FROMALU(31);
-    end if;
-  end process topbit_dff;
+  end process bit_dff;
 
   data_dff : d_ff
     generic map (
