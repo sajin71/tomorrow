@@ -8,6 +8,8 @@
 #  return tmp;
 #}
 
+#pseudo-instruction version
+
 LLI $1, 10  #addi $1, $zero, 10
 LLI $2, 1   #addi $2, $zero, 1  # num1
 LLI $3, 1   #addi $3, $zero, 1  # num2

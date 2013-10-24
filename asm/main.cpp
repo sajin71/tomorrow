@@ -37,6 +37,7 @@ const tInstR InstR[] = {
 { "OR",     0x00, 0x25, 3, {1,2,0}, false },
 { "XOR",    0x00, 0x26, 3, {1,2,0}, false },
 { "NOR",    0x00, 0x27, 3, {1,2,0}, false },
+{ "SLT",    0x00, 0x2A, 3, {1,2,0}, false },
 { "MULT",   0x00, 0x18, 2, {0,1,3}, false },
 { "DIV",    0x00, 0x1A, 2, {0,1,3}, false },
 { "MFHI",   0x00, 0x10, 1, {3,3,0}, false },
@@ -47,9 +48,9 @@ const tInstR InstR[] = {
 { "MOVE",   0x00, 0x20, 2, {1,3,0}, false }, //pseudo
 
 { "NOP",    0x00, 0x00, 0, {3,3,3}, false }, //pseudo
-{ "SLL",    0x00, 0x00, 2, {1,0,3}, true },
-{ "SRL",    0x00, 0x02, 2, {1,0,3}, true },
-{ "SRA",    0x00, 0x03, 2, {1,0,3}, true },
+{ "SLL",    0x00, 0x00, 2, {3,1,0}, true },
+{ "SRL",    0x00, 0x02, 2, {3,1,0}, true },
+{ "SRA",    0x00, 0x03, 2, {3,1,0}, true },
 
 // Tommorow extension
 { "OUTPUT", 0x3f, 0x00, 1, {0,1,2} },
@@ -67,11 +68,12 @@ struct tInstI {
 const tInstI InstI[] = {
 { "ADDI",   0x08, 2, 0, {1,0}},
 { "ANDI",   0x0C, 2, 0, {1,0}},
+{ "SLTI",   0x0A, 2, 0, {1,0}},
 { "ORI",    0x0D, 2, 0, {1,0}},
 { "LW",     0x23, 2, 2, {}   },
 { "SW",     0x2B, 2, 2, {}   },
 { "LLI",    0x08, 1, 0, {2,0}}, //pseudo
-{ "LUI",    0x0F, 2, 0, {2,0}},
+{ "LUI",    0x0F, 1, 0, {2,0}},
 { "BEQ",    0x04, 2, 1, {0,1}},
 { "BNE",    0x05, 2, 1, {0,1}},
 };
@@ -548,7 +550,7 @@ int main(int argc, char *argv[]) {
 			unsigned int from = state.lplaces[i].pnum + 1;
 			unsigned int to   = (*it).second;
 			
-			if ( state.lplaces[0].type == 0 ) {
+			if ( state.lplaces[i].type == 0 ) {
 			// I形式 branch (PC相対)
 				int c = to - from;
 				if ( c < -32768 || 32767 < c ) {
