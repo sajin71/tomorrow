@@ -10,12 +10,13 @@ and exp = (* represents each instructions *)
     | Nop
     | Mov of Id.t (* pseudo-instruction *)
     | Add of Id.t * id_or_imm
-    | Sub of Id.t * id_or_imm
+    | Sub of Id.t * Id.t
     | Mul of Id.t * id_or_imm
-    | SLL of Id.t * id_or_imm
-    | SRL of Id.t * id_or_imm
-    | LW of Id.t * id_or_imm
-    | SW of Id.t * Id.t * id_or_imm
+    | Div of Id.t * Id.t
+    | SLL of Id.t * Id.t
+    | SRL of Id.t * Id.t
+    | LW of Id.t * int 
+    | SW of Id.t * Id.t * int 
     | FMovD of Id.t
     | FAdd of Id.t * Id.t
     | FMul of Id.t * Id.t
@@ -41,11 +42,11 @@ type prog = Prog of (Id.l * float) list * fundef list * t
 let fletd(x, e1, e2) = Let((x, Type.Float), e1, e2)
 let seq(e1, e2) = Let((Id.gentmp Type.Unit, Type.Unit), e1, e2)
 
-let regs = [| "%r2"; "%r5"; "%r6"; "%r7"; "%r8"; "%r9"; "%r10"; 
-  "%r11"; "%r12"; "%r13"; "%r14"; "%r15"; "%r16"; "%r17"; "%r18"; 
-  "%r19"; "%r20"; "%r21"; "%r22"; "%r23"; "%r24"; "%r25"; "%r26"; 
-  "%r27"; "%r28"; "%r29"; "%r30" |]
-let fregs = Array.init 32 (fun i -> Printf.sprintf "%%f%d" i)
+let regs = [| "$r2"; "$r5"; "$r6"; "$r7"; "$r8"; "$r9"; "$r10"; 
+  "$r11"; "$r12"; "$r13"; "$r14"; "$r15"; "$r16"; "$r17"; "$r18"; 
+  "$r19"; "$r20"; "$r21"; "$r22"; "$r23"; "$r24"; "$r25"; "$r26"; 
+  "$r27"; "$r28"; "$r29"; "$r30" |]
+let fregs = Array.init 32 (fun i -> Printf.sprintf "$f%d" i)
 let allregs = Array.to_list regs
 let allfregs = Array.to_list fregs
 let reg_cl = regs.(Array.length regs - 1) (* closure address *)
@@ -69,10 +70,11 @@ let rec remove_and_uniq xs = function
 let fv_id_or_imm = function V(x) -> [x] | _ -> []
 let rec fv_exp = function
     | Nop | Set(_) | Comment(_) | Restore(_) -> []
-    | Add(x, y') | Sub(x, y') | SLL(x, y') | SRL(x, y') | LW(x, y') -> 
+    | Add(x, y') | Mul(x, y') -> 
             x :: fv_id_or_imm y' 
-    | SW(x, y, z') -> x :: y :: fv_id_or_imm z'
-    | FAdd(x, y) | Fsub(x, y) | FMul(x, y) | FDiv(x, y) -> [x; y]
+    | LW(x, _) -> [x]
+    | SW(x, y, _) -> [x; y]
+    | Sub(x, y) | Div(x, y) | SLL(x, y) | SLR(x, y) | FAdd(x, y) | Fsub(x, y) | FMul(x, y) | FDiv(x, y) -> [x; y] 
     | IfEq(x, y', e1, e2) | IfLE(x, y', e1, e2) | IfGE(x, y', e1, e2) -> 
             x :: fv_id_or_imm y' @ remove_and_uniq S.empty (fv e1 @ fv e2) 
     | IfFEq(x, y, e1, e2) | IfFLE(x, y, e1, e2) -> 

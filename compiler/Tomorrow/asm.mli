@@ -5,12 +5,13 @@ type t =
 and exp = 
     | Nop
     | Add of Id.t * id_or_imm
-    | Sub of Id.t * id_or_imm
+    | Sub of Id.t * Id.t 
     | Mul of Id.t * id_or_imm
-    | SLL of Id.t * id_or_imm
-    | SRL of Id.t * id_or_imm
-    | LW of Id.t * id_or_imm
-    | SW of Id.t * Id.t * id_or_imm
+    | Div of Id.t * Id.t 
+    | SLL of Id.t * Id.t
+    | SRL of Id.t * Id.t
+    | LW of Id.t * int 
+    | SW of Id.t * Id.t * int 
     | FAdd of Id.t * Id.t
     | FMul of Id.t * Id.t
     | FDiv of Id.t * Id.t
