@@ -72,9 +72,9 @@ let rec remove_and_uniq xs = function
 let fv_id_or_imm = function V(x) -> [x] | _ -> []
 let rec fv_exp = function
     | Nop | Set(_) | Comment(_) | Restore(_) -> []
+    | Mov(x) | Neg(x) | FMov(x) | FNeg(x) | Save(x, _) | LW(x, _) -> [x]
     | Add(x, y') | Mul(x, y') -> 
             x :: fv_id_or_imm y' 
-    | LW(x, _) -> [x]
     | SW(x, y, _) -> [x; y]
     | Sub(x, y) | Div(x, y) | SLL(x, y) | SLR(x, y) | FAdd(x, y) | Fsub(x, y) | FMul(x, y) | FDiv(x, y) -> [x; y] 
     | IfEq(x, y', e1, e2) | IfLE(x, y', e1, e2) | IfGE(x, y', e1, e2) -> 
