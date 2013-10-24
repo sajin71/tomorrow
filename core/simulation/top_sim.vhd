@@ -5,10 +5,10 @@ library tomorrow_1;
 use tomorrow_1.top_pack.all;
 use tomorrow_1.alu_pack.all;
 
-library unisim;
-use unisim.VComponents.all;
+--library unisim;
+--use unisim.VComponents.all;
 
-entity top is
+entity top_sim is
   port (
     MCLK1 : in  std_logic;
     RS_RX : in  std_logic;
@@ -30,12 +30,12 @@ entity top is
     ZD     : inout std_logic_vector (31 downto 0);  -- DATA
     ZDP    : inout std_logic_vector (3 downto 0)    -- PARITY
     );
-end top;
+end top_sim;
 
 
 architecture RTL of top is
 
-  signal clk, iclk : std_logic;
+  signal clk : std_logic;
 
   signal PCWriteNC   : std_logic;
   signal PCWriteCond : std_logic;
@@ -58,12 +58,13 @@ architecture RTL of top is
 
 
 begin  -- RTL
-  ib : IBUFG port map (
-    i => MCLK1,
-    o => iclk);
-  bg : BUFG port map (
-    i => iclk,
-    o => clk);
+--  ib : IBUFG port map (
+--    i => MCLK1,
+--    o => iclk);
+--  bg : BUFG port map (
+--    i => iclk,
+--    o => clk);
+  clk <= MCLK1;
 
   datapath_map : datapath
     port map (
