@@ -4,6 +4,8 @@ type t =
     | Let of (Id.t * Type.t) * exp *t
 and exp = 
     | Nop
+    | Set of int (* pseudo-instruction *)
+    | Mov of Id.t (* pseudo-instruction *)
     | Add of Id.t * id_or_imm
     | Sub of Id.t * Id.t 
     | Mul of Id.t * id_or_imm

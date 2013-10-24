@@ -8,7 +8,9 @@ type t = (* Array of instructions *)
     | Let of (Id.t * Type.t) * exp *t
 and exp = (* represents each instructions *)
     | Nop
+    | Set of int (* pseudo-instruction *)
     | Mov of Id.t (* pseudo-instruction *)
+    | Neg of Id.t
     | Add of Id.t * id_or_imm
     | Sub of Id.t * Id.t
     | Mul of Id.t * id_or_imm
