@@ -32,7 +32,11 @@ std::string tInstI::disasm(inst_t instLE) const {
 			ss << ", ";
 		}
 		
-		ss << "0x" << std::hex << imm;
+		if ( this->type == 0 ) {
+			ss << "0x" << std::hex << imm;
+		} else {
+			ss << ((signed long)imm)*4;
+		}
 	} else {
 		ss << "$" << (int)regs[1] << ", ";
 		ss << imm;

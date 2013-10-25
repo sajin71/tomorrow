@@ -1,103 +1,15 @@
 #include <stdio.h>
-#include "x86emit.h"
-#include "instR.h"
-#include "instI.h"
-#include "instJ.h"
-
 #include <string>
 
-enum MIPSinstType { MIPS_Inst_Unknown, MIPS_Inst_R, MIPS_Inst_I, MIPS_Inst_J };
-
-class CMIPSInstruction {
-private:
-	union {
-		const unsigned char *p;
-		const tInstR *r;
-		const tInstI *i;
-		const tInstJ *j;
-	} is;
-	
-public:
-	const inst_t instLE;
-	MIPSinstType type;
-	
-	
-	// 継承とかにしちゃうと初期化書くのが面倒になる感じなので・・・
-	void tox86(CAsm86Dest* dest) {
-		     if ( type == MIPS_Inst_R ) { is.r->tox86(dest, instLE); }
-		else if ( type == MIPS_Inst_I ) { is.i->tox86(dest, instLE); }
-		else if ( type == MIPS_Inst_J ) { is.j->tox86(dest, instLE); }
-	};
-	
-	std::string disasm() {
-		     if ( type == MIPS_Inst_R ) { return is.r->disasm(instLE); }
-		else if ( type == MIPS_Inst_I ) { return is.i->disasm(instLE); }
-		else if ( type == MIPS_Inst_J ) { return is.j->disasm(instLE); }
-		return std::string("Unknown");
-	};
-	
-	CMIPSInstruction(inst_t instLE) : instLE(instLE), type(MIPS_Inst_Unknown) {
-		
-		is.p = NULL;
-		
-		unsigned char opcode = (instLE >> 26);
-		
-		{
-			const tInstR *ir = NULL;
-			unsigned char funct  = (unsigned char)(instLE & 0x3F);
-			for (unsigned int i=0; i<s_instR; i++) {
-				if ( InstR[i].opcode == opcode && InstR[i].funct == funct ) {
-					ir = &InstR[i];
-					break;
-				}
-			}
-			
-			if ( ir ) {
-				type = MIPS_Inst_R;
-				is.r = ir;
-				return;
-			}
-		}
-		
-		{
-			const tInstI *ii = NULL;
-			for (unsigned int i=0; i<s_instI; i++) {
-				if ( InstI[i].opcode == opcode ) {
-					ii = &InstI[i];
-					break;
-				}
-			}
-			
-			if ( ii ) {
-				type = MIPS_Inst_I;
-				is.i = ii;
-				return;
-			}
-		}
-		{
-			const tInstJ *ij = NULL;
-			for (unsigned int i=0; i<s_instJ; i++) {
-				if ( InstJ[i].opcode == opcode ) {
-					ij = &InstJ[i];
-					break;
-				}
-			}
-			
-			if ( ij ) {
-				type = MIPS_Inst_J;
-				is.j = ij;
-				return;
-			}
-		}
-	};
-};
+#include "MIPSinst.h"
+#include "x86emit.h"
 
 void procInst(CAsm86Dest* dest, inst_t inst) {
 	
 	dest->pos.push_back( dest->code.size() );
 	CMIPSInstruction mips(inst);
 	
-	if ( mips.type == MIPS_Inst_Unknown ) {
+	if ( mips.isUnknown() ) {
 		dprintf("Unknown Instruction 0x%08X\n", inst);
 		dest->Emit(0xCC);
 	} else {

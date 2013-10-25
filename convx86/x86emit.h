@@ -12,7 +12,6 @@ class CAsm86Dest {
 public:
 	std::vector<unsigned char> code;
 	std::vector<unsigned int> pos;  //MIPSの命令がどこに対応するか？
-	std::vector<bool> ishead; //あるx86命令位置は対応MIPS命令について先頭か
 	std::vector<std::pair<unsigned int, unsigned int> > jumpto; //first: x86上  second:MIPS上
 	
 	void Emit(unsigned char inst86);
