@@ -8,7 +8,7 @@ let classify xts ini addf addi =
     LIst.fold_left
         (fun acc (x, t) -> match t with
             | Type.Unit -> acc
-            | Type.Flat -> addf acc x
+            | Type.Float -> addf acc x
             | _ -> addi acc x t) ini xts
 
 let separate xts =
@@ -24,7 +24,7 @@ let expand xts ini addf addi =
         ini
         (fun (offset, acc) x ->
             let offset = align offset in
-            (offset + 8, addf x offset acc))
+            (offset + 4, addf x offset acc))
         (fun (offset, acc) x t ->
             (offset + 4, addi x t offset acc))
 
@@ -44,9 +44,10 @@ let rec g env = function (* generate virtual machine code *)
             let x = Id.genid "l" in
             Let((x, Type.Int), SetL(l), Ans(LW(x, C(0))))
     | Closure.Add(x, y) -> Ans(Add(x, V(y)))
-    | Closure.Sub(x, y) -> Ans(Sub(x, V(y)))
+    | Closure.Sub(x, y) -> Ans(Sub(x, y))
     | Closure.Mul(x, y) -> Ans(Mul(x, V(y)))
-    | Closure.FNeg(x)
+    | Closure.Div(x, y) -> Ans(Div(x, y))
+    | Closure.FNeg(x) -> Ans(Neg(x))
     | Closure.FAdd(x, y) -> Ans(FAdd(x, y))
     | Closure.FSub(x, y) -> Ans(FAdd(x, y))
     | Closure.FMul(x, y) -> Ans(FMul(x, y))
@@ -72,17 +73,17 @@ let rec g env = function (* generate virtual machine code *)
         | _ -> Ans(Mov(x)))
     | Closure.MakeCls((x, t), {Closure.entry = l; Closure.actual_fv = ys}, e2) ->
         let e2' = g (M.add x t env) e2 in
-        let offset, store fv = 
+        let offset, store_fv = 
             expand
                 (List.map (fun y -> (y, M.find y env)) ys)
                 (4, e2')
-                (fun y offset store_fv -> seq(SW(y, x, C(offset)), store_fv))
-                (fun y _ offset store_fv -> seq(SW(y, x, C(offset)), store_fv)) in
+                (fun y offset store_fv -> seq(SW(y, x, offset), store_fv))
+                (fun y _ offset store_fv -> seq(SW(y, x, offset), store_fv)) in
                 Let((x, t), Mov(reg_hp),
-                Let((reg_hp, Type.Int), Add(reg_hp, C(align offset)),
+                Let((reg_hp, Type.Int), Add(reg_hp, (align offset)),
                     let z = Id.genid "l" in
                     Let((z, Type.Int), SetL(l),  (* not sure if you need Setl *)
-                    seq(St(z, x, C(0)),
+                    seq(SW(z, x, 0),
                         store_fv))))
     | Closure.AppCls(x, ys) ->
         let (int, float) = separate (List.map (fun y -> (y, M.find y env)) ys) in 
@@ -96,8 +97,8 @@ let rec g env = function (* generate virtual machine code *)
         expand
             (List.map (fun x -> (x, M.find x env)) xs)
             (0, Ans(Mov(y)))
-            (fun x offset store -> seq(SW(x, y, C(offset)), store))
-            (fun x _ offset store -> seq(SW(x, y, C(offset)), store)) in
+            (fun x offset store -> seq(SW(x, y, offset), store))
+            (fun x _ offset store -> seq(SW(x, y, offset), store)) in
             Let((y, Type.Tuple(List.map (fun x -> M.find x env) xs)), 
             Mov(reg_hp), Let((reg_hp, Type.Int), Add(reg_hp, C(align offset)),
             store))
