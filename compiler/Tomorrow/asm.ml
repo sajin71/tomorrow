@@ -9,14 +9,15 @@ type t = (* Array of instructions *)
 and exp = (* represents each instructions *)
     | Nop
     | Set of int (* pseudo-instruction *)
+    | SetL of Id.t (* pseudo-instruction *)
     | Mov of Id.t (* pseudo-instruction *)
     | Neg of Id.t
     | Add of Id.t * id_or_imm
     | Sub of Id.t * Id.t
     | Mul of Id.t * id_or_imm
     | Div of Id.t * Id.t
-    | SLL of Id.t * Id.t
-    | SRL of Id.t * Id.t
+    | SLL of Id.t * id_or_imm
+    | SRL of Id.t * id_or_imm
     | LW of Id.t * int 
     | SW of Id.t * Id.t * int 
     | FMovD of Id.t
@@ -44,10 +45,9 @@ type prog = Prog of (Id.l * float) list * fundef list * t
 let fletd(x, e1, e2) = Let((x, Type.Float), e1, e2)
 let seq(e1, e2) = Let((Id.gentmp Type.Unit, Type.Unit), e1, e2)
 
-let regs = [| "$r2"; "$r5"; "$r6"; "$r7"; "$r8"; "$r9"; "$r10"; 
+let regs = [| "$r1"; "$r2"; "$r3"; "$r4"; "$r5"; "$r6"; "$r7"; "$r8"; "$r9"; "$r10"; 
   "$r11"; "$r12"; "$r13"; "$r14"; "$r15"; "$r16"; "$r17"; "$r18"; 
-  "$r19"; "$r20"; "$r21"; "$r22"; "$r23"; "$r24"; "$r25"; "$r26"; 
-  "$r27"; "$r28"; "$r29"; "$r30" |]
+  "$r19"; "$r20"; "$r21"; "$r22"; "$r23"; "$r24"; "$r25" |] 
 let fregs = Array.init 32 (fun i -> Printf.sprintf "$f%d" i)
 let allregs = Array.to_list regs
 let allfregs = Array.to_list fregs
@@ -56,11 +56,14 @@ let reg_sw = regs.(Array.length regs - 2) (* temporary for swap *)
 let reg_fsw = fregs.(Array.length fregs - 1) (* temporary for swap *)
 
 (* TODO not sure if hp, sp, tmp is right *)
-let reg_hp = "r28"
+let reg_input = "r26"
+let reg_output_start = "r27"
+let reg_output_end = "r28"
 let reg_sp = "r29"
-let reg_tmp = "r31"
+let reg_hp = "r30"
+let reg_ra = "r31"
 
-let is_reg x = x.[0] = '%'
+let is_reg x = x.[0] = '$'
 
 (* super-tenuki *)
 let rec remove_and_uniq xs = function

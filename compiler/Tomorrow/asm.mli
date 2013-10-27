@@ -10,8 +10,8 @@ and exp =
     | Sub of Id.t * Id.t 
     | Mul of Id.t * id_or_imm
     | Div of Id.t * Id.t 
-    | SLL of Id.t * Id.t
-    | SRL of Id.t * Id.t
+    | SLL of Id.t * id_or_imm 
+    | SRL of Id.t * id_or_imm
     | LW of Id.t * int 
     | SW of Id.t * Id.t * int 
     | FAdd of Id.t * Id.t
