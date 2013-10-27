@@ -11,6 +11,8 @@ and g' env = function (* 16 bit optimization of each instruction *)
     | Add(x, V(y)) when M.mem x env -> Add(y, C(M.find x env))
     | Mul(x, V(y)) when M.mem y env -> Mul(x, C(M.find y env))
     | Mul(x, V(y)) when M.mem x env -> Mul(y, C(M.rind x env))
+    | SLL(x, V(y)) when M.mem y env -> SLL(x, C(M.find y env))
+    | SRL(x, V(y)) when M.mem y env -> SRL(x, C(M.find y env))
     (*| SW(x, V(y)) when M.mem y env -> SW(x, C(M.find y env))
     | LW(x, V(y)) when M.mem y env -> LW(x, C(M.find y env)) *)
     | IfEq(x, V(y), e1, e2) when M.mem y env ->
