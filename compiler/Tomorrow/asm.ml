@@ -9,7 +9,7 @@ type t = (* Array of instructions *)
 and exp = (* represents each instructions *)
     | Nop
     | Set of int (* pseudo-instruction *)
-    | SetL of Id.t (* pseudo-instruction *)
+    | SetL of Id.l (* pseudo-instruction *)
     | Mov of Id.t (* pseudo-instruction *)
     | Neg of Id.t
     | Add of Id.t * id_or_imm
@@ -20,20 +20,22 @@ and exp = (* represents each instructions *)
     | SRL of Id.t * id_or_imm
     | LW of Id.t * int 
     | SW of Id.t * Id.t * int 
-    | FMovD of Id.t
+    | FMov of Id.t
+    | FNeg of Id.t
     | FAdd of Id.t * Id.t
+    | FSub of Id.t * Id.t
     | FMul of Id.t * Id.t
     | FDiv of Id.t * Id.t
     | Comment of string
     (* virtual instructions *)
-    | IfEq of Id.t * id_or_imm * t * t
-    | IfLE of Id.t * id_or_imm * t * t
-    | IfGE of Id.t * id_or_imm * t * t
+    | IfEq of Id.t * Id.t * t * t
+    | IfLE of Id.t * Id.t * t * t
+    | IfGE of Id.t * Id.t * t * t
     | IfFEq of Id.t * Id.t * t * t
     | IfFLE of Id.t * Id.t * t * t
     (* closure address, integer arguments and float arguments *)
     | CallCls of Id.t * Id.t list * Id.t list
-    | CallDir of Id.t * Id.t list * Id.t list
+    | CallDir of Id.l * Id.t list * Id.t list
     | Save of Id.t * Id.t (* store register variables to stack variables *)
     | Restore of Id.t (* restore values from stack variables *)
 
@@ -56,14 +58,28 @@ let reg_sw = regs.(Array.length regs - 2) (* temporary for swap *)
 let reg_fsw = fregs.(Array.length fregs - 1) (* temporary for swap *)
 
 (* TODO not sure if hp, sp, tmp is right *)
-let reg_input = "r26"
-let reg_output_start = "r27"
-let reg_output_end = "r28"
-let reg_sp = "r29"
-let reg_hp = "r30"
-let reg_ra = "r31"
+let reg_zero = "$r0"
+let reg_input = "$r26"
+let reg_output_start = "$r27"
+let reg_output_end = "$r28"
+let reg_sp = "$r29"
+let reg_hp = "$r30"
+let reg_ra = "$r31"
 
 let is_reg x = x.[0] = '$'
+
+let co_freg_table =
+    let ht = Hashtbl.create 16 in
+    for i = 0 to 15 do
+        Hashtbl.add
+            ht
+            (Printf.sprintf "%%f%d" (i * 2))
+            (Printf.sprintf "%%f%d" (i * 2 + 1))
+    done;
+    ht
+     
+let co_freg freg = Hashtbl.find co_freg_table freg (* "companion" freg *)
+
 
 (* super-tenuki *)
 let rec remove_and_uniq xs = function
@@ -74,14 +90,14 @@ let rec remove_and_uniq xs = function
 (* free variables in the order of use (for spilling) *)
 let fv_id_or_imm = function V(x) -> [x] | _ -> []
 let rec fv_exp = function
-    | Nop | Set(_) | Comment(_) | Restore(_) -> []
+    | Nop | Set(_) | SetL(_) | Comment(_) | Restore(_) -> []
     | Mov(x) | Neg(x) | FMov(x) | FNeg(x) | Save(x, _) | LW(x, _) -> [x]
-    | Add(x, y') | Mul(x, y') -> 
+    | Add(x, y') | Mul(x, y') | SLL(x, y') | SRL(x, y') -> 
             x :: fv_id_or_imm y' 
     | SW(x, y, _) -> [x; y]
-    | Sub(x, y) | Div(x, y) | SLL(x, y) | SLR(x, y) | FAdd(x, y) | Fsub(x, y) | FMul(x, y) | FDiv(x, y) -> [x; y] 
-    | IfEq(x, y', e1, e2) | IfLE(x, y', e1, e2) | IfGE(x, y', e1, e2) -> 
-            x :: fv_id_or_imm y' @ remove_and_uniq S.empty (fv e1 @ fv e2) 
+    | Sub(x, y) | Div(x, y) | FAdd(x, y) | FSub(x, y) | FMul(x, y) | FDiv(x, y) -> [x; y] 
+    | IfEq(x, y, e1, e2) | IfLE(x, y, e1, e2) | IfGE(x, y, e1, e2) -> 
+            x :: y :: remove_and_uniq S.empty (fv e1 @ fv e2) 
     | IfFEq(x, y, e1, e2) | IfFLE(x, y, e1, e2) -> 
             x :: y :: remove_and_uniq S.empty (fv e1 @ fv e2)
     | CallCls(x, ys, zs) -> x :: ys @ zs
