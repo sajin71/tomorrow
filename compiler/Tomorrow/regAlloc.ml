@@ -8,24 +8,24 @@ let rec target' src (dest, t) = function
     | FMov(x) when x = src && is_reg dest ->
         assert (t = Type.Float);
         false, [dest]
-    | IfEq(_, _, e1, e2) | IFLE(_, _, e1, e2) | IfGE(_, _, e1, e2)
+    | IfEq(_, _, e1, e2) | IfLE(_, _, e1, e2) | IfGE(_, _, e1, e2)
     | IfFEq(_, _, e1, e2) | IfFLE(_, _, e1, e2) ->
         let c1, rs1 = target src (dest, t) e1 in
         let c2, rs2 = target src (dest ,t) e2 in
         c1 && c2, rs1 @ rs2
     | CallCls(x, ys, zs) ->
-        true, (target_args arc regs 0 ys @
+        true, (target_args src regs 0 ys @
             target_args src fregs 0 zs @
                 if x = src then [reg_cl] else [])
     | CallDir(_, ys, zs) ->
         true, (target_args src regs 0 ys @
-            target_args arc fregs 0 ze)
+            target_args src fregs 0 zs)
     | _ -> false, []
 and target src dest = function (* register targeting *)
     | Ans(exp) -> target' src dest exp
     | Let(xt, exp, e) ->
         let c1, rs1 = target' src xt exp in
-        if c1 then true rs1 else
+        if c1 then true, rs1 else
         let c2, rs2 = target src dest e in
         c2, rs1 @ rs2
 and target_args src all n = function (* auxiliary function for Call *)
@@ -78,7 +78,7 @@ let rec alloc dest cont regenv x t =
 (* auxiliary function for g and g' _and_restore *)
 let add x r regenv =
     if is_reg x then (assert (x = r); regenv) else
-        M.add r regenv
+        M.add x r regenv
 
 (* auxiliary functions for g' *)
 exception NoReg of Id.t * Type.t
@@ -109,22 +109,22 @@ let rec g dest cont regenv = function (* allocate registers for instructions *)
         | Alloc(r) -> 
             let (e2', regenv2) = g dest cont (add x r regenv1) e in
             (concat e1' (r, t) e2', regenv2))
-and g'_and_restore dest cont regenv exp = (* restore variables from stack to to registers *)
-    try g' dest cont regenv exp
-    with NoReg(x, t) ->
-        (g dest cont regenv (Let((x, t), Restore(x), Ans(exp))))
-and g' dest cont regenv exp = function (* allocate registers for instruction *)
+and g'_and_restore dest cont regenv exp = (* restor variables from stack to registers*)
+  try g' dest cont regenv exp
+  with NoReg(x, t) ->
+      (g dest cont regenv (Let((x, t), Restore(x), Ans(exp))))
+and g' dest cont regenv = function (* allocate registers for instruction *)
     | Nop | Set _ | SetL _ | Comment _ | Restore _ as exp -> (Ans(exp), regenv)
     | Mov(x) -> (Ans(Mov(find x Type.Int regenv)), regenv)
     | Neg(x) -> (Ans(Neg(find x Type.Int regenv)), regenv)
     | Add(x, y') -> (Ans(Add(find x Type.Int regenv, find' y' regenv)), regenv)
-    | Sub(x, y') -> (Ans(Sub(find x Type.Int regenv, find' y' regenv)), regenv)
+    | Sub(x, y) -> (Ans(Sub(find x Type.Int regenv, find y Type.Int regenv)), regenv)
     | Mul(x, y') -> (Ans(Mul(find x Type.Int regenv, find' y' regenv)), regenv)
-    | Div(x, y') -> (Ans(Div(find x Type.Int regenv, find' y' regenv)), regenv)
+    | Div(x, y) -> (Ans(Div(find x Type.Int regenv, find y Type.Int regenv)), regenv)
     | SLL(x, y') -> (Ans(SLL(find x Type.Int regenv, find' y' regenv)), regenv)
     | SRL(x, y') -> (Ans(SRL(find x Type.Int regenv, find' y' regenv)), regenv)
-    | SW(x, y, z') -> 
-        (Ans( SW(find x Type.Int regenv, find y Type.Int regenv, find' z' reg env)), regenv)
+    | SW(x, y, z) -> 
+        (Ans( SW(find x Type.Int regenv, find y Type.Int regenv, z)), regenv)
     | FMov(x) -> (Ans(FMov(find x Type.Float regenv)), regenv)
     | FNeg(x) -> (Ans(FNeg(find x Type.Float regenv)), regenv)
     | FAdd(x, y) -> 
@@ -135,27 +135,27 @@ and g' dest cont regenv exp = function (* allocate registers for instruction *)
         (Ans(FMul(find x Type.Float regenv, find y Type.Float regenv)), regenv)
     | FDiv(x, y) ->
         (Ans(FMul(find x Type.Float regenv, find y Type.Float regenv)), regenv)
-    | LW(x, y') -> (Ans(LW(find x Type.Int regenv, find' y' regenv)), regenv)
-    | IfEq(x, y', e1, e2) as exp -> g'_if dest cont regenv exp 
+    | LW(x, y) -> (Ans(LW(find x Type.Int regenv, y)), regenv)
+    | IfEq(x, y, e1, e2) as exp -> g'_if dest cont regenv exp 
         (fun e1' e2' -> 
-            IfEq(find x Type.Int regenv, find' y' regenv' e1', e2')) e1 e2
-    | IfLE(x, y', e1, e2) as exp -> g'_if dest cont regenv exp 
+            IfEq(find x Type.Int regenv, find y Type.Int regenv, e1', e2')) e1 e2
+    | IfLE(x, y, e1, e2) as exp -> g'_if dest cont regenv exp 
         (fun e1' e2' -> 
-            IfLE(find x Type.Int regenv, find' y' regenv, e1' e2')) e1 e2
-    | IfGE(x, y', e1, e2) as exp -> g'_if dest cont regenv exp
+            IfLE(find x Type.Int regenv, find y Type.Int regenv, e1', e2')) e1 e2
+    | IfGE(x, y, e1, e2) as exp -> g'_if dest cont regenv exp
         (fun e1' e2' -> 
-            IfGE(find x Type.Int regenv, find' y' regenv, e1' e2')) e1 e2
+            IfGE(find x Type.Int regenv, find y Type.Int regenv, e1', e2')) e1 e2
     | IfFEq(x, y, e1, e2) as exp -> g'_if dest cont regenv exp
         (fun e1' e2' -> 
-            IfFEq(find x Type.Float regenv, find y  Type.Float regenv, e1' e2')) e1 e2
+            IfFEq(find x Type.Float regenv, find y  Type.Float regenv, e1', e2')) e1 e2
     | IfFLE(x, y, e1, e2) as exp -> g'_if dest cont regenv exp
         (fun e1' e2' ->
-            IfFLE(find x Type.Float regenv, find y Type.Float regenv, e1' e2')) e1 e2
+            IfFLE(find x Type.Float regenv, find y Type.Float regenv, e1', e2')) e1 e2
     | CallCls(x, ys, zs) as exp -> g'_call dest cont regenv exp 
         (fun ys zs -> CallCls(find x Type.Int regenv, ys ,zs)) ys zs
     | CallDir(l, ys, zs) as exp -> g'_call dest cont regenv exp
         (fun ys zs -> CallDir(l, ys, zs)) ys zs
-    | Save(x, y) -> assert false
+    | Save(x, y) -> assert false 
 and g'_if dest cont regenv exp constr e1 e2 = (* allocate registers for if exprs*)
     let (e1', regenv1) = g dest cont regenv e1 in
     let (e2', regenv2) = g dest cont regenv e2 in
@@ -173,7 +173,7 @@ and g'_if dest cont regenv exp constr e1 e2 = (* allocate registers for if exprs
                 (fv cont) in
     (List.fold_left
         (fun e x ->
-            if x = fs dest || not (M.mem x regenv) || M.mem x regenv' then e else
+            if x = fst dest || not (M.mem x regenv) || M.mem x regenv' then e else
                 seq(Save(M.find x regenv, x), e))
         (Ans(constr e1' e2'))
         (fv cont),
