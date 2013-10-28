@@ -6,7 +6,7 @@ Codes for CPU experiment
 Instructions:
 （算術命令）ADD, SUB, MULT, DIV, ADDI, (MULI?) 
 （ロードストア）LW, SW, MFHI, MFLO,
-（論理）AND, ANDI, OR, ORI, XOR, NOR, 
+（論理）AND, ANDI, OR, ORI, XOR, NOR, SLT 
 （シフト）SLL, SRL, SRA, 
 （ジャンプ系）BEQ, BNE, J, JR, JAL, NOP
 
