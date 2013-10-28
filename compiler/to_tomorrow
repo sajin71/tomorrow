@@ -1,6 +1,6 @@
 #
-ln -sf Tomorrow/{*.ml{,i}, libmincaml.S} .
+ln -sf Tomorrow/{*.ml{,i},libmincaml.S} .
 cd shootout; ln -sf Tomorrow/Makefile .
 cd ../bytemark; ln -sf Tomorrow/Makefile .
 cd ../min-rt; ln -sf Tomorrow/globals.s .
-cd..
+cd ..
