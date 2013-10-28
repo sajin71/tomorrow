@@ -3,20 +3,21 @@ use ieee.std_logic_1164.all;
 
 library tomorrow_1;
 use tomorrow_1.component_pack.all;
-
+use tomorrow_1.alu_pack.all;
 
 entity datapath is
 
   port (
     CLK         : in std_logic;
+    PCWriteNC   : in std_logic;
     PCWriteCond : in std_logic;
     PCWrite     : in std_logic;
     MemtoReg    : in std_logic;
-    RegDst      : in std_logic;
+    RegDst      : in std_logic_vector(1 downto 0);
     RegWrite    : in std_logic;
     ALUSrcA     : in std_logic;
     ALUSrcB     : in std_logic_vector(1 downto 0);
-    ALUOp       : in std_logic_vector(1 downto 0);
+    ALUOp       : in ALU_CTRL;
     PCSource    : in std_logic_vector(1 downto 0);
 
     IR         : in  std_logic_vector(31 downto 0);
@@ -39,7 +40,7 @@ architecture RTL of datapath is
   signal read_data2 : std_logic_vector(31 downto 0);
   signal data_in1   : std_logic_vector(31 downto 0);
   signal data_in2   : std_logic_vector(31 downto 0);
-  signal oper       : std_logic_vector(2 downto 0);
+  signal oper       : ALU_OPER;
   signal data_out   : std_logic_vector(31 downto 0);
   signal aluout     : std_logic_vector(31 downto 0);
   signal next_pc    : std_logic_vector(31 downto 0);
@@ -95,10 +96,11 @@ begin  -- RTL
   aluzero <= '1' when data_out = x"00000000" else
              '0';
 
-  pccont <= (aluzero and PCWriteCond) or PCWrite;
+  pccont <= (aluzero and PCWriteCond) or PCWrite or ((not aluzero) and PCWriteNC);
 
-  write_addr <= IR(20 downto 16) when RegDst = '0' else
-                IR(15 downto 11);
+  write_addr <= IR(20 downto 16) when RegDst = "00" else
+                IR(15 downto 11) when RegDst = "01" else
+                "11111";
 
   write_data <= aluout when MemtoReg = '0' else
                 MDR;
