@@ -49,7 +49,8 @@ let seq(e1, e2) = Let((Id.gentmp Type.Unit, Type.Unit), e1, e2)
 
 let regs = [| "$r1"; "$r2"; "$r3"; "$r4"; "$r5"; "$r6"; "$r7"; "$r8"; "$r9"; "$r10"; 
   "$r11"; "$r12"; "$r13"; "$r14"; "$r15"; "$r16"; "$r17"; "$r18"; 
-  "$r19"; "$r20"; "$r21"; "$r22"; "$r23"; "$r24"; "$r25" |] 
+  "$r19"; "$r20"; "$r21"; "$r22"; "$r23"; "$r24"; "$r25" ; "$r26"; "$r27";
+  "$r28"|] 
 let fregs = Array.init 32 (fun i -> Printf.sprintf "$f%d" i)
 let allregs = Array.to_list regs
 let allfregs = Array.to_list fregs
@@ -59,9 +60,9 @@ let reg_fsw = fregs.(Array.length fregs - 1) (* temporary for swap *)
 
 (* TODO not sure if hp, sp, tmp is right *)
 let reg_zero = "$r0"
-let reg_input = "$r26"
+(*let reg_input = "$r26"
 let reg_output_start = "$r27"
-let reg_output_end = "$r28"
+let reg_output_end = "$r28" *)
 let reg_sp = "$r29"
 let reg_hp = "$r30"
 let reg_ra = "$r31"
