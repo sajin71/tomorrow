@@ -2,19 +2,19 @@ open Asm
 
 let rec g env = function (* 16 bit optimization of instructions *)
     | Ans(exp) -> Ans(g' env exp)
-    | Let((x, t), Set(i), e) when (-32768 <= i) && (i < 32768) ->
+(*    | Let((x, t), Set(i), e) when (-32768 <= i) && (i < 32768) ->
             let e' = g (M.add x i env) e in
-            if List.mem x (fv e') then Let((x, t), Li(i), e') else e'
+            if List.mem x (fv e') then Let((x, t), Li(i), e') else e' *)
     | Let(xt, exp, e) -> Let(xt, g' env exp, g env e)
 and g' env = function (* 16 bit optimization of each instruction *)
     | Add(x, V(y)) when M.mem y env -> Add(x, C(M.find y env))
     | Add(x, V(y)) when M.mem x env -> Add(y, C(M.find x env))
     | Mul(x, V(y)) when M.mem y env -> Mul(x, C(M.find y env))
-    | Mul(x, V(y)) when M.mem x env -> Mul(y, C(M.rind x env))
+    | Mul(x, V(y)) when M.mem x env -> Mul(y, C(M.find x env))
     | SLL(x, V(y)) when M.mem y env -> SLL(x, C(M.find y env))
     | SRL(x, V(y)) when M.mem y env -> SRL(x, C(M.find y env))
     (*| SW(x, V(y)) when M.mem y env -> SW(x, C(M.find y env))
-    | LW(x, V(y)) when M.mem y env -> LW(x, C(M.find y env)) *)
+    | LW(x, V(y)) when M.mem y env -> LW(x, C(M.find y env)) 
     | IfEq(x, V(y), e1, e2) when M.mem y env ->
         IfEq(x, C(M.find y env), g env e1, g env e2)
     | IfLE(x, V(y), e1, e2) when M.mem y env ->
@@ -31,7 +31,7 @@ and g' env = function (* 16 bit optimization of each instruction *)
     | IfLE(x, y', e1, e2) -> IfLE(x, y', g env e1, g env e2)
     | IfGE(x, y', e1, e2) -> IfGE(x, y', g env e1, g env e2)
     | IfFEq(x, y, e1, e2) -> IfFEq(x, y, g env e1, g env e2)
-    | IfFLE(x, y, e1, e2) -> IfFLE(x, y, g env e1, g env e2)
+    | IfFLE(x, y, e1, e2) -> IfFLE(x, y, g env e1, g env e2)*)
     | e -> e
 
 (* 16 bit optimization of the top level function *)
