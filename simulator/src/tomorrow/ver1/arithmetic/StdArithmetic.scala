@@ -46,3 +46,15 @@ class Addi extends ImmediateOperandOpcode(0x08) {
 	    programCounter.data += 4
 	}
 }
+class Slt extends ThreeRegisterOperandOpcode(0x00, 0x2A){
+    protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
+        val flag = (BigEndianInterpreter.interpretAsSignedInteger(operand.rs)) < (BigEndianInterpreter interpretAsSignedInteger operand.rt)
+        if(flag){
+            operand.rd.bytes = BigEndianInterpreter interpretAsByteArray (1)
+        }else{
+            operand.rd.bytes = BigEndianInterpreter interpretAsByteArray (0)
+        }
+
+	    programCounter.data += 4
+	}
+}

@@ -73,6 +73,18 @@ class ArithmeticTestSuite extends JUnitSuite with ShouldMatchersForJUnit {
     	BigEndianInterpreter interpretAsSignedInteger (cpu.getState.registers("HI")) should be (0x01)
     	BigEndianInterpreter interpretAsSignedInteger (cpu.getState.registers("LO")) should be (0x05)
     }
+    @Test def sltTest() {
+        val testCode = Array[Byte](0x20, 0x01, 0x00, 0x10,
+    	        					0x00, 0x01, 0x10, 0x2A)//0000 00|00 000|0 0001| 0001 0|000 00|10 1010    0x00, 0x2A
+    	        				   /*
+    	        				    * addi r1 <- r0 + 0x10(16)
+    	        				    * slt r2 = (r0<r1)?1:0 => 1
+    	        				    */
+    	cpu.setExecutable(testCode)
+    	cpu.stepExecute
+    	cpu.stepExecute
+    	BigEndianInterpreter interpretAsSignedInteger (cpu.getState.registers("r2")) should be (0x01)
+    }
 }
 
 object ArithmeticTest {
