@@ -17,7 +17,8 @@ import usb.USB
 
 class Jump extends JumpOpcode(0x02) {
     protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
-        programCounter.data += operand.constant * 4//< mipsページの4[31:28]の意味がよくわからない。
+        programCounter.data = ((programCounter.data toLong) & (0xf00000000L)).toInt
+        programCounter.data += operand.constant << 2
     }
 }
 class JumpRegister extends ThreeRegisterOperandOpcode(0x0, 0x08) {
@@ -28,7 +29,9 @@ class JumpRegister extends ThreeRegisterOperandOpcode(0x0, 0x08) {
 class Jal extends JumpOpcode(0x03) {
     protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
     	registers("r31").bytes = BigEndianInterpreter interpretAsByteArray (programCounter.data + 4)
-    	programCounter.data += operand.constant * 4//< mipsページの4[31:28]の意味がよくわからない。
+    	programCounter.data = ((programCounter.data toLong) & (0xf00000000L)).toInt
+        programCounter.data += operand.constant << 2
+//programCounter.data += operand.constant * 4//< mipsページの4[31:28]の意味がよくわからない。
     }
 }
 class Beq extends ImmediateOperandOpcode(0x04) {

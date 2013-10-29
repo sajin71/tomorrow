@@ -20,19 +20,19 @@ class JumpTestSuite extends JUnitSuite with ShouldMatchersForJUnit {
         cpu = new Tomorrow(new USB)
     }
     @Test def jumpTest() {
-    	val testCode = Array[Byte](0x08, 0x00, 0x00, 0x02,
+    	val testCode = Array[Byte](0x08, 0x00, 0x00, 0x01,
     	        					0x20, 0x01, 0x00, 0x10, 
     	        				   0x0B, -1, -1, -1)//1011
     	        				   /*
-    	        				    * jump 2
+    	        				    * jump 1 <- 1<<2=4先へ行く
     	        				    * addi r1 <- r0 + 0x10
-    	        				    * jump -1
+    	        				    * jump -1 <- 先頭がやはり0
     	        				    */
     	cpu.setExecutable(testCode)
     	cpu.stepExecute
     	cpu.stepExecute
-    	cpu.stepExecute
     	BigEndianInterpreter interpretAsSignedInteger (cpu.getState.registers("r1")) should be (0x10)
+    	BigEndianInterpreter interpretAsSignedInteger (cpu.getState.programCounter) should be (8)
     }
     @Test def jumpRegisterTest() {
         val testCode = Array[Byte](0x20, 0x01, 0x00, 0x02, 
@@ -52,15 +52,15 @@ class JumpTestSuite extends JUnitSuite with ShouldMatchersForJUnit {
     	BigEndianInterpreter interpretAsSignedInteger(cpu.getState.registers("r1")) should be (0x20)
     }
     @Test def jalTest() {
-        val testCode = Array[Byte](0x0C, 0x00, 0x00, 0x00)
+        val testCode = Array[Byte](0x0C, 0x00, 0x00, 0x01)
         /*
-         * jal 0
+         * jal 1//< programCounterは1<<2で4へ行く
          */
         cpu.setExecutable(testCode)
         val pc = BigEndianInterpreter interpretAsSignedInteger cpu.getState.programCounter
         cpu.stepExecute
         BigEndianInterpreter interpretAsSignedInteger(cpu.getState.registers("r31")) should be (pc + 4)
-        BigEndianInterpreter interpretAsSignedInteger(cpu.getState.programCounter) should be (pc)
+        BigEndianInterpreter interpretAsSignedInteger(cpu.getState.programCounter) should be (4)
     }
     @Test def beqTest() {
         val testCode = Array[Byte](0x20, 0x01, 0x00, 0x02,
