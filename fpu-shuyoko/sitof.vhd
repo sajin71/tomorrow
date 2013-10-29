@@ -1,3 +1,5 @@
+-- convert signed int(32bit) to float(32bit)
+
 library ieee;
 use ieee.std_logic_1164.all;
 use IEEE.STD_LOGIC_SIGNED.ALL;
@@ -34,7 +36,7 @@ begin
   );
   
   shifted(31) <= '0';
-  shifted(30 downto 0) <= SHL(inabs(30 downto 0), 32 - expo(4 downto 0)); -- ???????????
+  shifted(30 downto 0) <= SHL(inabs(30 downto 0), 32 - expo(4 downto 0)); -- MSB always '1', push out
   
   rounded <= shifted(31 downto 8) + 1 when shifted(7)='1' and
                                          (shifted(8) or shifted(6) or shifted(5) or shifted(4) or shifted(3) 
@@ -47,7 +49,6 @@ begin
                      expo + 127 when rounded(23)='1' else
                      expo + 126;
   f(22 downto 0) <= rounded(22 downto 0);
-  --shifted(30 downto 8) + 1 when shifted(7)='1' and (shifted(8)='1' or shifted(6)='1') else
-  --                  shifted(30 downto 8);
+
 end RTL;
 
