@@ -49,9 +49,9 @@ val reg_cl : Id.t
 val reg_sw : Id.t
 val reg_fsw : Id.t
 val reg_zero : Id.t
-val reg_input : Id.t
+(*val reg_input : Id.t
 val reg_output_start : Id.t
-val reg_output_end : Id.t
+val reg_output_end : Id.t *)
 val reg_ra : Id.t
 val reg_hp : Id.t
 val reg_sp : Id.t
