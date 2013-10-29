@@ -8,7 +8,11 @@ VhdlTestScript.scenario "../sitof.vhd" do
   ports :i, :f
 
     step 0,0
-    step 268435455, 0x4d800000  #仮数が繰り上がるケェス
+    step  2147483647,0x4f000000
+    step  2147483500,0x4effffff
+    step -2147483500,0xceffffff
+    step -2147483648,0xcf000000  #符号ビット以外全て0
+    step   268435455,0x4d800000  #仮数が繰り上がるケェス
 
     step 0x67c66973, 0x4ecf8cd3  # 1741056371  1741056371
     step 0x51ff4aec, 0x4ea3fe96  # 1375685356  1375685356

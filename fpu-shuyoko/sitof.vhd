@@ -45,7 +45,8 @@ begin
   
   
   f(31) <= i(31);
-  f(30 downto 23) <= "00000000" when expo(4 downto 0)="00000" else
+  f(30 downto 23) <= "00000000" when i(31)='0' and expo(4 downto 0)="00000" else
+                     "10011110" when expo(4 downto 0)="00000" else
                      expo + 127 when rounded(23)='1' else
                      expo + 126;
   f(22 downto 0) <= rounded(22 downto 0);

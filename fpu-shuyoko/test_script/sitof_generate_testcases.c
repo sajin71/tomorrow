@@ -13,7 +13,11 @@ int main(void) {
 "  ports :i, :f\n\n"
 
 "    step 0,0\n"
-"    step 268435455, 0x4d800000  #仮数が繰り上がるケェス\n\n");
+"    step  2147483647,0x4f000000\n"
+"    step  2147483500,0x4effffff\n"
+"    step -2147483500,0xceffffff\n"
+"    step -2147483648,0xcf000000  #符号ビット以外全て0\n"
+"    step   268435455,0x4d800000  #仮数が繰り上がるケェス\n\n");
 
 	int i;
 	for(i=0; i<300; i++) {
