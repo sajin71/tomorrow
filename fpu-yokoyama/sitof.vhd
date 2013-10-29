@@ -3,14 +3,14 @@ use ieee.std_logic_1164.all;
 use IEEE.STD_LOGIC_SIGNED.ALL;
 
 
-entity itof is
+entity sitof is
   port ( i  : in  STD_LOGIC_VECTOR (31 downto 0);
          f  : out STD_LOGIC_VECTOR (31 downto 0)
 --         clk: STD_LOGIC
        );
-end itof;
+end sitof;
 
-architecture RTL of itof is
+architecture RTL of sitof is
   
 component PriEncoder31 is
   port ( i31  : in  STD_LOGIC_VECTOR (30 downto 0);
@@ -36,7 +36,9 @@ begin
   shifted(31) <= '0';
   shifted(30 downto 0) <= SHL(inabs(30 downto 0), 32 - expo(4 downto 0)); -- ???????????
   
-  rounded <= shifted(31 downto 8) + 1 when shifted(7)='1' and (shifted(8)='1' or shifted(6)='1') else
+  rounded <= shifted(31 downto 8) + 1 when shifted(7)='1' and
+                                         (shifted(8) or shifted(6) or shifted(5) or shifted(4) or shifted(3) 
+                                                                  or shifted(2) or shifted(1) or shifted(0))='1' else
                     shifted(31 downto 8);
   
   
