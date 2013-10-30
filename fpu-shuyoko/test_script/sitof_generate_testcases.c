@@ -34,8 +34,13 @@ int main(void) {
 		
 		unsigned char c[4];
 		
-		c[0] = rand()%0x100;
-		c[1] = rand()%0x100;
+		if ( i<150 ) {
+			c[0] = (i%2)?rand()%0x100 : 0x0;
+			c[1] = rand()% ((rand()%3)?0x100:0x5);
+		} else {
+			c[0] = 0xff;
+			c[1] = 0xff;
+		}
 		c[2] = rand()%0x100;
 		c[3] = rand()%0x100;
 		
@@ -43,7 +48,7 @@ int main(void) {
 		in.u = c[0]<<24 | c[1]<<16 | c[2]<<8 | c[3];
 		hoge.f = (float)in.i;
 		
-		printf("    step 0x%x, 0x%x  # %d  %u\n", in.u, hoge.u, in.i, in.u);
+		printf("    step 0x%08x, 0x%08x  # %d  %u\n", in.u, hoge.u, in.i, in.u);
 		
 	}
 	
