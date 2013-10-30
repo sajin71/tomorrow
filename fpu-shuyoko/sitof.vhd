@@ -20,36 +20,38 @@ component PriEncoder31 is
 end component;
   
   signal inabs    : std_logic_vector(30 downto 0);
-  signal expo     : std_logic_vector(7 downto 0);
-  signal shifted  : std_logic_vector(31 downto 0);
+  signal expo     : std_logic_vector(4 downto 0);
+  signal shifted  : std_logic_vector(30 downto 0);
   signal rounded  : std_logic_vector(23 downto 0);
+  
+  signal expoiszero: std_logic;
+  signal expocarry : std_logic;
   
 begin
   
   inabs <= i(30 downto 0) when i(31)='0' else
            (not i(30 downto 0)) + 1;
-  expo(7 downto 5) <= "000";
 
   prien: PriEncoder31 port map (
     i31 => inabs,
-    o31 => expo(4 downto 0)
+    o31 => expo
   );
   
-  shifted(31) <= '0';
-  shifted(30 downto 0) <= SHL(inabs(30 downto 0), 32 - expo(4 downto 0)); -- MSB always '1', push out
+  shifted(30) <= '0';
+  shifted(29 downto 0) <= SHL(inabs(29 downto 0), not expo); -- "not expo" means 31-expo; MSB always '1', push out
   
-  rounded <= shifted(31 downto 8) + 1 when shifted(7)='1' and
-                                         (shifted(8) or shifted(6) or shifted(5) or shifted(4) or shifted(3) 
-                                                                  or shifted(2) or shifted(1) or shifted(0))='1' else
-                    shifted(31 downto 8);
+  expocarry <= shifted(6) and (shifted(7) or shifted(5) or shifted(4) or shifted(3) 
+                                                    or shifted(2) or shifted(1) or shifted(0));
+  rounded <= shifted(30 downto 7) + expocarry;
   
   
-  f(31) <= i(31);
-  f(30 downto 23) <= "00000000" when i(31)='0' and expo(4 downto 0)="00000" else
-                     "10011110" when expo(4 downto 0)="00000" else
-                     expo + 127 when rounded(23)='1' else
-                     expo + 126;
-  f(22 downto 0) <= rounded(22 downto 0);
+  expoiszero <= '1' when expo(4 downto 0)="00000" else '0';
+  
+  f(31) <= i(31); -- sign
+  f(30 downto 23) <= "00000000" when i(31)='0' and expoiszero='1' else
+                     "10011110" when expoiszero='1' else
+                     expo + ("0111111" & rounded(23)); -- expo: frac carried: +127, otherwise: +126
+  f(22 downto 0) <= rounded(22 downto 0); --frac
 
 end RTL;
 
