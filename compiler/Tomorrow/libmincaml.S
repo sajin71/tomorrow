@@ -1,8 +1,7 @@
 .section ".text"
 .global min_caml_print_int
 min_caml_print_int:
-	lli $r2 65535
-    sw $1 0($r2)
+    sw $1 -1($r0)
    jr $31
    nop
 

@@ -59,7 +59,8 @@ and g' oc = function (* Emit assembly of each instruction *)
     | NonTail(x), Set(i) -> Printf.fprintf oc "\tlli\t%s, %d\n" (reg x) i
     | NonTail(x), SetL(Id.L(y)) -> Printf.fprintf oc "\tset\t%s, %s\n" (reg y) (reg x)
     | NonTail(x), Mov(y) when x = y -> ()
-    | NonTail(x), Mov(y) -> Printf.fprintf oc "\tmov\t%s, %s\n" (reg y) (reg x)
+    | NonTail(x), Mov(y) -> (* Printf.fprintf oc "\t#NonTail Mov\n"; *)
+            Printf.fprintf oc "\tmov\t%s, %s\n" (reg x) (reg y)
     | NonTail(x), Neg(y) -> Printf.fprintf oc "\tmuli\t%s, %s, %d\n" (reg x) (reg y) (-1)
     | NonTail(x), Add(y, V(z)) -> Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg x) (reg y) (reg z)
     | NonTail(x), Add(y, C(z)) -> Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg x) (reg y) z
@@ -76,7 +77,7 @@ and g' oc = function (* Emit assembly of each instruction *)
     | NonTail(x), FMov(y) when x = y -> ()
     | NonTail(x), FMov(y) -> 
             Printf.fprintf oc "\tfmov\t%s, %s\n" (reg x) (reg y);
-            Printf.fprintf oc "\tfmov\t%s, %s\n" (co_freg y) (co_freg x)
+            Printf.fprintf oc "\tfmov\t%s, %s\n" (co_freg x) (co_freg y)
     | NonTail(x), FNeg(y) -> 
             Printf.fprintf oc "\tnop\n" (* TODO float calculation *)
     | NonTail(x), FAdd(y, z) -> Printf.fprintf oc "\tfadd\t%s, %s, %s\n" (reg x) (reg y) (reg z)
@@ -223,22 +224,24 @@ and g' oc = function (* Emit assembly of each instruction *)
         Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg reg_sw)  0 (reg reg_cl) ;
         Printf.fprintf oc "\tjal\t%s\n" (reg reg_sw);
         Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg reg_ra) (ss - 4) (reg reg_sp); 
+        (* Printf.fprintf oc "\t#NonTail CallCls\n"; *)
         if List.mem a allregs && a <> regs.(0) then
-            Printf.fprintf oc "\tmov\t%s, %s\n" regs.(0) a
+            Printf.fprintf oc "\tmov\t%s, %s\n" a regs.(0)
         else if List.mem a allfregs && a <> fregs.(0) then
-            (Printf.fprintf oc "\tfmov\t%s, %s\n" fregs.(0) a;
-            Printf.fprintf oc "\tfmov\t%s, %s\n" (co_freg fregs.(0)) (co_freg a))
+            (Printf.fprintf oc "\tfmov\t%s, %s\n" a fregs.(0);
+            Printf.fprintf oc "\tfmov\t%s, %s\n" (co_freg a) (co_freg fregs.(0)))
    | NonTail(a), CallDir(Id.L(x), ys, zs) ->
         g'_args oc [] ys zs;
         let ss = stacksize () in
         Printf.fprintf oc "\tsw\t%s, %d(%s)\n" (reg reg_ra) (ss - 4) (reg reg_sp);
         Printf.fprintf oc "\tjal\t%s\n" x;
         Printf.fprintf oc "\tlw\t %s, %d(%s)\n" (reg reg_ra) (ss - 4) (reg reg_sp);
+        (* Printf.fprintf oc "\t#NonTail CallDir\n"; *)
         if List.mem a allregs && a <> regs.(0) then
-            Printf.fprintf oc "\tmov\t%s, %s\n" regs.(0) a
+            Printf.fprintf oc "\tmov\t%s, %s\n" a regs.(0)
         else if List.mem a allfregs && a <> fregs.(0) then
-            (Printf.fprintf oc "\tfmov\t%s, %s\n" fregs.(0) a;
-            Printf.fprintf oc "\tfmov\t%s, %s\n" (co_freg fregs.(0)) (co_freg a))
+            (Printf.fprintf oc "\tfmov\t%s, %s\n" a fregs.(0);
+            Printf.fprintf oc "\tfmov\t%s, %s\n" (co_freg a) (co_freg fregs.(0)))
 (*and g'_tail_if oc e1 e2 reg1 reg2 b bn =
     let b_else = Id.genid(b ^ "_else") in
     Printf.fprintf oc "\t%s\t%s\n" bn b_else;
@@ -261,13 +264,14 @@ and g'_non_tail_if oc dest e1 e2 reg1 reg2 b bn =
     Printf.fprintf oc "%s:\n" b_else;
     stackset := stackset_back; *)
 and g'_args oc x_reg_cl ys zs =
+    (* Printf.fprintf oc "\t#g'_args\n"; *)
     let (i, yrs) =
         List.fold_left
             (fun (i, yrs) y -> (i + 1, (y, regs.(i)) :: yrs))
             (0, x_reg_cl)
             ys in
     List.iter
-        (fun (y, r) -> Printf.fprintf oc "\tmov\t%s, %s\n" (reg y) (reg r))
+        (fun (y, r) -> Printf.fprintf oc "\tmov\t%s, %s\n" (reg r) (reg y))
         (shuffle reg_sw yrs);
     let (d, zfrs) =
         List.fold_left
@@ -276,8 +280,8 @@ and g'_args oc x_reg_cl ys zs =
             zs in
     List.iter
         (fun (z, fr) ->
-            Printf.fprintf oc "\tfmov\t%s, %s\n" (reg z) fr;
-            Printf.fprintf oc "\tfmov\t%s, %s\n" (co_freg z) (co_freg fr))
+            Printf.fprintf oc "\tfmov\t%s, %s\n" fr (reg z);
+            Printf.fprintf oc "\tfmov\t%s, %s\n" (co_freg fr) (co_freg z))
         (shuffle reg_fsw zfrs)
 
 
@@ -299,6 +303,8 @@ let f oc (Prog(data, fundefs, e)) =
       Printf.fprintf oc "\t.long\t0x%lx\n" (getlo d))
     data;
   Printf.fprintf oc ".section\t\".text\"\n";
+  Printf.fprintf oc "\tjal\tmin_caml_start\n";
+  Printf.fprintf oc "\thalt\n";
   List.iter (fun fundef -> h oc fundef) fundefs;
   Printf.fprintf oc ".global\tmin_caml_start\n";
   Printf.fprintf oc "min_caml_start:\n";
@@ -306,4 +312,4 @@ let f oc (Prog(data, fundefs, e)) =
   stackset := S.empty;
   stackmap := [];
   g oc (NonTail(regs.(0)), e);
-  Printf.fprintf oc "\thalt\n"
+  Printf.fprintf oc "\tjr $r31\n"
