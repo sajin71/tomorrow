@@ -1,0 +1,31 @@
+CONFIG PART=5VLX50TFF1136-1 ;
+
+# CNT8の右 (1) 端の上に合わせて刺す
+
+# 7セグLED 0がA（上辺）から時計回り、6がG（中央）、7がDP（小数点）
+NET  LED7SEG<6>    LOC=D34; #  3 8C-2
+NET  LED7SEG<2>    LOC=J32; #  6   -3
+NET  LED7SEG<7>    LOC=F34; #  9   -4
+NET  LED7SEG<3>    LOC=D32; # 12   -5
+NET  LED7SEG<4>    LOC=A33; # 15   -6
+NET  LED7SEG<1>    LOC=H32; # 18   -7
+NET  LED7SEG<5>    LOC=G32; # 17 8B-7
+NET  LED7SEG<0>    LOC=L29; # 14   -6
+
+# ダイナミック点灯（カソードコモン）
+# 3が左、0が右
+NET  LEDDYN<3>     LOC=G33; # 11 8B-5
+NET  LEDDYN<2>     LOC=C33; #  8   -4
+NET  LEDDYN<1>     LOC=K31; #  5   -3
+NET  LEDDYN<0>     LOC=E33; #  2   -2
+
+NET  LED7SEG<*> IOSTANDARD = LVTTL;
+NET  LEDDYN<*>  IOSTANDARD = LVTTL;
+
+
+
+NET  MCLK1		   LOC=J16;
+NET  MCLK1		   IOSTANDARD = LVTTL;
+
+NET "MCLK1" TNM_NET = "SYS_CLK";
+TIMESPEC "TS_SYS_CLK" = PERIOD "SYS_CLK" 14.52 ns HIGH 50 %;

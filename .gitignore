@@ -1,3 +1,4 @@
+*.o
 *.so
 *~
 bin
@@ -6,3 +7,22 @@ bin
 simulator/.project
 simulator/.cache
 simulator/.classpath
+
+*.cmi
+*.cmo
+compiler/lexer.ml
+compiler/parser.ml
+compiler/parser.mli
+compiler/min-caml
+compiler/min-caml.top
+compiler/virtual.ml
+compiler/libmincaml.S
+compiler/shootout/Makefile
+compiler/bytemark/Makefile
+compiler/min-rt/globals.s
+compiler/test/*.s
+compiler/._bcdi
+compiler/._d
+
+asm/asm
+convx86/disasm
