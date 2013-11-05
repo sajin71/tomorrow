@@ -5,7 +5,7 @@ use ieee.std_logic_unsigned.all;
 entity transmitter is
   
   generic (
-    WTIME : std_logic_vector(15 downto 0) := x"0243");  -- baudrate 115200
+    WTIME : std_logic_vector(15 downto 0) := x"0091");  -- baudrate 460800
 
   port (
     CLK  : in  std_logic;
@@ -38,26 +38,36 @@ begin  -- RTL_arr
            "1000" when state = "11"                          else
            "0000";
 
-  next_state <= "00" when arrow = "0000" or arrow = "1000" else
-                "01" when arrow = "0001" or arrow = "0010" else
-                "11" when arrow = "0110" or arrow = "0111" else
-                "10";
+  with arrow select
+    next_state <=
+    "00" when "0000" | "1000",
+    "01" when "0001" | "0010",
+    "11" when "0110" | "0111",
+    "10" when others;
 
-  next_countdown <= countdown - 1 when arrow = "0010" or arrow = "0100" or arrow = "0111" else
-                    WTIME;
-  
-  next_letternum <= "000" when arrow = "0011" else
-                    letternum + 1 when arrow = "0101" else
-                    letternum;
+  with arrow select
+    next_countdown <=
+    countdown - 1 when "0010" | "0100" | "0111",
+    WTIME         when others;
 
-  next_sendbuf <= DATA when arrow = "0001" else
-                  sendbuf;
+  with arrow select
+    next_letternum <=
+    "000"         when "0011",
+    letternum + 1 when "0101",
+    letternum     when others;
+
+  with arrow select
+    next_sendbuf <=
+    DATA    when "0001",
+    sendbuf when others;
 
   BUSY <= '0' when state = "00" else '1';
 
-  TX <= '0' when state = "01" else
-        sendbuf(conv_integer(letternum)) when state = "10" else
-        '1';
+  with state select
+    TX <=
+    '0'                              when "01",
+    sendbuf(conv_integer(letternum)) when "10",
+    '1'                              when others;
 
   latch : process (CLK)
   begin  -- process latch

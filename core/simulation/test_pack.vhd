@@ -3,7 +3,7 @@ use ieee.std_logic_1164.all;
 
 package test_pack is
 
-  component top_sim
+  component top
     port (
       MCLK1 : in  std_logic;
       RS_RX : in  std_logic;
@@ -45,5 +45,28 @@ package test_pack is
       ZD     : inout std_logic_vector (31 downto 0);  -- DATA
       ZDP    : inout std_logic_vector (3 downto 0)    -- PARITYignore
       );
+  end component;
+
+  component receiver
+    generic (
+      WTIME : std_logic_vector(15 downto 0));
+
+    port (
+      CLK   : in  std_logic;
+      RX    : in  std_logic;
+      DATA  : out std_logic_vector(7 downto 0);
+      FRESH : out std_logic);
+  end component;
+
+  component transmitter
+    generic (
+      WTIME : std_logic_vector(15 downto 0));
+
+    port (
+      CLK  : in  std_logic;
+      DATA : in  std_logic_vector(7 downto 0);
+      GO   : in  std_logic;
+      BUSY : out std_logic;
+      TX   : out std_logic);
   end component;
 end test_pack;

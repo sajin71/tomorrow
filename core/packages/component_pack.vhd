@@ -32,14 +32,18 @@ package component_pack is
       OPER  : out ALU_OPER);
   end component;
 
-  component d_ff
-    generic (
-      WIDTH : integer);
-
-    port (
-      CLK      : in  std_logic;
-      DATA_IN  : in  std_logic_vector(WIDTH-1 downto 0);
-      DATA_OUT : out std_logic_vector(WIDTH-1 downto 0);
-      WE       : in  std_logic);
-  end component;
+  signal aluzero    : std_logic;
+  signal pc         : std_logic_vector(31 downto 0) := x"00000000";
+  signal write_addr : std_logic_vector(4 downto 0);
+  signal write_data : std_logic_vector(31 downto 0);
+  signal read_data1 : std_logic_vector(31 downto 0);
+  signal read_data2 : std_logic_vector(31 downto 0);
+  signal data_in1   : std_logic_vector(31 downto 0);
+  signal data_in2   : std_logic_vector(31 downto 0);
+  signal oper       : ALU_OPER;
+  signal data_out   : std_logic_vector(31 downto 0);
+  signal aluout     : std_logic_vector(31 downto 0);
+  signal next_pc    : std_logic_vector(31 downto 0);
+  signal pccont     : std_logic;
+  
 end component_pack;

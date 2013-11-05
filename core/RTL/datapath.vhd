@@ -23,7 +23,7 @@ entity datapath is
     IR         : in  std_logic_vector(31 downto 0);
     MDR        : in  std_logic_vector(31 downto 0);
     PC_OUT     : out std_logic_vector(31 downto 0);
-    FROMALU    : out std_logic_vector(31 downto 0);
+    MEMADDR    : out std_logic_vector(31 downto 0);
     DATA_WRITE : out std_logic_vector(31 downto 0)
     );
 
@@ -31,32 +31,16 @@ end datapath;
 
 
 architecture RTL of datapath is
-
-  signal aluzero    : std_logic;
-  signal pc         : std_logic_vector(31 downto 0);
-  signal write_addr : std_logic_vector(4 downto 0);
-  signal write_data : std_logic_vector(31 downto 0);
-  signal read_data1 : std_logic_vector(31 downto 0);
-  signal read_data2 : std_logic_vector(31 downto 0);
-  signal data_in1   : std_logic_vector(31 downto 0);
-  signal data_in2   : std_logic_vector(31 downto 0);
-  signal oper       : ALU_OPER;
-  signal data_out   : std_logic_vector(31 downto 0);
-  signal aluout     : std_logic_vector(31 downto 0);
-  signal next_pc    : std_logic_vector(31 downto 0);
-  signal pccont     : std_logic;
-  
 begin  -- RTL
 
-  pc_map : d_ff
-    generic map (
-      WIDTH => 32)
-
-    port map (
-      CLK      => CLK,
-      DATA_IN  => next_pc,
-      DATA_OUT => pc,
-      WE       => pccont);
+  pc_latch: process (CLK)
+  begin  -- process pc_latch
+    if rising_edge(CLK) then
+      if pccont = '1' then
+        pc <= next_pc;
+      end if;
+    end if;
+  end process pc_latch;
 
   register_file_map : register_file
     port map (
@@ -76,15 +60,12 @@ begin  -- RTL
       DATA_OUT => data_out,
       OPER     => oper);
 
-  ALUOut_map : d_ff
-    generic map (
-      WIDTH => 32)
-
-    port map (
-      CLK      => CLK,
-      DATA_IN  => data_out,
-      DATA_OUT => aluout,
-      WE       => '1');
+  aluout_latch: process (CLK)
+  begin  -- process aluout_latch
+    if rising_edge(CLK) then
+      aluout <= data_out;
+    end if;
+  end process aluout_latch;
 
   alu_control_map : alu_controller
     port map (
@@ -110,8 +91,8 @@ begin  -- RTL
 
   data_in2 <= read_data2 when ALUSrcB = "00" else
               (2 => '1', others => '0') when ALUSrcB = "01" else
-              x"0000" & IR(15 downto 0) when ALUSrcB = "10" else
-              "00000000000000" & IR(15 downto 0) & "00";
+              (15 downto 0 => IR(15)) & IR(15 downto 0) when ALUSrcB = "10" else
+              (13 downto 0 => IR(15)) & IR(15 downto 0) & "00";
 
   next_pc <= data_out when PCSource = "00" else
              aluout when PCSource = "01" else
@@ -119,7 +100,7 @@ begin  -- RTL
 
   PC_OUT <= pc;
 
-  FROMALU <= aluout;
+  MEMADDR <= aluout;
 
   DATA_WRITE <= read_data2;
   

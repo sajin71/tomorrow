@@ -23,7 +23,7 @@ package top_pack is
       IR         : in  std_logic_vector(31 downto 0);
       MDR        : in  std_logic_vector(31 downto 0);
       PC_OUT     : out std_logic_vector(31 downto 0);
-      FROMALU    : out std_logic_vector(31 downto 0);
+      MEMADDR    : out std_logic_vector(31 downto 0);
       DATA_WRITE : out std_logic_vector(31 downto 0)
       );
   end component;
@@ -32,9 +32,11 @@ package top_pack is
     port (
       CLK         : in  std_logic;
       OP          : in  std_logic_vector(5 downto 0);
+      BUSY        : in  std_logic;
       PCWriteNC   : out std_logic;
       PCWriteCond : out std_logic;
       PCWrite     : out std_logic;
+      MemRead     : out std_logic;
       MemWrite    : out std_logic;
       MemtoReg    : out std_logic;
       IRWrite     : out std_logic;
@@ -49,36 +51,50 @@ package top_pack is
 
   component ram
     generic (
-      BRAMBW : integer);
+      BRAMBW : integer;
+      WTIME  : std_logic_vector(15 downto 0));
 
     port (
       CLK        : in  std_logic;
       PC         : in  std_logic_vector(31 downto 0);
-      FROMALU    : in  std_logic_vector(31 downto 0);
+      MEMADDR    : in  std_logic_vector(31 downto 0);
       DATA_WRITE : in  std_logic_vector(31 downto 0);
       IR         : out std_logic_vector(31 downto 0);
       MDR        : out std_logic_vector(31 downto 0);
+      MemRead    : in  std_logic;
       MemWrite   : in  std_logic;
       IRWrite    : in  std_logic;
+      BUSY       : out std_logic;
 
-      XE1    : out   std_logic;                       -- E1
-      E2A    : out   std_logic;                       -- E2
-      XE3    : out   std_logic;                       -- E3
-      XGA    : out   std_logic;                       -- G
-      XZCKE  : out   std_logic;                       -- CKE
-      ADVA   : out   std_logic;                       -- ADV
-      XLBO   : out   std_logic;                       -- LBO
-      ZZA    : out   std_logic;                       -- ZZ
-      XFT    : out   std_logic;                       -- FT
-      XZBE   : out   std_logic_vector (0 to 3);       -- BA, BB
-      ZCLKMA : out   std_logic_vector (0 to 1);       -- GIVE CLOCK
-      XWA    : out   std_logic;                       -- WRITE ENABLE
-      ZA     : out   std_logic_vector (19 downto 0);  -- ADDRESS
-      ZD     : inout std_logic_vector (31 downto 0);  -- DATA
-      ZDP    : inout std_logic_vector (3 downto 0)    -- PARITY
-      );
+      XWA   : out   std_logic;                       -- WRITE ENABLE
+      ZA    : out   std_logic_vector (19 downto 0);  -- ADDRESS
+      ZD    : inout std_logic_vector (31 downto 0);  -- DATA
+      RS_RX : in    std_logic;
+      RS_TX : out   std_logic
+      );  
   end component;
 
+  signal clk, iclk : std_logic;
 
+  signal PCWriteNC   : std_logic;
+  signal PCWriteCond : std_logic;
+  signal PCWrite     : std_logic;
+  signal MemRead     : std_logic;
+  signal MemWrite    : std_logic;
+  signal MemtoReg    : std_logic;
+  signal IRWrite     : std_logic;
+  signal RegDst      : std_logic_vector(1 downto 0);
+  signal RegWrite    : std_logic;
+  signal ALUSrcA     : std_logic;
+  signal ALUSrcB     : std_logic_vector(1 downto 0);
+  signal ALUOp       : ALU_CTRL;
+  signal PCSource    : std_logic_vector(1 downto 0);
+
+  signal IR         : std_logic_vector(31 downto 0);
+  signal MDR        : std_logic_vector(31 downto 0);
+  signal PC         : std_logic_vector(31 downto 0);
+  signal MEMADDR    : std_logic_vector(31 downto 0);
+  signal DATA_WRITE : std_logic_vector(31 downto 0);
+  signal BUSY       : std_logic;
   
 end top_pack;

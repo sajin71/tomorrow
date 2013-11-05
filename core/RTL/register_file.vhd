@@ -18,8 +18,8 @@ end register_file;
 
 
 architecture rtl of register_file is
-  type   t_regf is array (31 downto 0) of std_logic_vector(31 downto 0);
-  signal regf                 : t_regf;
+  type   t_regf is array (0 to 31) of std_logic_vector(31 downto 0);
+  signal regf                 : t_regf := (others => x"00000000");
   signal addr_reg1, addr_reg2 : std_logic_vector(4 downto 0);
   
 begin  -- rtl

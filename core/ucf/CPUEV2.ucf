@@ -109,8 +109,8 @@ NET  ZZA		   LOC=AA31;
 #// = Inputs. =
 
 
-#NET RS_TX			LOC=K11;
-#NET RS_RX			LOC=J11;
+NET RS_TX			LOC=K11;
+NET RS_RX			LOC=J11;
 
 
 #///////////////////////////////////////
@@ -486,8 +486,8 @@ NET  ZZA		   IOSTANDARD = LVTTL;
 #NET  CLK48M 	   IOSTANDARD = LVTTL;
 NET  MCLK1		   IOSTANDARD = LVTTL;
 #NET XRST		   IOSTANDARD = LVTTL;
-#NET RS_TX		   IOSTANDARD = LVTTL;
-#NET RS_RX		   IOSTANDARD = LVTTL;
+NET RS_TX		   IOSTANDARD = LVTTL;
+NET RS_RX		   IOSTANDARD = LVTTL;
 
 
 ############################################################################

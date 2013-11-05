@@ -6,7 +6,7 @@ entity blockram is
 
   generic (
     BRAMBW : integer := 15);
-  
+
   port (
     CLK       : in  std_logic;
     ADDRA     : in  std_logic_vector(BRAMBW-1 downto 0);
@@ -22,7 +22,21 @@ end blockram;
 
 architecture RTL of blockram is
   type   t_ram is array (0 to (2 ** BRAMBW)-1) of std_logic_vector(31 downto 0);
-  signal ram       : t_ram := (others => x"00000000");
+  signal ram : t_ram :=
+    (x"2001000a",
+     x"20020001",
+     x"20030001",
+     x"20040001",
+     x"20050001",
+     x"00432020",
+     x"00601020",
+     x"00801820",
+     x"20a50001",
+     x"14a1fffb",
+     x"ac04ffff",
+     x"f0000000",
+     others => x"00000000");
+
   signal reg_addra : std_logic_vector(BRAMBW-1 downto 0) := (others => '0');
   signal reg_addrb : std_logic_vector(BRAMBW-1 downto 0) := (others => '0');
   

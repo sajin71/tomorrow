@@ -34,29 +34,6 @@ end top;
 
 
 architecture RTL of top is
-
-  signal clk, iclk : std_logic;
-
-  signal PCWriteNC   : std_logic;
-  signal PCWriteCond : std_logic;
-  signal PCWrite     : std_logic;
-  signal MemWrite    : std_logic;
-  signal MemtoReg    : std_logic;
-  signal IRWrite     : std_logic;
-  signal RegDst      : std_logic_vector(1 downto 0);
-  signal RegWrite    : std_logic;
-  signal ALUSrcA     : std_logic;
-  signal ALUSrcB     : std_logic_vector(1 downto 0);
-  signal ALUOp       : ALU_CTRL;
-  signal PCSource    : std_logic_vector(1 downto 0);
-
-  signal IR         : std_logic_vector(31 downto 0);
-  signal MDR        : std_logic_vector(31 downto 0);
-  signal PC         : std_logic_vector(31 downto 0);
-  signal FROMALU    : std_logic_vector(31 downto 0);
-  signal DATA_WRITE : std_logic_vector(31 downto 0);
-
-
 begin  -- RTL
   ib : IBUFG port map (
     i => MCLK1,
@@ -82,7 +59,7 @@ begin  -- RTL
       IR         => IR,
       MDR        => MDR,
       PC_OUT     => PC,
-      FROMALU    => FROMALU,
+      MEMADDR    => MEMADDR,
       DATA_WRITE => DATA_WRITE
       );
 
@@ -90,9 +67,11 @@ begin  -- RTL
     port map (
       CLK         => clk,
       OP          => IR(31 downto 26),
+      BUSY        => BUSY,
       PCWriteNC   => PCWriteNC,
       PCWriteCond => PCWriteCond,
       PCWrite     => PCWrite,
+      MemRead     => MemRead,
       MemWrite    => MemWrite,
       MemtoReg    => MemtoReg,
       IRWrite     => IRWrite,
@@ -105,32 +84,37 @@ begin  -- RTL
 
   ram_map : ram
     generic map (
-      BRAMBW => 15)
+      BRAMBW => 15,
+      WTIME  => x"0091")
     port map (
       CLK        => clk,
       PC         => PC,
-      FROMALU    => FROMALU,
+      MEMADDR    => MEMADDR,
       DATA_WRITE => DATA_WRITE,
       IR         => IR,
       MDR        => MDR,
+      MemRead    => MemRead,
       MemWrite   => MemWrite,
       IRWrite    => IRWrite,
+      BUSY       => BUSY,
 
-      XE1    => XE1,
-      E2A    => E2A,
-      XE3    => XE3,
-      XGA    => XGA,
-      XZCKE  => XZCKE,
-      ADVA   => ADVA,
-      XLBO   => XLBO,
-      ZZA    => ZZA,
-      XFT    => XFT,
-      XZBE   => XZBE,
-      ZCLKMA => ZCLKMA,
-      XWA    => XWA,
-      ZA     => ZA,
-      ZD     => ZD,
-      ZDP    => ZDP);
+      XWA   => XWA,
+      ZA    => ZA,
+      ZD    => ZD,
+      RS_RX => RS_RX,
+      RS_TX => RS_TX);
 
-
+  XE1    <= '0';
+  E2A    <= '1';
+  XE3    <= '0';
+  XGA    <= '0';
+  XZCKE  <= '0';
+  ADVA   <= '0';
+  XLBO   <= '1';
+  ZZA    <= '0';
+  XFT    <= '0';                        -- flow through mode
+  XZBE   <= "0000";
+  ZDP    <= "0000";
+  ZCLKMA <= (clk, clk);
+  
 end RTL;

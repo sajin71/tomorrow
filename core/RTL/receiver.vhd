@@ -5,7 +5,7 @@ use ieee.std_logic_unsigned.all;
 entity receiver is
   
   generic (
-    WTIME : std_logic_vector(15 downto 0) := x"0243");  -- baudrate 115200
+    WTIME : std_logic_vector(15 downto 0) := x"0091");  -- baudrate 460800
 
   port (
     CLK   : in  std_logic;
@@ -43,18 +43,24 @@ begin  -- RTL
            "1001" when state = "11"                          else
            "0000";
 
-  next_state <= "00" when arrow = "0000" or arrow = "0011" or arrow = "1001" else
-                "01" when arrow = "0001" or arrow = "0010" else
-                "11" when arrow = "0111" or arrow = "1000" else
-                "10";
+  with arrow select
+    next_state <=
+    "00" when "0000" | "0011" | "1001",
+    "01" when "0001" | "0010",
+    "11" when "0111" | "1000",
+    "10" when others;
 
-  next_countdown <= countdown - 1 when arrow = "0010" or arrow = "0101" or arrow = "1000" else
-                    "0" & WTIME(15 downto 1) when arrow = "0001" else
-                    WTIME;
+  with arrow select
+    next_countdown <=
+    countdown - 1            when "0010" | "0101" | "1000",
+    "0" & WTIME(15 downto 1) when "0001",
+    WTIME                    when others;
 
-  next_letternum <= "000" when arrow = "0100" else
-                    letternum + 1 when arrow = "0110" else
-                    letternum;
+  with arrow select
+    next_letternum <=
+    "000"         when "0100",
+    letternum + 1 when "0110",
+    letternum     when others;
 
   next_recbuf <= t & recbuf(7 downto 1) when arrow = "0110" or arrow = "0111" else
                  recbuf;

@@ -26,10 +26,10 @@ end sram_simulator;
 
 
 architecture flowthrough_sram of sram_simulator is
-  type   t_regf is array (31 downto 0) of std_logic_vector(31 downto 0);
-  signal regf     : t_regf;
-  signal addr_buf : std_logic_vector(4 downto 0);
-  signal we_buf   : std_logic;
+  type   t_regf is array (0 to 31) of std_logic_vector(31 downto 0);
+  signal regf     : t_regf := (others => x"00000000");
+  signal addr_buf : std_logic_vector(4 downto 0) := "00000";
+  signal we_buf   : std_logic := '1';
 
 begin  -- RTL
   latch : process (ZCLKMA(0))
