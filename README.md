@@ -4,12 +4,13 @@ tomorrow
 Codes for CPU experiment
 
 Instructions:
-（算術命令）ADD, SUB, MULT, DIV, ADDI, (MULI?) 
-（ロードストア）LW, SW, MFHI, MFLO,
+（算術命令）ADD, SUB, ADDI 
+（ロードストア）LW, SW, LUI
 （論理）AND, ANDI, OR, ORI, XOR, NOR, SLT 
-（シフト）SLL, SRL, SRA, 
+（シフト）SLL, SRL, SRA
 （ジャンプ系）BEQ, BNE, J, JR, JAL, NOP
-
+ (その他) HALT
+ 
 Psuedo Instructions:
 Mov
 Set
