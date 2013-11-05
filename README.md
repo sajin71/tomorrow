@@ -49,6 +49,6 @@ function field = don't care
 
 11/5 命令セット変更
 
-(+) LUI ... MIPSに準拠   HALT ... 上参照
+(+) LUI ... MIPSに準拠   HALT ... 上参照   SLT ... MIPS準拠
 
 (-) MULT,DIV,MFHI,MFLO
