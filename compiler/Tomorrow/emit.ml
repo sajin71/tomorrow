@@ -221,8 +221,10 @@ and g' oc = function (* Emit assembly of each instruction *)
         g'_args oc [(x, reg_cl)] ys zs;
         let ss = stacksize () in
         Printf.fprintf oc "\tsw\t%s, %d(%s)\n" (reg reg_ra) (ss - 4) (reg reg_sp);
+        Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg reg_sp) (reg reg_sp) ss;
         Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg reg_sw)  0 (reg reg_cl) ;
         Printf.fprintf oc "\tjal\t%s\n" (reg reg_sw);
+        Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg reg_sp) (reg reg_sp) (-ss);
         Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg reg_ra) (ss - 4) (reg reg_sp); 
         (* Printf.fprintf oc "\t#NonTail CallCls\n"; *)
         if List.mem a allregs && a <> regs.(0) then
@@ -234,7 +236,9 @@ and g' oc = function (* Emit assembly of each instruction *)
         g'_args oc [] ys zs;
         let ss = stacksize () in
         Printf.fprintf oc "\tsw\t%s, %d(%s)\n" (reg reg_ra) (ss - 4) (reg reg_sp);
+        Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg reg_sp) (reg reg_sp) ss;
         Printf.fprintf oc "\tjal\t%s\n" x;
+        Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg reg_sp) (reg reg_sp) (-ss);
         Printf.fprintf oc "\tlw\t %s, %d(%s)\n" (reg reg_ra) (ss - 4) (reg reg_sp);
         (* Printf.fprintf oc "\t#NonTail CallDir\n"; *)
         if List.mem a allregs && a <> regs.(0) then
@@ -312,4 +316,4 @@ let f oc (Prog(data, fundefs, e)) =
   stackset := S.empty;
   stackmap := [];
   g oc (NonTail(regs.(0)), e);
-  Printf.fprintf oc "\tjr $r31\n"
+  Printf.fprintf oc "\tjr $31\n"
