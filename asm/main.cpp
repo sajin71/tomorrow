@@ -42,15 +42,17 @@ const tInstR InstR[] = {
 { "DIV",    0x00, 0x1A, 2, {0,1,3}, false },
 { "MFHI",   0x00, 0x10, 1, {3,3,0}, false },
 { "MFLO",   0x00, 0x12, 1, {3,3,0}, false },
-{ "JR",     0x00, 0x03, 1, {0,3,3}, false },
 
 { "MOV" ,   0x00, 0x20, 2, {1,3,0}, false }, //pseudo
 { "MOVE",   0x00, 0x20, 2, {1,3,0}, false }, //pseudo
 
-{ "NOP",    0x00, 0x00, 0, {3,3,3}, false }, //pseudo
-{ "SLL",    0x00, 0x00, 2, {3,1,0}, true },
-{ "SRL",    0x00, 0x02, 2, {3,1,0}, true },
-{ "SRA",    0x00, 0x03, 2, {3,1,0}, true },
+{ "NOP",    0x18, 0x00, 0, {3,3,3}, false }, //pseudo
+{ "SLL",    0x18, 0x00, 2, {3,1,0}, true },
+{ "SRL",    0x18, 0x02, 2, {3,1,0}, true },
+{ "SRA",    0x18, 0x03, 2, {3,1,0}, true },
+
+{ "JR",     0x1B, 0x00, 1, {0,3,3}, false },
+{ "HALT",   0x3c, 0x00, 0, {3,3,3}, false },
 
 // Tommorow extension
 { "OUTPUT", 0x3f, 0x00, 1, {0,1,2} },
