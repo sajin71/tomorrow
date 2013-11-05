@@ -28,3 +28,26 @@ LWは4byteを読み込む（＝コア内に取り込む）が、SWは下位1byte
 
 * コアは、電源投入直後は、終端記号 0xd0000000 を読み込むまでBlockRAMに命令列を読み込んでゆく動作をする（このような動作をするプログラムがBlockRAM上に焼かれている）
 * HALT命令 (opcode = 111100 = 0x3c) を読み込むとCPUは動作を停止する
+
+
+11/5 opcode変更
+シフト系 →
+
+opcode = 011000
+
+function field = MIPS準拠(ここでSLL,SRL,SRAのどれなのか判定する)
+
+
+JR →
+
+opcode = 011011
+
+function field = don't care
+
+
+
+11/5 命令セット変更
+
+(+) lui ... MIPSに準拠
+
+(-) MULT,DIV,MFHI,MFLO
