@@ -9,7 +9,12 @@ Instructions:
 （論理）AND, ANDI, OR, ORI, XOR, NOR, SLT 
 （シフト）SLL, SRL, SRA
 （ジャンプ系）BEQ, BNE, J, JR, JAL, NOP
+ (浮動小数点）FNeg, FAdd, FSub, FMul, FDiv, LWC, C.cond.s、BCT, BCF
  (その他) HALT
+
+ 注）C.cond.SはcondにEQ,NEQ,OLT（lessthan),とかを入れて２つのレジスタ間の比較をし
+ て成立すれば条件レジスタをセットし、そうでない場合はセットしない。
+ 詳しくはMIPSマニュアルを参照してください。（wikipediaは間違っています）
  
 Psuedo Instructions:
 Mov
