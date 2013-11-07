@@ -48,7 +48,7 @@ const tInstR InstR[] = {
 { "MOV" ,   0x00, 0x20, 2, {1,3,0}, false }, //pseudo
 { "MOVE",   0x00, 0x20, 2, {1,3,0}, false }, //pseudo
 
-{ "NOP",    0x18, 0x00, 0, {3,3,3}, false }, //pseudo
+{ "NOP",    0x00, 0x00, 0, {3,3,3}, false },
 { "SLL",    0x18, 0x00, 2, {3,1,0}, true },
 { "SRL",    0x18, 0x02, 2, {3,1,0}, true },
 { "SRA",    0x18, 0x03, 2, {3,1,0}, true },
