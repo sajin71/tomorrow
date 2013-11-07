@@ -1,4 +1,4 @@
-ADDI $2, $zero, 0x2c   # $2...メモリ (BlockRAM) の位置
+ADDI $2, $zero, 0   # $2...メモリ (BlockRAM) の位置
 LUI  $3, 0xD000        # $3...終端記号（比較用） 0xd0000000
 ADDI $4, $zero, 0x4F   # $4に'O'
 SW   $4, -1($zero)     # 'O'出力
@@ -13,4 +13,4 @@ ADDI $2, $2, 4         # ブロックRAMのポインタを進める
 J loop                 # ループ
 
 start:
-nop
+JR $0
