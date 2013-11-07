@@ -133,8 +133,8 @@ and g' oc = function (* Emit assembly of each instruction *)
     | Tail, IfLE(x, y, e1, e2) ->
         let b_else = Id.genid("ble_else") in
         Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg reg_sw) (reg y) 1;
-        Printf.fprintf oc "\tslt\t%s, %s, %s\n" (reg reg_sw) (reg reg_sw) (reg x);
-        Printf.fprintf oc "\tbne\t%s, %s, %s\n" (reg reg_sw) (reg reg_zero) b_else;
+        Printf.fprintf oc "\tslt\t%s, %s, %s\n" (reg reg_sw) (reg x) (reg reg_sw);
+        Printf.fprintf oc "\tbeq\t%s, %s, %s\n" (reg reg_sw) (reg reg_zero) b_else;
         Printf.fprintf oc "\tnop\n";
         let stackset_back = !stackset in
         g oc (Tail, e1);
@@ -143,7 +143,7 @@ and g' oc = function (* Emit assembly of each instruction *)
         g oc (Tail, e2)
     | Tail, IfGE(x, y, e1, e2) ->
         let b_else = Id.genid("bge_else") in
-        Printf.fprintf oc "\tslt\t%s, %s, %s\n" (reg reg_sw) (reg y) (reg x);
+        Printf.fprintf oc "\tslt\t%s, %s, %s\n" (reg reg_sw) (reg x) (reg y);
         Printf.fprintf oc "\tbne\t%s, %s, %s\n" (reg reg_sw) (reg reg_zero) b_else;   
         Printf.fprintf oc "\tnop\n";
         let stackset_back = !stackset in
@@ -173,8 +173,8 @@ and g' oc = function (* Emit assembly of each instruction *)
         let b_else = Id.genid "ble_else" in
         let b_cont = Id.genid "ble_cont" in
         Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg reg_sw) (reg y) 1;
-        Printf.fprintf oc "\tslt\t%s, %s, %s\n" (reg reg_sw) (reg reg_sw) (reg x);
-        Printf.fprintf oc "\tbne\t%s, %s, %s\n" (reg reg_sw) (reg reg_zero) b_else;
+        Printf.fprintf oc "\tslt\t%s, %s, %s\n" (reg reg_sw) (reg x) (reg reg_sw);
+        Printf.fprintf oc "\tbeq\t%s, %s, %s\n" (reg reg_sw) (reg reg_zero) b_else;
         Printf.fprintf oc "\tnop\n";
         let stackset_back = !stackset in
         g oc (NonTail(z), e1);
@@ -190,7 +190,7 @@ and g' oc = function (* Emit assembly of each instruction *)
     | NonTail(z), IfGE(x, y, e1, e2) ->
         let b_else = Id.genid "beq_else" in
         let b_cont = Id.genid "beq_cont" in
-        Printf.fprintf oc "\tslt\t%s, %s, %s\n" (reg reg_sw) (reg y) (reg x);
+        Printf.fprintf oc "\tslt\t%s, %s, %s\n" (reg reg_sw) (reg x) (reg y);
         Printf.fprintf oc "\tbne\t%s, %s, %s\n" (reg reg_zero) (reg reg_sw) b_else;
         Printf.fprintf oc "\tnop\n";
         let stackset_back = !stackset in
@@ -311,7 +311,6 @@ let f oc (Prog(data, fundefs, e)) =
   Printf.fprintf oc "\tjal\tmin_caml_start\n";
   Printf.fprintf oc "\thalt\n";
   List.iter (fun fundef -> h oc fundef) fundefs;
-  Printf.fprintf oc ".global\tmin_caml_start\n";
   Printf.fprintf oc "min_caml_start:\n";
   (*Printf.fprintf oc "\tsave\t%%sp, -112, %%sp\n";*) (* from gcc; why 112? *)
   stackset := S.empty;
