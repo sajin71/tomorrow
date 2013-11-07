@@ -17,7 +17,7 @@ int dprintf(...) { return 0; }
 typedef uint32_t inst_t;
 typedef int16_t imm_t;
 
-const int start_offset = 0x20; // コードがどこから配置されるか？
+const int start_offset = 0xB; // 0x2c bytes コードがどこから配置されるか？
 
 // for VC++
 #ifdef _MSC_VER
@@ -599,8 +599,8 @@ int main(int argc, char *argv[]) {
 				throw std::string("not found");
 			}
 			
-			unsigned int from = state.lplaces[i].pnum + 1;
-			unsigned int to   = (*it).second;
+			unsigned int from = start_offset + state.lplaces[i].pnum + 1;
+			unsigned int to   = start_offset + (*it).second;
 			
 			if ( state.lplaces[i].type == 0 ) {
 			// I形式 branch (PC相対)
@@ -618,11 +618,11 @@ int main(int argc, char *argv[]) {
 				state.dest [ state.lplaces[i].pnum ] |= (to & 0x3FFFFFF);
 			} else if ( state.lplaces[i].type == 2 ) {
 			// 絶対アドレス（上位）
-				int c = to*4 + start_offset;
+				int c = to*4;
 				state.dest [ state.lplaces[i].pnum ] |= ((c>>16) & 0xFFFF);
 			} else if ( state.lplaces[i].type == 3 ) {
 			// 絶対アドレス（下位）
-				int c = to*4 + start_offset;
+				int c = to*4;
 				state.dest [ state.lplaces[i].pnum ] |= (c & 0xFFFF);
 			} else {
 				throw std::string("Unexpected label type");
