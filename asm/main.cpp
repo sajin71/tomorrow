@@ -17,8 +17,6 @@ int dprintf(...) { return 0; }
 typedef uint32_t inst_t;
 typedef int16_t imm_t;
 
-const int start_offset = 0x20; // コードがどこから配置されるか？
-
 // for VC++
 #ifdef _MSC_VER
 	#define strcasecmp stricmp
@@ -48,7 +46,7 @@ const tInstR InstR[] = {
 { "MOV" ,   0x00, 0x20, 2, {1,3,0}, false }, //pseudo
 { "MOVE",   0x00, 0x20, 2, {1,3,0}, false }, //pseudo
 
-{ "NOP",    0x18, 0x00, 0, {3,3,3}, false }, //pseudo
+{ "NOP",    0x00, 0x00, 0, {3,3,3}, false },
 { "SLL",    0x18, 0x00, 2, {3,1,0}, true },
 { "SRL",    0x18, 0x02, 2, {3,1,0}, true },
 { "SRA",    0x18, 0x03, 2, {3,1,0}, true },
@@ -618,11 +616,11 @@ int main(int argc, char *argv[]) {
 				state.dest [ state.lplaces[i].pnum ] |= (to & 0x3FFFFFF);
 			} else if ( state.lplaces[i].type == 2 ) {
 			// 絶対アドレス（上位）
-				int c = to*4 + start_offset;
+				int c = to*4;
 				state.dest [ state.lplaces[i].pnum ] |= ((c>>16) & 0xFFFF);
 			} else if ( state.lplaces[i].type == 3 ) {
 			// 絶対アドレス（下位）
-				int c = to*4 + start_offset;
+				int c = to*4;
 				state.dest [ state.lplaces[i].pnum ] |= (c & 0xFFFF);
 			} else {
 				throw std::string("Unexpected label type");
