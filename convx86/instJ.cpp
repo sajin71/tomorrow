@@ -11,7 +11,7 @@ void tInstJ::tox86(CAsm86Dest* dest, inst_t instLE) const {
 std::string tInstJ::disasm(inst_t instLE) const {
 	inst_t addr = 0x3FFFFFF&instLE;
 	std::stringstream ss;
-	ss << this->mnemonic << " 0x" << std::hex << addr;
+	ss << this->mnemonic << " 0x" << std::hex << ((signed long)addr)*4;
 	
 	return ss.str();
 }

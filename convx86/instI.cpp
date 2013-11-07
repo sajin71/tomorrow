@@ -33,9 +33,9 @@ std::string tInstI::disasm(inst_t instLE) const {
 		}
 		
 		if ( this->type == 0 ) {
-			ss << "0x" << std::hex << imm;
+			ss << imm;
 		} else {
-			ss << ((signed long)imm)*4;
+			ss << "0x" << std::hex << ((signed long)imm)*4;
 		}
 	} else {
 		ss << "$" << (int)regs[1] << ", ";
@@ -301,7 +301,7 @@ const tInstI InstI[] = {
 { "ORI",    0x0D, 2, 0, {1,0}, i_generic},
 { "LW",     0x23, 2, 2, {}   , i_lw},
 { "SW",     0x2B, 2, 2, {}   , i_sw},
-{ "LUI",    0x0F, 2, 0, {2,0}, i_lui},
+{ "LUI",    0x0F, 1, 0, {2,0}, i_lui},
 { "BEQ",    0x04, 2, 1, {0,1}, i_branch},
 { "BNE",    0x05, 2, 1, {0,1}, i_branch},
 
