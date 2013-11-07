@@ -61,7 +61,8 @@ and g' oc = function (* Emit assembly of each instruction *)
     | NonTail(x), Mov(y) when x = y -> ()
     | NonTail(x), Mov(y) -> (* Printf.fprintf oc "\t#NonTail Mov\n"; *)
             Printf.fprintf oc "\tmov\t%s, %s\n" (reg x) (reg y)
-    | NonTail(x), Neg(y) -> Printf.fprintf oc "\tmuli\t%s, %s, %d\n" (reg x) (reg y) (-1)
+    | NonTail(x), Neg(y) -> Printf.fprintf oc "\tsub\t%s, %s, %s\n" (reg x) (reg
+    reg_zero) (reg x)
     | NonTail(x), Add(y, V(z)) -> Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg x) (reg y) (reg z)
     | NonTail(x), Add(y, C(z)) -> Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg x) (reg y) z
     | NonTail(x), Sub(y, z) -> Printf.fprintf oc "\tsub\t%s, %s, %s\n" (reg x) (reg y) (reg z)
