@@ -17,8 +17,6 @@ int dprintf(...) { return 0; }
 typedef uint32_t inst_t;
 typedef int16_t imm_t;
 
-const int start_offset = 0xB; // 0x2c bytes コードがどこから配置されるか？
-
 // for VC++
 #ifdef _MSC_VER
 	#define strcasecmp stricmp
@@ -599,8 +597,8 @@ int main(int argc, char *argv[]) {
 				throw std::string("not found");
 			}
 			
-			unsigned int from = start_offset + state.lplaces[i].pnum + 1;
-			unsigned int to   = start_offset + (*it).second;
+			unsigned int from = state.lplaces[i].pnum + 1;
+			unsigned int to   = (*it).second;
 			
 			if ( state.lplaces[i].type == 0 ) {
 			// I形式 branch (PC相対)
