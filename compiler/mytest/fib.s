@@ -1,7 +1,6 @@
 .section	".rodata"
 .align	8
 .section	".text"
-	lli $29, 1000
 	jal	min_caml_start
 	halt
 min_caml_print_int:
@@ -11,8 +10,8 @@ min_caml_print_int:
 fib.10:
 	lli	$2, 1
 	addi	$27, $2, 1
-	slt	$27, $27, $1
-	bne	$27, $0, ble_else.24
+	slt	$27, $1, $27
+	beq	$27, $0, ble_else.24
 	nop
 	jr $31
 	nop
@@ -41,7 +40,7 @@ ble_else.24:
 	jr $31
 	nop
 min_caml_start:
-	lli	$1, 3
+	lli	$1, 10
 	sw	$31, 4($29)
 	addi	$29, $29, 8
 	jal	fib.10
