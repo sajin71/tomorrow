@@ -631,7 +631,7 @@ int main(int argc, char *argv[]) {
 			
 			
 		} catch ( std::string excepstr ) {
-			std::cerr << "Label Error line " << state.lplaces[i].linenum << " label `" << state.lplaces[0].label << "': " << excepstr << std::endl;
+			std::cerr << "Label Error line " << state.lplaces[i].linenum << " label `" << state.lplaces[i].label << "': " << excepstr << std::endl;
 			return -1;
 		}
 	}
