@@ -17,6 +17,8 @@ int dprintf(...) { return 0; }
 typedef uint32_t inst_t;
 typedef int16_t imm_t;
 
+const int start_offset = 0x20; // コードがどこから配置されるか？
+
 // for VC++
 #ifdef _MSC_VER
 	#define strcasecmp stricmp
@@ -64,9 +66,10 @@ struct tInstI {
 	const char *mnemonic;
 	unsigned char opcode;
 	int opercnt; //オペランドで指定するレジスタの数
-	char type; //即値の形式 0...ふつう 1...PC相対 2...メモリオフセット
+	char type; //即値の形式 0...ふつう 1...PC相対 2...メモリオフセット 3...SET命令（絶対ポインタ）
 	int oporder[2]; //ふつう形式: 0...sに対応するのはアセンブラコードでいうと何番目？ 1...t  (2を指定すると0固定)
 };
+const unsigned char opcode_LUI = 0x0F;
 const tInstI InstI[] = {
 { "ADDI",   0x08, 2, 0, {1,0}},
 { "ANDI",   0x0C, 2, 0, {1,0}},
@@ -74,8 +77,9 @@ const tInstI InstI[] = {
 { "ORI",    0x0D, 2, 0, {1,0}},
 { "LW",     0x23, 2, 2, {}   },
 { "SW",     0x2B, 2, 2, {}   },
-{ "LLI",    0x08, 1, 0, {2,0}}, //pseudo
-{ "LUI",    0x0F, 1, 0, {2,0}},
+{ "SET",    0x0D, 1, 3, {}   }, //pseudo, load absolute address imm. expand 2-ops LUIを別途先に入れておく
+{ "LLI",    0x0D, 1, 0, {2,0}}, //pseudo ORI
+{ "LUI",    opcode_LUI, 1, 0, {2,0}},
 { "BEQ",    0x04, 2, 1, {0,1}},
 { "BNE",    0x05, 2, 1, {0,1}},
 };
@@ -95,7 +99,7 @@ const tInstJ InstJ[] = {
 struct tLabelPoint {
 	unsigned int pnum;
 	std::string label;
-	char type; //0...I 1...J
+	char type; //0...I 1...J 2...即値上位 3...即値下位
 	int linenum;
 };
 
@@ -350,6 +354,52 @@ void proc(char* mnemonic, char* operand, tState *state) {
 				
 				con = (imm_t)str2long(trim(op[1]));
 				rs = numreg(trim(kreg));
+			} else if ( ii->type == 3 ) {
+			// 特殊処理
+			// ラベルによってその位置のアドレス自体を即値代入する
+				if ( opcnt != (ii->opercnt+1) ) {
+					throw std::string("Operand count not match");
+				}
+				rs = 0;
+				rt = numreg(trim(op[0]));
+				con = 0;
+				
+				char *opcon = trim(op[ii->opercnt]);
+				if ( !is_labelhead(opcon[0]) ) {
+					throw std::string("Invalid label identifier `") + std::string(opcon) + std::string("'");
+				}
+				
+				// ラベル位置を登録（上位）
+				tLabelPoint tlpup;
+				tlpup.pnum = state->getPnum();
+				tlpup.label = std::string(opcon);
+				tlpup.type = 2;
+				tlpup.linenum = state->linenum;
+				
+				state->lplaces.push_back(tlpup);
+				
+				
+				// 命令を組み立てて追加（上位）LUIを入れちゃう
+				inst_t inst;
+				inst = (opcode_LUI<<26)
+				     | (rs<<21)
+				     | (rt<<16)
+				     | (con & 0xFFFF);
+				dprintf("0x%x\n", inst);
+			
+				state->dest.push_back(inst);
+				
+				
+				
+				// ラベル位置を登録（下位）
+				tLabelPoint tlp;
+				tlp.pnum = state->getPnum();
+				tlp.label = std::string(opcon);
+				tlp.type = 3;
+				tlp.linenum = state->linenum;
+				
+				state->lplaces.push_back(tlp);
+				
 			} else {
 			// 0...最後のオペランドが定数になってるふつう形式
 			// 1...PC相対（ラベルかも？）
@@ -560,12 +610,22 @@ int main(int argc, char *argv[]) {
 				}
 				
 				state.dest [ state.lplaces[i].pnum ] |= (c & 0xFFFF);
-			} else {
+			} else if ( state.lplaces[i].type == 1 ) {
 			// J形式 jump
 				if ( (from&0xFC000000) != (to&0xFC000000) ) {
 					throw std::string("jump different segment");
 				}
 				state.dest [ state.lplaces[i].pnum ] |= (to & 0x3FFFFFF);
+			} else if ( state.lplaces[i].type == 2 ) {
+			// 絶対アドレス（上位）
+				int c = to*4 + start_offset;
+				state.dest [ state.lplaces[i].pnum ] |= ((c>>16) & 0xFFFF);
+			} else if ( state.lplaces[i].type == 3 ) {
+			// 絶対アドレス（下位）
+				int c = to*4 + start_offset;
+				state.dest [ state.lplaces[i].pnum ] |= (c & 0xFFFF);
+			} else {
+				throw std::string("Unexpected label type");
 			}
 			
 			
