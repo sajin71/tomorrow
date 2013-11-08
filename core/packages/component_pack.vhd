@@ -33,7 +33,7 @@ package component_pack is
   end component;
 
   signal aluzero    : std_logic;
-  signal pc         : std_logic_vector(31 downto 0) := x"00000000";
+  signal pc         : std_logic_vector(31 downto 0) := x"00007ff4";
   signal write_addr : std_logic_vector(4 downto 0);
   signal write_data : std_logic_vector(31 downto 0);
   signal read_data1 : std_logic_vector(31 downto 0);

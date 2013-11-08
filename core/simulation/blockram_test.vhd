@@ -21,20 +21,20 @@ end blockram;
 
 
 architecture RTL of blockram is
-  type   t_ram is array (0 to (2 ** BRAMBW)-1) of std_logic_vector(31 downto 0);
+  type   t_ram is array ((2 ** BRAMBW)-1 downto 0) of std_logic_vector(31 downto 0);
   signal ram : t_ram :=
-    (x"2001000a",
-     x"20020001",
-     x"20030001",
-     x"20040001",
-     x"20050001",
-     x"00432020",
-     x"00601020",
-     x"00801820",
-     x"20a50001",
-     x"14a1fffb",
+    (x"6c000000",
+     x"1000fffb",
+     x"20420004",
+     x"ac440000",
+     x"10830003",
+     x"8c04ffff",
      x"ac04ffff",
-     x"f0000000",
+     x"2004004b",
+     x"ac04ffff",
+     x"2004004f",
+     x"3c03d000",
+     x"20020000",
      others => x"00000000");
 
   signal reg_addra : std_logic_vector(BRAMBW-1 downto 0) := (others => '0');
