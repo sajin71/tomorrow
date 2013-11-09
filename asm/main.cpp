@@ -106,7 +106,7 @@ struct tLabelPoint {
 struct tState {
 	int linenum;
 	std::vector<inst_t> dest;
-	std::string nextlabel;
+	std::vector<std::string> nextlabels;
 	
 	std::map<std::string, int> labels;
 	std::vector<tLabelPoint> lplaces;
@@ -243,15 +243,11 @@ void proc(char* mnemonic, char* operand, tState *state) {
 			throw std::string("Invalid label name");
 		}
 		
-		if ( !state->nextlabel.empty() ) {
-			throw std::string("double label not allowed");
-		}
-		
 		if ( state->labels.find(label) != state->labels.end() ) {
 			throw std::string("label `") + label + std::string("' has previous declaration");
 		}
 		
-		state->nextlabel = label;
+		state->nextlabels.push_back( std::string(label) );
 		
 		dprintf("LABEL %s\n", label);
 		return;
@@ -260,9 +256,11 @@ void proc(char* mnemonic, char* operand, tState *state) {
 	dprintf("%s\n", mnemonic);
 	
 	// ラベルを登録する
-	if ( !state->nextlabel.empty() ) {
-		state->labels.insert( std::map<std::string, int>::value_type( state->nextlabel, state->getPnum() ) );
-		state->nextlabel = "";
+	if ( !state->nextlabels.empty() ) {
+		for(unsigned int i=0; i < state->nextlabels.size(); i++ ) {
+			state->labels.insert( std::map<std::string, int>::value_type( state->nextlabels[i], state->getPnum() ) );
+		}
+		state->nextlabels.clear();
 	}
 	
 	
