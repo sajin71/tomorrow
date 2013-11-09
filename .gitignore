@@ -21,6 +21,10 @@ compiler/shootout/Makefile
 compiler/bytemark/Makefile
 compiler/min-rt/globals.s
 compiler/test/*.s
+compiler/test/*.bin
+compiler/test/*.ans
+compiler/test/*.res
+compiler/test/*.cmp
 compiler/._bcdi
 compiler/._d
 

@@ -57,7 +57,7 @@ and g' oc = function (* Emit assembly of each instruction *)
     (* Set result to dest if not tail *)
     | NonTail(_), Nop -> ()
     | NonTail(x), Set(i) -> Printf.fprintf oc "\tlli\t%s, %d\n" (reg x) i
-    | NonTail(x), SetL(Id.L(y)) -> Printf.fprintf oc "\tset\t%s, %s\n" (reg y) (reg x)
+    | NonTail(x), SetL(Id.L(y)) -> Printf.fprintf oc "\tset\t%s, %s\n" (reg x) (reg y)
     | NonTail(x), Mov(y) when x = y -> ()
     | NonTail(x), Mov(y) -> (* Printf.fprintf oc "\t#NonTail Mov\n"; *)
             Printf.fprintf oc "\tmov\t%s, %s\n" (reg x) (reg y)
@@ -212,7 +212,7 @@ and g' oc = function (* Emit assembly of each instruction *)
     | Tail, CallCls(x, ys, zs) -> (* call at tail *)
         g'_args oc [(x, reg_cl)] ys zs;
         Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg reg_sw) 0 (reg reg_cl);
-        Printf.fprintf oc "\tj\t%s\n" (reg reg_sw);
+        Printf.fprintf oc "\tjr\t%s\n" (reg reg_sw);
         Printf.fprintf oc "\tnop\n"
     | Tail, CallDir(Id.L(x), ys, zs) -> (* call at tail *)
         g'_args oc [] ys zs;
@@ -224,12 +224,13 @@ and g' oc = function (* Emit assembly of each instruction *)
         Printf.fprintf oc "\tsw\t%s, %d(%s)\n" (reg reg_ra) (ss - 4) (reg reg_sp);
         Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg reg_sp) (reg reg_sp) ss;
         Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg reg_sw)  0 (reg reg_cl) ;
-        Printf.fprintf oc "\tjal\t%s\n" (reg reg_sw);
+        Printf.fprintf oc "\tjr\t%s\n" (reg reg_sw);
+        Printf.fprintf oc "\tnop\n";
         Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg reg_sp) (reg reg_sp) (-ss);
         Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg reg_ra) (ss - 4) (reg reg_sp); 
         (* Printf.fprintf oc "\t#NonTail CallCls\n"; *)
         if List.mem a allregs && a <> regs.(0) then
-            Printf.fprintf oc "\tmov\t%s, %s\n" a regs.(0)
+            Printf.fprintf oc "\tmov\t%s, %s\n" (reg a) (reg regs.(0))
         else if List.mem a allfregs && a <> fregs.(0) then
             (Printf.fprintf oc "\tfmov\t%s, %s\n" a fregs.(0);
             Printf.fprintf oc "\tfmov\t%s, %s\n" (co_freg a) (co_freg fregs.(0)))
@@ -239,11 +240,12 @@ and g' oc = function (* Emit assembly of each instruction *)
         Printf.fprintf oc "\tsw\t%s, %d(%s)\n" (reg reg_ra) (ss - 4) (reg reg_sp);
         Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg reg_sp) (reg reg_sp) ss;
         Printf.fprintf oc "\tjal\t%s\n" x;
+        Printf.fprintf oc "\tnop\n";
         Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg reg_sp) (reg reg_sp) (-ss);
         Printf.fprintf oc "\tlw\t %s, %d(%s)\n" (reg reg_ra) (ss - 4) (reg reg_sp);
         (* Printf.fprintf oc "\t#NonTail CallDir\n"; *)
         if List.mem a allregs && a <> regs.(0) then
-            Printf.fprintf oc "\tmov\t%s, %s\n" a regs.(0)
+            Printf.fprintf oc "\tmov\t%s, %s\n" (reg a) (reg regs.(0))
         else if List.mem a allfregs && a <> fregs.(0) then
             (Printf.fprintf oc "\tfmov\t%s, %s\n" a fregs.(0);
             Printf.fprintf oc "\tfmov\t%s, %s\n" (co_freg a) (co_freg fregs.(0)))
@@ -308,8 +310,8 @@ let f oc (Prog(data, fundefs, e)) =
       Printf.fprintf oc "\t.long\t0x%lx\n" (getlo d))
     data;
   Printf.fprintf oc ".section\t\".text\"\n";
-  Printf.fprintf oc "\tjal\tmin_caml_start\n";
-  Printf.fprintf oc "\thalt\n";
+(*  Printf.fprintf oc "\tjal\tmin_caml_start\n";
+  Printf.fprintf oc "\thalt\n"; *)
   List.iter (fun fundef -> h oc fundef) fundefs;
   Printf.fprintf oc "min_caml_start:\n";
   (*Printf.fprintf oc "\tsave\t%%sp, -112, %%sp\n";*) (* from gcc; why 112? *)

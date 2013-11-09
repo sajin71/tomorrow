@@ -257,7 +257,7 @@ static void r_nop(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsi
 
 static void r_halt(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsigned char shift) {
 	//TODO
-	dest->Emit(0xCC);
+	dest->Emit(0xC3);
 }
 
 
