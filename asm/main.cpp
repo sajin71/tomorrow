@@ -409,18 +409,23 @@ void proc(char* mnemonic, char* operand, tState *state) {
 				char *opcon = trim(op[ii->opercnt]);
 				long longimm = str2long(opcon);
 				
-				// 命令を組み立てて追加（上位）LUIを入れちゃう
-				inst_t inst;
-				inst = (opcode_LUI<<26)
-				     | (rs<<21)
-				     | (rt<<16)
-				     | ((longimm>>16) & 0xFFFF);
-				dprintf("0x%x\n", inst);
-			
-				state->dest.push_back(inst);
+				imm_t upimm = (imm_t)((longimm>>16) & 0xFFFF);
 				
-				// ORI $rs, $rs, [下位] で下位を入れる
-				rs = rt;
+				if ( upimm != 0 ) {
+					// 命令を組み立てて追加（上位）LUIを入れちゃう
+					inst_t inst;
+					inst = (opcode_LUI<<26)
+					     | (rs<<21)
+					     | (rt<<16)
+					     | (upimm & 0xFFFF);
+					dprintf("0x%x\n", inst);
+				
+					state->dest.push_back(inst);
+					
+					// ORI $rs, $rs, [下位] で下位を入れる
+					rs = rt;
+				}
+				
 				con = (imm_t)(longimm&0xFFFF);
 			} else {
 			// 0...最後のオペランドが定数になってるふつう形式
