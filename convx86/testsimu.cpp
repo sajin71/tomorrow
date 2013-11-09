@@ -80,8 +80,7 @@ int main(void) {
 	std::copy(dest.code.begin(), dest.code.end(), insts);
 	
 	DWORD *mem = (DWORD*)malloc( sizeof(DWORD) * 0x100000 );
-	//mem_offset = ((DWORD)mem) - 0x80000000;
-	mem_offset = ((DWORD)mem); //とりあえずBlockRAM上でやることにします
+	mem_offset = ((DWORD)mem) - 0x80000000;
 	
 	DWORD *pos_raw = (DWORD*)malloc( sizeof(DWORD) * (dest.pos.size()+10) );
 	pos = pos_raw + 2;

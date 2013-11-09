@@ -37,7 +37,7 @@ foreach ( $tests as $t ) {
 	succ();
 		
 	$remain--;
-	system("cat {$gitroot}asm/asm_header.s {$testdir}{$t}.s | {$gitroot}asm/asm /dev/stdin {$testdir}{$t}.bin", $ret);
+	system("{$gitroot}asm/asm {$testdir}{$t}.s  {$testdir}{$t}.bin", $ret);
 	if ( $ret != 0 ) {
 		fail($remain);
 		continue;
