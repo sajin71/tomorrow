@@ -317,9 +317,15 @@ let f oc (Prog(data, fundefs, e)) =
       Printf.fprintf oc "\t.long\t0x%lx\n" (getlo d))
     data;
   Printf.fprintf oc ".section\t\".text\"\n";
+  Printf.fprintf oc "\tlui\t$29, 0x8000\n";
   Printf.fprintf oc "\tjal\tmin_caml_start\n";
   Printf.fprintf oc "\tnop\n";
   Printf.fprintf oc "\thalt\n";
+  (*emitting print_int*)
+  Printf.fprintf oc "min_caml_print_int:\n";
+  Printf.fprintf oc "\tsw\t$1, -1($0)\n";
+  Printf.fprintf oc "\tjr\t$31\n";
+
   List.iter (fun fundef -> h oc fundef) fundefs;
   Printf.fprintf oc "min_caml_start:\n";
   (*Printf.fprintf oc "\tsave\t%%sp, -112, %%sp\n";*) (* from gcc; why 112? *)
