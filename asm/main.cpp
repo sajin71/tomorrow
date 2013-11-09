@@ -76,7 +76,8 @@ const tInstI InstI[] = {
 { "ORI",    0x0D, 2, 0, {1,0}},
 { "LW",     0x23, 2, 2, {}   },
 { "SW",     0x2B, 2, 2, {}   },
-{ "SET",    0x0D, 1, 3, {}   }, //pseudo, load absolute address imm. expand 2-ops LUIを別途先に入れておく
+{ "SETL",   0x0D, 1, 3, {}   }, //pseudo, load absolute address imm. expand 2-ops LUIを別途先に入れておく
+{ "SET",    0x0D, 1, 4, {}   }, //pseudo, load 32bit imm. expand 2-ops LUIを別途先に入れておく
 { "LLI",    0x0D, 1, 0, {2,0}}, //pseudo ORI
 { "LUI",    opcode_LUI, 1, 0, {2,0}},
 { "BEQ",    0x04, 2, 1, {0,1}},
@@ -106,7 +107,7 @@ struct tLabelPoint {
 struct tState {
 	int linenum;
 	std::vector<inst_t> dest;
-	std::string nextlabel;
+	std::vector<std::string> nextlabels;
 	
 	std::map<std::string, int> labels;
 	std::vector<tLabelPoint> lplaces;
@@ -243,15 +244,11 @@ void proc(char* mnemonic, char* operand, tState *state) {
 			throw std::string("Invalid label name");
 		}
 		
-		if ( !state->nextlabel.empty() ) {
-			throw std::string("double label not allowed");
-		}
-		
 		if ( state->labels.find(label) != state->labels.end() ) {
 			throw std::string("label `") + label + std::string("' has previous declaration");
 		}
 		
-		state->nextlabel = label;
+		state->nextlabels.push_back( std::string(label) );
 		
 		dprintf("LABEL %s\n", label);
 		return;
@@ -260,9 +257,11 @@ void proc(char* mnemonic, char* operand, tState *state) {
 	dprintf("%s\n", mnemonic);
 	
 	// ラベルを登録する
-	if ( !state->nextlabel.empty() ) {
-		state->labels.insert( std::map<std::string, int>::value_type( state->nextlabel, state->getPnum() ) );
-		state->nextlabel = "";
+	if ( !state->nextlabels.empty() ) {
+		for(unsigned int i=0; i < state->nextlabels.size(); i++ ) {
+			state->labels.insert( std::map<std::string, int>::value_type( state->nextlabels[i], state->getPnum() ) );
+		}
+		state->nextlabels.clear();
 	}
 	
 	
@@ -398,7 +397,31 @@ void proc(char* mnemonic, char* operand, tState *state) {
 				tlp.linenum = state->linenum;
 				
 				state->lplaces.push_back(tlp);
+			} else if ( ii->type == 4 ) {
+			// 特殊処理
+			// 32ビットの即値を2命令で代入する
+				if ( opcnt != (ii->opercnt+1) ) {
+					throw std::string("Operand count not match");
+				}
+				rs = 0;
+				rt = numreg(trim(op[0]));
 				
+				char *opcon = trim(op[ii->opercnt]);
+				long longimm = str2long(opcon);
+				
+				// 命令を組み立てて追加（上位）LUIを入れちゃう
+				inst_t inst;
+				inst = (opcode_LUI<<26)
+				     | (rs<<21)
+				     | (rt<<16)
+				     | ((longimm>>16) & 0xFFFF);
+				dprintf("0x%x\n", inst);
+			
+				state->dest.push_back(inst);
+				
+				// ORI $rs, $rs, [下位] で下位を入れる
+				rs = rt;
+				con = (imm_t)(longimm&0xFFFF);
 			} else {
 			// 0...最後のオペランドが定数になってるふつう形式
 			// 1...PC相対（ラベルかも？）
@@ -540,19 +563,19 @@ int main(int argc, char *argv[]) {
 	
 	if ( argc == 3 ) {
 		outfile = argv[2];
-	} else if ( argc == 2 ) {
-	} else if ( argc == 1 ) {
-		
+	}
+	if ( argc >= 2 ) {
 		ifp = fopen(argv[1], "r");
 		if ( ifp == NULL ) {
 			fprintf(stderr, "input error\n");
 			return 1;
 		}
-		
-	} else {
+	}
+	/* else {
 		fprintf(stderr, "Usage: %s [input asm [output bin]]\n", argv[0]);
 		return 1;
 	}
+	*/
 	
 	tState state;
 	state.linenum = 0;
