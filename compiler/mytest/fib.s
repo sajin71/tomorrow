@@ -1,6 +1,7 @@
 .section	".rodata"
 .align	8
 .section	".text"
+	lui	$29, 0x8000
 	jal	min_caml_start
 	nop
 	halt
