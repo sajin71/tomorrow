@@ -13,6 +13,7 @@ public:
 	std::vector<unsigned char> code;
 	std::vector<unsigned int> pos;  //MIPSの命令がどこに対応するか？
 	std::vector<std::pair<unsigned int, unsigned int> > jumpto; //first: x86上  second:MIPS上
+	unsigned char halt;
 	
 	void Emit(unsigned char inst86);
 	
@@ -28,5 +29,9 @@ public:
 	void EmitModRMexr(char op, X86REG reg) { EmitModRMr2r( (X86REG)op, reg ); }
 	void EmitModRMexdisp(char op, X86REG base, disp_t disp) { EmitModRMdisp( (X86REG)op, base, disp ); }
 	
+	
+	CAsm86Dest() {
+		halt = 0xCC;
+	}
 };
 
