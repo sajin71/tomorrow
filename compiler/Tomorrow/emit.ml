@@ -56,8 +56,8 @@ let rec g oc = function (* Emit assembly of instructions *)
 and g' oc = function (* Emit assembly of each instruction *)
     (* Set result to dest if not tail *)
     | NonTail(_), Nop -> ()
-    | NonTail(x), Set(i) -> Printf.fprintf oc "\tlli\t%s, %d\n" (reg x) i
-    | NonTail(x), SetL(Id.L(y)) -> Printf.fprintf oc "\tset\t%s, %s\n" (reg x) (reg y)
+    | NonTail(x), Set(i) -> Printf.fprintf oc "\tset\t%s, %d\n" (reg x) i
+    | NonTail(x), SetL(Id.L(y)) -> Printf.fprintf oc "\tsetl\t%s, %s\n" (reg x) (reg y)
     | NonTail(x), Mov(y) when x = y -> ()
     | NonTail(x), Mov(y) -> (* Printf.fprintf oc "\t#NonTail Mov\n"; *)
             Printf.fprintf oc "\tmov\t%s, %s\n" (reg x) (reg y)
@@ -224,7 +224,8 @@ and g' oc = function (* Emit assembly of each instruction *)
         Printf.fprintf oc "\tsw\t%s, %d(%s)\n" (reg reg_ra) (ss - 4) (reg reg_sp);
         Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg reg_sp) (reg reg_sp) ss;
         Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg reg_sw)  0 (reg reg_cl) ;
-        Printf.fprintf oc "\tjr\t%s\n" (reg reg_sw);
+(* クロージャには間接ジャンプする       Printf.fprintf oc "\tj\t%s\n" (reg reg_sw); *)
+        Printf.fprintf oc "\tjal\tclosure_indirect\n";
         Printf.fprintf oc "\tnop\n";
         Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg reg_sp) (reg reg_sp) (-ss);
         Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg reg_ra) (ss - 4) (reg reg_sp); 
