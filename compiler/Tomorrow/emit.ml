@@ -319,6 +319,7 @@ let f oc (Prog(data, fundefs, e)) =
     data;
   Printf.fprintf oc ".section\t\".text\"\n";
   Printf.fprintf oc "\tlui\t$29, 0x8000\n";
+  Printf.fprintf oc "\tlui\t$30, 0x8001\n";
   Printf.fprintf oc "\tjal\tmin_caml_start\n";
   Printf.fprintf oc "\tnop\n";
   Printf.fprintf oc "\thalt\n";
@@ -327,6 +328,9 @@ let f oc (Prog(data, fundefs, e)) =
   Printf.fprintf oc "min_caml_print_char:\n";
   Printf.fprintf oc "\tsw\t$1, -1($0)\n";
   Printf.fprintf oc "\tjr\t$31\n";
+
+  Printf.fprintf oc "closure_indirect:\n";
+  Printf.fprintf oc "\tjr\t$27\n";
 
   List.iter (fun fundef -> h oc fundef) fundefs;
   Printf.fprintf oc "min_caml_start:\n";
