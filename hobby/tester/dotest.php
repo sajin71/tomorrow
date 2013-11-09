@@ -8,7 +8,12 @@ $tests = array( "print", "sum-tail", "gcd", "sum", "fib", "ack", "even-odd", "ad
 $gitroot = '../../';
 $testdir = $gitroot . 'compiler/test/';
 
+$testall = 0;
+$testok = 0;
+
 foreach ( $tests as $t ) {
+	
+	$testall++;
 	
 	$remain = 5;
 	
@@ -55,8 +60,11 @@ foreach ( $tests as $t ) {
 	}
 	succ();
 	
+	$testok++;
 	echo "</tr>\n";
 }
+
+echo "\n</table>\n\n<p>Test Suceeded: {$testok}/{$testall}</p>\n";
 
 function succ() {
 	echo '<td bgcolor="	#33ff33">OK</td>';
