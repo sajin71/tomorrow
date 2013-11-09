@@ -323,6 +323,7 @@ let f oc (Prog(data, fundefs, e)) =
   Printf.fprintf oc "\thalt\n";
   (*emitting print_int*)
   Printf.fprintf oc "min_caml_print_int:\n";
+  Printf.fprintf oc "min_caml_print_char:\n";
   Printf.fprintf oc "\tsw\t$1, -1($0)\n";
   Printf.fprintf oc "\tjr\t$31\n";
 
