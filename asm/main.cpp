@@ -15,6 +15,7 @@
 int dprintf(...) { return 0; }
 
 typedef uint32_t inst_t;
+typedef uint32_t addr_t;
 typedef int16_t imm_t;
 
 // for VC++
@@ -535,18 +536,22 @@ void procline(char *str, tState *state) {
 int main(int argc, char *argv[]) {
 	
 	const char *outfile = "a.bin";
+	FILE *ifp = stdin;
+	
 	if ( argc == 3 ) {
 		outfile = argv[2];
 	} else if ( argc == 2 ) {
+	} else if ( argc == 1 ) {
+		
+		ifp = fopen(argv[1], "r");
+		if ( ifp == NULL ) {
+			fprintf(stderr, "input error\n");
+			return 1;
+		}
+		
 	} else {
-		fprintf(stderr, "Usage: %s <input asm> [output bin]\n", argv[0]);
+		fprintf(stderr, "Usage: %s [input asm [output bin]]\n", argv[0]);
 		return 1;
-	}
-
-	FILE *ifp = fopen(argv[1], "r");
-	if ( ifp == NULL ) {
-		fprintf(stderr, "input error\n");
-		return -1;
 	}
 	
 	tState state;
@@ -581,11 +586,13 @@ int main(int argc, char *argv[]) {
 		} catch ( std::string excepstr ) {
 			std::cerr << "Error line " << state.linenum << ": " << excepstr << std::endl;
 			fclose(ifp);
-			return -1;
+			return 1;
 		}
 	}
 	
-	fclose(ifp);
+	if ( ifp != stdin ) {
+		fclose(ifp);
+	}
 	
 	
 	// ラベルの解決
@@ -630,7 +637,7 @@ int main(int argc, char *argv[]) {
 			
 		} catch ( std::string excepstr ) {
 			std::cerr << "Label Error line " << state.lplaces[i].linenum << " label `" << state.lplaces[i].label << "': " << excepstr << std::endl;
-			return -1;
+			return 1;
 		}
 	}
 	
@@ -654,5 +661,7 @@ int main(int argc, char *argv[]) {
 		fwrite(&b.b[0], 1, 1, ofp);
 	}
 	fclose(ofp);
+	
+	return 0;
 
 }
