@@ -7,3 +7,6 @@ halt
 min_caml_print_int:
 sw $1, -1($zero)
 jr $31
+
+closure_indirect:
+jr $27
