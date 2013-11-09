@@ -36,6 +36,7 @@ int main(void) {
 	FILE *ifp = stdin;//fopen("/dev/stdin", "rb");
 	
 	CAsm86Dest dest;
+	dest.halt = 0xC3; //RET
 	
 	union {
 		inst_t inst;
@@ -79,7 +80,8 @@ int main(void) {
 	std::copy(dest.code.begin(), dest.code.end(), insts);
 	
 	DWORD *mem = (DWORD*)malloc( sizeof(DWORD) * 0x100000 );
-	mem_offset = ((DWORD)mem) - 0x80000000;
+	//mem_offset = ((DWORD)mem) - 0x80000000;
+	mem_offset = ((DWORD)mem); //とりあえずBlockRAM上でやることにします
 	
 	DWORD *pos_raw = (DWORD*)malloc( sizeof(DWORD) * (dest.pos.size()+10) );
 	pos = pos_raw + 2;
