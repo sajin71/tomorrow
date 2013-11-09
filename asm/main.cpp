@@ -563,19 +563,19 @@ int main(int argc, char *argv[]) {
 	
 	if ( argc == 3 ) {
 		outfile = argv[2];
-	} else if ( argc == 2 ) {
-	} else if ( argc == 1 ) {
-		
+	}
+	if ( argc >= 2 ) {
 		ifp = fopen(argv[1], "r");
 		if ( ifp == NULL ) {
 			fprintf(stderr, "input error\n");
 			return 1;
 		}
-		
-	} else {
+	}
+	/* else {
 		fprintf(stderr, "Usage: %s [input asm [output bin]]\n", argv[0]);
 		return 1;
 	}
+	*/
 	
 	tState state;
 	state.linenum = 0;
