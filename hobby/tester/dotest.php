@@ -64,7 +64,7 @@ foreach ( $tests as $t ) {
 	echo "</tr>\n";
 }
 
-echo "\n</table>\n\n<p>Test Suceeded: {$testok}/{$testall}</p>\n";
+echo "\n</table>\n\n<p>Test Succeeded: {$testok}/{$testall}</p>\n";
 
 function succ() {
 	echo '<td bgcolor="	#33ff33">OK</td>';
