@@ -12,10 +12,10 @@ entity datapath is
     PCWriteNC   : in std_logic;
     PCWriteCond : in std_logic;
     PCWrite     : in std_logic;
-    MemtoReg    : in std_logic;
+    MemtoReg    : in std_logic_vector(1 downto 0);
     RegDst      : in std_logic_vector(1 downto 0);
     RegWrite    : in std_logic;
-    ALUSrcA     : in std_logic;
+    ALUSrcA     : in std_logic_vector(1 downto 0);
     ALUSrcB     : in std_logic_vector(1 downto 0);
     ALUOp       : in ALU_CTRL;
     PCSource    : in std_logic_vector(1 downto 0);
@@ -33,7 +33,7 @@ end datapath;
 architecture RTL of datapath is
 begin  -- RTL
 
-  pc_latch: process (CLK)
+  pc_latch : process (CLK)
   begin  -- process pc_latch
     if rising_edge(CLK) then
       if pccont = '1' then
@@ -60,7 +60,7 @@ begin  -- RTL
       DATA_OUT => data_out,
       OPER     => oper);
 
-  aluout_latch: process (CLK)
+  aluout_latch : process (CLK)
   begin  -- process aluout_latch
     if rising_edge(CLK) then
       aluout <= data_out;
@@ -79,24 +79,37 @@ begin  -- RTL
 
   pccont <= (aluzero and PCWriteCond) or PCWrite or ((not aluzero) and PCWriteNC);
 
-  write_addr <= IR(20 downto 16) when RegDst = "00" else
-                IR(15 downto 11) when RegDst = "01" else
-                "11111";
+  with RegDst select
+    write_addr <=
+    IR(20 downto 16) when "00",
+    IR(15 downto 11) when "01",
+    "11111"          when others;
 
-  write_data <= aluout when MemtoReg = '0' else
-                MDR;
+  with MemtoReg select
+    write_data <=
+    aluout                    when "00",
+    MDR                       when "01",
+    IR(15 downto 0) & x"0000" when others;
 
-  data_in1 <= pc when ALUSrcA = '0' else
-              read_data1;
+  with ALUSrcA select
+    data_in1 <=
+    pc                                     when "00",
+    read_data1                             when "01",
+    (26 downto 0 => '0') & IR(10 downto 6) when others;
 
-  data_in2 <= read_data2 when ALUSrcB = "00" else
-              (2 => '1', others => '0') when ALUSrcB = "01" else
-              (15 downto 0 => IR(15)) & IR(15 downto 0) when ALUSrcB = "10" else
-              (13 downto 0 => IR(15)) & IR(15 downto 0) & "00";
+  with ALUSrcB select
+    data_in2 <=
+    read_data2                                       when "00",
+    (2           => '1', others => '0')              when "01",
+    (15 downto 0 => IR(15)) & IR(15 downto 0)        when "10",
+    (13 downto 0 => IR(15)) & IR(15 downto 0) & "00" when others;
 
-  next_pc <= data_out when PCSource = "00" else
-             aluout when PCSource = "01" else
-             pc(31 downto 28) & IR(25 downto 0) & "00";
+  with PCSource select
+    next_pc <=
+    data_out                                  when "00",
+    aluout                                    when "01",
+    pc(31 downto 28) & IR(25 downto 0) & "00" when "10",
+    read_data1                                when others;
 
   PC_OUT <= pc;
 
