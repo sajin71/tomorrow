@@ -16,11 +16,11 @@ entity controller is
     PCWrite     : out std_logic;
     MemRead     : out std_logic;
     MemWrite    : out std_logic;
-    MemtoReg    : out std_logic;
+    MemtoReg    : out std_logic_vector(1 downto 0);
     IRWrite     : out std_logic;
     RegDst      : out std_logic_vector(1 downto 0);
     RegWrite    : out std_logic;
-    ALUSrcA     : out std_logic;
+    ALUSrcA     : out std_logic_vector(1 downto 0);
     ALUSrcB     : out std_logic_vector(1 downto 0);
     ALUOp       : out ALU_CTRL;
     PCSource    : out std_logic_vector(1 downto 0)
@@ -53,6 +53,10 @@ begin  -- RTL
     EX_BNE  when phase = DECODE and OP = BNE                          else
     EX_JAL  when phase = DECODE and OP = JAL                          else
     WB_JAL  when phase = EX_JAL                                       else
+    EX_SFT  when phase = DECODE and OP = SFT                          else
+    WB_SFT  when phase = EX_SFT                                       else
+    EX_JR   when phase = DECODE and OP = JR                           else
+    WB_LUI  when phase = DECODE and OP = LUI                          else
     HALT    when (phase = DECODE and OP = HLT) or phase = HALT        else
     FETCH;
   

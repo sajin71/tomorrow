@@ -12,10 +12,10 @@ package top_pack is
       PCWriteNC   : in std_logic;
       PCWriteCond : in std_logic;
       PCWrite     : in std_logic;
-      MemtoReg    : in std_logic;
+      MemtoReg    : in std_logic_vector(1 downto 0);
       RegDst      : in std_logic_vector(1 downto 0);
       RegWrite    : in std_logic;
-      ALUSrcA     : in std_logic;
+      ALUSrcA     : in std_logic_vector(1 downto 0);
       ALUSrcB     : in std_logic_vector(1 downto 0);
       ALUOp       : in ALU_CTRL;
       PCSource    : in std_logic_vector(1 downto 0);
@@ -38,11 +38,11 @@ package top_pack is
       PCWrite     : out std_logic;
       MemRead     : out std_logic;
       MemWrite    : out std_logic;
-      MemtoReg    : out std_logic;
+      MemtoReg    : out std_logic_vector(1 downto 0);
       IRWrite     : out std_logic;
       RegDst      : out std_logic_vector(1 downto 0);
       RegWrite    : out std_logic;
-      ALUSrcA     : out std_logic;
+      ALUSrcA     : out std_logic_vector(1 downto 0);
       ALUSrcB     : out std_logic_vector(1 downto 0);
       ALUOp       : out ALU_CTRL;
       PCSource    : out std_logic_vector(1 downto 0)
@@ -81,11 +81,11 @@ package top_pack is
   signal PCWrite     : std_logic;
   signal MemRead     : std_logic;
   signal MemWrite    : std_logic;
-  signal MemtoReg    : std_logic;
+  signal MemtoReg    : std_logic_vector(1 downto 0);
   signal IRWrite     : std_logic;
   signal RegDst      : std_logic_vector(1 downto 0);
   signal RegWrite    : std_logic;
-  signal ALUSrcA     : std_logic;
+  signal ALUSrcA     : std_logic_vector(1 downto 0);
   signal ALUSrcB     : std_logic_vector(1 downto 0);
   signal ALUOp       : ALU_CTRL;
   signal PCSource    : std_logic_vector(1 downto 0);
