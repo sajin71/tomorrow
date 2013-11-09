@@ -8,7 +8,7 @@ NCSUFFIX = .opt
 CC = gcc
 CFLAGS = -g -O2 -Wall
 
-default: debug-code top $(RESULT) do_test
+default: debug-code top $(RESULT) compile_test do_test
 $(RESULT): debug-code top
 ## [自分（住井）用の注]
 ## ・OCamlMakefileや古いGNU Makeのバグ(?)で上のような定義が必要(??)
@@ -31,19 +31,20 @@ TESTS = print sum-tail gcd sum fib ack even-odd \
 adder funcomp cls-rec cls-bug cls-bug2 \
 shuffle spill spill2 spill3 join-stack join-stack2 join-stack3 \
 join-reg join-reg2 non-tail-if non-tail-if2 \
-inprod inprod-rec inprod-loop matmul matmul-flat
+inprod inprod-rec  matmul matmul-flat #inprod-loop
 
+compile_test: $(TESTS:%=test/%.s)
 do_test: $(TESTS:%=test/%.cmp)
 
-.PRECIOUS: test/%.s test/% test/%.res test/%.ans test/%.cmp
+.PRECIOUS: test/%.s test/%.bin test/%.res test/%.ans test/%.cmp
 TRASH = $(TESTS:%=test/%.s) $(TESTS:%=test/%) $(TESTS:%=test/%.res) $(TESTS:%=test/%.ans) $(TESTS:%=test/%.cmp)
 
 test/%.s: $(RESULT) test/%.ml
 	./$(RESULT) test/$*
-test/%: test/%.s libmincaml.S stub.c
-	$(CC) $(CFLAGS) -m32 $^ -lm -o $@
-test/%.res: test/%
-	$< > $@
+test/%.bin: test/%.s
+	../asm/asm $^ $@
+test/%.res: test/%.bin
+	../convx86/testsimu < $< > $@
 test/%.ans: test/%.ml
 	ocaml $< > $@
 test/%.cmp: test/%.res test/%.ans
