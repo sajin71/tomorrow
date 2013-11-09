@@ -132,9 +132,8 @@ and g' oc = function (* Emit assembly of each instruction *)
         g oc (Tail, e2)
     | Tail, IfLE(x, y, e1, e2) ->
         let b_else = Id.genid("ble_else") in
-        Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg reg_sw) (reg y) 1;
-        Printf.fprintf oc "\tslt\t%s, %s, %s\n" (reg reg_sw) (reg x) (reg reg_sw);
-        Printf.fprintf oc "\tbeq\t%s, %s, %s\n" (reg reg_sw) (reg reg_zero) b_else;
+        Printf.fprintf oc "\tslt\t%s, %s, %s\n" (reg reg_sw) (reg y) (reg x);
+        Printf.fprintf oc "\tbne\t%s, %s, %s\n" (reg reg_sw) (reg reg_zero) b_else;
         Printf.fprintf oc "\tnop\n";
         let stackset_back = !stackset in
         g oc (Tail, e1);
