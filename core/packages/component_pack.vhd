@@ -25,14 +25,8 @@ package component_pack is
       OPER     : in  ALU_OPER);
   end component;
 
-  component alu_controller
-    port (
-      ALUOp : in  ALU_CTRL;
-      FUNCT : in  std_logic_vector(5 downto 0);
-      OPER  : out ALU_OPER);
-  end component;
-
   signal aluzero    : std_logic;
+  signal oper       : ALU_OPER;
   signal pc         : std_logic_vector(31 downto 0) := x"00007ff4";
   signal write_addr : std_logic_vector(4 downto 0);
   signal write_data : std_logic_vector(31 downto 0);
@@ -40,7 +34,6 @@ package component_pack is
   signal read_data2 : std_logic_vector(31 downto 0);
   signal data_in1   : std_logic_vector(31 downto 0);
   signal data_in2   : std_logic_vector(31 downto 0);
-  signal oper       : ALU_OPER;
   signal data_out   : std_logic_vector(31 downto 0);
   signal aluout     : std_logic_vector(31 downto 0);
   signal next_pc    : std_logic_vector(31 downto 0);

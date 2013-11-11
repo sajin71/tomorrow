@@ -42,7 +42,7 @@ begin  -- RTL
 --    i => iclk,
 --    o => clk);
   clk <= MCLK1;
-
+  
   datapath_map : datapath
     port map (
       CLK         => clk,
@@ -68,6 +68,7 @@ begin  -- RTL
     port map (
       CLK         => clk,
       OP          => IR(31 downto 26),
+      FUNCT       => IR(5 downto 0),
       BUSY        => BUSY,
       PCWriteNC   => PCWriteNC,
       PCWriteCond => PCWriteCond,
@@ -117,5 +118,5 @@ begin  -- RTL
   XZBE   <= "0000";
   ZDP    <= "0000";
   ZCLKMA <= (clk, clk);
-
+  
 end RTL;

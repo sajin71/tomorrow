@@ -67,13 +67,6 @@ begin  -- RTL
     end if;
   end process aluout_latch;
 
-  alu_control_map : alu_controller
-    port map (
-      ALUOp => ALUOp,
-      FUNCT => IR(5 downto 0),
-      OPER  => oper);
-
-
   aluzero <= '1' when data_out = x"00000000" else
              '0';
 
@@ -116,5 +109,18 @@ begin  -- RTL
   MEMADDR <= aluout;
 
   DATA_WRITE <= read_data2;
+
+  oper <=
+    I_AND when ALUOp = C_AND or (ALUOp = C_FUNCT and IR(3 downto 0) = "0100")   else
+    I_OR  when ALUOp = C_OR or (ALUOp = C_FUNCT and IR(3 downto 0) = "0101")    else
+    I_XOR when ALUOp = C_FUNCT and IR(3 downto 0) = "0110"                      else
+    I_NOR when ALUOp = C_FUNCT and IR(3 downto 0) = "0111"                      else
+    I_ADD when ALUOp = C_ADD or (ALUOp = C_FUNCT and IR(5 downto 0) = "100000") else
+    I_SUB when ALUOp = C_SUB or (ALUOp = C_FUNCT and IR(5 downto 0) = "100010") else
+    I_SLT when ALUOp = C_FUNCT and IR(5 downto 0) = "101010"                    else
+    I_SLL when ALUOp = C_SFT and IR(5 downto 0) = "000000"                      else
+    I_SRL when ALUOp = C_SFT and IR(5 downto 0) = "000010"                      else
+    I_SRA when ALUOp = C_SFT and IR(5 downto 0) = "000011"                      else
+    I_ADD;
   
 end RTL;

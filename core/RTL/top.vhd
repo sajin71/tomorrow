@@ -67,6 +67,7 @@ begin  -- RTL
     port map (
       CLK         => clk,
       OP          => IR(31 downto 26),
+      FUNCT       => IR(5 downto 0),
       BUSY        => BUSY,
       PCWriteNC   => PCWriteNC,
       PCWriteCond => PCWriteCond,

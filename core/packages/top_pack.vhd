@@ -32,6 +32,7 @@ package top_pack is
     port (
       CLK         : in  std_logic;
       OP          : in  std_logic_vector(5 downto 0);
+      FUNCT       : in  std_logic_vector(5 downto 0);
       BUSY        : in  std_logic;
       PCWriteNC   : out std_logic;
       PCWriteCond : out std_logic;
@@ -96,5 +97,5 @@ package top_pack is
   signal MEMADDR    : std_logic_vector(31 downto 0);
   signal DATA_WRITE : std_logic_vector(31 downto 0);
   signal BUSY       : std_logic;
-  
+
 end top_pack;
