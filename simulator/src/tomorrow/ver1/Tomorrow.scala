@@ -12,17 +12,23 @@ import cpu.AbstractCPU
  import strage.DividedMemory
  import usb.USB
  import tomorrow.ver1.io.Output
+ import usb.USBDataListener
 
 class Tomorrow(usb:USB) extends AbstractCPU(
         usb, 
     HashSet(new Output(), new Add(), new Sub(), new Mul(), new Div(), new Addi(),
             new Jump(), new JumpRegister(), new Jal(), new Beq(), new Bne(), 
     		new And(), new Andi(), new Or(), new Ori(), new Xor(), new Nor(), new LW(), new SW(), new MFHI(), new MFLO(),
-    		new Sll(), new Srl(), new Sra(), new Slt()),
+    		new Sll(), new Srl(), new Sra(), new Slt(), new LUI()),
     HashMap(("HI" -> new IntegerRegister()), ("LO" -> new IntegerRegister())) ++ 
             (new Range(0, 32, 1).map((i:Int)=>(s"r${i}"->new IntegerRegister()))) toMap,
-    new DividedMemory((0L->0x1000/*4KByte*/), (0x10000000L->0x1000/*4KByte*/))){
+    new DividedMemory((0L->0x1000/*4KByte*/), (0x10000000L->0x1000/*4KByte*/))) with USBDataListener {
     
+    usb.addCPUEndListener(this);
+
+    def updateUSBData(data:Seq[Byte]): Unit = {
+    	println(data.mkString)
+    } 
 	/**
      * 命令の格納されるメモリ空間の先頭アドレス
      */

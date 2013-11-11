@@ -11,7 +11,7 @@ import usb.USB
 
 /**
  */
-abstract class AbstractCPU(usb: USB, instructionSet: Set[Opcode], registers: Map[String, Register], memory: Memory) {
+abstract class AbstractCPU(usb: USB, instructionSet: Set[Opcode], registers: Map[String, Register], val memory: Memory) {
     private val decoder = new Decoder(instructionSet)
     protected var programCounter = new IntegerRegister()
     

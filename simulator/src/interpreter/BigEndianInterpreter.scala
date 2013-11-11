@@ -33,8 +33,31 @@ object BigEndianInterpreter extends ByteArrayInterpreter{
 	    }
 	}
     private var signedIntegerPool: HashMap[Seq[Byte], Int] = HashMap()
+    private var unsignedIntegerPool: HashMap[Seq[Byte], Long] = HashMap()
     private var floatPool: HashMap[Seq[Byte], Float] = HashMap()
     
+    def interpretAsUnsignedInteger(bytes: Seq[Byte]): Long = {
+        if(unsignedIntegerPool contains bytes){
+            unsignedIntegerPool(bytes)
+        }else{
+        	var tmp: Long = 0
+        	if(bytes(0) < 0) {tmp = 0xffffffff}
+
+        	for(byte <- bytes) {
+        		tmp <<= 8
+        		tmp += (byte toUnsigned)
+        	}
+	    	unsignedIntegerPool += (bytes->tmp)
+	        tmp
+        }
+        
+    }
+    @deprecated def interpretAsUnsignedInteger(register: Register): Long = {
+        register match {
+            case _ => interpretAsUnsignedInteger(register.bytes)
+        }
+    }
+
     def interpretAsSignedInteger(bytes: Seq[Byte]): Int = {
         if(signedIntegerPool contains bytes){
             signedIntegerPool(bytes)
