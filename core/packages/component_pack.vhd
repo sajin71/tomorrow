@@ -3,6 +3,7 @@ use ieee.std_logic_1164.all;
 
 library tomorrow_1;
 use tomorrow_1.alu_pack.all;
+use tomorrow_1.fpu_misc.all;
 
 package component_pack is
   component register_file
@@ -25,6 +26,15 @@ package component_pack is
       OPER     : in  ALU_OPER);
   end component;
 
+  component fpu
+    port (
+      CLK  : in  std_logic;
+      D1   : in  std_logic_vector(31 downto 0);
+      D2   : in  std_logic_vector(31 downto 0);
+      R    : out std_logic_vector(31 downto 0);
+      OPER : in  FPU_OPER);
+  end component;
+
   signal aluzero    : std_logic;
   signal oper       : ALU_OPER;
   signal pc         : std_logic_vector(31 downto 0) := x"00007ff4";
@@ -38,5 +48,17 @@ package component_pack is
   signal aluout     : std_logic_vector(31 downto 0);
   signal next_pc    : std_logic_vector(31 downto 0);
   signal pccont     : std_logic;
-  
+
+  signal fwaddr    : std_logic_vector(4 downto 0);
+  signal fwdata    : std_logic_vector(31 downto 0);
+  signal ft_out    : std_logic_vector(31 downto 0);
+  signal fs_out    : std_logic_vector(31 downto 0);
+  signal fdata_out : std_logic_vector(31 downto 0);
+  signal fpuout    : std_logic_vector(31 downto 0);
+  signal fpu_oper  : FPU_OPER;
+  signal cond_data : std_logic;
+  signal fcsraddr  : std_logic_vector(2 downto 0);
+  signal fcsrout   : std_logic;
+
+
 end component_pack;

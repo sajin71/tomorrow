@@ -3,15 +3,16 @@ use ieee.std_logic_1164.all;
 
 library tomorrow_1;
 use tomorrow_1.fpu_pack.all;
+use tomorrow_1.fpu_misc.all;
 
 entity fpu is
   
   port (
     CLK  : in  std_logic;
-    OPER : in  FPU_OPER;
     D1   : in  std_logic_vector(31 downto 0);
     D2   : in  std_logic_vector(31 downto 0);
-    R    : out std_logic_vector(31 downto 0));
+    R    : out std_logic_vector(31 downto 0);
+    OPER : in  FPU_OPER);
 
 end fpu;
 

@@ -4,6 +4,7 @@ use ieee.std_logic_1164.all;
 library tomorrow_1;
 use tomorrow_1.component_pack.all;
 use tomorrow_1.alu_pack.all;
+use tomorrow_1.fpu_misc.all;
 
 entity datapath is
 
@@ -19,6 +20,17 @@ entity datapath is
     ALUSrcB     : in std_logic_vector(1 downto 0);
     ALUOp       : in ALU_CTRL;
     PCSource    : in std_logic_vector(1 downto 0);
+
+    PCWriteBCF : in std_logic;
+    PCWriteBCT : in std_logic;
+    CCAddr     : in std_logic;
+    FPRWSrc    : in std_logic_vector(1 downto 0);
+    FPRDst     : in std_logic_vector(1 downto 0);
+    FCSRW      : in std_logic;
+    FPRWrite   : in std_logic;
+    CCond      : in comp_t;
+    FPUOp      : in FPU_CTRL;
+    MemSrc     : in std_logic;
 
     IR         : in  std_logic_vector(31 downto 0);
     MDR        : in  std_logic_vector(31 downto 0);
@@ -70,7 +82,8 @@ begin  -- RTL
   aluzero <= '1' when data_out = x"00000000" else
              '0';
 
-  pccont <= (aluzero and PCWriteCond) or PCWrite or ((not aluzero) and PCWriteNC);
+  pccont <= (aluzero and PCWriteCond) or PCWrite or ((not aluzero) and PCWriteNC)
+            or (fcsrout and PCWriteBCT) or ((not fcsrout) and PCWriteBCF);
 
   with RegDst select
     write_addr <=
@@ -109,7 +122,10 @@ begin  -- RTL
 
   MEMADDR <= aluout;
 
-  DATA_WRITE <= read_data2;
+  with MemSrc select
+    DATA_WRITE <=
+    read_data2 when '0',
+    ft_out     when others;
 
   oper <=
     I_AND when ALUOp = C_AND or (ALUOp = C_FUNCT and IR(2 downto 0) = "100") else
@@ -122,5 +138,53 @@ begin  -- RTL
     I_SRL when ALUOp = C_SFT and IR(0) = '0'                                 else
     I_SRA when ALUOp = C_SFT                                                 else
     I_ADD;
+
+
+
+  -- fpu datapath
+
+  fpr_map : register_file
+    port map (
+      CLK        => CLK,
+      READ_ADDR1 => IR(20 downto 16),
+      READ_ADDR2 => IR(15 downto 11),
+      WRITE_ADDR => fwaddr,
+      WRITE_DATA => fwdata,
+      READ_DATA1 => ft_out,
+      READ_DATA2 => fs_out,
+      REG_WRITE  => FPRWrite);
+
+  fpu_map : fpu
+    port map (
+      CLK  => CLK,
+      D1   => ft_out,
+      D2   => fs_out,
+      R    => fdata_out,
+      OPER => fpu_oper);
+
+  fpu_latch : process (CLK)
+  begin  -- process fpu_latch
+    if rising_edge(CLK) then
+      fpuout <= fdata_out;
+    end if;
+  end process fpu_latch;
+
+  with CCAddr select
+    fcsraddr <=
+    IR(20 downto 18) when '0',
+    IR(10 downto 8)  when others;
+
+  with FPRWSrc select
+    fwdata <=
+    fpuout     when "00",
+    MDR        when "01",
+    fs_out     when "10",
+    read_data2 when others;
+
+  with FPRDst select
+    fwaddr <=
+    IR(20 downto 16) when "00",
+    IR(15 downto 11) when "01",
+    IR(10 downto 6)  when others;
   
 end RTL;

@@ -59,8 +59,6 @@ package fpu_pack is
       q   : out std_logic_vector(31 downto 0));
   end component;
 
-  type FPU_OPER is (O_FADD, O_FSUB, O_FMUL, O_FDIV, O_FSQRT, O_FABS, O_FNEG, O_FROUND, O_FFLOOR, O_FRECIP, O_FCVTS);
-
   signal qadd   : std_logic_vector(31 downto 0);
   signal qmul   : std_logic_vector(31 downto 0);
   signal qdiv   : std_logic_vector(31 downto 0);
