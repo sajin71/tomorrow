@@ -57,7 +57,7 @@ and g' oc = function (* Emit assembly of each instruction *)
     (* Set result to dest if not tail *)
     | NonTail(_), Nop -> ()
     | NonTail(x), Set(i) -> Printf.fprintf oc "\tlli\t%s, %d\n" (reg x) i
-    | NonTail(x), SetL(Id.L(y)) -> Printf.fprintf oc "\tset\t%s, %s\n" (reg y) (reg x)
+    | NonTail(x), SetL(Id.L(y)) -> Printf.fprintf oc "\tset\t%s, %s\n" (reg x) (reg y)
     | NonTail(x), Mov(y) when x = y -> ()
     | NonTail(x), Mov(y) -> (* Printf.fprintf oc "\t#NonTail Mov\n"; *)
             Printf.fprintf oc "\tmov\t%s, %s\n" (reg x) (reg y)
@@ -78,7 +78,7 @@ and g' oc = function (* Emit assembly of each instruction *)
     | NonTail(x), FMov(y) when x = y -> ()
     | NonTail(x), FMov(y) -> 
             Printf.fprintf oc "\tmov.s\t%s, %s\n" (reg x) (reg y);
-            Printf.fprintf oc "\tmov.s\t%s, %s\n" (co_freg x) (co_freg y)
+            Printf.fprintf oc "\tmov.s\t%s, %s\n" (reg (co_freg x)) (reg (co_freg y))
     | NonTail(x), FNeg(y) -> 
             Printf.fprintf oc "neg.s\t%s\n"
     | NonTail(x), FAdd(y, z) -> Printf.fprintf oc "\tadd.s\t%s, %s, %s\n" (reg x) (reg y) (reg z)
