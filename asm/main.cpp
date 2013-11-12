@@ -51,6 +51,9 @@ const tInstR InstR[] = {
 { "SLL",    0x18, 0x00, 2, {3,1,0}, true },
 { "SRL",    0x18, 0x02, 2, {3,1,0}, true },
 { "SRA",    0x18, 0x03, 2, {3,1,0}, true },
+{ "SLLV",   0x18, 0x04, 3, {2,1,0}, false },
+{ "SRLV",   0x18, 0x06, 3, {2,1,0}, false },
+{ "SRAV",   0x18, 0x07, 3, {2,1,0}, false },
 
 { "JR",     0x1B, 0x00, 1, {0,3,3}, false },
 { "HALT",   0x3c, 0x00, 0, {3,3,3}, false },
