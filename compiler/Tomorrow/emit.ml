@@ -77,14 +77,14 @@ and g' oc = function (* Emit assembly of each instruction *)
     | NonTail(_), SW(x, y, z) -> Printf.fprintf oc "\tsw\t%s, %d(%s)\n" (reg x) z (reg y)
     | NonTail(x), FMov(y) when x = y -> ()
     | NonTail(x), FMov(y) -> 
-            Printf.fprintf oc "\tfmov\t%s, %s\n" (reg x) (reg y);
-            Printf.fprintf oc "\tfmov\t%s, %s\n" (co_freg x) (co_freg y)
+            Printf.fprintf oc "\tmov.s\t%s, %s\n" (reg x) (reg y);
+            Printf.fprintf oc "\tmov.s\t%s, %s\n" (co_freg x) (co_freg y)
     | NonTail(x), FNeg(y) -> 
-            Printf.fprintf oc "\tnop\n" (* TODO float calculation *)
-    | NonTail(x), FAdd(y, z) -> Printf.fprintf oc "\tfadd\t%s, %s, %s\n" (reg x) (reg y) (reg z)
-    | NonTail(x), FSub(y, z) -> Printf.fprintf oc "\tfsub\t%s, %s, %s\n" (reg x) (reg y) (reg z)
-    | NonTail(x), FMul(y, z) -> Printf.fprintf oc "\tfmul\t%s, %s, %s\n" (reg x) (reg y) (reg z)
-    | NonTail(x), FDiv(y, z) -> Printf.fprintf oc "\tfdiv\t%s, %s, %s\n" (reg x) (reg y) (reg z)
+            Printf.fprintf oc "neg.s\t%s\n"
+    | NonTail(x), FAdd(y, z) -> Printf.fprintf oc "\tadd.s\t%s, %s, %s\n" (reg x) (reg y) (reg z)
+    | NonTail(x), FSub(y, z) -> Printf.fprintf oc "\tsub.s\t%s, %s, %s\n" (reg x) (reg y) (reg z)
+    | NonTail(x), FMul(y, z) -> Printf.fprintf oc "\tmul.s\t%s, %s, %s\n" (reg x) (reg y) (reg z)
+    | NonTail(x), FDiv(y, z) -> Printf.fprintf oc "\tdiv.s\t%s, %s, %s\n" (reg x) (reg y) (reg z)
     | NonTail(_), Comment(s) -> Printf.fprintf oc "\t# %s\n" s
     (* save *)
     | NonTail(_), Save(x, y) when List.mem x allregs && not (S.mem y !stackset) 
@@ -92,7 +92,7 @@ and g' oc = function (* Emit assembly of each instruction *)
             Printf.fprintf oc "\tsw\t%s, %d(%s)\n" (reg x) (offset y) (reg reg_sp)
     | NonTail(_), Save(x, y) when List.mem x allfregs && not(S.mem y !stackset)
         -> save y;
-            Printf.fprintf oc "\tsw\t%s, %d(%s)\n" x (offset y) (reg reg_sp)
+            Printf.fprintf oc "\tsw\t%s, %d(%s)\n" (reg x) (offset y) (reg reg_sp)
     | NonTail(_), Save(x, y) -> assert (S.mem y !stackset); ()
     (* restore *)
     | NonTail(x), Restore(y) when List.mem x allregs ->
@@ -153,8 +153,17 @@ and g' oc = function (* Emit assembly of each instruction *)
     | Tail, IfFEq(x, y, e1, e2) -> (* TODO for float calculation *)
         let b_else = Id.genid("fbeq_else") in
         Printf.fprintf oc "\tc.eq.s\t%s, %s" (reg x) (reg y);
-        Printf.fprintf oc "\tBCF\t%s" b_else;
+        Printf.fprintf oc "\tbcf\t%s" b_else;
         (*Printf.fprintf oc "\tnop\n";*)
+        let stackset_back = !stackset in
+        g oc (Tail, e1);
+        Printf.fprintf oc "%s:\n" b_else;
+        stackset := stackset_back;
+        g oc (Tail, e2)
+    | Tail, IfFLE(x, y, e1, e2) ->
+        let b_else = Id.genid("fble_else") in
+        Printf.fprintf oc "\tc.olt.s\t%s, %s" (reg y) (reg x);
+        Printf.fprintf oc "tbct\t%s\n" b_else;
         let stackset_back = !stackset in
         g oc (Tail, e1);
         Printf.fprintf oc "%s:\n" b_else;
@@ -212,9 +221,37 @@ and g' oc = function (* Emit assembly of each instruction *)
         let stackset2 = !stackset in
         stackset := S.inter stackset1 stackset2
     | NonTail(z), IfFEq(x, y, e1, e2) -> (* TODO float calculation *)
-        Printf.fprintf oc "\tnop\n"
+        let b_else = Id.genid "fbeq_else" in
+        let b_cont = Id.genid "fbeq_cont" in
+        Printf.fprintf oc "\tc.eq.s\t%s,%s" (reg x) (reg y);
+        Printf.fprintf oc "\tbcf%s" b_else;
+        let stackset_back = !stackset in
+        g oc (NonTail(z), e1);
+        let stackset1 = !stackset in
+        Printf.fprintf oc "\tj\t%s\n" b_cont;
+        Printf.fprintf oc "%s:\n" b_else;
+        stackset := stackset_back;
+        g oc (NonTail(z), e2);
+        Printf.fprintf oc "%s:\n" b_cont;
+        let stackset2 = !stackset in
+        stackset := S.inter stackset1 stackset2
+        (*Printf.fprintf oc "\tnop\n"*)
     | NonTail(z), IfFLE(x, y, e1, e2) -> (* TODO float calculation *)
-        Printf.fprintf oc "\tnop\n"
+        let b_else = Id.genid "fbeq_else" in
+        let b_cont = Id.genid "fbeq_cont" in
+        Printf.fprintf oc "\tc.olt.s\t%s, %s" (reg y) (reg x);
+        Printf.fprintf oc "\tbct\t%s\n" b_else;
+        let stackset_back = !stackset in
+        g oc (NonTail(z), e1);
+        let stackset1 = !stackset in
+        Printf.fprintf oc "\tj\t%s\n" b_cont;
+        Printf.fprintf oc "%s:\n" b_else;
+        stackset := stackset_back;
+        g oc (NonTail(z), e2);
+        Printf.fprintf oc "%s:\n" b_cont;
+        let stackset2 = !stackset in
+        stackset := S.inter stackset1 stackset2
+        (*Printf.fprintf oc "\tnop\n"*)
     (* implementation of function call *)
     | Tail, CallCls(x, ys, zs) -> (* call at tail *)
         g'_args oc [(x, reg_cl)] ys zs;
@@ -239,8 +276,8 @@ and g' oc = function (* Emit assembly of each instruction *)
         if List.mem a allregs && a <> regs.(0) then
             Printf.fprintf oc "\tmov\t%s, %s\n" a regs.(0)
         else if List.mem a allfregs && a <> fregs.(0) then
-            (Printf.fprintf oc "\tfmov\t%s, %s\n" a fregs.(0);
-            Printf.fprintf oc "\tfmov\t%s, %s\n" (co_freg a) (co_freg fregs.(0)))
+            (Printf.fprintf oc "\tmov.s\t%s, %s\n" a fregs.(0);
+            Printf.fprintf oc "\tmov.s\t%s, %s\n" (co_freg a) (co_freg fregs.(0)))
    | NonTail(a), CallDir(Id.L(x), ys, zs) ->
         g'_args oc [] ys zs;
         let ss = stacksize () in
@@ -254,8 +291,8 @@ and g' oc = function (* Emit assembly of each instruction *)
         if List.mem a allregs && a <> regs.(0) then
             Printf.fprintf oc "\tmov\t%s, %s\n" a regs.(0)
         else if List.mem a allfregs && a <> fregs.(0) then
-            (Printf.fprintf oc "\tfmov\t%s, %s\n" a fregs.(0);
-            Printf.fprintf oc "\tfmov\t%s, %s\n" (co_freg a) (co_freg fregs.(0)))
+            (Printf.fprintf oc "\tmov.s\t%s, %s\n" a fregs.(0);
+            Printf.fprintf oc "\tmov.s\t%s, %s\n" (co_freg a) (co_freg fregs.(0)))
 (*and g'_tail_if oc e1 e2 reg1 reg2 b bn =
     let b_else = Id.genid(b ^ "_else") in
     Printf.fprintf oc "\t%s\t%s\n" bn b_else;
@@ -294,8 +331,8 @@ and g'_args oc x_reg_cl ys zs =
             zs in
     List.iter
         (fun (z, fr) ->
-            Printf.fprintf oc "\tfmov\t%s, %s\n" fr (reg z);
-            Printf.fprintf oc "\tfmov\t%s, %s\n" (co_freg fr) (co_freg z))
+            Printf.fprintf oc "\tmov.s\t%s, %s\n" fr (reg z);
+            Printf.fprintf oc "\tmov.s\t%s, %s\n" (co_freg fr) (co_freg z))
         (shuffle reg_fsw zfrs)
 
 
