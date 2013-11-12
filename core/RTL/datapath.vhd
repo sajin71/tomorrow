@@ -86,9 +86,10 @@ begin  -- RTL
 
   with ALUSrcA select
     data_in1 <=
-    pc                                     when "00",
-    read_data1                             when "01",
-    (26 downto 0 => '0') & IR(10 downto 6) when others;
+    pc                                            when "00",
+    read_data1                                    when "01",
+    (26 downto 0 => '0') & IR(10 downto 6)        when "10",
+    (26 downto 0 => '0') & read_data1(4 downto 0) when others;
 
   with ALUSrcB select
     data_in2 <=
@@ -111,16 +112,15 @@ begin  -- RTL
   DATA_WRITE <= read_data2;
 
   oper <=
-    I_AND when ALUOp = C_AND or (ALUOp = C_FUNCT and IR(3 downto 0) = "0100")   else
-    I_OR  when ALUOp = C_OR or (ALUOp = C_FUNCT and IR(3 downto 0) = "0101")    else
-    I_XOR when ALUOp = C_FUNCT and IR(3 downto 0) = "0110"                      else
-    I_NOR when ALUOp = C_FUNCT and IR(3 downto 0) = "0111"                      else
-    I_ADD when ALUOp = C_ADD or (ALUOp = C_FUNCT and IR(5 downto 0) = "100000") else
-    I_SUB when ALUOp = C_SUB or (ALUOp = C_FUNCT and IR(5 downto 0) = "100010") else
-    I_SLT when ALUOp = C_FUNCT and IR(5 downto 0) = "101010"                    else
-    I_SLL when ALUOp = C_SFT and IR(5 downto 0) = "000000"                      else
-    I_SRL when ALUOp = C_SFT and IR(5 downto 0) = "000010"                      else
-    I_SRA when ALUOp = C_SFT and IR(5 downto 0) = "000011"                      else
+    I_AND when ALUOp = C_AND or (ALUOp = C_FUNCT and IR(2 downto 0) = "100") else
+    I_OR  when ALUOp = C_OR or (ALUOp = C_FUNCT and IR(1 downto 0) = "01")   else
+    I_XOR when ALUOp = C_FUNCT and IR(2 downto 0) = "110"                    else
+    I_NOR when ALUOp = C_FUNCT and IR(1 downto 0) = "11"                     else
+    I_SLT when ALUOp = C_FUNCT and IR(3) = '1'                               else
+    I_SUB when ALUOp = C_SUB or (ALUOp = C_FUNCT and IR(1) = '1')            else
+    I_SLL when ALUOp = C_SFT and IR(1) = '0'                                 else
+    I_SRL when ALUOp = C_SFT and IR(0) = '0'                                 else
+    I_SRA when ALUOp = C_SFT                                                 else
     I_ADD;
   
 end RTL;
