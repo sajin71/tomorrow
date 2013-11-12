@@ -238,10 +238,10 @@ void proc(char* mnemonic, char* operand, tState *state) {
 		char *label = trim(mnemonic);
 		
 		if ( label[0] == '\0' ) {
-			throw std::string("Unknown label delimiter `:'");
+			throw std::string("Unexpected label delimiter `:'");
 		}
 		if ( !is_labelhead(label[0]) ) {
-			throw std::string("Invalid label name");
+			throw std::string("Invalid label name `") + label + std::string("'");
 		}
 		
 		if ( state->labels.find(label) != state->labels.end() ) {
