@@ -21,21 +21,21 @@ begin  -- RTL
   
   with OPER select
     R <=
-    qadd                           when FADD,
-    qadd                           when FSUB,
-    qmul                           when FMUL,
-    qdiv                           when FDIV,
-    qsqrt                          when FSQRT,
-    '0' & D2(30 downto 0)          when FABS,
-    (not D2(31)) & D2(30 downto 0) when FNEG,
-    qround                         when FROUND,
-    qfloor                         when FFLOOR,
-    qinv                           when FRECIP,
+    qadd                           when O_FADD,
+    qadd                           when O_FSUB,
+    qmul                           when O_FMUL,
+    qdiv                           when O_FDIV,
+    qsqrt                          when O_FSQRT,
+    '0' & D2(30 downto 0)          when O_FABS,
+    (not D2(31)) & D2(30 downto 0) when O_FNEG,
+    qround                         when O_FROUND,
+    qfloor                         when O_FFLOOR,
+    qinv                           when O_FRECIP,
     qcvts                          when others;
 
   with OPER select
     a_fadd <=
-    (not D1(31)) & D1(30 downto 0) when FSUB,
+    (not D1(31)) & D1(30 downto 0) when O_FSUB,
     D1                             when others;
 
   fadd_map : fadd
