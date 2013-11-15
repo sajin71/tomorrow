@@ -81,21 +81,6 @@ package controller_pack is
      t_aluop       => C_ADD,
      t_pcsource    => "00");
 
-  constant S_WAIT_LW : cont_sigset :=
-    (t_pcwritenc   => '0',
-     t_pcwritecond => '0',
-     t_pcwrite     => '0',
-     t_memread     => '0',
-     t_memwrite    => '0',
-     t_memtoreg    => "00",
-     t_irwrite     => '0',
-     t_regdst      => "00",
-     t_regwrite    => '0',
-     t_alusrca     => "00",
-     t_alusrcb     => "00",
-     t_aluop       => C_ADD,
-     t_pcsource    => "00");
-
   constant S_WB_LW : cont_sigset :=
     (t_pcwritenc   => '0',
      t_pcwritecond => '0',
@@ -117,21 +102,6 @@ package controller_pack is
      t_pcwrite     => '0',
      t_memread     => '0',
      t_memwrite    => '1',
-     t_memtoreg    => "00",
-     t_irwrite     => '0',
-     t_regdst      => "00",
-     t_regwrite    => '0',
-     t_alusrca     => "00",
-     t_alusrcb     => "00",
-     t_aluop       => C_ADD,
-     t_pcsource    => "00");
-
-  constant S_WAIT_SW : cont_sigset :=
-    (t_pcwritenc   => '0',
-     t_pcwritecond => '0',
-     t_pcwrite     => '0',
-     t_memread     => '0',
-     t_memwrite    => '0',
      t_memtoreg    => "00",
      t_irwrite     => '0',
      t_regdst      => "00",
@@ -321,7 +291,7 @@ package controller_pack is
      t_aluop       => C_SFT,
      t_pcsource    => "00");
 
-  constant S_WB_SFT : cont_sigset :=
+  constant S_EX_SFTV : cont_sigset :=
     (t_pcwritenc   => '0',
      t_pcwritecond => '0',
      t_pcwrite     => '0',
@@ -329,11 +299,11 @@ package controller_pack is
      t_memwrite    => '0',
      t_memtoreg    => "00",
      t_irwrite     => '0',
-     t_regdst      => "01",
-     t_regwrite    => '1',
-     t_alusrca     => "00",
+     t_regdst      => "00",
+     t_regwrite    => '0',
+     t_alusrca     => "11",
      t_alusrcb     => "00",
-     t_aluop       => C_ADD,
+     t_aluop       => C_SFT,
      t_pcsource    => "00");
 
   constant S_EX_JR : cont_sigset :=
@@ -381,11 +351,11 @@ package controller_pack is
      t_aluop       => C_ADD,
      t_pcsource    => "00");
 
-  type T_PHASE is (FETCH, DECODE, EX_LS, MEM_LW, WAIT_LW, WB_LW, MEM_SW, WAIT_SW, EX_FUN, WB_FUN, EX_BEQ, EX_J, EX_ADDI, EX_ANDI, EX_ORI, WB_IMD, EX_BNE, EX_JAL, WB_JAL, EX_SFT, WB_SFT, EX_JR, WB_LUI, HALT);  -- phase types
+  type T_PHASE is (FETCH, DECODE, EX_LS, MEM_LW, WAIT_LW, WB_LW, MEM_SW, WAIT_SW, EX_FUN, WB_FUN, EX_BEQ, EX_J, EX_ADDI, EX_ANDI, EX_ORI, WB_IMD, EX_BNE, EX_JAL, WB_JAL, EX_SFT, EX_SFTV, EX_JR, WB_LUI, HALT);  -- phase types
 
   type T_STATESET is array (T_PHASE range <>) of cont_sigset;
 
-  constant stateset : T_STATESET(FETCH to HALT) := (S_FETCH, S_DECODE, S_EX_LS, S_MEM_LW, S_WAIT_LW, S_WB_LW, S_MEM_SW, S_WAIT_SW, S_EX_FUN, S_WB_FUN, S_EX_BEQ, S_EX_J, S_EX_ADDI, S_EX_ANDI, S_EX_ORI, S_WB_IMD, S_EX_BNE, S_EX_JAL, S_WB_JAL, S_EX_SFT, S_WB_SFT, S_EX_JR, S_WB_LUI, S_HALT);
+  constant stateset : T_STATESET(FETCH to HALT) := (S_FETCH, S_DECODE, S_EX_LS, S_MEM_LW, S_HALT, S_WB_LW, S_MEM_SW, S_HALT, S_EX_FUN, S_WB_FUN, S_EX_BEQ, S_EX_J, S_EX_ADDI, S_EX_ANDI, S_EX_ORI, S_WB_IMD, S_EX_BNE, S_EX_JAL, S_WB_JAL, S_EX_SFT, S_EX_SFTV, S_EX_JR, S_WB_LUI, S_HALT);
 
   constant SPEC : std_logic_vector(5 downto 0) := "000000";
   constant J    : std_logic_vector(5 downto 0) := "000010";

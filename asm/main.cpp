@@ -51,6 +51,9 @@ const tInstR InstR[] = {
 { "SLL",    0x18, 0x00, 2, {3,1,0}, true },
 { "SRL",    0x18, 0x02, 2, {3,1,0}, true },
 { "SRA",    0x18, 0x03, 2, {3,1,0}, true },
+{ "SLLV",   0x18, 0x04, 3, {2,1,0}, false },
+{ "SRLV",   0x18, 0x06, 3, {2,1,0}, false },
+{ "SRAV",   0x18, 0x07, 3, {2,1,0}, false },
 
 { "JR",     0x1B, 0x00, 1, {0,3,3}, false },
 { "HALT",   0x3c, 0x00, 0, {3,3,3}, false },
@@ -65,7 +68,8 @@ struct tInstI {
 	const char *mnemonic;
 	unsigned char opcode;
 	int opercnt; //オペランドで指定するレジスタの数
-	char type; //即値の形式 0...ふつう 1...PC相対 2...メモリオフセット 3...SET命令（絶対ポインタ）
+	char type; //即値の形式 0...ふつう 1...PC相対 2...メモリオフセット 3...メモリオフセット(fp)
+	           //           4...SETL命令（絶対ポインタ） 5...SET命令（即値代入）
 	int oporder[2]; //ふつう形式: 0...sに対応するのはアセンブラコードでいうと何番目？ 1...t  (2を指定すると0固定)
 };
 const unsigned char opcode_LUI = 0x0F;
@@ -76,8 +80,14 @@ const tInstI InstI[] = {
 { "ORI",    0x0D, 2, 0, {1,0}},
 { "LW",     0x23, 2, 2, {}   },
 { "SW",     0x2B, 2, 2, {}   },
-{ "SETL",   0x0D, 1, 3, {}   }, //pseudo, load absolute address imm. expand 2-ops LUIを別途先に入れておく
-{ "SET",    0x0D, 1, 4, {}   }, //pseudo, load 32bit imm. expand 2-ops LUIを別途先に入れておく
+
+{ "LWC",    0x31, 2, 3, {}   },
+{ "LWC1",   0x31, 2, 3, {}   },
+{ "SWC",    0x39, 2, 3, {}   },
+{ "SWC1",   0x39, 2, 3, {}   },
+
+{ "SETL",   0x0D, 1, 4, {}   }, //pseudo, load absolute address imm. expand 2-ops LUIを別途先に入れておく
+{ "SET",    0x0D, 1, 5, {}   }, //pseudo, load 32bit imm. expand 2-ops LUIを別途先に入れておく
 { "LLI",    0x0D, 1, 0, {2,0}}, //pseudo ORI
 { "LUI",    opcode_LUI, 1, 0, {2,0}},
 { "BEQ",    0x04, 2, 1, {0,1}},
@@ -160,18 +170,12 @@ const char *nregname[32][2] = {
 {"16", "s0"},   {"17", "s1"}, {"18", "s2"}, {"19", "s3"}, {"20", "s4"}, {"21", "s5"}, {"22", "s6"}, {"23", "s7"},
 {"24", "t8"},   {"25", "t9"}, {"26", "k0"}, {"27", "k1"}, {"28", "gp"}, {"29", "sp"}, {"30", "fp"}, {"31", "ra"}
 };
-
-// 文字列を整数に変換
-long str2long(char* op) {
-	
-	char *endptr = NULL;
-	long ret = strtol(op, &endptr, 0);
-	if ( op[0] == '\0' || *endptr != '\0' ) {
-		throw std::string("Invalid numeric constant `") + std::string(op) + std::string("'");
-	}
-	
-	return ret;
-}
+const char *fregname[32][1] = {
+{ "f0"}, { "f1"}, { "f2"}, { "f3"}, { "f4"}, { "f5"}, { "f6"}, { "f7"},
+{ "f8"}, { "f9"}, {"f10"}, {"f11"}, {"f12"}, {"f13"}, {"f14"}, {"f15"},
+{"f16"}, {"f17"}, {"f18"}, {"f19"}, {"f20"}, {"f21"}, {"f22"}, {"f23"},
+{"f24"}, {"f25"}, {"f26"}, {"f27"}, {"f28"}, {"f29"}, {"f30"}, {"f31"}
+};
 
 // 整数レジスタ名をレジスタ番号に変換する
 short numreg(char* op) {
@@ -186,8 +190,37 @@ short numreg(char* op) {
 		}
 	}
 	
-	throw std::string("Invalid register operand `") + std::string(op) + std::string("'");
+	throw std::string("Invalid int register operand `") + std::string(op) + std::string("'");
 }
+// 浮動小数点レジスタ名をレジスタ番号に変換する
+short numfreg(char* op) {
+	if ( op[0] == '$' ) {
+		op++;
+		
+		for(int i=0; i<32; i++) {
+			if ( strcasecmp(fregname[i][0], op) == 0 ) {
+				return i;
+			}
+		}
+	}
+	
+	throw std::string("Invalid fp register operand `") + std::string(op) + std::string("'");
+}
+
+
+// 文字列を整数に変換
+long str2long(char* op) {
+	
+	char *endptr = NULL;
+	long ret = strtol(op, &endptr, 0);
+	if ( op[0] == '\0' || *endptr != '\0' ) {
+		throw std::string("Invalid numeric constant `") + std::string(op) + std::string("'");
+	}
+	
+	return ret;
+}
+
+
 
 
 // オペランドを切り分ける
@@ -238,10 +271,10 @@ void proc(char* mnemonic, char* operand, tState *state) {
 		char *label = trim(mnemonic);
 		
 		if ( label[0] == '\0' ) {
-			throw std::string("Unknown label delimiter `:'");
+			throw std::string("Unexpected label delimiter `:'");
 		}
 		if ( !is_labelhead(label[0]) ) {
-			throw std::string("Invalid label name");
+			throw std::string("Invalid label name `") + label + std::string("'");
 		}
 		
 		if ( state->labels.find(label) != state->labels.end() ) {
@@ -329,9 +362,13 @@ void proc(char* mnemonic, char* operand, tState *state) {
 			imm_t con; //16bit
 			
 			
-			if ( ii->type == 2 ) {
+			if ( ii->type == 2 || ii->type == 3 ) {
 			// メモリアドレスのオフセットを指定してるやつ
-				rt = numreg(trim(op[0]));
+				if ( ii->type == 2 ) { //整数
+					rt = numreg(trim(op[0]));
+				} else { //浮動小数点数
+					rt = numfreg(trim(op[0]));
+				}
 				
 				// かっこをほぐす
 				char *kakko1 = strchr(op[1], '(');
@@ -352,7 +389,7 @@ void proc(char* mnemonic, char* operand, tState *state) {
 				
 				con = (imm_t)str2long(trim(op[1]));
 				rs = numreg(trim(kreg));
-			} else if ( ii->type == 3 ) {
+			} else if ( ii->type == 4 ) {
 			// 特殊処理
 			// ラベルによってその位置のアドレス自体を即値代入する
 				if ( opcnt != (ii->opercnt+1) ) {
@@ -397,7 +434,7 @@ void proc(char* mnemonic, char* operand, tState *state) {
 				tlp.linenum = state->linenum;
 				
 				state->lplaces.push_back(tlp);
-			} else if ( ii->type == 4 ) {
+			} else if ( ii->type == 5 ) {
 			// 特殊処理
 			// 32ビットの即値を2命令で代入する
 				if ( opcnt != (ii->opercnt+1) ) {
