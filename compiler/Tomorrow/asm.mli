@@ -22,6 +22,8 @@ and exp =
     | FSub of Id.t * Id.t
     | FMul of Id.t * Id.t
     | FDiv of Id.t * Id.t
+    | LWC of Id.t * int
+    | SWC of Id.t * Id.t * int
     | Comment of string
     (* virtual instructions *)
     | IfEq of Id.t * Id.t * t * t
