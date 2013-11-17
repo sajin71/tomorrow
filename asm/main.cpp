@@ -66,7 +66,7 @@ const tInstR InstR[] = {
 
 struct tInstI {
 public:
-	enum EInstIType { T_Arith, T_Branch, T_Mem, T_MemCo, T_SetL, T_Set };
+	enum EInstIType { T_Arith, T_Branch, T_Mem, T_MemCo, T_SetL, T_Set, T_SetLV, T_SetCLV};
 	
 	const char *mnemonic;
 	unsigned char opcode;
@@ -91,6 +91,8 @@ const tInstI InstI[] = {
 
 { "SETL",   0x0D, 1, tInstI::T_SetL , {}   }, //pseudo, load absolute address imm. expand 2-ops LUIを別途先に入れておく
 { "SET",    0x0D, 1, tInstI::T_Set  , {}   }, //pseudo, load 32bit imm. expand 2-ops LUIを別途先に入れておく
+{ "SETLV",  0x23, 1, tInstI::T_SetLV, {}   }, //pseudo, LW from label(0x000-0x7fff)
+{ "SETCLV", 0x31, 1, tInstI::T_SetCLV,{}   }, //pseudo, LWC1 from label (0x000-0x7fff)
 
 { "LLI",    0x0D, 1, tInstI::T_Arith, {2,0}}, //pseudo ORI
 { "LUI",    opcode_LUI, 1, tInstI::T_Arith, {2,0}},
@@ -146,10 +148,10 @@ const tInstFPArith InstFPArith[] = {
 // ラベルが使用されているところの情報
 struct tLabelPoint {
 public:
-	enum ElabelType { T_Branch, T_Jump, T_AddrUpp, T_AddrLow };
+	enum ElabelType { T_Branch, T_Jump, T_AddrUpp, T_AddrLow, T_AddrZero };
 	unsigned int pnum;
 	std::string label;
-	ElabelType type; //0...I 1...J 2...即値上位 3...即値下位
+	ElabelType type; //0...I 1...J 2...即値上位 3...即値下位 4...$0+disp
 	int linenum;
 };
 
@@ -267,7 +269,16 @@ long str2long(char* op) {
 	
 	return ret;
 }
-
+unsigned long str2ulong(char* op) {
+	
+	char *endptr = NULL;
+	unsigned long ret = strtoul(op, &endptr, 0);
+	if ( op[0] == '\0' || *endptr != '\0' ) {
+		throw std::string("Invalid numeric constant `") + std::string(op) + std::string("'");
+	}
+	
+	return ret;
+}
 
 
 
@@ -305,6 +316,21 @@ int opersplit(char *operand, char *op[3]) {
 
 
 // **** 処理関数たち **** //
+
+bool proc_dot(char* mnemonic, char** op, int opcnt, tState *state) {
+	if ( strcasecmp(".long", mnemonic) == 0 ) {
+		if ( opcnt != 1 ) {
+			throw std::string("Operand count not match");
+		}
+		inst_t data = (inst_t)str2ulong(trim(op[0]));
+		state->dest.push_back(data);
+		return true;
+		
+	} else {
+		//TODO 今のところlong以外は放置
+		return true;
+	}
+}
 
 bool proc_instR(char* mnemonic, char** op, int opcnt, tState *state) {
 
@@ -417,6 +443,10 @@ bool proc_instI(char* mnemonic, char** op, int opcnt, tState *state) {
 	} else if ( ii->type == tInstI::T_Mem || ii->type == tInstI::T_MemCo ) {
 	// メモリアドレスのオフセットを指定してるやつ
 		
+		if ( opcnt != ii->opercnt ) {
+			throw std::string("Operand count not match");
+		}
+		
 		if ( ii->type == tInstI::T_Mem ) { //整数
 			rt = numreg(trim(op[0]));
 		} else { //浮動小数点数
@@ -517,6 +547,35 @@ bool proc_instI(char* mnemonic, char** op, int opcnt, tState *state) {
 		}
 		
 		con = (imm_t)(longimm&0xFFFF);
+	} else if ( ii->type == tInstI::T_SetLV || ii->type == tInstI::T_SetCLV ) {
+		
+		if ( opcnt != (ii->opercnt+1) ) {
+			throw std::string("Operand count not match");
+		}
+		
+		if ( ii->type == tInstI::T_SetLV ) { //整数
+			rt = numreg(trim(op[0]));
+		} else { //浮動小数点数
+			rt = numfreg(trim(op[0]));
+		}
+		rs = 0; //zero register
+		con = 0;
+		
+		char *opcon = trim(op[ii->opercnt]);
+		if ( !is_labelhead(opcon[0]) ) {
+			throw std::string("Invalid label identifier `") + std::string(opcon) + std::string("'");
+		}
+		
+		
+		// ラベル位置を登録
+		tLabelPoint tlp;
+		tlp.pnum = state->getPnum();
+		tlp.label = std::string(opcon);
+		tlp.type = tLabelPoint::T_AddrZero;
+		tlp.linenum = state->linenum;
+		
+		state->lplaces.push_back(tlp);
+		
 	} else {
 		throw std::string("(internal) Unknown InstI type");
 	}
@@ -552,7 +611,7 @@ bool proc_instJ(char* mnemonic, char** op, int opcnt, tState *state) {
 		throw std::string("Operand count not match");
 	}
 	
-	long con;
+	unsigned long con;
 	
 	char *opcon = trim(op[0]);
 	if ( is_labelhead(opcon[0]) ) {
@@ -566,7 +625,7 @@ bool proc_instJ(char* mnemonic, char** op, int opcnt, tState *state) {
 		
 		state->lplaces.push_back(tlp);
 	} else {
-		long lc = str2long(opcon);
+		unsigned long lc = str2ulong(opcon);
 		if ( lc%4 != 0 ) {
 			throw std::string("jump address must be multiples of 4");
 		}
@@ -752,11 +811,6 @@ bool proc_instFP(char* mnemonic, char** op, int opcnt, tState *state) {
 // operandはNULLかも
 void proc(char* mnemonic, char* operand, tState *state) {
 	
-	// TODO: なんか制御とかするんだろうけど
-	if ( mnemonic[0] == '.' ) {
-		return;
-	}
-	
 	char *end = &mnemonic[ strlen(mnemonic) -1];
 	if ( *end == ':' ) {
 		//ラベルだ
@@ -795,6 +849,13 @@ void proc(char* mnemonic, char* operand, tState *state) {
 	char *op[3];
 	int opcnt = opersplit(operand, op);
 	
+	// TODO: なんか制御とかするんだろうけど
+	// .longだけ処理する
+	if ( mnemonic[0] == '.' ) {
+		if ( proc_dot(mnemonic, op, opcnt, state) ) {
+			return;
+		}
+	}
 	
 	// *** R形式をチェック ***
 	if ( proc_instR(mnemonic, op, opcnt, state) ) {
@@ -948,8 +1009,15 @@ int main(int argc, char *argv[]) {
 			// 絶対アドレス（下位）
 				int c = to*4;
 				state.dest [ state.lplaces[i].pnum ] |= (c & 0xFFFF);
+			} else if ( state.lplaces[i].type == tLabelPoint::T_AddrZero ) {
+			// $0+disp形式（基本的にはT_AddrLowと同じ）
+				int c = to*4;
+				if ( c > 0x7FFF ) {
+					throw std::string("SETLV label must be placed to 0x0000-0x7fff");
+				}
+				state.dest [ state.lplaces[i].pnum ] |= (c & 0xFFFF);
 			} else {
-				throw std::string("Unexpected label type");
+				throw std::string("(internal) Unexpected label type");
 			}
 			
 			

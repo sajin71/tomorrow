@@ -12,10 +12,13 @@ Usage: ./asm [input asm [output bin]]
 
 疑似命令
 --------
-- MOV  $t, $s (=ADD $t, $s, $0)
-- LLI  $t, imm (=ADDI $t, $0, imm)
-- SET  $t, imm (=LUI $t, imm[31:16]; ORI $t, $t, imm[15:0])
-- SETL $t, label (Set pointer of label using LUI, ORI)
+- MOV    $t, $s (=ADD $t, $s, $0)
+- LLI    $t, imm (=ADDI $t, $0, imm)
+- SET    $t, imm (=LUI $t, imm[31:16]; ORI $t, $t, imm[15:0])
+- SETL   $t, label (Set pointer of label using LUI, ORI)
+- SETLV  $t, label (Set value of label using LW. label must be placed to 0x0000-0x7fff)
+- SETCLV $f, label (Set fp value of label using LWC. label must be placed to 0x0000-0x7fff)
+- .long imm (Emit raw imm)
 
 MIPSとの相違点
 --------------
