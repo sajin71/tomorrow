@@ -49,16 +49,19 @@ package component_pack is
   signal next_pc    : std_logic_vector(31 downto 0);
   signal pccont     : std_logic;
 
-  signal fwaddr    : std_logic_vector(4 downto 0);
-  signal fwdata    : std_logic_vector(31 downto 0);
-  signal ft_out    : std_logic_vector(31 downto 0);
-  signal fs_out    : std_logic_vector(31 downto 0);
-  signal fdata_out : std_logic_vector(31 downto 0);
-  signal fpuout    : std_logic_vector(31 downto 0);
-  signal fpu_oper  : FPU_OPER;
-  signal cond_data : std_logic;
-  signal fcsraddr  : std_logic_vector(2 downto 0);
-  signal fcsrout   : std_logic;
+  signal fwaddr     : std_logic_vector(4 downto 0);
+  signal fwdata     : std_logic_vector(31 downto 0);
+  signal ft_out     : std_logic_vector(31 downto 0);
+  signal fs_out     : std_logic_vector(31 downto 0);
+  signal fdata_out  : std_logic_vector(31 downto 0);
+  signal fpuout     : std_logic_vector(31 downto 0);
+  signal fpu_oper_s : FPU_OPER;
+  signal cond_data  : std_logic;
+  signal fcsraddr   : std_logic_vector(2 downto 0);
+  signal fcsrout    : std_logic;
 
-
+  signal fcsr_inner : std_logic_vector(2 downto 0);
+  type   t_file is array (0 to 7) of std_logic;
+  signal fcsr_file  : t_file := (others => '0');
+  
 end component_pack;

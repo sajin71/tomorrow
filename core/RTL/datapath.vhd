@@ -1,5 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
 
 library tomorrow_1;
 use tomorrow_1.component_pack.all;
@@ -23,14 +24,8 @@ entity datapath is
 
     PCWriteBCF : in std_logic;
     PCWriteBCT : in std_logic;
-    CCAddr     : in std_logic;
-    FPRWSrc    : in std_logic_vector(1 downto 0);
-    FPRDst     : in std_logic_vector(1 downto 0);
     FCSRW      : in std_logic;
     FPRWrite   : in std_logic;
-    CCond      : in comp_t;
-    FPUOp      : in FPU_CTRL;
-    MemSrc     : in std_logic;
 
     IR         : in  std_logic_vector(31 downto 0);
     MDR        : in  std_logic_vector(31 downto 0);
@@ -122,10 +117,8 @@ begin  -- RTL
 
   MEMADDR <= aluout;
 
-  with MemSrc select
-    DATA_WRITE <=
-    read_data2 when '0',
-    ft_out     when others;
+  DATA_WRITE <= ft_out when IR(28 downto 26) = "001" else
+                read_data2;
 
   oper <=
     I_AND when ALUOp = C_AND or (ALUOp = C_FUNCT and IR(2 downto 0) = "100") else
@@ -160,7 +153,7 @@ begin  -- RTL
       D1   => ft_out,
       D2   => fs_out,
       R    => fdata_out,
-      OPER => fpu_oper);
+      OPER => fpu_oper_s);
 
   fpu_latch : process (CLK)
   begin  -- process fpu_latch
@@ -169,22 +162,44 @@ begin  -- RTL
     end if;
   end process fpu_latch;
 
-  with CCAddr select
-    fcsraddr <=
-    IR(20 downto 18) when '0',
-    IR(10 downto 8)  when others;
+  fcsraddr <= IR(20 downto 18) when IR(25) = '0' else
+              IR(10 downto 8);
 
-  with FPRWSrc select
-    fwdata <=
-    fpuout     when "00",
-    MDR        when "01",
-    fs_out     when "10",
-    read_data2 when others;
+  fwdata <=
+    MDR        when IR(31) = '1'              else
+    read_data2 when IR(25 downto 24) = "00"   else
+    fs_out     when IR(5 downto 0) = "000110" else
+    fpuout;
 
-  with FPRDst select
-    fwaddr <=
-    IR(20 downto 16) when "00",
-    IR(15 downto 11) when "01",
-    IR(10 downto 6)  when others;
+  fwaddr <=
+    IR(20 downto 16) when IR(31) = '1'            else
+    IR(15 downto 11) when IR(25 downto 24) = "00" else
+    IR(10 downto 6);
+
+  fcsr_latch : process (CLK)
+  begin  -- process fcsr_latch
+    if rising_edge(CLK) then
+      if FCSRW = '1' then
+        fcsr_file(conv_integer(fcsraddr)) <= cond_data;
+      end if;
+      fcsr_inner <= fcsraddr;
+    end if;
+  end process fcsr_latch;
+  fcsrout <= fcsr_file(conv_integer(fcsr_inner));
+
+  with IR(5 downto 0) select
+    fpu_oper_s <=
+    O_FSUB   when "000001",
+    O_FMUL   when "000010",
+    O_FDIV   when "000011",
+    O_FSQRT  when "000100",
+    O_FABS   when "000101",
+    O_FNEG   when "000111",
+    O_FROUND when "001100",
+    O_FFLOOR when "001111",
+    O_FRECIP when "010101",
+    O_FCVTS  when "100000",
+    O_FADD   when others;
+  
   
 end RTL;
