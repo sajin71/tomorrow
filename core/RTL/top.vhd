@@ -56,6 +56,11 @@ begin  -- RTL
       ALUOp       => ALUOp,
       PCSource    => PCSource,
 
+      PCWriteBCF => PCWriteBCF,
+      PCWriteBCT => PCWriteBCT,
+      FCSRW      => FCSRW,
+      FPRWrite   => FPRWrite,
+
       IR         => IR,
       MDR        => MDR,
       PC_OUT     => PC,
@@ -66,8 +71,7 @@ begin  -- RTL
   controller_map : controller
     port map (
       CLK         => clk,
-      OP          => IR(31 downto 26),
-      FUNCT       => IR(5 downto 0),
+      IR          => IR,
       BUSY        => BUSY,
       PCWriteNC   => PCWriteNC,
       PCWriteCond => PCWriteCond,
@@ -81,7 +85,12 @@ begin  -- RTL
       ALUSrcA     => ALUSrcA,
       ALUSrcB     => ALUSrcB,
       ALUOp       => ALUOp,
-      PCSource    => PCSource);
+      PCSource    => PCSource,
+
+      PCWriteBCF => PCWriteBCF,
+      PCWriteBCT => PCWriteBCT,
+      FCSRW      => FCSRW,
+      FPRWrite   => FPRWrite);
 
   ram_map : ram
     generic map (
