@@ -56,6 +56,7 @@ package component_pack is
   signal fdata_out  : std_logic_vector(31 downto 0);
   signal fpuout     : std_logic_vector(31 downto 0);
   signal fpu_oper_s : FPU_OPER;
+  signal comp_op    : std_logic;
   signal cond_data  : std_logic;
   signal fcsraddr   : std_logic_vector(2 downto 0);
   signal fcsrout    : std_logic;
@@ -63,5 +64,7 @@ package component_pack is
   signal fcsr_inner : std_logic_vector(2 downto 0);
   type   t_file is array (0 to 7) of std_logic;
   signal fcsr_file  : t_file := (others => '0');
-  
+
+  signal is_equal     : boolean;
+  signal is_less_than : boolean;
 end component_pack;

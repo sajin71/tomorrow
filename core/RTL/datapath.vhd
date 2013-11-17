@@ -1,6 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.std_logic_unsigned.all;
+use ieee.numeric_std.all;
 
 library tomorrow_1;
 use tomorrow_1.component_pack.all;
@@ -176,16 +176,20 @@ begin  -- RTL
     IR(15 downto 11) when IR(25 downto 24) = "00" else
     IR(10 downto 6);
 
+  comp_op <=
+    '0' when IR(1) = '1' else
+    '1';
+
   fcsr_latch : process (CLK)
   begin  -- process fcsr_latch
     if rising_edge(CLK) then
       if FCSRW = '1' then
-        fcsr_file(conv_integer(fcsraddr)) <= cond_data;
+        fcsr_file(to_integer(unsigned(fcsraddr))) <= cond_data;
       end if;
       fcsr_inner <= fcsraddr;
     end if;
   end process fcsr_latch;
-  fcsrout <= fcsr_file(conv_integer(fcsr_inner));
+  fcsrout <= fcsr_file(to_integer(unsigned(fcsr_inner)));
 
   with IR(5 downto 0) select
     fpu_oper_s <=
@@ -201,5 +205,28 @@ begin  -- RTL
     O_FCVTS  when "100000",
     O_FADD   when others;
   
+  is_equal <=
+    true when ft_out(30 downto 0) = (30 downto 0 => '0')
+    and fs_out(30 downto 0) = (30 downto 0       => '0') else
+    fs_out = ft_out;
+
+  is_less_than <=
+    unsigned(fs_out(22 downto 0)) < unsigned(ft_out(22 downto 0))   when
+    fs_out(31) = '0' and fs_out(31 downto 23) = ft_out(31 downto 23)           else
+    unsigned(fs_out(22 downto 0)) > unsigned(ft_out(22 downto 0))   when
+    fs_out(31 downto 23) = ft_out(31 downto 23)                                else
+    unsigned(fs_out(30 downto 23)) < unsigned(ft_out(30 downto 23)) when
+    fs_out(31) = ft_out(31) and fs_out(31) = '0'                               else
+    unsigned(fs_out(30 downto 23)) > unsigned(ft_out(30 downto 23)) when
+    fs_out(31) = ft_out(31)                                                    else
+    false                                                           when
+    fs_out = (31 => '1', 30 downto 0 => '0') and ft_out = (31 downto 0 => '0') else
+    fs_out(31) = '1';
+
+  cond_data <=
+    not comp_op when is_equal     else
+    comp_op     when is_less_than else
+    '0';
+
   
 end RTL;
