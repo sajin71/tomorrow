@@ -90,7 +90,8 @@ begin  -- RTL
     write_data <=
     aluout                    when "00",
     MDR                       when "01",
-    IR(15 downto 0) & x"0000" when others;
+    IR(15 downto 0) & x"0000" when "10",
+    fs_out                    when others;
 
   with ALUSrcA select
     data_in1 <=
