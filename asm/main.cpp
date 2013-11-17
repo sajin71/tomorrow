@@ -679,14 +679,19 @@ bool proc_instFP(char* mnemonic, char** op, int opcnt, tState *state) {
 		if ( isBCF || isBCT ) {
 			fmt = 8; //BC
 			
-			if ( opcnt != 2 ) {
+			char *opcon;
+			if ( opcnt == 2 ) {
+				opcon = trim(op[1]);
+				ft = str2cc(trim(op[0])) <<2;
+			} else if ( opcnt == 1 ) {
+				opcon = trim(op[0]);
+				ft = 0;
+			} else {
 				throw std::string("Operand count not match");
 			}
 			
-			ft = str2cc(trim(op[0])) <<2;
-			if(isBCT) { ft |= 0x1; }
 			
-			char *opcon = trim(op[1]);
+			if(isBCT) { ft |= 0x1; }
 			
 			// ブランチ先
 			if ( is_labelhead(opcon[0]) ) {
@@ -744,14 +749,19 @@ bool proc_instFP(char* mnemonic, char** op, int opcnt, tState *state) {
 		}
 		if ( co != NULL ) {
 			
-			if ( opcnt != 3 ) {
+			if ( opcnt == 3 ) {
+				ft = numfreg(trim(op[2]));
+				fs = numfreg(trim(op[1]));
+				fd = str2cc(trim(op[0])) <<2;
+			} else if ( opcnt == 2 ) {
+				ft = numfreg(trim(op[1]));
+				fs = numfreg(trim(op[0]));
+				fd = 0;
+			} else {
 				throw std::string("Operand count not match");
 			}
 			
 			fmt = 0x10; //S
-			ft = numfreg(trim(op[2]));
-			fs = numfreg(trim(op[1]));
-			fd = str2cc(trim(op[0])) <<2;
 			tail = 0x30 | co->cond;
 			break; //break do-while
 		}
