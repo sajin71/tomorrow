@@ -58,40 +58,44 @@ const tInstR InstR[] = {
 { "JR",     0x1B, 0x00, 1, {0,3,3}, false },
 { "HALT",   0x3c, 0x00, 0, {3,3,3}, false },
 
-// Tommorow extension
+// Tommorow legacy extension
 { "OUTPUT", 0x3f, 0x00, 1, {0,1,2} },
 { "INPUT",  0x3e, 0x00, 1, {0,1,2} },
 };
 
 
 struct tInstI {
+public:
+	enum EInstIType { T_Arith, T_Branch, T_Mem, T_MemCo, T_SetL, T_Set };
+	
 	const char *mnemonic;
 	unsigned char opcode;
 	int opercnt; //オペランドで指定するレジスタの数
-	char type; //即値の形式 0...ふつう 1...PC相対 2...メモリオフセット 3...メモリオフセット(fp)
+	EInstIType type; //即値の形式 0...ふつう 1...PC相対 2...メモリオフセット 3...メモリオフセット(fp)
 	           //           4...SETL命令（絶対ポインタ） 5...SET命令（即値代入）
 	int oporder[2]; //ふつう形式: 0...sに対応するのはアセンブラコードでいうと何番目？ 1...t  (2を指定すると0固定)
 };
 const unsigned char opcode_LUI = 0x0F;
 const tInstI InstI[] = {
-{ "ADDI",   0x08, 2, 0, {1,0}},
-{ "ANDI",   0x0C, 2, 0, {1,0}},
-{ "SLTI",   0x0A, 2, 0, {1,0}},
-{ "ORI",    0x0D, 2, 0, {1,0}},
-{ "LW",     0x23, 2, 2, {}   },
-{ "SW",     0x2B, 2, 2, {}   },
+{ "ADDI",   0x08, 2, tInstI::T_Arith, {1,0}},
+{ "ANDI",   0x0C, 2, tInstI::T_Arith, {1,0}},
+{ "SLTI",   0x0A, 2, tInstI::T_Arith, {1,0}},
+{ "ORI",    0x0D, 2, tInstI::T_Arith, {1,0}},
+{ "LW",     0x23, 2, tInstI::T_Mem  , {}   },
+{ "SW",     0x2B, 2, tInstI::T_Mem  , {}   },
 
-{ "LWC",    0x31, 2, 3, {}   },
-{ "LWC1",   0x31, 2, 3, {}   },
-{ "SWC",    0x39, 2, 3, {}   },
-{ "SWC1",   0x39, 2, 3, {}   },
+{ "LWC",    0x31, 2, tInstI::T_MemCo, {}   },
+{ "LWC1",   0x31, 2, tInstI::T_MemCo, {}   },
+{ "SWC",    0x39, 2, tInstI::T_MemCo, {}   },
+{ "SWC1",   0x39, 2, tInstI::T_MemCo, {}   },
 
-{ "SETL",   0x0D, 1, 4, {}   }, //pseudo, load absolute address imm. expand 2-ops LUIを別途先に入れておく
-{ "SET",    0x0D, 1, 5, {}   }, //pseudo, load 32bit imm. expand 2-ops LUIを別途先に入れておく
-{ "LLI",    0x0D, 1, 0, {2,0}}, //pseudo ORI
-{ "LUI",    opcode_LUI, 1, 0, {2,0}},
-{ "BEQ",    0x04, 2, 1, {0,1}},
-{ "BNE",    0x05, 2, 1, {0,1}},
+{ "SETL",   0x0D, 1, tInstI::T_SetL , {}   }, //pseudo, load absolute address imm. expand 2-ops LUIを別途先に入れておく
+{ "SET",    0x0D, 1, tInstI::T_Set  , {}   }, //pseudo, load 32bit imm. expand 2-ops LUIを別途先に入れておく
+
+{ "LLI",    0x0D, 1, tInstI::T_Arith, {2,0}}, //pseudo ORI
+{ "LUI",    opcode_LUI, 1, tInstI::T_Arith, {2,0}},
+{ "BEQ",    0x04, 2, tInstI::T_Branch, {0,1}},
+{ "BNE",    0x05, 2, tInstI::T_Branch, {0,1}},
 };
 
 
@@ -107,9 +111,11 @@ const tInstJ InstJ[] = {
 
 // ラベルが使用されているところの情報
 struct tLabelPoint {
+public:
+	enum ElabelType { T_Branch, T_Jump, T_AddrUpp, T_AddrLow };
 	unsigned int pnum;
 	std::string label;
-	char type; //0...I 1...J 2...即値上位 3...即値下位
+	ElabelType type; //0...I 1...J 2...即値上位 3...即値下位
 	int linenum;
 };
 
@@ -256,6 +262,287 @@ int opersplit(char *operand, char *op[3]) {
 
 
 
+// **** 処理関数たち **** //
+
+bool proc_instR(char* mnemonic, char** op, int opcnt, tState *state) {
+
+	const tInstR *ir = NULL;
+	for (unsigned int i=0; i< ARRSIZE(InstR); i++) {
+		if ( strcasecmp(InstR[i].mnemonic, mnemonic) == 0 ) {
+			ir = &InstR[i];
+			break;
+		}
+	}
+	
+	if ( !ir ) {
+		return false;
+	}
+	
+	
+	if ( opcnt != (ir->opercnt + (ir->shift?1:0) ) ) {
+		throw std::string("Operand count not match");
+	}
+	
+	// オペランドのレジスタを読み取る
+	short opn[3+1] = {0,0,0,0};
+	for(int o=0; o< ir->opercnt; o++) {
+		opn[o] = numreg(trim(op[o]));
+	}
+	// シフト数
+	short shift = 0;
+	if ( ir->shift ) {
+		long lshi = str2long(trim(op[ir->opercnt]));
+		if ( lshi >= 32 || lshi<0 ) {
+			throw std::string("constant shift value is out of range");
+		}
+		shift = (short)lshi;
+	}
+	
+	
+	// 命令を組み立てて追加
+	inst_t inst;
+	inst = (ir->opcode<<26)
+	     | (opn[ ir->oporder[0] ]<<21)
+	     | (opn[ ir->oporder[1] ]<<16)
+	     | (opn[ ir->oporder[2] ]<<11)
+	     | (shift<<6)
+	     | ir->funct;
+	dprintf("0x%x\n", inst);
+	
+	state->dest.push_back(inst);
+	
+	return true;
+}
+
+
+bool proc_instI(char* mnemonic, char** op, int opcnt, tState *state) {
+	const tInstI *ii = NULL;
+	for (unsigned int i=0; i< ARRSIZE(InstI); i++) {
+		if ( strcasecmp(InstI[i].mnemonic, mnemonic) == 0 ) {
+			ii = &InstI[i];
+			break;
+		}
+	}
+	
+	if ( !ii ) {
+		return false;
+	}
+	
+	
+	char rs, rt;
+	imm_t con; //16bit
+	
+	
+	if ( ii->type == tInstI::T_Arith || ii->type == tInstI::T_Branch ) {
+	// 0...最後のオペランドが定数になってるふつう形式
+	// 1...PC相対（ラベルかも？）
+		
+		if ( opcnt != (ii->opercnt+1) ) {
+			throw std::string("Operand count not match");
+		}
+		// オペランドのレジスタを読み取る
+		short opn[2+1] = {0,0,0};
+		for(int o=0; o< ii->opercnt; o++) {
+			opn[o] = numreg(trim(op[o]));
+		}
+		rs = opn[ ii->oporder[0] ];
+		rt = opn[ ii->oporder[1] ];
+		
+		char *opcon = trim(op[ii->opercnt]);
+		
+		if ( ii->type == tInstI::T_Arith ) {
+			// 定数を読み取る
+			con = (imm_t)str2long(opcon);
+		} else {
+			if ( is_labelhead(opcon[0]) ) {
+				con = 0;
+				// ラベル位置を登録
+				tLabelPoint tlp;
+				tlp.pnum = state->getPnum();
+				tlp.label = std::string(opcon);
+				tlp.type = tLabelPoint::T_Branch;
+				tlp.linenum = state->linenum;
+				
+				state->lplaces.push_back(tlp);
+			} else {
+				long lc = str2long(opcon);
+				if ( lc%4 != 0 ) {
+					throw std::string("branch address must be multiples of 4");
+				}
+				con = (imm_t)(lc/4);
+			}
+		}
+	} else if ( ii->type == tInstI::T_Mem || ii->type == tInstI::T_MemCo ) {
+	// メモリアドレスのオフセットを指定してるやつ
+		
+		if ( ii->type == tInstI::T_Mem ) { //整数
+			rt = numreg(trim(op[0]));
+		} else { //浮動小数点数
+			rt = numfreg(trim(op[0]));
+		}
+		
+		// かっこをほぐす
+		char *kakko1 = strchr(op[1], '(');
+		if ( kakko1 == NULL ) {
+			throw std::string("Unknown addressing operand. `(' not found");
+		}
+		*kakko1 = '\0';
+		
+		char *kreg = kakko1+1;
+		char *kakko2 = strchr(kreg, ')');
+		if ( kakko2 == NULL ) {
+			throw std::string("Unknown addressing operand. `)' not found");
+		}
+		*kakko2 = '\0';
+		if ( *(kakko2+1) != '\0' ) {
+			throw std::string("Unexpected string `") + std::string(kakko2+1) + std::string("'");
+		}
+		
+		con = (imm_t)str2long(trim(op[1]));
+		rs = numreg(trim(kreg));
+	} else if ( ii->type == tInstI::T_SetL ) {
+	// 特殊処理
+	// ラベルによってその位置のアドレス自体を即値代入する
+		if ( opcnt != (ii->opercnt+1) ) {
+			throw std::string("Operand count not match");
+		}
+		rs = 0;
+		rt = numreg(trim(op[0]));
+		con = 0;
+		
+		char *opcon = trim(op[ii->opercnt]);
+		if ( !is_labelhead(opcon[0]) ) {
+			throw std::string("Invalid label identifier `") + std::string(opcon) + std::string("'");
+		}
+		
+		// ラベル位置を登録（上位）
+		tLabelPoint tlpup;
+		tlpup.pnum = state->getPnum();
+		tlpup.label = std::string(opcon);
+		tlpup.type = tLabelPoint::T_AddrUpp;
+		tlpup.linenum = state->linenum;
+		
+		state->lplaces.push_back(tlpup);
+		
+		
+		// 命令を組み立てて追加（上位）LUIを入れちゃう
+		inst_t inst;
+		inst = (opcode_LUI<<26)
+		     | (rs<<21)
+		     | (rt<<16)
+		     | (con & 0xFFFF);
+		dprintf("0x%x\n", inst);
+	
+		state->dest.push_back(inst);
+		
+		
+		
+		// ラベル位置を登録（下位）
+		tLabelPoint tlp;
+		tlp.pnum = state->getPnum();
+		tlp.label = std::string(opcon);
+		tlp.type = tLabelPoint::T_AddrLow;
+		tlp.linenum = state->linenum;
+		
+		state->lplaces.push_back(tlp);
+	} else if ( ii->type == tInstI::T_Set ) {
+	// 特殊処理
+	// 32ビットの即値を2命令で代入する
+		if ( opcnt != (ii->opercnt+1) ) {
+			throw std::string("Operand count not match");
+		}
+		rs = 0;
+		rt = numreg(trim(op[0]));
+		
+		char *opcon = trim(op[ii->opercnt]);
+		long longimm = str2long(opcon);
+		
+		imm_t upimm = (imm_t)((longimm>>16) & 0xFFFF);
+		
+		if ( upimm != 0 ) {
+			// 命令を組み立てて追加（上位）LUIを入れちゃう
+			inst_t inst;
+			inst = (opcode_LUI<<26)
+			     | (rs<<21)
+			     | (rt<<16)
+			     | (upimm & 0xFFFF);
+			dprintf("0x%x\n", inst);
+		
+			state->dest.push_back(inst);
+			
+			// ORI $rs, $rs, [下位] で下位を入れる
+			rs = rt;
+		}
+		
+		con = (imm_t)(longimm&0xFFFF);
+	} else {
+		throw std::string("(internal) Unknown InstI type");
+	}
+	
+	
+	// 命令を組み立てて追加
+	inst_t inst;
+	inst = (ii->opcode<<26)
+	     | (rs<<21)
+	     | (rt<<16)
+	     | (con & 0xFFFF);
+	dprintf("0x%x\n", inst);
+	
+	state->dest.push_back(inst);
+	return true;
+}
+
+
+bool proc_instJ(char* mnemonic, char** op, int opcnt, tState *state) {
+	const tInstJ *ij = NULL;
+	for (unsigned int i=0; i< ARRSIZE(InstJ); i++) {
+		if ( strcasecmp(InstJ[i].mnemonic, mnemonic) == 0 ) {
+			ij = &InstJ[i];
+			break;
+		}
+	}
+	if ( !ij ) {
+		return false;
+	}
+	
+	
+	if ( opcnt != 1 ) {
+		throw std::string("Operand count not match");
+	}
+	
+	long con;
+	
+	char *opcon = trim(op[0]);
+	if ( is_labelhead(opcon[0]) ) {
+		con = 0;
+		// ラベル位置を登録
+		tLabelPoint tlp;
+		tlp.pnum = state->getPnum();
+		tlp.label = std::string(opcon);
+		tlp.type = tLabelPoint::T_Jump;
+		tlp.linenum = state->linenum;
+		
+		state->lplaces.push_back(tlp);
+	} else {
+		long lc = str2long(opcon);
+		if ( lc%4 != 0 ) {
+			throw std::string("jump address must be multiples of 4");
+		}
+		con = lc/4;
+	}
+	
+	// 命令を組み立てて追加
+	inst_t inst;
+	inst = (ij->opcode<<26)
+	     | (con & 0x3FFFFFF);
+	dprintf("0x%x\n", inst);
+	
+	state->dest.push_back(inst);
+	
+	return true;
+}
+
+
 // operandはNULLかも
 void proc(char* mnemonic, char* operand, tState *state) {
 	
@@ -302,268 +589,24 @@ void proc(char* mnemonic, char* operand, tState *state) {
 	char *op[3];
 	int opcnt = opersplit(operand, op);
 	
+	
 	// *** R形式をチェック ***
-	{
-	const tInstR *ir = NULL;
-		for (unsigned int i=0; i< ARRSIZE(InstR); i++) {
-			if ( strcasecmp(InstR[i].mnemonic, mnemonic) == 0 ) {
-				ir = &InstR[i];
-				break;
-			}
-		}
-		if ( ir ) {
-			if ( opcnt != (ir->opercnt + (ir->shift?1:0) ) ) {
-				throw std::string("Operand count not match");
-			}
-			
-			// オペランドのレジスタを読み取る
-			short opn[3+1] = {0,0,0,0};
-			for(int o=0; o< ir->opercnt; o++) {
-				opn[o] = numreg(trim(op[o]));
-			}
-			// シフト数
-			short shift = 0;
-			if ( ir->shift ) {
-				long lshi = str2long(trim(op[ir->opercnt]));
-				if ( lshi >= 32 || lshi<0 ) {
-					throw std::string("constant shift value is out of range");
-				}
-				shift = (short)lshi;
-			}
-			
-			
-			// 命令を組み立てて追加
-			inst_t inst;
-			inst = (ir->opcode<<26)
-			     | (opn[ ir->oporder[0] ]<<21)
-			     | (opn[ ir->oporder[1] ]<<16)
-			     | (opn[ ir->oporder[2] ]<<11)
-			     | (shift<<6)
-			     | ir->funct;
-			dprintf("0x%x\n", inst);
-			
-			state->dest.push_back(inst);
-			return;
-		}
+	if ( proc_instR(mnemonic, op, opcnt, state) ) {
+		return;
 	}
 	
 	
 	// *** I形式をチェック ***
-	{
-		const tInstI *ii = NULL;
-		for (unsigned int i=0; i< ARRSIZE(InstI); i++) {
-			if ( strcasecmp(InstI[i].mnemonic, mnemonic) == 0 ) {
-				ii = &InstI[i];
-				break;
-			}
-		}
-		if ( ii ) {
-			char rs, rt;
-			imm_t con; //16bit
-			
-			
-			if ( ii->type == 2 || ii->type == 3 ) {
-			// メモリアドレスのオフセットを指定してるやつ
-				if ( ii->type == 2 ) { //整数
-					rt = numreg(trim(op[0]));
-				} else { //浮動小数点数
-					rt = numfreg(trim(op[0]));
-				}
-				
-				// かっこをほぐす
-				char *kakko1 = strchr(op[1], '(');
-				if ( kakko1 == NULL ) {
-					throw std::string("Unknown addressing operand. `(' not found");
-				}
-				*kakko1 = '\0';
-				
-				char *kreg = kakko1+1;
-				char *kakko2 = strchr(kreg, ')');
-				if ( kakko2 == NULL ) {
-					throw std::string("Unknown addressing operand. `)' not found");
-				}
-				*kakko2 = '\0';
-				if ( *(kakko2+1) != '\0' ) {
-					throw std::string("Unexpected string `") + std::string(kakko2+1) + std::string("'");
-				}
-				
-				con = (imm_t)str2long(trim(op[1]));
-				rs = numreg(trim(kreg));
-			} else if ( ii->type == 4 ) {
-			// 特殊処理
-			// ラベルによってその位置のアドレス自体を即値代入する
-				if ( opcnt != (ii->opercnt+1) ) {
-					throw std::string("Operand count not match");
-				}
-				rs = 0;
-				rt = numreg(trim(op[0]));
-				con = 0;
-				
-				char *opcon = trim(op[ii->opercnt]);
-				if ( !is_labelhead(opcon[0]) ) {
-					throw std::string("Invalid label identifier `") + std::string(opcon) + std::string("'");
-				}
-				
-				// ラベル位置を登録（上位）
-				tLabelPoint tlpup;
-				tlpup.pnum = state->getPnum();
-				tlpup.label = std::string(opcon);
-				tlpup.type = 2;
-				tlpup.linenum = state->linenum;
-				
-				state->lplaces.push_back(tlpup);
-				
-				
-				// 命令を組み立てて追加（上位）LUIを入れちゃう
-				inst_t inst;
-				inst = (opcode_LUI<<26)
-				     | (rs<<21)
-				     | (rt<<16)
-				     | (con & 0xFFFF);
-				dprintf("0x%x\n", inst);
-			
-				state->dest.push_back(inst);
-				
-				
-				
-				// ラベル位置を登録（下位）
-				tLabelPoint tlp;
-				tlp.pnum = state->getPnum();
-				tlp.label = std::string(opcon);
-				tlp.type = 3;
-				tlp.linenum = state->linenum;
-				
-				state->lplaces.push_back(tlp);
-			} else if ( ii->type == 5 ) {
-			// 特殊処理
-			// 32ビットの即値を2命令で代入する
-				if ( opcnt != (ii->opercnt+1) ) {
-					throw std::string("Operand count not match");
-				}
-				rs = 0;
-				rt = numreg(trim(op[0]));
-				
-				char *opcon = trim(op[ii->opercnt]);
-				long longimm = str2long(opcon);
-				
-				imm_t upimm = (imm_t)((longimm>>16) & 0xFFFF);
-				
-				if ( upimm != 0 ) {
-					// 命令を組み立てて追加（上位）LUIを入れちゃう
-					inst_t inst;
-					inst = (opcode_LUI<<26)
-					     | (rs<<21)
-					     | (rt<<16)
-					     | (upimm & 0xFFFF);
-					dprintf("0x%x\n", inst);
-				
-					state->dest.push_back(inst);
-					
-					// ORI $rs, $rs, [下位] で下位を入れる
-					rs = rt;
-				}
-				
-				con = (imm_t)(longimm&0xFFFF);
-			} else {
-			// 0...最後のオペランドが定数になってるふつう形式
-			// 1...PC相対（ラベルかも？）
-				
-				if ( opcnt != (ii->opercnt+1) ) {
-					throw std::string("Operand count not match");
-				}
-				// オペランドのレジスタを読み取る
-				short opn[2+1] = {0,0,0};
-				for(int o=0; o< ii->opercnt; o++) {
-					opn[o] = numreg(trim(op[o]));
-				}
-				rs = opn[ ii->oporder[0] ];
-				rt = opn[ ii->oporder[1] ];
-				
-				char *opcon = trim(op[ii->opercnt]);
-				
-				if ( ii->type == 0 ) {
-					// 定数を読み取る
-					con = (imm_t)str2long(opcon);
-				} else {
-					if ( is_labelhead(opcon[0]) ) {
-						con = 0;
-						// ラベル位置を登録
-						tLabelPoint tlp;
-						tlp.pnum = state->getPnum();
-						tlp.label = std::string(opcon);
-						tlp.type = 0;
-						tlp.linenum = state->linenum;
-						
-						state->lplaces.push_back(tlp);
-					} else {
-						long lc = str2long(opcon);
-						if ( lc%4 != 0 ) {
-							throw std::string("branch address must be multiples of 4");
-						}
-						con = (imm_t)(lc/4);
-					}
-				}
-			}
-			
-			// 命令を組み立てて追加
-			inst_t inst;
-			inst = (ii->opcode<<26)
-			     | (rs<<21)
-			     | (rt<<16)
-			     | (con & 0xFFFF);
-			dprintf("0x%x\n", inst);
-			
-			state->dest.push_back(inst);
-			return;
-		}
+	if ( proc_instI(mnemonic, op, opcnt, state) ) {
+		return;
 	}
 	
 	
 	// *** J形式をチェック ***
-	{
-		const tInstJ *ij = NULL;
-		for (unsigned int i=0; i< ARRSIZE(InstJ); i++) {
-			if ( strcasecmp(InstJ[i].mnemonic, mnemonic) == 0 ) {
-				ij = &InstJ[i];
-				break;
-			}
-		}
-		if ( ij ) {
-			if ( opcnt != 1 ) {
-				throw std::string("Operand count not match");
-			}
-			
-			long con;
-			
-			char *opcon = trim(op[0]);
-			if ( is_labelhead(opcon[0]) ) {
-				con = 0;
-				// ラベル位置を登録
-				tLabelPoint tlp;
-				tlp.pnum = state->getPnum();
-				tlp.label = std::string(opcon);
-				tlp.type = 1;
-				tlp.linenum = state->linenum;
-				
-				state->lplaces.push_back(tlp);
-			} else {
-				long lc = str2long(opcon);
-				if ( lc%4 != 0 ) {
-					throw std::string("jump address must be multiples of 4");
-				}
-				con = lc/4;
-			}
-			
-			// 命令を組み立てて追加
-			inst_t inst;
-			inst = (ij->opcode<<26)
-			     | (con & 0x3FFFFFF);
-			dprintf("0x%x\n", inst);
-			
-			state->dest.push_back(inst);
-			return;
-		}
+	if ( proc_instJ(mnemonic, op, opcnt, state) ) {
+		return;
 	}
+	
 	
 	throw std::string("Unknown mnemonic `") + std::string(mnemonic) + std::string("'");
 }
@@ -672,7 +715,7 @@ int main(int argc, char *argv[]) {
 			unsigned int from = state.lplaces[i].pnum + 1;
 			unsigned int to   = (*it).second;
 			
-			if ( state.lplaces[i].type == 0 ) {
+			if ( state.lplaces[i].type == tLabelPoint::T_Branch ) {
 			// I形式 branch (PC相対)
 				int c = to - from;
 				if ( c < -32768 || 32767 < c ) {
@@ -680,17 +723,17 @@ int main(int argc, char *argv[]) {
 				}
 				
 				state.dest [ state.lplaces[i].pnum ] |= (c & 0xFFFF);
-			} else if ( state.lplaces[i].type == 1 ) {
+			} else if ( state.lplaces[i].type == tLabelPoint::T_Jump ) {
 			// J形式 jump
 				if ( (from&0xFC000000) != (to&0xFC000000) ) {
 					throw std::string("jump different segment");
 				}
 				state.dest [ state.lplaces[i].pnum ] |= (to & 0x3FFFFFF);
-			} else if ( state.lplaces[i].type == 2 ) {
+			} else if ( state.lplaces[i].type == tLabelPoint::T_AddrUpp ) {
 			// 絶対アドレス（上位）
 				int c = to*4;
 				state.dest [ state.lplaces[i].pnum ] |= ((c>>16) & 0xFFFF);
-			} else if ( state.lplaces[i].type == 3 ) {
+			} else if ( state.lplaces[i].type == tLabelPoint::T_AddrLow ) {
 			// 絶対アドレス（下位）
 				int c = to*4;
 				state.dest [ state.lplaces[i].pnum ] |= (c & 0xFFFF);
