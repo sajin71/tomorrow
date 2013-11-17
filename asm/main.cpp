@@ -109,6 +109,40 @@ const tInstJ InstJ[] = {
 };
 
 
+const unsigned char opcode_COP1 = 0x11;
+struct tInstFPComp {
+	const char *mnemonic;
+	unsigned char cond;
+};
+const tInstFPComp InstFPComp[] = {
+{ "C.UN.S",    0x01},
+{ "C.EQ.S",    0x02},
+{ "C.OLT.S",   0x04},
+};
+
+struct tInstFPArith {
+	const char *mnemonic;
+	unsigned char funct;
+	int opercnt;
+	int oporder[3]; //0...ftに対応するのはアセンブラコードでいうと何番目？ 1...fs 2...fd  (3を指定すると0固定)
+};
+const tInstFPArith InstFPArith[] = {
+{ "ADD.S",    0x00, 3, {2,1,0}},
+{ "SUB.S",    0x01, 3, {2,1,0}},
+{ "MUL.S",    0x02, 3, {2,1,0}},
+{ "DIV.S",    0x03, 3, {2,1,0}},
+{ "SQRT.S",   0x04, 2, {3,1,0}},
+{ "ABS.S",    0x05, 2, {3,1,0}},
+{ "MOV.S",    0x06, 2, {3,1,0}},
+{ "NEG.S",    0x07, 2, {3,1,0}},
+{ "ROUND.W.S",0x0C, 2, {3,1,0}},
+{ "ROUND.S",  0x0C, 2, {3,1,0}},
+{ "FLOOR.W.S",0x0F, 2, {3,1,0}},
+{ "FLOOR.S",  0x0F, 2, {3,1,0}},
+{ "RECIP.S",  0x15, 2, {3,1,0}},
+};
+
+
 // ラベルが使用されているところの情報
 struct tLabelPoint {
 public:
@@ -211,6 +245,14 @@ short numfreg(char* op) {
 	}
 	
 	throw std::string("Invalid fp register operand `") + std::string(op) + std::string("'");
+}
+
+short str2cc(char* op) {
+	if( op[1] != '\0' || op[0] < '0' || op[0] > '7' ) {
+		throw std::string("Invalid condition register operand `") + std::string(op) + std::string("'");
+	}
+	
+	return op[0] - '0';
 }
 
 
@@ -543,6 +585,170 @@ bool proc_instJ(char* mnemonic, char** op, int opcnt, tState *state) {
 }
 
 
+
+bool proc_instFP(char* mnemonic, char** op, int opcnt, tState *state) {
+	
+	unsigned char fmt;
+	unsigned char ft;
+	unsigned char fs;
+	unsigned char fd;
+	unsigned char tail;
+	
+	do {
+		bool isMFC = ( strcasecmp("MFC", mnemonic) == 0 || strcasecmp("MFC1", mnemonic) == 0 );
+		bool isMTC = ( strcasecmp("MTC", mnemonic) == 0 || strcasecmp("MTC1", mnemonic) == 0 );
+		if ( isMFC || isMTC ) {
+			if(isMFC) { fmt = 0; /*MF*/ }
+			else      { fmt = 4; /*MT*/ }
+			
+			if ( opcnt != 2 ) {
+				throw std::string("Operand count not match");
+			}
+			
+			ft = numreg(trim(op[0]));  //整数レジスタ
+			fs = numfreg(trim(op[1])); //浮動小数点レジスタ
+			
+			fd = 0;
+			tail = 0;
+			
+			break; //break do-while
+		}
+		
+		
+		bool isBCF = ( strcasecmp("BCF", mnemonic) == 0 || strcasecmp("BC1F", mnemonic) == 0 );
+		bool isBCT = ( strcasecmp("BCT", mnemonic) == 0 || strcasecmp("BC1T", mnemonic) == 0 );
+		if ( isBCF || isBCT ) {
+			fmt = 8; //BC
+			
+			if ( opcnt != 2 ) {
+				throw std::string("Operand count not match");
+			}
+			
+			ft = str2cc(trim(op[0])) <<2;
+			if(isBCT) { ft |= 0x1; }
+			
+			char *opcon = trim(op[1]);
+			
+			// ブランチ先
+			if ( is_labelhead(opcon[0]) ) {
+				
+				// ラベル位置を登録
+				tLabelPoint tlp;
+				tlp.pnum = state->getPnum();
+				tlp.label = std::string(opcon);
+				tlp.type = tLabelPoint::T_Branch;
+				tlp.linenum = state->linenum;
+				
+				state->lplaces.push_back(tlp);
+				
+				fs = 0;
+				fd = 0;
+				tail = 0;
+			} else {
+				long lc = str2long(opcon);
+				if ( lc%4 != 0 ) {
+					throw std::string("branch address must be multiples of 4");
+				}
+				imm_t con = (imm_t)(lc/4);
+				
+				fs = (con >>11) & 0x1f;
+				fd = (con >> 6) & 0x1f;
+				tail = con & 0x3f;
+			}
+			
+			break; //break do-while
+		}
+		
+		if ( strcasecmp("CVT.S.W", mnemonic) == 0 ) {
+			
+			if ( opcnt != 2 ) {
+				throw std::string("Operand count not match");
+			}
+			
+			fmt = 0x24; //fmt: W
+			ft = 0;
+			fs = numfreg(trim(op[1]));
+			fd = numfreg(trim(op[0]));
+			tail = 0x20; //CVT.S
+			
+			break; //break do-while
+		}
+		
+		
+		// 比較命令
+		const tInstFPComp *co = NULL;
+		for (unsigned int i=0; i< ARRSIZE(InstFPComp); i++) {
+			if ( strcasecmp(InstFPComp[i].mnemonic, mnemonic) == 0 ) {
+				co = &InstFPComp[i];
+				break;
+			}
+		}
+		if ( co != NULL ) {
+			
+			if ( opcnt != 3 ) {
+				throw std::string("Operand count not match");
+			}
+			
+			fmt = 0x10; //S
+			ft = numfreg(trim(op[2]));
+			fs = numfreg(trim(op[1]));
+			fd = str2cc(trim(op[0])) <<2;
+			tail = 0x30 | co->cond;
+			break; //break do-while
+		}
+		
+		
+		// 算術系
+		const tInstFPArith *ar = NULL;
+		for (unsigned int i=0; i< ARRSIZE(InstFPArith); i++) {
+			if ( strcasecmp(InstFPArith[i].mnemonic, mnemonic) == 0 ) {
+				ar = &InstFPArith[i];
+				break;
+			}
+		}
+		if ( ar != NULL ) {
+			if ( opcnt != ar->opercnt ) {
+				throw std::string("Operand count not match");
+			}
+			// オペランドのレジスタを読み取る
+			short opn[3+1] = {0,0,0,0};
+			for(int o=0; o< ar->opercnt; o++) {
+				opn[o] = numfreg(trim(op[o]));
+			}
+			
+			fmt = 0x10; //S
+			ft = opn[ ar->oporder[0] ];
+			fs = opn[ ar->oporder[1] ];
+			fd = opn[ ar->oporder[2] ];
+			tail = ar->funct;
+			
+			break; //break do-while
+		}
+		
+		
+		// 該当する命令がなかった
+		return false;
+		
+	} while(false);
+	
+	
+	// 命令を組み立てて追加
+	inst_t inst;
+	inst = (opcode_COP1<<26)
+	     | (fmt<<21)
+	     | (ft<<16)
+	     | (fs<<11)
+	     | (fd<<6)
+	     | (tail & 0x3f);
+	dprintf("0x%x\n", inst);
+	
+	state->dest.push_back(inst);
+	
+	return true;
+}
+
+
+
 // operandはNULLかも
 void proc(char* mnemonic, char* operand, tState *state) {
 	
@@ -604,6 +810,11 @@ void proc(char* mnemonic, char* operand, tState *state) {
 	
 	// *** J形式をチェック ***
 	if ( proc_instJ(mnemonic, op, opcnt, state) ) {
+		return;
+	}
+	
+	// *** 浮動小数点命令をチェック ***
+	if ( proc_instFP(mnemonic, op, opcnt, state) ) {
 		return;
 	}
 	
