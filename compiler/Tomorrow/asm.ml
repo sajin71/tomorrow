@@ -18,16 +18,16 @@ and exp = (* represents each instructions *)
     | Div of Id.t * Id.t
     | SLL of Id.t * id_or_imm
     | SRL of Id.t * id_or_imm
-    | LW of Id.t * int 
-    | SW of Id.t * Id.t * int 
+    | LW of Id.t * id_or_imm
+    | SW of Id.t * Id.t * id_or_imm
     | FMov of Id.t
     | FNeg of Id.t
     | FAdd of Id.t * Id.t
     | FSub of Id.t * Id.t
     | FMul of Id.t * Id.t
     | FDiv of Id.t * Id.t
-    | LWC of Id.t * int
-    | SWC of Id.t * Id.t * int
+    | LWC of Id.t * id_or_imm
+    | SWC of Id.t * Id.t * id_or_imm
     | Comment of string
     (* virtual instructions *)
     | IfEq of Id.t * Id.t * t * t
@@ -94,10 +94,10 @@ let rec remove_and_uniq xs = function
 let fv_id_or_imm = function V(x) -> [x] | _ -> []
 let rec fv_exp = function
     | Nop | Set(_) | SetL(_) | Comment(_) | Restore(_) -> []
-    | Mov(x) | Neg(x) | FMov(x) | FNeg(x) | Save(x, _) | LW(x, _) | LWC(x, _) -> [x]
-    | Add(x, y') | Mul(x, y') | SLL(x, y') | SRL(x, y') -> 
+    | Mov(x) | Neg(x) | FMov(x) | FNeg(x) | Save(x, _) -> [x]
+    | Add(x, y') | Mul(x, y') | SLL(x, y') | SRL(x, y') | LW(x, y') | LWC(x, y') -> 
             x :: fv_id_or_imm y' 
-    | SW(x, y, _) | SWC(x, y, _) -> [x; y]
+    | SW(x, y, z') | SWC(x, y, z') -> x :: y :: fv_id_or_imm z'
     | Sub(x, y) | Div(x, y) | FAdd(x, y) | FSub(x, y) | FMul(x, y) | FDiv(x, y) -> [x; y] 
     | IfEq(x, y, e1, e2) | IfLE(x, y, e1, e2) | IfGE(x, y, e1, e2) -> 
             x :: y :: remove_and_uniq S.empty (fv e1 @ fv e2) 
