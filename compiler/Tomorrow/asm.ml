@@ -77,8 +77,8 @@ let co_freg_table =
     for i = 0 to 15 do
         Hashtbl.add
             ht
-            (Printf.sprintf "%%f%d" (i * 2))
-            (Printf.sprintf "%%f%d" (i * 2 + 1))
+            (Printf.sprintf "$f%d" (i * 2))
+            (Printf.sprintf "$f%d" (i * 2 + 1))
     done;
     ht
      
