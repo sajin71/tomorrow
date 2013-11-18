@@ -12,12 +12,10 @@ import java.util.logging.Logger
 import java.util.logging.Level
 import interpreter.BigEndianInterpreter
 import usb.USB
+import cpu.instruction.Opcode
 
-/**
- * 即値付きの命令
- */
-abstract class ImmediateOperandOpcode(opcode: Int) extends Opcode {
-	case class Operand(rs: Register, rt: Register, constant: Int)
+abstract class ImmediateOpcodeFPU(opcode: Int) extends Opcode {
+	case class Operand(base: Register, ft: Register, constant: Int)
      /**
      * 実際の処理の決定
      */
@@ -33,10 +31,9 @@ abstract class ImmediateOperandOpcode(opcode: Int) extends Opcode {
 	    	def apply(usb: USB, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
 		    	val int = BigEndianInterpreter.interpretAsSignedInteger(instruction.data)
 		    	val constantTmp = (int & 0x0000FFFF).toShort;
-		    	val rs = s"r${(int & 0x03E00000)>>21}"
-		    	val rt = s"r${(int & 0x001F0000)>>16}"
-		    	Logger.getLogger("Tomorrow.ver1").log(Level.FINE, s"${this.getClass().getName()} ${rs} ${rt} ${constantTmp toInt}")
-		    	func(usb, Operand(registers(rs), registers(rt), (constantTmp toInt)), programCounter, registers, memory)		    	
+		    	val base = s"r${(int & 0x03E00000)>>21}"
+		    	val ft = s"f${(int & 0x001F0000)>>16}"
+		    	func(usb, Operand(registers(base), registers(ft), (constantTmp toInt)), programCounter, registers, memory)		    	
 			}
 	    }
     }

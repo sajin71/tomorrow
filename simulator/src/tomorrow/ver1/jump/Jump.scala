@@ -55,3 +55,9 @@ class Bne extends ImmediateOperandOpcode(0x05) {
         }
     }
 }
+class Nop extends ThreeRegisterOperandOpcode(0x00, 0x00) {
+	protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
+		programCounter.data += 4
+	}
+
+}

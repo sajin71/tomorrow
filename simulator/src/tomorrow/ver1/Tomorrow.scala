@@ -6,6 +6,7 @@ import cpu.AbstractCPU
  import tomorrow.ver1.logic._
  import tomorrow.ver1.memoryAccess._
  import tomorrow.ver1.shift._
+ import tomorrow.ver1.fpu._
  import scala.collection.immutable.HashSet
  import scala.collection.immutable.HashMap
  import strage.IntegerRegister
@@ -19,9 +20,13 @@ class Tomorrow(usb:USB) extends AbstractCPU(
     HashSet(new Output(), new Add(), new Sub(), new Mul(), new Div(), new Addi(),
             new Jump(), new JumpRegister(), new Jal(), new Beq(), new Bne(), 
     		new And(), new Andi(), new Or(), new Ori(), new Xor(), new Nor(), new LW(), new SW(), new MFHI(), new MFLO(),
-    		new Sll(), new Srl(), new Sra(), new Slt(), new LUI()),
-    HashMap(("HI" -> new IntegerRegister()), ("LO" -> new IntegerRegister())) ++ 
-            (new Range(0, 32, 1).map((i:Int)=>(s"r${i}"->new IntegerRegister()))) toMap,
+    		new Sll(), new Srl(), new Sra(), new Slt(), new LUI(), new Nop(),
+    		new BCF(), new BCT(), new LWC(), new SWC(), new MFC(), new MTC(), 
+    		new AddS(), new SubS(), new MulS(), new DivS(), new SqrtS(), new AbsS(), new MovS(), new NegS(), new RecipS(), new CEqS(), new COltS(), new CvtS() 
+    		),
+    HashMap(("HI" -> new IntegerRegister()), ("LO" -> new IntegerRegister()), ("FCSR" -> new IntegerRegister())) ++ 
+            ((new Range(0, 32, 1).map((i:Int)=>(s"r${i}"->new IntegerRegister()))) toMap) ++
+            (new Range(0, 32, 1).map((i:Int)=>(s"f${i}"->new IntegerRegister()))) toMap,
     new DividedMemory((0L->0x1000/*4KByte*/), (0x10000000L->0x1000/*4KByte*/))) with USBDataListener {
     
     usb.addCPUEndListener(this);
