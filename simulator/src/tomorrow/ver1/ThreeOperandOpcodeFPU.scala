@@ -13,18 +13,18 @@ import java.util.logging.Level
 import interpreter.BigEndianInterpreter
 import usb.USB
 
-/**
- * 即値付きの命令
- */
-abstract class ImmediateOperandOpcode(opcode: Int) extends Opcode {
-	case class Operand(rs: Register, rt: Register, constant: Int)
-     /**
+abstract class ThreeOperandOpcodeFPU(function: Int, fmt: Int) extends Opcode {
+    case class Operand(ft: Register, fs: Register, fd: Register)
+    /**
      * 実際の処理の決定
      */
     protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory)
 
 	def isValid(instruction: Instruction) = {
-		(((instruction.data(0) & 0xFC)>> 2) == opcode)
+        val int = BigEndianInterpreter.interpretAsSignedInteger(instruction.data)
+    	(((instruction.data(0) & 0xFC) >> 2) == 0x11) && 
+    	((instruction.data(3) & 0x3F) == function) &&
+    	((int & 0x03E00000) >> 21) == fmt // 0000001111100000 00000000 00000000
 	}
     
 	def parse(instruction: Instruction): Operate = {
@@ -32,11 +32,10 @@ abstract class ImmediateOperandOpcode(opcode: Int) extends Opcode {
 	    new Operate {
 	    	def apply(usb: USB, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
 		    	val int = BigEndianInterpreter.interpretAsSignedInteger(instruction.data)
-		    	val constantTmp = (int & 0x0000FFFF).toShort;
-		    	val rs = s"r${(int & 0x03E00000)>>21}"
-		    	val rt = s"r${(int & 0x001F0000)>>16}"
-		    	Logger.getLogger("Tomorrow.ver1").log(Level.FINE, s"${this.getClass().getName()} ${rs} ${rt} ${constantTmp toInt}")
-		    	func(usb, Operand(registers(rs), registers(rt), (constantTmp toInt)), programCounter, registers, memory)		    	
+		    	val ft = s"f${(int & 0x001F0000)>>16}"
+		    	val fs = s"f${(int & 0x0000F800)>>11}"
+		    	val fd = s"f${(int & 0x000007C0)>>6}"
+		    	func(usb, Operand(registers(ft), registers(fs), registers(fd)), programCounter, registers, memory)		    	
 			}
 	    }
     }
