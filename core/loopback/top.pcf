@@ -1,0 +1,53 @@
+//! **************************************************************************
+// Written by: Map P.49d on Sun Nov 17 16:41:00 2013
+//! **************************************************************************
+
+SCHEMATIC START;
+COMP "MCLK1" LOCATE = SITE "J16" LEVEL 1;
+COMP "RS_RX" LOCATE = SITE "J11" LEVEL 1;
+COMP "RS_TX" LOCATE = SITE "K11" LEVEL 1;
+PIN Mram_queue_pins<24> = BEL "Mram_queue" PINNAME CLKAL;
+PIN Mram_queue_pins<25> = BEL "Mram_queue" PINNAME CLKBL;
+PIN Mram_queue_pins<47> = BEL "Mram_queue" PINNAME REGCLKAL;
+PIN Mram_queue_pins<48> = BEL "Mram_queue" PINNAME REGCLKBL;
+TIMEGRP SYS_CLK = BEL "sendmap/state_1" BEL "sendmap/state_2" BEL
+        "sendmap/letternum_0" BEL "sendmap/letternum_1" BEL
+        "sendmap/letternum_2" BEL "sendmap/countdown_1" BEL
+        "sendmap/countdown_2" BEL "sendmap/countdown_3" BEL
+        "sendmap/countdown_5" BEL "sendmap/countdown_6" BEL
+        "sendmap/countdown_8" BEL "sendmap/countdown_9" BEL
+        "sendmap/countdown_10" BEL "sendmap/countdown_11" BEL
+        "sendmap/countdown_12" BEL "sendmap/countdown_13" BEL
+        "sendmap/countdown_14" BEL "sendmap/countdown_15" BEL "deq_1" BEL
+        "deq_2" BEL "deq_3" BEL "deq_4" BEL "deq_5" BEL "deq_6" BEL "deq_7"
+        BEL "enq_0" BEL "enq_1" BEL "enq_2" BEL "enq_3" BEL "enq_4" BEL
+        "enq_5" BEL "enq_6" BEL "enq_7" BEL "bg" BEL "receivemap/state_3" BEL
+        "receivemap/state_0" BEL "receivemap/t" BEL "receivemap/letternum_2"
+        BEL "receivemap/letternum_1" BEL "receivemap/letternum_0" BEL
+        "receivemap/FRESH" BEL "receivemap/countdown_15" BEL
+        "receivemap/countdown_14" BEL "receivemap/countdown_13" BEL
+        "receivemap/countdown_12" BEL "receivemap/countdown_11" BEL
+        "receivemap/countdown_10" BEL "receivemap/countdown_9" BEL
+        "receivemap/countdown_8" BEL "receivemap/countdown_7" BEL
+        "receivemap/countdown_5" BEL "receivemap/countdown_4" BEL
+        "receivemap/countdown_2" BEL "receivemap/countdown_1" BEL
+        "receivemap/countdown_0" BEL "sendmap/state_0" BEL "sendmap/state_3"
+        BEL "sendmap/countdown_0" BEL "sendmap/countdown_4" BEL
+        "sendmap/countdown_7" BEL "receivemap/state_2" BEL
+        "receivemap/countdown_6" BEL "receivemap/countdown_3" BEL
+        "receivemap/state_1" BEL "receivemap/recbuf_7" BEL
+        "receivemap/recbuf_6" BEL "receivemap/recbuf_5" BEL
+        "receivemap/recbuf_4" BEL "receivemap/recbuf_3" BEL
+        "receivemap/recbuf_2" BEL "receivemap/recbuf_1" BEL
+        "receivemap/recbuf_0" BEL "go" BEL "deq_0" BEL
+        "receivemap/outdatabuf_7" BEL "receivemap/outdatabuf_6" BEL
+        "receivemap/outdatabuf_5" BEL "receivemap/outdatabuf_4" BEL
+        "receivemap/outdatabuf_3" BEL "receivemap/outdatabuf_2" BEL
+        "receivemap/outdatabuf_1" BEL "receivemap/outdatabuf_0" PIN
+        "Mram_queue_pins<24>" PIN "Mram_queue_pins<25>" PIN
+        "Mram_queue_pins<47>" PIN "Mram_queue_pins<48>" PIN
+        "Mram_queue_pins<24>" PIN "Mram_queue_pins<25>" PIN
+        "Mram_queue_pins<47>" PIN "Mram_queue_pins<48>";
+TS_SYS_CLK = PERIOD TIMEGRP "SYS_CLK" 14.52 ns HIGH 50%;
+SCHEMATIC END;
+

@@ -1,0 +1,530 @@
+--------------------------------------------------------------------------------
+Release 14.4 Trace  (lin64)
+Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
+
+/home/yuta/Xilinx/14.4/ISE_DS/ISE/bin/lin64/unwrapped/trce -intstyle ise -v 3
+-s 1 -n 3 -fastpaths -xml top.twx top.ncd -o top.twr top.pcf
+
+Design file:              top.ncd
+Physical constraint file: top.pcf
+Device,package,speed:     xc5vlx50t,ff1136,-1 (PRODUCTION 1.73 2012-12-04, STEPPING level 0)
+Report level:             verbose report
+
+Environment Variable      Effect 
+--------------------      ------ 
+NONE                      No environment variables were set
+--------------------------------------------------------------------------------
+
+INFO:Timing:3412 - To improve timing, see the Timing Closure User Guide (UG612).
+INFO:Timing:2752 - To get complete path coverage, use the unconstrained paths 
+   option. All paths that are not constrained will be reported in the 
+   unconstrained paths section(s) of the report.
+INFO:Timing:3339 - The clock-to-out numbers in this timing report are based on 
+   a 50 Ohm transmission line loading model.  For the details of this model, 
+   and for more information on accounting for different loading conditions, 
+   please see the device datasheet.
+
+================================================================================
+Timing constraint: TS_SYS_CLK = PERIOD TIMEGRP "SYS_CLK" 14.52 ns HIGH 50%;
+For more information, see Period Analysis in the Timing Closure User Guide (UG612).
+
+ 1938 paths analyzed, 440 endpoints analyzed, 0 failing endpoints
+ 0 timing errors detected. (0 setup errors, 0 hold errors, 0 component switching limit errors)
+ Minimum period is   5.436ns.
+--------------------------------------------------------------------------------
+
+Paths for end point receivemap/outdatabuf_3 (SLICE_X11Y86.D1), 21 paths
+--------------------------------------------------------------------------------
+Slack (setup path):     9.084ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               receivemap/t (FF)
+  Destination:          receivemap/outdatabuf_3 (FF)
+  Requirement:          14.520ns
+  Data Path Delay:      5.268ns (Levels of Logic = 3)
+  Clock Path Skew:      -0.133ns (1.247 - 1.380)
+  Source Clock:         clk rising at 0.000ns
+  Destination Clock:    clk rising at 14.520ns
+  Clock Uncertainty:    0.035ns
+
+  Clock Uncertainty:          0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter (TSJ):  0.070ns
+    Total Input Jitter (TIJ):   0.000ns
+    Discrete Jitter (DJ):       0.000ns
+    Phase Error (PE):           0.000ns
+
+  Maximum Data Path: receivemap/t to receivemap/outdatabuf_3
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X50Y114.DQ     Tcko                  0.450   receivemap/t
+                                                       receivemap/t
+    SLICE_X16Y88.A1      net (fanout=10)       2.741   receivemap/t
+    SLICE_X16Y88.A       Tilo                  0.094   receivemap/FRESH
+                                                       receivemap/arrow_and0006108_SW1
+    SLICE_X16Y88.D1      net (fanout=1)        0.741   N47
+    SLICE_X16Y88.D       Tilo                  0.094   receivemap/FRESH
+                                                       receivemap/arrow<9>1
+    SLICE_X11Y86.D1      net (fanout=8)        1.120   receivemap/arrow<9>
+    SLICE_X11Y86.CLK     Tas                   0.028   receivemap/outdatabuf<3>
+                                                       receivemap/outdatabuf_3_rstpot
+                                                       receivemap/outdatabuf_3
+    -------------------------------------------------  ---------------------------
+    Total                                      5.268ns (0.666ns logic, 4.602ns route)
+                                                       (12.6% logic, 87.4% route)
+
+--------------------------------------------------------------------------------
+Slack (setup path):     11.028ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               receivemap/countdown_1 (FF)
+  Destination:          receivemap/outdatabuf_3 (FF)
+  Requirement:          14.520ns
+  Data Path Delay:      3.433ns (Levels of Logic = 3)
+  Clock Path Skew:      -0.024ns (0.513 - 0.537)
+  Source Clock:         clk rising at 0.000ns
+  Destination Clock:    clk rising at 14.520ns
+  Clock Uncertainty:    0.035ns
+
+  Clock Uncertainty:          0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter (TSJ):  0.070ns
+    Total Input Jitter (TIJ):   0.000ns
+    Discrete Jitter (DJ):       0.000ns
+    Phase Error (PE):           0.000ns
+
+  Maximum Data Path: receivemap/countdown_1 to receivemap/outdatabuf_3
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X15Y87.BQ      Tcko                  0.450   receivemap/countdown<2>
+                                                       receivemap/countdown_1
+    SLICE_X15Y87.D1      net (fanout=2)        0.850   receivemap/countdown<1>
+    SLICE_X15Y87.D       Tilo                  0.094   receivemap/countdown<2>
+                                                       receivemap/arrow_and0006108_SW0
+    SLICE_X16Y88.D2      net (fanout=2)        0.797   N10
+    SLICE_X16Y88.D       Tilo                  0.094   receivemap/FRESH
+                                                       receivemap/arrow<9>1
+    SLICE_X11Y86.D1      net (fanout=8)        1.120   receivemap/arrow<9>
+    SLICE_X11Y86.CLK     Tas                   0.028   receivemap/outdatabuf<3>
+                                                       receivemap/outdatabuf_3_rstpot
+                                                       receivemap/outdatabuf_3
+    -------------------------------------------------  ---------------------------
+    Total                                      3.433ns (0.666ns logic, 2.767ns route)
+                                                       (19.4% logic, 80.6% route)
+
+--------------------------------------------------------------------------------
+Slack (setup path):     11.075ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               receivemap/state_2 (FF)
+  Destination:          receivemap/outdatabuf_3 (FF)
+  Requirement:          14.520ns
+  Data Path Delay:      3.418ns (Levels of Logic = 3)
+  Clock Path Skew:      0.008ns (0.513 - 0.505)
+  Source Clock:         clk rising at 0.000ns
+  Destination Clock:    clk rising at 14.520ns
+  Clock Uncertainty:    0.035ns
+
+  Clock Uncertainty:          0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter (TSJ):  0.070ns
+    Total Input Jitter (TIJ):   0.000ns
+    Discrete Jitter (DJ):       0.000ns
+    Phase Error (PE):           0.000ns
+
+  Maximum Data Path: receivemap/state_2 to receivemap/outdatabuf_3
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X19Y89.AQ      Tcko                  0.450   receivemap/state<2>
+                                                       receivemap/state_2
+    SLICE_X16Y88.A2      net (fanout=32)       0.891   receivemap/state<2>
+    SLICE_X16Y88.A       Tilo                  0.094   receivemap/FRESH
+                                                       receivemap/arrow_and0006108_SW1
+    SLICE_X16Y88.D1      net (fanout=1)        0.741   N47
+    SLICE_X16Y88.D       Tilo                  0.094   receivemap/FRESH
+                                                       receivemap/arrow<9>1
+    SLICE_X11Y86.D1      net (fanout=8)        1.120   receivemap/arrow<9>
+    SLICE_X11Y86.CLK     Tas                   0.028   receivemap/outdatabuf<3>
+                                                       receivemap/outdatabuf_3_rstpot
+                                                       receivemap/outdatabuf_3
+    -------------------------------------------------  ---------------------------
+    Total                                      3.418ns (0.666ns logic, 2.752ns route)
+                                                       (19.5% logic, 80.5% route)
+
+--------------------------------------------------------------------------------
+
+Paths for end point receivemap/outdatabuf_2 (SLICE_X11Y86.C1), 21 paths
+--------------------------------------------------------------------------------
+Slack (setup path):     9.086ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               receivemap/t (FF)
+  Destination:          receivemap/outdatabuf_2 (FF)
+  Requirement:          14.520ns
+  Data Path Delay:      5.266ns (Levels of Logic = 3)
+  Clock Path Skew:      -0.133ns (1.247 - 1.380)
+  Source Clock:         clk rising at 0.000ns
+  Destination Clock:    clk rising at 14.520ns
+  Clock Uncertainty:    0.035ns
+
+  Clock Uncertainty:          0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter (TSJ):  0.070ns
+    Total Input Jitter (TIJ):   0.000ns
+    Discrete Jitter (DJ):       0.000ns
+    Phase Error (PE):           0.000ns
+
+  Maximum Data Path: receivemap/t to receivemap/outdatabuf_2
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X50Y114.DQ     Tcko                  0.450   receivemap/t
+                                                       receivemap/t
+    SLICE_X16Y88.A1      net (fanout=10)       2.741   receivemap/t
+    SLICE_X16Y88.A       Tilo                  0.094   receivemap/FRESH
+                                                       receivemap/arrow_and0006108_SW1
+    SLICE_X16Y88.D1      net (fanout=1)        0.741   N47
+    SLICE_X16Y88.D       Tilo                  0.094   receivemap/FRESH
+                                                       receivemap/arrow<9>1
+    SLICE_X11Y86.C1      net (fanout=8)        1.117   receivemap/arrow<9>
+    SLICE_X11Y86.CLK     Tas                   0.029   receivemap/outdatabuf<3>
+                                                       receivemap/outdatabuf_2_rstpot
+                                                       receivemap/outdatabuf_2
+    -------------------------------------------------  ---------------------------
+    Total                                      5.266ns (0.667ns logic, 4.599ns route)
+                                                       (12.7% logic, 87.3% route)
+
+--------------------------------------------------------------------------------
+Slack (setup path):     11.030ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               receivemap/countdown_1 (FF)
+  Destination:          receivemap/outdatabuf_2 (FF)
+  Requirement:          14.520ns
+  Data Path Delay:      3.431ns (Levels of Logic = 3)
+  Clock Path Skew:      -0.024ns (0.513 - 0.537)
+  Source Clock:         clk rising at 0.000ns
+  Destination Clock:    clk rising at 14.520ns
+  Clock Uncertainty:    0.035ns
+
+  Clock Uncertainty:          0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter (TSJ):  0.070ns
+    Total Input Jitter (TIJ):   0.000ns
+    Discrete Jitter (DJ):       0.000ns
+    Phase Error (PE):           0.000ns
+
+  Maximum Data Path: receivemap/countdown_1 to receivemap/outdatabuf_2
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X15Y87.BQ      Tcko                  0.450   receivemap/countdown<2>
+                                                       receivemap/countdown_1
+    SLICE_X15Y87.D1      net (fanout=2)        0.850   receivemap/countdown<1>
+    SLICE_X15Y87.D       Tilo                  0.094   receivemap/countdown<2>
+                                                       receivemap/arrow_and0006108_SW0
+    SLICE_X16Y88.D2      net (fanout=2)        0.797   N10
+    SLICE_X16Y88.D       Tilo                  0.094   receivemap/FRESH
+                                                       receivemap/arrow<9>1
+    SLICE_X11Y86.C1      net (fanout=8)        1.117   receivemap/arrow<9>
+    SLICE_X11Y86.CLK     Tas                   0.029   receivemap/outdatabuf<3>
+                                                       receivemap/outdatabuf_2_rstpot
+                                                       receivemap/outdatabuf_2
+    -------------------------------------------------  ---------------------------
+    Total                                      3.431ns (0.667ns logic, 2.764ns route)
+                                                       (19.4% logic, 80.6% route)
+
+--------------------------------------------------------------------------------
+Slack (setup path):     11.077ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               receivemap/state_2 (FF)
+  Destination:          receivemap/outdatabuf_2 (FF)
+  Requirement:          14.520ns
+  Data Path Delay:      3.416ns (Levels of Logic = 3)
+  Clock Path Skew:      0.008ns (0.513 - 0.505)
+  Source Clock:         clk rising at 0.000ns
+  Destination Clock:    clk rising at 14.520ns
+  Clock Uncertainty:    0.035ns
+
+  Clock Uncertainty:          0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter (TSJ):  0.070ns
+    Total Input Jitter (TIJ):   0.000ns
+    Discrete Jitter (DJ):       0.000ns
+    Phase Error (PE):           0.000ns
+
+  Maximum Data Path: receivemap/state_2 to receivemap/outdatabuf_2
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X19Y89.AQ      Tcko                  0.450   receivemap/state<2>
+                                                       receivemap/state_2
+    SLICE_X16Y88.A2      net (fanout=32)       0.891   receivemap/state<2>
+    SLICE_X16Y88.A       Tilo                  0.094   receivemap/FRESH
+                                                       receivemap/arrow_and0006108_SW1
+    SLICE_X16Y88.D1      net (fanout=1)        0.741   N47
+    SLICE_X16Y88.D       Tilo                  0.094   receivemap/FRESH
+                                                       receivemap/arrow<9>1
+    SLICE_X11Y86.C1      net (fanout=8)        1.117   receivemap/arrow<9>
+    SLICE_X11Y86.CLK     Tas                   0.029   receivemap/outdatabuf<3>
+                                                       receivemap/outdatabuf_2_rstpot
+                                                       receivemap/outdatabuf_2
+    -------------------------------------------------  ---------------------------
+    Total                                      3.416ns (0.667ns logic, 2.749ns route)
+                                                       (19.5% logic, 80.5% route)
+
+--------------------------------------------------------------------------------
+
+Paths for end point receivemap/outdatabuf_4 (SLICE_X12Y86.A2), 21 paths
+--------------------------------------------------------------------------------
+Slack (setup path):     9.234ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               receivemap/t (FF)
+  Destination:          receivemap/outdatabuf_4 (FF)
+  Requirement:          14.520ns
+  Data Path Delay:      5.104ns (Levels of Logic = 3)
+  Clock Path Skew:      -0.147ns (1.233 - 1.380)
+  Source Clock:         clk rising at 0.000ns
+  Destination Clock:    clk rising at 14.520ns
+  Clock Uncertainty:    0.035ns
+
+  Clock Uncertainty:          0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter (TSJ):  0.070ns
+    Total Input Jitter (TIJ):   0.000ns
+    Discrete Jitter (DJ):       0.000ns
+    Phase Error (PE):           0.000ns
+
+  Maximum Data Path: receivemap/t to receivemap/outdatabuf_4
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X50Y114.DQ     Tcko                  0.450   receivemap/t
+                                                       receivemap/t
+    SLICE_X16Y88.A1      net (fanout=10)       2.741   receivemap/t
+    SLICE_X16Y88.A       Tilo                  0.094   receivemap/FRESH
+                                                       receivemap/arrow_and0006108_SW1
+    SLICE_X16Y88.D1      net (fanout=1)        0.741   N47
+    SLICE_X16Y88.D       Tilo                  0.094   receivemap/FRESH
+                                                       receivemap/arrow<9>1
+    SLICE_X12Y86.A2      net (fanout=8)        0.977   receivemap/arrow<9>
+    SLICE_X12Y86.CLK     Tas                   0.007   receivemap/outdatabuf<6>
+                                                       receivemap/outdatabuf_4_rstpot
+                                                       receivemap/outdatabuf_4
+    -------------------------------------------------  ---------------------------
+    Total                                      5.104ns (0.645ns logic, 4.459ns route)
+                                                       (12.6% logic, 87.4% route)
+
+--------------------------------------------------------------------------------
+Slack (setup path):     11.178ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               receivemap/countdown_1 (FF)
+  Destination:          receivemap/outdatabuf_4 (FF)
+  Requirement:          14.520ns
+  Data Path Delay:      3.269ns (Levels of Logic = 3)
+  Clock Path Skew:      -0.038ns (0.499 - 0.537)
+  Source Clock:         clk rising at 0.000ns
+  Destination Clock:    clk rising at 14.520ns
+  Clock Uncertainty:    0.035ns
+
+  Clock Uncertainty:          0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter (TSJ):  0.070ns
+    Total Input Jitter (TIJ):   0.000ns
+    Discrete Jitter (DJ):       0.000ns
+    Phase Error (PE):           0.000ns
+
+  Maximum Data Path: receivemap/countdown_1 to receivemap/outdatabuf_4
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X15Y87.BQ      Tcko                  0.450   receivemap/countdown<2>
+                                                       receivemap/countdown_1
+    SLICE_X15Y87.D1      net (fanout=2)        0.850   receivemap/countdown<1>
+    SLICE_X15Y87.D       Tilo                  0.094   receivemap/countdown<2>
+                                                       receivemap/arrow_and0006108_SW0
+    SLICE_X16Y88.D2      net (fanout=2)        0.797   N10
+    SLICE_X16Y88.D       Tilo                  0.094   receivemap/FRESH
+                                                       receivemap/arrow<9>1
+    SLICE_X12Y86.A2      net (fanout=8)        0.977   receivemap/arrow<9>
+    SLICE_X12Y86.CLK     Tas                   0.007   receivemap/outdatabuf<6>
+                                                       receivemap/outdatabuf_4_rstpot
+                                                       receivemap/outdatabuf_4
+    -------------------------------------------------  ---------------------------
+    Total                                      3.269ns (0.645ns logic, 2.624ns route)
+                                                       (19.7% logic, 80.3% route)
+
+--------------------------------------------------------------------------------
+Slack (setup path):     11.225ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               receivemap/state_2 (FF)
+  Destination:          receivemap/outdatabuf_4 (FF)
+  Requirement:          14.520ns
+  Data Path Delay:      3.254ns (Levels of Logic = 3)
+  Clock Path Skew:      -0.006ns (0.499 - 0.505)
+  Source Clock:         clk rising at 0.000ns
+  Destination Clock:    clk rising at 14.520ns
+  Clock Uncertainty:    0.035ns
+
+  Clock Uncertainty:          0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter (TSJ):  0.070ns
+    Total Input Jitter (TIJ):   0.000ns
+    Discrete Jitter (DJ):       0.000ns
+    Phase Error (PE):           0.000ns
+
+  Maximum Data Path: receivemap/state_2 to receivemap/outdatabuf_4
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X19Y89.AQ      Tcko                  0.450   receivemap/state<2>
+                                                       receivemap/state_2
+    SLICE_X16Y88.A2      net (fanout=32)       0.891   receivemap/state<2>
+    SLICE_X16Y88.A       Tilo                  0.094   receivemap/FRESH
+                                                       receivemap/arrow_and0006108_SW1
+    SLICE_X16Y88.D1      net (fanout=1)        0.741   N47
+    SLICE_X16Y88.D       Tilo                  0.094   receivemap/FRESH
+                                                       receivemap/arrow<9>1
+    SLICE_X12Y86.A2      net (fanout=8)        0.977   receivemap/arrow<9>
+    SLICE_X12Y86.CLK     Tas                   0.007   receivemap/outdatabuf<6>
+                                                       receivemap/outdatabuf_4_rstpot
+                                                       receivemap/outdatabuf_4
+    -------------------------------------------------  ---------------------------
+    Total                                      3.254ns (0.645ns logic, 2.609ns route)
+                                                       (19.8% logic, 80.2% route)
+
+--------------------------------------------------------------------------------
+
+Hold Paths: TS_SYS_CLK = PERIOD TIMEGRP "SYS_CLK" 14.52 ns HIGH 50%;
+--------------------------------------------------------------------------------
+
+Paths for end point Mram_queue (RAMB36_X0Y17.DIADIL2), 1 path
+--------------------------------------------------------------------------------
+Slack (hold path):      0.445ns (requirement - (clock path skew + uncertainty - data path))
+  Source:               receivemap/outdatabuf_2 (FF)
+  Destination:          Mram_queue (RAM)
+  Requirement:          0.000ns
+  Data Path Delay:      0.649ns (Levels of Logic = 0)
+  Clock Path Skew:      0.204ns (0.717 - 0.513)
+  Source Clock:         clk rising at 14.520ns
+  Destination Clock:    clk rising at 14.520ns
+  Clock Uncertainty:    0.000ns
+
+  Minimum Data Path: receivemap/outdatabuf_2 to Mram_queue
+    Location                Delay type         Delay(ns)  Physical Resource
+                                                          Logical Resource(s)
+    ----------------------------------------------------  -------------------
+    SLICE_X11Y86.CQ         Tcko                  0.414   receivemap/outdatabuf<3>
+                                                          receivemap/outdatabuf_2
+    RAMB36_X0Y17.DIADIL2    net (fanout=2)        0.521   receivemap/outdatabuf<2>
+    RAMB36_X0Y17.CLKARDCLKL Trckd_DIA   (-Th)     0.286   Mram_queue
+                                                          Mram_queue
+    ----------------------------------------------------  ---------------------------
+    Total                                         0.649ns (0.128ns logic, 0.521ns route)
+                                                          (19.7% logic, 80.3% route)
+
+--------------------------------------------------------------------------------
+
+Paths for end point Mram_queue (RAMB36_X0Y17.DIADIL3), 1 path
+--------------------------------------------------------------------------------
+Slack (hold path):      0.445ns (requirement - (clock path skew + uncertainty - data path))
+  Source:               receivemap/outdatabuf_3 (FF)
+  Destination:          Mram_queue (RAM)
+  Requirement:          0.000ns
+  Data Path Delay:      0.649ns (Levels of Logic = 0)
+  Clock Path Skew:      0.204ns (0.717 - 0.513)
+  Source Clock:         clk rising at 14.520ns
+  Destination Clock:    clk rising at 14.520ns
+  Clock Uncertainty:    0.000ns
+
+  Minimum Data Path: receivemap/outdatabuf_3 to Mram_queue
+    Location                Delay type         Delay(ns)  Physical Resource
+                                                          Logical Resource(s)
+    ----------------------------------------------------  -------------------
+    SLICE_X11Y86.DQ         Tcko                  0.414   receivemap/outdatabuf<3>
+                                                          receivemap/outdatabuf_3
+    RAMB36_X0Y17.DIADIL3    net (fanout=2)        0.521   receivemap/outdatabuf<3>
+    RAMB36_X0Y17.CLKARDCLKL Trckd_DIA   (-Th)     0.286   Mram_queue
+                                                          Mram_queue
+    ----------------------------------------------------  ---------------------------
+    Total                                         0.649ns (0.128ns logic, 0.521ns route)
+                                                          (19.7% logic, 80.3% route)
+
+--------------------------------------------------------------------------------
+
+Paths for end point Mram_queue (RAMB36_X0Y17.DIADIL1), 1 path
+--------------------------------------------------------------------------------
+Slack (hold path):      0.447ns (requirement - (clock path skew + uncertainty - data path))
+  Source:               receivemap/outdatabuf_1 (FF)
+  Destination:          Mram_queue (RAM)
+  Requirement:          0.000ns
+  Data Path Delay:      0.651ns (Levels of Logic = 0)
+  Clock Path Skew:      0.204ns (0.717 - 0.513)
+  Source Clock:         clk rising at 14.520ns
+  Destination Clock:    clk rising at 14.520ns
+  Clock Uncertainty:    0.000ns
+
+  Minimum Data Path: receivemap/outdatabuf_1 to Mram_queue
+    Location                Delay type         Delay(ns)  Physical Resource
+                                                          Logical Resource(s)
+    ----------------------------------------------------  -------------------
+    SLICE_X11Y86.BQ         Tcko                  0.414   receivemap/outdatabuf<3>
+                                                          receivemap/outdatabuf_1
+    RAMB36_X0Y17.DIADIL1    net (fanout=2)        0.523   receivemap/outdatabuf<1>
+    RAMB36_X0Y17.CLKARDCLKL Trckd_DIA   (-Th)     0.286   Mram_queue
+                                                          Mram_queue
+    ----------------------------------------------------  ---------------------------
+    Total                                         0.651ns (0.128ns logic, 0.523ns route)
+                                                          (19.7% logic, 80.3% route)
+
+--------------------------------------------------------------------------------
+
+Component Switching Limit Checks: TS_SYS_CLK = PERIOD TIMEGRP "SYS_CLK" 14.52 ns HIGH 50%;
+--------------------------------------------------------------------------------
+Slack: 12.298ns (period - min period limit)
+  Period: 14.520ns
+  Min period limit: 2.222ns (450.045MHz) (Trper_CLKA)
+  Physical resource: Mram_queue/CLKAL
+  Logical resource: Mram_queue/CLKAL
+  Location pin: RAMB36_X0Y17.CLKARDCLKL
+  Clock network: clk
+--------------------------------------------------------------------------------
+Slack: 12.298ns (period - min period limit)
+  Period: 14.520ns
+  Min period limit: 2.222ns (450.045MHz) (Trper_CLKB)
+  Physical resource: Mram_queue/CLKBL
+  Logical resource: Mram_queue/CLKBL
+  Location pin: RAMB36_X0Y17.CLKBWRCLKL
+  Clock network: clk
+--------------------------------------------------------------------------------
+Slack: 12.298ns (period - min period limit)
+  Period: 14.520ns
+  Min period limit: 2.222ns (450.045MHz) (Trper_CLKA)
+  Physical resource: Mram_queue/REGCLKAL
+  Logical resource: Mram_queue/REGCLKAL
+  Location pin: RAMB36_X0Y17.REGCLKARDRCLKL
+  Clock network: clk
+--------------------------------------------------------------------------------
+
+
+All constraints were met.
+
+
+Data Sheet report:
+-----------------
+All values displayed in nanoseconds (ns)
+
+Clock to Setup on destination clock MCLK1
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+MCLK1          |    5.436|         |         |         |
+---------------+---------+---------+---------+---------+
+
+
+Timing summary:
+---------------
+
+Timing errors: 0  Score: 0  (Setup/Max: 0, Hold: 0)
+
+Constraints cover 1938 paths, 0 nets, and 579 connections
+
+Design statistics:
+   Minimum period:   5.436ns{1}   (Maximum frequency: 183.959MHz)
+
+
+------------------------------------Footnotes-----------------------------------
+1)  The minimum period statistic assumes all single cycle delays.
+
+Analysis completed Sun Nov 17 16:41:32 2013 
+--------------------------------------------------------------------------------
+
+Trace Settings:
+-------------------------
+Trace Settings 
+
+Peak Memory Usage: 533 MB
+
+
+
