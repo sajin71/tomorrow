@@ -74,8 +74,14 @@ and g' oc = function (* Emit assembly of each instruction *)
     | NonTail(x), SLL(y, C(z)) -> Printf.fprintf oc "\tsll\t%s, %s, %d\n" (reg x) (reg y) z
     | NonTail(x), SRL(y, V(z)) -> Printf.fprintf oc "\tsrl\t%s, %s, %s\n" (reg x) (reg y) (reg z)
     | NonTail(x), SRL(y, C(z)) -> Printf.fprintf oc "\tsrl\t%s, %s, %d\n" (reg x) (reg y) z
-    | NonTail(x), LW(y, z) -> Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg x) z (reg y)
-    | NonTail(_), SW(x, y, z) -> Printf.fprintf oc "\tsw\t%s, %d(%s)\n" (reg x) z (reg y)
+    | NonTail(x), LW(y, V(z)) -> 
+            Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg (reg_sw)) (reg z) (reg y);
+            Printf.fprintf oc "\tlw\t%s, 0(%s)\n" (reg x) (reg (reg_sw))
+    | NonTail(x), LW(y, C(z)) -> Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg x) z (reg y)
+    | NonTail(_), SW(x, y, V(z)) -> 
+            Printf.fprintf oc "tadd\t%s, %s, %s\n" (reg (reg_sw)) (reg z) (reg y);
+            Printf.fprintf oc "\tsw\t%s, 0(%s)\n" (reg x) (reg (reg_sw))
+    | NonTail(_), SW(x, y, C(z)) -> Printf.fprintf oc "\tsw\t%s, %d(%s)\n" (reg x) z (reg y)
     | NonTail(x), FMov(y) when x = y -> ()
     | NonTail(x), FMov(y) -> 
             Printf.fprintf oc "\tmov.s\t%s, %s\n"  x y;
@@ -86,8 +92,14 @@ and g' oc = function (* Emit assembly of each instruction *)
     | NonTail(x), FSub(y, z) -> Printf.fprintf oc "\tsub.s\t%s, %s, %s\n"  x y z
     | NonTail(x), FMul(y, z) -> Printf.fprintf oc "\tmul.s\t%s, %s, %s\n"  x y z
     | NonTail(x), FDiv(y, z) -> Printf.fprintf oc "\tdiv.s\t%s, %s, %s\n" x y z
-    | NonTail(x), LWC(y, z) -> Printf.fprintf oc "\tlwc\t%s, %d(%s)\n" x z (reg y)
-    | NonTail(_), SWC(x, y, z) -> Printf.fprintf oc "\tswc\t%s, %d(%s)\n" x z (reg y)
+    | NonTail(x), LWC(y, V(z)) ->
+            Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg (reg_sw)) (reg z) (reg y);
+            Printf.fprintf oc "\tlwc\t%s, 0(%s)\n" x (reg (reg_sw))
+    | NonTail(x), LWC(y, C(z)) -> Printf.fprintf oc "\tlwc\t%s, %d(%s)\n" x z (reg y)
+    | NonTail(_), SWC(x, y, V(z)) -> 
+            Printf.fprintf oc "tadd\t%s, %s, %s\n" (reg (reg_sw)) (reg z) (reg y);
+            Printf.fprintf oc "\tswc\t%s, 0(%s)\n" x (reg (reg_sw))
+    | NonTail(_), SWC(x, y, C(z)) -> Printf.fprintf oc "\tswc\t%s, %d(%s)\n" x z (reg y)
     | NonTail(_), Comment(s) -> Printf.fprintf oc "\t# %s\n" s
     (* save *)
     | NonTail(_), Save(x, y) when List.mem x allregs && not (S.mem y !stackset) 
