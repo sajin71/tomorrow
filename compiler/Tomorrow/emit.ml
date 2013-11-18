@@ -272,7 +272,7 @@ and g' oc = function (* Emit assembly of each instruction *)
     | Tail, CallCls(x, ys, zs) -> (* call at tail *)
         g'_args oc [(x, reg_cl)] ys zs;
         Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg reg_sw) 0 (reg reg_cl);
-        Printf.fprintf oc "\tj\t%s\n" (reg reg_sw)
+        Printf.fprintf oc "\tjr\t%s\n" (reg reg_sw)
         (*Printf.fprintf oc "\tnop\n"*)
     | Tail, CallDir(Id.L(x), ys, zs) -> (* call at tail *)
         g'_args oc [] ys zs;
@@ -305,9 +305,9 @@ and g' oc = function (* Emit assembly of each instruction *)
         Printf.fprintf oc "\tlw\t %s, %d(%s)\n" (reg reg_ra) (ss - 4) (reg reg_sp);
         (* Printf.fprintf oc "\t#NonTail CallDir\n"; *)
         if List.mem a allregs && a <> regs.(0) then
-            Printf.fprintf oc "\tmov\t%s, %s\n" a regs.(0)
+            Printf.fprintf oc "\tmov\t%s, %s\n" (reg a) (reg regs.(0))
         else if List.mem a allfregs && a <> fregs.(0) then
-            (Printf.fprintf oc "\tmov.s\t%s, %s\n" a fregs.(0);
+            (Printf.fprintf oc "\tmov.s\t%s, %s\n" (reg a) (reg fregs.(0));
             Printf.fprintf oc "\tmov.s\t%s, %s\n" (co_freg a) (co_freg fregs.(0)))
 (*and g'_tail_if oc e1 e2 reg1 reg2 b bn =
     let b_else = Id.genid(b ^ "_else") in
