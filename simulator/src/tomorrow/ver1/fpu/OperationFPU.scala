@@ -51,27 +51,53 @@ class SqrtS extends ThreeOperandOpcodeFPU(0x04, 0x10) {
 }
 class AbsS extends ThreeOperandOpcodeFPU(0x05, 0x10) {
     protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory){
-        val ft = I.interpretAsFloat(operand.ft)
-        operand.fd.bytes = I.interpretAsByteArray(Math.abs(ft).toFloat)         
+        val fs = I.interpretAsFloat(operand.fs)
+        operand.fd.bytes = I.interpretAsByteArray(Math.abs(fs).toFloat)         
     }
 }
 class MovS extends ThreeOperandOpcodeFPU(0x05, 0x10) {
     protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory){
-    	operand.fd.bytes = operand.ft.bytes
+    	operand.fd.bytes = operand.fs.bytes
     }
 }
 class NegS extends ThreeOperandOpcodeFPU(0x06, 0x10) {
     protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory){
-        val ft = I.interpretAsFloat(operand.ft)
-    	operand.fd.bytes = I interpretAsByteArray(-ft)
+        val fs = I.interpretAsFloat(operand.fs)
+    	operand.fd.bytes = I interpretAsByteArray(-fs)
     }
 }
 class RecipS extends ThreeOperandOpcodeFPU(0x15, 0x10) {
     protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory){
-        val ft = I.interpretAsFloat(operand.ft)
-    	operand.fd.bytes = I interpretAsByteArray((1/ft) toFloat)
+        val fs = I.interpretAsFloat(operand.fs)
+    	operand.fd.bytes = I interpretAsByteArray((1/fs) toFloat)
     }
 }
+
+class FloorW extends ThreeOperandOpcodeFPU(0x0f, 0x10) {
+    protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory){
+        val fs = I.interpretAsFloat(operand.fs)
+        operand.fd.bytes = I.interpretAsByteArray(fs toInt)
+    }
+}
+
+class RoundW extends ThreeOperandOpcodeFPU(0x0c, 0x10) {
+    protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory){
+        val fs = I.interpretAsFloat(operand.fs)
+        if(fs < fs.toInt + 0.5){
+        	operand.fd.bytes = I.interpretAsByteArray((fs) toInt)
+        }else if(fs > fs.toInt + 0.5){
+        	operand.fd.bytes = I.interpretAsByteArray(((fs) toInt)+1)//< 0.5を足して
+        }else{
+            // fs == fs.5の場合 => 最近偶数丸め
+            if(fs.toInt % 2 == 0){
+                operand.fd.bytes = I.interpretAsByteArray((fs) toInt)
+            }else{
+                operand.fd.bytes = I.interpretAsByteArray(((fs) toInt)+1)
+            }
+        }
+    }
+}
+
 
 class CEqS extends ThreeOperandOpcodeFPU(0x32, 0x10) {
     protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory){
@@ -98,6 +124,7 @@ class CEqS extends ThreeOperandOpcodeFPU(0x32, 0x10) {
         }
     }
 }
+
 class COltS extends ThreeOperandOpcodeFPU(0x34, 0x10) {
     protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory){
         val ft = I.interpretAsFloat(operand.ft)

@@ -22,7 +22,8 @@ class Tomorrow(usb:USB) extends AbstractCPU(
     		new And(), new Andi(), new Or(), new Ori(), new Xor(), new Nor(), new LW(), new SW(), new MFHI(), new MFLO(),
     		new Sll(), new Srl(), new Sra(), new Slt(), new LUI(), new Nop(),
     		new BCF(), new BCT(), new LWC(), new SWC(), new MFC(), new MTC(), 
-    		new AddS(), new SubS(), new MulS(), new DivS(), new SqrtS(), new AbsS(), new MovS(), new NegS(), new RecipS(), new CEqS(), new COltS(), new CvtS() 
+    		new AddS(), new SubS(), new MulS(), new DivS(), new SqrtS(), new AbsS(), new MovS(), new NegS(), new RecipS(), new CEqS(), new COltS(), new CvtS(),
+    		new FloorW(), new RoundW()
     		),
     HashMap(("HI" -> new IntegerRegister()), ("LO" -> new IntegerRegister()), ("FCSR" -> new IntegerRegister())) ++ 
             ((new Range(0, 32, 1).map((i:Int)=>(s"r${i}"->new IntegerRegister()))) toMap) ++
