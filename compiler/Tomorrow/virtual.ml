@@ -42,7 +42,8 @@ let rec g env = function (* generate virtual machine code *)
             data := (l, d) :: !data;
             l in
             let x = Id.genid "l" in
-            Let((x, Type.Int), SetL(l), Ans(LWC(x, C(0))))
+            Ans(SetCLV(l))
+            (*Let((x, Type.Int), SetL(l), Ans(LWC(x, C(0))))*)
     | Closure.Neg(x) -> Ans(Neg(x))
     | Closure.Add(x, y) -> Ans(Add(x, V(y)))
     | Closure.Sub(x, y) -> Ans(Sub(x, y))
