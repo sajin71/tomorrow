@@ -6,6 +6,7 @@ and exp =
     | Nop
     | Set of int (* pseudo-instruction *)
     | SetL of Id.l (* pseudo-instruction *)
+    | SetCLV of Id.l (* pseudo-instruction *)
     | Mov of Id.t (* pseudo-instruction *)
     | Neg of Id.t
     | Add of Id.t * id_or_imm

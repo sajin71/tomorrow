@@ -10,6 +10,7 @@ and exp = (* represents each instructions *)
     | Nop
     | Set of int (* pseudo-instruction *)
     | SetL of Id.l (* pseudo-instruction *)
+    | SetCLV of Id.l (* pseudo-instruction *)
     | Mov of Id.t (* pseudo-instruction *)
     | Neg of Id.t
     | Add of Id.t * id_or_imm
@@ -93,7 +94,7 @@ let rec remove_and_uniq xs = function
 (* free variables in the order of use (for spilling) *)
 let fv_id_or_imm = function V(x) -> [x] | _ -> []
 let rec fv_exp = function
-    | Nop | Set(_) | SetL(_) | Comment(_) | Restore(_) -> []
+    | Nop | Set(_) | SetL(_) | SetCLV(_) | Comment(_) | Restore(_) -> []
     | Mov(x) | Neg(x) | FMov(x) | FNeg(x) | Save(x, _) -> [x]
     | Add(x, y') | Mul(x, y') | SLL(x, y') | SRL(x, y') | LW(x, y') | LWC(x, y') -> 
             x :: fv_id_or_imm y' 

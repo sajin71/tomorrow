@@ -58,7 +58,8 @@ and g' oc = function (* Emit assembly of each instruction *)
     (* Set result to dest if not tail *)
     | NonTail(_), Nop -> ()
     | NonTail(x), Set(i) -> Printf.fprintf oc "\tlli\t%s, %d\n" (reg x) i
-    | NonTail(x), SetL(Id.L(y)) -> Printf.fprintf oc "\tset\t%s, %s\n" (reg x) (reg y)
+    | NonTail(x), SetL(Id.L(y)) -> Printf.fprintf oc "\tsetl\t%s, %s\n" (reg x) y
+    | NonTail(x), SetCLV(Id.L(y)) -> Printf.fprintf oc "\tsetclv\t%s, %s\n" x y
     | NonTail(x), Mov(y) when x = y -> ()
     | NonTail(x), Mov(y) -> (* Printf.fprintf oc "\t#NonTail Mov\n"; *)
             Printf.fprintf oc "\tmov\t%s, %s\n" (reg x) (reg y)
@@ -120,7 +121,7 @@ and g' oc = function (* Emit assembly of each instruction *)
         g' oc (NonTail(Id.gentmp Type.Unit), exp);
         Printf.fprintf oc "jr $31\n" 
         (*Printf.fprintf oc "\tnop\n"*)
-    | Tail, (Set _ | SetL _ | Mov _ | Neg _ | Add _ | Sub _ |Mul _ | Div _ | SLL _ | SRL _ | LW _ 
+    | Tail, (Set _ | SetL _ | SetCLV _ | Mov _ | Neg _ | Add _ | Sub _ |Mul _ | Div _ | SLL _ | SRL _ | LW _ 
         as exp) ->
             g' oc (NonTail(regs.(0)), exp);
             Printf.fprintf oc "\tjr $31\n"
@@ -360,8 +361,11 @@ let h oc { name = Id.L(x); args = _; fargs = _; body = e; ret = _ } =
 
 let f oc (Prog(data, fundefs, e)) =
   Format.eprintf "generating assembly...@.";
-  Printf.fprintf oc ".section\t\".rodata\"\n";
-  Printf.fprintf oc ".align\t8\n";
+  Printf.fprintf oc "\tlui\t$29, 0x8000\n";
+  Printf.fprintf oc "\tjal\tmin_caml_start\n";
+  Printf.fprintf oc "\tnop\n";
+  Printf.fprintf oc "\thalt\n";
+  (* emitting float constant table *)
   List.iter
     (fun (Id.L(x), d) ->
       Printf.fprintf oc "%s:\t! %f\n" x d;
@@ -369,11 +373,7 @@ let f oc (Prog(data, fundefs, e)) =
       (*Printf.fprintf oc "\t.long\t0x%lx\n" (gethi d);
       Printf.fprintf oc "\t.long\t0x%lx\n" (getlo d))*)
     data;
-  Printf.fprintf oc ".section\t\".text\"\n";
-  Printf.fprintf oc "\tlui\t$29, 0x8000\n";
-  Printf.fprintf oc "\tjal\tmin_caml_start\n";
-  Printf.fprintf oc "\tnop\n";
-  Printf.fprintf oc "\thalt\n";
+
   (*emitting print_int*)
   Printf.fprintf oc "min_caml_print_int:\n";
   Printf.fprintf oc "min_caml_print_char:\n";
@@ -386,4 +386,4 @@ let f oc (Prog(data, fundefs, e)) =
   stackset := S.empty;
   stackmap := [];
   g oc (NonTail(regs.(0)), e);
-  Printf.fprintf oc "\tjr $31\n"
+  Printf.fprintf oc "\tjr\t$31\n"
