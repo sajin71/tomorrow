@@ -6,6 +6,7 @@ and exp =
     | Nop
     | Set of int (* pseudo-instruction *)
     | SetL of Id.l (* pseudo-instruction *)
+    | SetCLV of Id.l (* pseudo-instruction *)
     | Mov of Id.t (* pseudo-instruction *)
     | Neg of Id.t
     | Add of Id.t * id_or_imm
@@ -14,14 +15,16 @@ and exp =
     | Div of Id.t * Id.t 
     | SLL of Id.t * id_or_imm 
     | SRL of Id.t * id_or_imm
-    | LW of Id.t * int 
-    | SW of Id.t * Id.t * int 
+    | LW of Id.t * id_or_imm 
+    | SW of Id.t * Id.t * id_or_imm 
     | FMov of Id.t
     | FNeg of Id.t
     | FAdd of Id.t * Id.t
     | FSub of Id.t * Id.t
     | FMul of Id.t * Id.t
     | FDiv of Id.t * Id.t
+    | LWC of Id.t * id_or_imm
+    | SWC of Id.t * Id.t * id_or_imm 
     | Comment of string
     (* virtual instructions *)
     | IfEq of Id.t * Id.t * t * t

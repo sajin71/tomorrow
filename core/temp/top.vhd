@@ -15,17 +15,17 @@ entity top is
 end top;
 
 architecture loopback of top is
-  type     t_queue is array (0 to (2**16)-1) of std_logic_vector(7 downto 0);
+  type     t_queue is array (0 to (2**8)-1) of std_logic_vector(7 downto 0);
   signal   queue     : t_queue;
-  signal   enq       : std_logic_vector(15 downto 0)  := x"0000";
-  signal   deq       : std_logic_vector(15 downto 0)  := x"0000";
+  signal   enq       : std_logic_vector(7 downto 0)  := x"00";
+  signal   deq       : std_logic_vector(7 downto 0)  := x"00";
   signal   clk, iclk : std_logic;
   signal   data_in   : std_logic_vector(7 downto 0);
   signal   data_out  : std_logic_vector(7 downto 0);
   signal   fresh     : std_logic;
   signal   go        : std_logic;
   signal   busy      : std_logic;
-  constant WTIME     : std_logic_vector(15 downto 0) := x"1B16";
+  constant WTIME     : std_logic_vector(15 downto 0) := x"0091";
   component receiver
     generic (
       WTIME : std_logic_vector(15 downto 0));
@@ -35,7 +35,7 @@ architecture loopback of top is
       DATA  : out std_logic_vector(7 downto 0);
       FRESH : out std_logic);
   end component;
-  component sender
+  component transmitter
     generic (
       WTIME : std_logic_vector(15 downto 0));
     port (
@@ -62,7 +62,7 @@ begin  -- loopback
       RX    => RS_RX,
       DATA  => data_in,
       FRESH => fresh);
-  sendmap : sender
+  sendmap : transmitter
     generic map (
       WTIME => WTIME)
     port map (

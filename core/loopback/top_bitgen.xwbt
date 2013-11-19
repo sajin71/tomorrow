@@ -1,0 +1,8 @@
+INTSTYLE=ise
+INFILE=/home/yuta/cpuex/git/tomorrow/core/loopback/top.ncd
+OUTFILE=/home/yuta/cpuex/git/tomorrow/core/loopback/top.bit
+FAMILY=Virtex5
+PART=xc5vlx50t-1ff1136
+WORKINGDIR=/home/yuta/cpuex/git/tomorrow/core/loopback
+LICENSE=ISE
+USER_INFO=208921728_178739220_208889460_365

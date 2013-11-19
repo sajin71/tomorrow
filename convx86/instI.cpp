@@ -33,9 +33,9 @@ std::string tInstI::disasm(inst_t instLE) const {
 		}
 		
 		if ( this->type == 0 ) {
-			ss << "0x" << std::hex << imm;
+			ss << imm;
 		} else {
-			ss << ((signed long)imm)*4;
+			ss << "0x" << std::hex << ((signed long)imm)*4;
 		}
 	} else {
 		ss << "$" << (int)regs[1] << ", ";
@@ -109,7 +109,7 @@ static void i_generic(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], 
 	
 }
 
-static void i_addi(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm_t imm) {
+static void i_ori(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm_t imm) {
 	if ( regs[1] == 0 ) {
 		dest->EmitNOP();
 		return;
@@ -202,22 +202,32 @@ static void i_sw(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm_t
 	dest->EmitMOV2r();
 	dest->EmitModRMdisp(rEAX, rECX, regs[1]*4);
 	
-	// MOV EBX, [ECX+ Rs*4]
-	dest->EmitMOV2r();
-	dest->EmitModRMdisp(rEBX, rECX, regs[0]*4);
-	
-	if ( isInBYTE(imm) ) {
-		// MOV [ESI+EBX+imm], EAX
-		dest->Emit(0x89);
-		dest->Emit(0x44);
-		dest->Emit(0x1E);
-		dest->EmitDisp8( (signed char)imm );
+	// TODO: 分岐命令でやる
+	if ( regs[0]==0 && imm == -1 ) {
+		dprintf("sw convert to output\n");
+		
+		// CALL [EDI-8]
+		dest->Emit(0xFF);
+		dest->EmitModRMexdisp(2, rEDI, -8);
 	} else {
-		// MOV [ESI+EBX+imm], EAX
-		dest->Emit(0x89);
-		dest->Emit(0x84);
-		dest->Emit(0x1E);
-		dest->EmitDisp32(imm);
+	
+		// MOV EBX, [ECX+ Rs*4]
+		dest->EmitMOV2r();
+		dest->EmitModRMdisp(rEBX, rECX, regs[0]*4);
+		
+		if ( isInBYTE(imm) ) {
+			// MOV [ESI+EBX+imm], EAX
+			dest->Emit(0x89);
+			dest->Emit(0x44);
+			dest->Emit(0x1E);
+			dest->EmitDisp8( (signed char)imm );
+		} else {
+			// MOV [ESI+EBX+imm], EAX
+			dest->Emit(0x89);
+			dest->Emit(0x84);
+			dest->Emit(0x1E);
+			dest->EmitDisp32(imm);
+		}
 	}
 	
 	// POP EAX
@@ -295,13 +305,13 @@ static void i_branch(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], i
 
 
 const tInstI InstI[] = {
-{ "ADDI",   0x08, 2, 0, {1,0}, i_addi},
+{ "ADDI",   0x08, 2, 0, {1,0}, i_generic},
 { "SLTI",   0x0A, 2, 0, {1,0}, i_slti},
 { "ANDI",   0x0C, 2, 0, {1,0}, i_generic},
-{ "ORI",    0x0D, 2, 0, {1,0}, i_generic},
+{ "ORI",    0x0D, 2, 0, {1,0}, i_ori},
 { "LW",     0x23, 2, 2, {}   , i_lw},
 { "SW",     0x2B, 2, 2, {}   , i_sw},
-{ "LUI",    0x0F, 2, 0, {2,0}, i_lui},
+{ "LUI",    0x0F, 1, 0, {2,0}, i_lui},
 { "BEQ",    0x04, 2, 1, {0,1}, i_branch},
 { "BNE",    0x05, 2, 1, {0,1}, i_branch},
 

@@ -231,6 +231,34 @@ static void r_shift(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], un
 	dest->EmitModRMdisp(rEBX, rECX, regs[2]*4);
 }
 
+static void r_jr(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsigned char shift) {
+
+	// MOV EBX, [ECX+ Rs*4]
+	dest->EmitMOV2r();
+	dest->EmitModRMdisp(rEBX, rECX, regs[0]*4);
+	
+	// MOV EBX, dword ptr [EDI+EBX]
+	dest->EmitMOV2r();
+	dest->Emit(0x1C);
+	dest->Emit(0x1F);
+	// ADD EBX, dword ptr [EDI-4]
+	dest->Emit(0x03);
+	dest->EmitModRMdisp(rEBX, rEDI, -4);
+	// JMP EBX
+	dest->Emit(0xFF);
+	dest->Emit(0xE3);
+
+}
+
+static void r_nop(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsigned char shift) {
+	dest->EmitNOP();
+}
+
+static void r_halt(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsigned char shift) {
+	//TODO
+	dest->Emit(dest->halt);
+}
+
 
 const tInstR InstR[] = {
 { "ADD",    0x00, 0x20, 3, {1,2,0}, false,  r_add },
@@ -244,10 +272,14 @@ const tInstR InstR[] = {
 { "DIV",    0x00, 0x1A, 2, {0,1,3}, false, r_div },
 { "MFHI",   0x00, 0x10, 1, {3,3,0}, false, r_mfhilo },
 { "MFLO",   0x00, 0x12, 1, {3,3,0}, false, r_mfhilo },
-/*{ "JR",     0x00, 0x03, 1, {0,3,3}, false },*/
-{ "SLL",    0x00, 0x00, 2, {3,1,0}, true, r_shift },
-{ "SRL",    0x00, 0x02, 2, {3,1,0}, true, r_shift },
-{ "SRA",    0x00, 0x03, 2, {3,1,0}, true, r_shift },
+
+{ "NOP",    0x00, 0x00, 0, {3,3,3}, false, r_nop },
+{ "HALT",   0x3C, 0x00, 0, {3,3,3}, false, r_halt },
+{ "JR",     0x1B, 0x00, 1, {0,3,3}, false, r_jr },
+
+{ "SLL",    0x18, 0x00, 2, {3,1,0}, true, r_shift },
+{ "SRL",    0x18, 0x02, 2, {3,1,0}, true, r_shift },
+{ "SRA",    0x18, 0x03, 2, {3,1,0}, true, r_shift },
 };
 
 const unsigned int s_instR = ARRSIZE(InstR);

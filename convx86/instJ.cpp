@@ -11,7 +11,7 @@ void tInstJ::tox86(CAsm86Dest* dest, inst_t instLE) const {
 std::string tInstJ::disasm(inst_t instLE) const {
 	inst_t addr = 0x3FFFFFF&instLE;
 	std::stringstream ss;
-	ss << this->mnemonic << " 0x" << std::hex << addr;
+	ss << this->mnemonic << " 0x" << std::hex << ((signed long)addr)*4;
 	
 	return ss.str();
 }
@@ -60,9 +60,10 @@ static void j_jal(CAsm86Dest* dest, const tInstJ* ij, inst_t addr) {
 	// $31にリターン先を入れる
 	dest->Emit(0xC7);
 	dest->EmitModRMexdisp(0, rECX, 31*4);
-	dest->EmitDisp32( dest->pos.size() );
 	
-	dprintf("\nMOV [ECX+31*4], %lu\n", dest->pos.size());
+	inst_t retaddr = (dest->pos.size()+1) * 4;
+	dest->EmitDisp32(retaddr);
+	dprintf("\nMOV [ECX+31*4], %lu\n", retaddr);
 	
 	jumpimpl(dest, ij, addr);
 }

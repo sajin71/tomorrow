@@ -17,8 +17,8 @@ import usb.USB
  * 即値付きの命令
  */
 abstract class ImmediateOperandOpcode(opcode: Int) extends Opcode {
-    case class Operand(rs: Register, rt: Register, constant: Int)
-    /**
+	case class Operand(rs: Register, rt: Register, constant: Int)
+     /**
      * 実際の処理の決定
      */
     protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory)

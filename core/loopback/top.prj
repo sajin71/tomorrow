@@ -1,0 +1,3 @@
+vhdl work "../RTL/transmitter.vhd"
+vhdl work "../RTL/receiver.vhd"
+vhdl work "../temp/top.vhd"

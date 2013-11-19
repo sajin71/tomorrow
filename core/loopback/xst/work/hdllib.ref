@@ -1,0 +1,6 @@
+AR top loopback /home/yuta/cpuex/git/tomorrow/core/temp/top.vhd sub00/vhpl05 1384674025
+AR receiver rtl /home/yuta/cpuex/git/tomorrow/core/RTL/receiver.vhd sub00/vhpl01 1384674021
+AR transmitter rtl_arr /home/yuta/cpuex/git/tomorrow/core/RTL/transmitter.vhd sub00/vhpl03 1384674023
+EN transmitter NULL /home/yuta/cpuex/git/tomorrow/core/RTL/transmitter.vhd sub00/vhpl02 1384674022
+EN top NULL /home/yuta/cpuex/git/tomorrow/core/temp/top.vhd sub00/vhpl04 1384674024
+EN receiver NULL /home/yuta/cpuex/git/tomorrow/core/RTL/receiver.vhd sub00/vhpl00 1384674020
