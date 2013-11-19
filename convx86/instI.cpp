@@ -26,21 +26,25 @@ std::string tInstI::disasm(inst_t instLE) const {
 	ss << this->mnemonic;
 	ss << " ";
 	
-	if ( this->type != 2 ) {
+	if ( this->type == tInstI::T_Mem || this->type == tInstI::T_MemCo ) {
+		ss << "$";
+		if ( this->type == tInstI::T_MemCo ) {
+			ss << "f";
+		}
+		ss << (int)regs[1] << ", ";
+		ss << imm;
+		ss << "($" << (int)regs[0] << ")";
+	} else {
 		for(int ord=0; ord< this->opercnt; ord++ ) {
 			ss << "$" << (int)regs[ getregbyorder(ord, 2, oporder) ];
 			ss << ", ";
 		}
 		
-		if ( this->type == 0 ) {
+		if ( this->type == tInstI::T_Arith ) {
 			ss << imm;
 		} else {
-			ss << "0x" << std::hex << ((signed long)imm)*4;
+			ss << "0x" << ((signed long)imm)*4;
 		}
-	} else {
-		ss << "$" << (int)regs[1] << ", ";
-		ss << imm;
-		ss << "($" << (int)regs[0] << ")";
 	}
 	
 	return ss.str();
@@ -49,7 +53,7 @@ std::string tInstI::disasm(inst_t instLE) const {
 
 
 static void i_generic(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm_t imm) {
-	if ( regs[1] == 0 ) {
+	if ( dest->zeroforce && regs[1] == 0 ) {
 		dest->EmitNOP();
 		return;
 	}
@@ -110,7 +114,7 @@ static void i_generic(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], 
 }
 
 static void i_ori(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm_t imm) {
-	if ( regs[1] == 0 ) {
+	if ( dest->zeroforce && regs[1] == 0 ) {
 		dest->EmitNOP();
 		return;
 	}
@@ -129,7 +133,7 @@ static void i_ori(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm_
 
 
 static void i_slti(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm_t imm) {
-	if ( regs[1] == 0 ) {
+	if ( dest->zeroforce && regs[1] == 0 ) {
 		dest->EmitNOP();
 		return;
 	}
@@ -165,56 +169,84 @@ static void i_slti(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm
 
 
 static void i_lw(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm_t imm) {
-	if ( regs[1] == 0 ) {
+	if ( dest->zeroforce && regs[1] == 0 ) {
 		dest->EmitNOP();
 		return;
+	}
+	
+	int reg_offset = 0;
+	if ( ii->type == tInstI::T_MemCo ) {
+		reg_offset = -32*4;
 	}
 	
 	// MOV EBX, [ECX+ Rs*4]
 	dest->EmitMOV2r();
 	dest->EmitModRMdisp(rEBX, rECX, regs[0]*4);
 	
+	// ADD EBX, imm
 	if ( isInBYTE(imm) ) {
-		// MOV EBX, [ESI+EBX+imm]
-		dest->Emit(0x8B);
-		dest->Emit(0x5C);
-		dest->Emit(0x1E);
+		dest->Emit(0x83);
+		dest->EmitModRMexr(0, rEBX);
 		dest->EmitDisp8( (signed char)imm );
 	} else {
-		// MOV EBX, [ESI+EBX+imm]
-		dest->Emit(0x8B);
-		dest->Emit(0x9C);
-		dest->Emit(0x1E);
+		dest->Emit(0x81);
+		dest->EmitModRMexr(0, rEBX);
 		dest->EmitDisp32(imm);
 	}
 	
-	// MOV [ECX+ Rt*4], EBX
+	// CALL [EDI-20]
+	dest->Emit(0xFF);
+	dest->EmitModRMexdisp(2, rEDI, -20);
+	
+	// MOV [ECX+ Rt*4], EAX
 	dest->EmitMOV2m();
-	dest->EmitModRMdisp(rEBX, rECX, regs[1]*4);
+	dest->EmitModRMdisp(rEAX, rECX, regs[1]*4 + reg_offset);
 }
 
 
 static void i_sw(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm_t imm) {
-	// PUSH EAX
-	dest->Emit(0x50);
+	
+	int reg_offset = 0;
+	if ( ii->type == tInstI::T_MemCo ) {
+		reg_offset = -32*4;
+	}
+	
 	
 	// MOV EAX, [ECX+ Rt*4]
 	dest->EmitMOV2r();
-	dest->EmitModRMdisp(rEAX, rECX, regs[1]*4);
+	dest->EmitModRMdisp(rEAX, rECX, regs[1]*4 + reg_offset);
 	
+	/*
 	// TODO: 分岐命令でやる
-	if ( regs[0]==0 && imm == -1 ) {
+	if ( false && regs[0]==0 && imm == -1 ) {
 		dprintf("sw convert to output\n");
 		
 		// CALL [EDI-8]
 		dest->Emit(0xFF);
 		dest->EmitModRMexdisp(2, rEDI, -8);
 	} else {
+	*/
 	
 		// MOV EBX, [ECX+ Rs*4]
 		dest->EmitMOV2r();
 		dest->EmitModRMdisp(rEBX, rECX, regs[0]*4);
 		
+		// ADD EBX, imm
+		if ( isInBYTE(imm) ) {
+			dest->Emit(0x83);
+			dest->EmitModRMexr(0, rEBX);
+			dest->EmitDisp8( (signed char)imm );
+		} else {
+			dest->Emit(0x81);
+			dest->EmitModRMexr(0, rEBX);
+			dest->EmitDisp32(imm);
+		}
+		
+		// CALL [EDI-16]
+		dest->Emit(0xFF);
+		dest->EmitModRMexdisp(2, rEDI, -16);
+		
+		/*
 		if ( isInBYTE(imm) ) {
 			// MOV [ESI+EBX+imm], EAX
 			dest->Emit(0x89);
@@ -228,15 +260,14 @@ static void i_sw(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm_t
 			dest->Emit(0x1E);
 			dest->EmitDisp32(imm);
 		}
-	}
+		*/
+	//}
 	
-	// POP EAX
-	dest->Emit(0x58);
 }
 
 
 static void i_lui(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm_t imm) {
-	if ( regs[1] == 0 ) {
+	if ( dest->zeroforce && regs[1] == 0 ) {
 		dest->EmitNOP();
 		return;
 	}
@@ -259,61 +290,23 @@ static void i_branch(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], i
 	dprintf("\nMOV EBX, [ECX+%d*4]\n"
 	       "CMP EBX, [ECX+%d*4]\n", regs[0], regs[1]);
 	
-	unsigned int to = dest->pos.size() + imm;
-	
-	if ( imm < 0 ) {
-		int from86_8 = dest->code.size()+2;
-		int to86 = dest->pos[to];
-		
-		int disp8 = to86 - from86_8;
-		if ( isInBYTE(disp8) ) {
-			if ( ii->opcode == 0x04 ) {
-				dest->Emit(0x74); //JZ
-			} else if ( ii->opcode == 0x05 ) {
-				dest->Emit(0x75); //JNZ
-			}
-			dest->EmitDisp8( (signed char)disp8 );
-			
-			dprintf("\nJ[N]Z %d ;disp8\n", disp8);
-			
-			return;
-		}
-	}
-	
-	if ( ii->opcode == 0x04 ) {
-		dest->Emit(0x0F); //JZ
-		dest->Emit(0x84);
-	} else if ( ii->opcode == 0x05 ) {
-		dest->Emit(0x0F); //JNZ
-		dest->Emit(0x85);
-	}
-	
-	unsigned int from86_32 = dest->code.size()+4;
-	int disp32 = 0;
-	
-	if ( imm < 0 ) {
-		int to86 = dest->pos[to];
-		disp32 = to86 - from86_32;
-	} else {
-		dest->jumpto.push_back( std::pair<unsigned int, unsigned int>(from86_32, to) );
-	}
-	
-	dest->EmitDisp32(disp32);
-	dprintf("\nJ[N]Z %d ;disp32\n", disp32);
+	dest->EmitBranch(imm, (ii->opcode == 0x04) );
 
 }
 
 
 const tInstI InstI[] = {
-{ "ADDI",   0x08, 2, 0, {1,0}, i_generic},
-{ "SLTI",   0x0A, 2, 0, {1,0}, i_slti},
-{ "ANDI",   0x0C, 2, 0, {1,0}, i_generic},
-{ "ORI",    0x0D, 2, 0, {1,0}, i_ori},
-{ "LW",     0x23, 2, 2, {}   , i_lw},
-{ "SW",     0x2B, 2, 2, {}   , i_sw},
-{ "LUI",    0x0F, 1, 0, {2,0}, i_lui},
-{ "BEQ",    0x04, 2, 1, {0,1}, i_branch},
-{ "BNE",    0x05, 2, 1, {0,1}, i_branch},
+{ "ADDI",   0x08, 2, tInstI::T_Arith, {1,0}, i_generic},
+{ "SLTI",   0x0A, 2, tInstI::T_Arith, {1,0}, i_slti},
+{ "ANDI",   0x0C, 2, tInstI::T_Arith, {1,0}, i_generic},
+{ "ORI",    0x0D, 2, tInstI::T_Arith, {1,0}, i_ori},
+{ "LW",     0x23, 2, tInstI::T_Mem,   {}   , i_lw},
+{ "SW",     0x2B, 2, tInstI::T_Mem,   {}   , i_sw},
+{ "LWC1",   0x31, 2, tInstI::T_MemCo, {}   , i_lw},
+{ "SWC1",   0x39, 2, tInstI::T_MemCo, {}   , i_sw},
+{ "LUI",    0x0F, 1, tInstI::T_Arith, {2,0}, i_lui},
+{ "BEQ",    0x04, 2, tInstI::T_Branch,{0,1}, i_branch},
+{ "BNE",    0x05, 2, tInstI::T_Branch,{0,1}, i_branch},
 
 };
 

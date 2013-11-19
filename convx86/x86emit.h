@@ -2,6 +2,7 @@
 
 #include "tools.h"
 
+#include <string>
 #include <vector>
 #include <map>
 
@@ -14,6 +15,7 @@ public:
 	std::vector<unsigned int> pos;  //MIPSの命令がどこに対応するか？
 	std::vector<std::pair<unsigned int, unsigned int> > jumpto; //first: x86上  second:MIPS上
 	unsigned char halt;
+	bool zeroforce;
 	
 	void Emit(unsigned char inst86);
 	
@@ -29,9 +31,23 @@ public:
 	void EmitModRMexr(char op, X86REG reg) { EmitModRMr2r( (X86REG)op, reg ); }
 	void EmitModRMexdisp(char op, X86REG base, disp_t disp) { EmitModRMdisp( (X86REG)op, base, disp ); }
 	
+	void EmitBranch(imm_t imm, bool isJZ);
+	
 	
 	CAsm86Dest() {
 		halt = 0xCC;
+		zeroforce = true;
 	}
+};
+
+class IInstDetect {
+public:
+	
+	virtual ~IInstDetect() {};
+	virtual bool isValid() = 0;
+	
+	virtual void Tox86(CAsm86Dest* dest, inst_t instLE) = 0;
+	virtual std::string Disasm(inst_t instLE) = 0;
+	
 };
 

@@ -1,3 +1,5 @@
+#pragma once
+
 #include <stdint.h>
 
 #define ARRSIZE(x) (sizeof(x) / sizeof(x[0]))
@@ -10,4 +12,3 @@ typedef int32_t disp_t;
 
 void dprintf(const char *str, ...);
 int getregbyorder(int order, int regmax, const int oporder[]);
-
