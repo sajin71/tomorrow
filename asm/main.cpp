@@ -224,8 +224,8 @@ const char *fregname[32][1] = {
 
 // 整数レジスタ名をレジスタ番号に変換する
 short numreg(char* op) {
-	if ( op[0] == '$' ) {
-		op++;
+	op++;
+	if ( op[-1] == '$' ) {
 		
 		for(int i=0; i<32; i++) {
 			if ( strcasecmp(nregname[i][0], op) == 0 ||
@@ -235,12 +235,12 @@ short numreg(char* op) {
 		}
 	}
 	
-	throw std::string("Invalid int register operand `") + std::string(op) + std::string("'");
+	throw std::string("Invalid int register operand `") + std::string(--op) + std::string("'");
 }
 // 浮動小数点レジスタ名をレジスタ番号に変換する
 short numfreg(char* op) {
-	if ( op[0] == '$' ) {
-		op++;
+	op++;
+	if ( op[-1] == '$' ) {
 		
 		for(int i=0; i<32; i++) {
 			if ( strcasecmp(fregname[i][0], op) == 0 ) {
@@ -249,7 +249,7 @@ short numfreg(char* op) {
 		}
 	}
 	
-	throw std::string("Invalid fp register operand `") + std::string(op) + std::string("'");
+	throw std::string("Invalid fp register operand `") + std::string(--op) + std::string("'");
 }
 
 short str2cc(char* op) {
@@ -750,9 +750,6 @@ bool proc_instFP(char* mnemonic, char** op, int opcnt, tState *state) {
 			}
 			
 			fmt = co->fmt;
-			ft = numfreg(trim(op[2]));
-			fs = numfreg(trim(op[1]));
-			fd = str2cc(trim(op[0])) <<2;
 			tail = 0x30 | co->cond;
 			break; //break do-while
 		}
