@@ -375,8 +375,10 @@ let f oc (Prog(data, fundefs, e)) =
       Printf.fprintf oc "\t.long\t0x%lx\n" (getlo d))*)
     data;
 
-  (*emitting print_int*)
+  (*emitting print_int and print_char*)
   Printf.fprintf oc "min_caml_print_int:\n";
+  Printf.fprintf oc "\tsw\t$1, -1($0)\n";
+  Printf.fprintf oc "\tjr\t$31\n";
   Printf.fprintf oc "min_caml_print_char:\n";
   Printf.fprintf oc "\tsw\t$1, -1($0)\n";
   Printf.fprintf oc "\tjr\t$31\n";
