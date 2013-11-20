@@ -24,6 +24,8 @@ MIPSとの相違点
 --------------
 - LWC1=LWC など、コプロセッサ番号の省略が可能
 - C.cond.s や BC1T, BC1F でのccは0から7までの数値で指定してください（省略すると0になります）
+    - C.eq.s 2, $f3, $f4
+    - C.bc1t 7, label_to_branch
 - 遅延スロット関係のNOP自動挿入はしない
 - SLL, SRL, SRA, SLLV, SRLV, SRAV のopcodeは0x00ではなく0x18
 - JR のopcodeは0x00ではなく0x1B
