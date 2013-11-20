@@ -9,6 +9,7 @@
 #include "MIPSinst.h"
 #include "x86emit.h"
 
+typedef int32_t  int32;
 typedef uint32_t DWORD;
 
 DWORD regs[67] = {0,1,2,3,4,5,6,7,8,9,10}; //0...31:fpr  32...63:gpr  64:hi 65:lo 66:cc
@@ -34,7 +35,7 @@ typedef DWORD(*ptr_softfp)(intflt, intflt);
 #define SOFTFP_BINOP(name, op) \
 DWORD MY_CDECL softfp_##name (intflt t, intflt s) { intflt ret; ret.f = s.f op t.f; return ret.i; }
 #define SOFTFP_UNIOP(name, func) \
-DWORD MY_CDECL softfp_##name (intflt t, intflt s) { intflt ret; ret.f = func(t.f); return ret.i; }
+DWORD MY_CDECL softfp_##name (intflt t, intflt s) { intflt ret; ret.f = func(s.f); return ret.i; }
 #define SOFTFP_COMP(name, op) \
 DWORD MY_CDECL softfp_##name (intflt t, intflt s) { return (s.f op t.f)?1:0; }
 
@@ -45,10 +46,11 @@ SOFTFP_BINOP(mul, *)
 SOFTFP_BINOP(div, /)
 SOFTFP_UNIOP(sqrt, sqrtf)
 SOFTFP_UNIOP(abs, fabs)
-DWORD MY_CDECL softfp_mov (intflt t, intflt s) { return t.i; }
+DWORD MY_CDECL softfp_mov (intflt t, intflt s) { return s.i; }
 SOFTFP_UNIOP(neg, -)
-DWORD MY_CDECL softfp_round (intflt t, intflt s) { intflt ret; ret.f = floorf(t.f+0.5f); return ret.i; }
-SOFTFP_UNIOP(floor, floorf)
+DWORD MY_CDECL softfp_trunc (intflt t, intflt s) { float f = floorf(s.f); if(f<0){f+=1.0f;} return (int32)f; }
+DWORD MY_CDECL softfp_round (intflt t, intflt s) { float f = floorf(s.f+0.5f); return (int32)f; }
+DWORD MY_CDECL softfp_floor (intflt t, intflt s) { float f = floorf(s.f); return (int32)f; }
 SOFTFP_UNIOP(recip, 1/)
 
 DWORD MY_CDECL softfp_cvt (intflt t, intflt s) { intflt ret; ret.f = (float)s.i; return ret.i; }
@@ -75,11 +77,14 @@ void procInst(CAsm86Dest* dest, inst_t inst) {
 	
 }
 
-int main(void) {
+int main(int argc, char **argv) {
 
 	//DWORD hogera = softfp(1, 2, 3);
 	
-	FILE *ifp = stdin;//fopen("/dev/stdin", "rb");
+	FILE *ifp = stdin;
+	if ( argc == 2 ) {
+		ifp = fopen(argv[1], "rb");
+	}
 	
 	CAsm86Dest dest;
 	dest.halt = 0xC3; //RET
@@ -139,8 +144,8 @@ int main(void) {
 	pos[-3] = (DWORD)blockram;
 	
 	ptr_softfp softfp[0x38] = {
-		softfp_add, softfp_sub, softfp_mul, softfp_div, softfp_sqrt, softfp_abs, softfp_mov, softfp_neg,
-		softfp_ERR, softfp_ERR, softfp_ERR, softfp_ERR, softfp_round,softfp_ERR, softfp_ERR, softfp_floor,
+		softfp_add, softfp_sub,  softfp_mul, softfp_div, softfp_sqrt, softfp_abs, softfp_mov, softfp_neg,
+		softfp_ERR, softfp_trunc,softfp_ERR, softfp_ERR, softfp_round,softfp_ERR, softfp_ERR, softfp_floor,
 		softfp_ERR, softfp_ERR, softfp_ERR, softfp_ERR, softfp_ERR,  softfp_recip, softfp_ERR,softfp_ERR };
 	softfp[0x20] = softfp_cvt;
 	softfp[0x31] = softfp_un;

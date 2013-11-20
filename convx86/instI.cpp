@@ -43,7 +43,7 @@ std::string tInstI::disasm(inst_t instLE) const {
 		if ( this->type == tInstI::T_Arith ) {
 			ss << imm;
 		} else {
-			ss << "0x" << ((signed long)imm)*4;
+			ss << ((signed long)imm)*4;
 		}
 	}
 	
@@ -169,7 +169,7 @@ static void i_slti(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm
 
 
 static void i_lw(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm_t imm) {
-	if ( dest->zeroforce && regs[1] == 0 ) {
+	if ( ii->type == tInstI::T_Mem && dest->zeroforce && regs[1] == 0 ) {
 		dest->EmitNOP();
 		return;
 	}

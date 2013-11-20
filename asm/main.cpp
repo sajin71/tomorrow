@@ -144,7 +144,7 @@ const tInstFPArith InstFPArith[] = {
 { "FLOOR.W.S",0x10, 0x0F, 2, {3,1,0}},
 { "FLOOR.S",  0x10, 0x0F, 2, {3,1,0}},
 { "RECIP.S",  0x10, 0x15, 2, {3,1,0}},
-{ "CVT.S.W",  0x24, 0x20, 2, {3,1,0}},
+{ "CVT.S.W",  0x14, 0x20, 2, {3,1,0}},
 };
 
 

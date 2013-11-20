@@ -14,9 +14,6 @@ void tInstFPArith::tox86(CAsm86Dest* dest, inst_t instLE) const {
 	regs[1] = (unsigned char)(0x1F & ( instLE >> 11 )); //fs
 	regs[2] = (unsigned char)(0x1F & ( instLE >>  6 )); //fd
 	
-	//PUSH funct
-	dest->Emit(0x6A);
-	dest->Emit(this->funct);
 	
 	// PUSH [ECX:fs]
 	dest->Emit(0xFF);
@@ -82,7 +79,7 @@ const tInstFPArith InstFPArith[] = {
 { "ROUND.W.S",0x10, 0x0C, 2, {3,1,0}},
 { "FLOOR.W.S",0x10, 0x0F, 2, {3,1,0}},
 { "RECIP.S",  0x10, 0x15, 2, {3,1,0}},
-{ "CVT.S.W",  0x24, 0x20, 2, {3,1,0}},
+{ "CVT.S.W",  0x14, 0x20, 2, {3,1,0}},
 };
 const unsigned int s_instFPArith = ARRSIZE(InstFPArith);
 
