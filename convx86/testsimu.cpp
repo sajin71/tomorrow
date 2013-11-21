@@ -24,6 +24,7 @@ const char *print_char_format = "%c";
 
 union intflt {
 	DWORD i;
+	int32 s;
 	float f;
 };
 
@@ -54,7 +55,7 @@ DWORD MY_CDECL softfp_round (intflt t, intflt s) { float f = floorf(s.f+0.5f); r
 DWORD MY_CDECL softfp_floor (intflt t, intflt s) { float f = floorf(s.f); return (int32)f; }
 SOFTFP_UNIOP(recip, 1/)
 
-DWORD MY_CDECL softfp_cvt (intflt t, intflt s) { intflt ret; ret.f = (float)s.i; return ret.i; }
+DWORD MY_CDECL softfp_cvt (intflt t, intflt s) { intflt ret; ret.f = (float)s.s; return ret.i; }
 
 DWORD MY_CDECL softfp_un (intflt t, intflt s) { BREAKPOINT return 0; /*TODO*/ }
 SOFTFP_COMP(eq, ==)
