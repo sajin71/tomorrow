@@ -19,6 +19,7 @@ DWORD *blockram;
 DWORD *pos;
 
 const char *print_int_format = "%d";
+const char *print_char_format = "%c";
 
 
 union intflt {
@@ -206,7 +207,10 @@ int main(int argc, char **argv) {
 	
 	"cmp   ebx, 0xffffffff \n"
 	"jz    my_print_int \n"
-
+	
+	"cmp   ebx, 0xfffffffe \n"
+	"jz    my_print_char \n"
+	
 	"add   ebx, [edi-8] \n"
 	"mov   [ebx], eax \n"
 	"ret \n"
@@ -225,8 +229,16 @@ int main(int argc, char **argv) {
 	"pop   ecx \n"
 	"ret \n"
 	
-	
-	
+"my_print_char: \n"
+	"push  ecx \n"
+	"push  eax \n"
+	"push  print_char_format \n"
+	"call  printf \n"
+	"add   esp, 8 \n"
+	"pop   ecx \n"
+	"ret \n"
+
+
 "my_asm_end: \n"
 	"nop"
 	
