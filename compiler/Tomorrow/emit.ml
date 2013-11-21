@@ -57,7 +57,7 @@ let rec g oc = function (* Emit assembly of instructions *)
 and g' oc = function (* Emit assembly of each instruction *)
     (* Set result to dest if not tail *)
     | NonTail(_), Nop -> ()
-    | NonTail(x), Set(i) -> Printf.fprintf oc "\tlli\t%s, %d\n" (reg x) i
+    | NonTail(x), Set(i) -> Printf.fprintf oc "\tset\t%s, %d\n" (reg x) i
     | NonTail(x), SetL(Id.L(y)) -> Printf.fprintf oc "\tsetl\t%s, %s\n" (reg x) y
     | NonTail(x), SetCLV(Id.L(y)) -> Printf.fprintf oc "\tsetclv\t%s, %s\n" x y
     | NonTail(x), Mov(y) when x = y -> ()
@@ -80,7 +80,7 @@ and g' oc = function (* Emit assembly of each instruction *)
             Printf.fprintf oc "\tlw\t%s, 0(%s)\n" (reg x) (reg (reg_sw))
     | NonTail(x), LW(y, C(z)) -> Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg x) z (reg y)
     | NonTail(_), SW(x, y, V(z)) -> 
-            Printf.fprintf oc "tadd\t%s, %s, %s\n" (reg (reg_sw)) (reg z) (reg y);
+            Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg (reg_sw)) (reg z) (reg y);
             Printf.fprintf oc "\tsw\t%s, 0(%s)\n" (reg x) (reg (reg_sw))
     | NonTail(_), SW(x, y, C(z)) -> Printf.fprintf oc "\tsw\t%s, %d(%s)\n" (reg x) z (reg y)
     | NonTail(x), FMov(y) when x = y -> ()
@@ -88,7 +88,7 @@ and g' oc = function (* Emit assembly of each instruction *)
             Printf.fprintf oc "\tmov.s\t%s, %s\n"  x y
             (*Printf.fprintf oc "\tmov.s\t%s, %s\n" (co_freg x) (co_freg y)*)
     | NonTail(x), FNeg(y) -> 
-            Printf.fprintf oc "neg.s\t%s, %s\n" x y
+            Printf.fprintf oc "\tneg.s\t%s, %s\n" x y
     | NonTail(x), FAdd(y, z) -> Printf.fprintf oc "\tadd.s\t%s, %s, %s\n"  x y z
     | NonTail(x), FSub(y, z) -> Printf.fprintf oc "\tsub.s\t%s, %s, %s\n"  x y z
     | NonTail(x), FMul(y, z) -> Printf.fprintf oc "\tmul.s\t%s, %s, %s\n"  x y z
@@ -98,7 +98,7 @@ and g' oc = function (* Emit assembly of each instruction *)
             Printf.fprintf oc "\tlwc\t%s, 0(%s)\n" x (reg (reg_sw))
     | NonTail(x), LWC(y, C(z)) -> Printf.fprintf oc "\tlwc\t%s, %d(%s)\n" x z (reg y)
     | NonTail(_), SWC(x, y, V(z)) -> 
-            Printf.fprintf oc "tadd\t%s, %s, %s\n" (reg (reg_sw)) (reg z) (reg y);
+            Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg (reg_sw)) (reg z) (reg y);
             Printf.fprintf oc "\tswc\t%s, 0(%s)\n" x (reg (reg_sw))
     | NonTail(_), SWC(x, y, C(z)) -> Printf.fprintf oc "\tswc\t%s, %d(%s)\n" x z (reg y)
     | NonTail(_), Comment(s) -> Printf.fprintf oc "\t# %s\n" s
@@ -115,18 +115,18 @@ and g' oc = function (* Emit assembly of each instruction *)
         Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg x) (offset y) (reg reg_sp)
     | NonTail(x), Restore(y) ->
         assert (List.mem x allfregs);
-        Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg x) (offset y) (reg reg_sp)
+        Printf.fprintf oc "\tlwc\t%s, %d(%s)\n" (reg x) (offset y) (reg reg_sp)
     (* tail *)
     | Tail, (Nop | SW _ | SWC _ | Comment _ | Save _ as exp) ->
         g' oc (NonTail(Id.gentmp Type.Unit), exp);
         Printf.fprintf oc "jr $31\n" 
         (*Printf.fprintf oc "\tnop\n"*)
-    | Tail, (Set _ | SetL _ | SetCLV _ | Mov _ | Neg _ | Add _ | Sub _ |Mul _ | Div _ | SLL _ | SRL _ | LW _ 
+    | Tail, (Set _ | SetL _ |  Mov _ | Neg _ | Add _ | Sub _ |Mul _ | Div _ | SLL _ | SRL _ | LW _ 
         as exp) ->
             g' oc (NonTail(regs.(0)), exp);
             Printf.fprintf oc "\tjr $31\n"
             (*Printf.fprintf oc "\tnop\n"*)
-    | Tail, (FMov _ | FNeg _ | FAdd _ | FSub _ | FMul _ | FDiv _  | LWC _ as exp) ->
+    | Tail, (FMov _ | FNeg _ | SetCLV _  |FAdd _ | FSub _ | FMul _ | FDiv _  | LWC _ as exp) ->
         g' oc (NonTail(fregs.(0)), exp);
         Printf.fprintf oc "\tjr $31\n"
         (*Printf.fprintf oc "\tnop\n"*)
@@ -240,7 +240,7 @@ and g' oc = function (* Emit assembly of each instruction *)
         let b_else = Id.genid "fbeq_else" in
         let b_cont = Id.genid "fbeq_cont" in
         Printf.fprintf oc "\tc.eq.s\t%s,%s, 0\n" x y;
-        Printf.fprintf oc "\tbcf%s" b_else;
+        Printf.fprintf oc "\tbcf\t%s" b_else;
         let stackset_back = !stackset in
         g oc (NonTail(z), e1);
         let stackset1 = !stackset in
@@ -284,13 +284,13 @@ and g' oc = function (* Emit assembly of each instruction *)
         Printf.fprintf oc "\tsw\t%s, %d(%s)\n" (reg reg_ra) (ss - 4) (reg reg_sp);
         Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg reg_sp) (reg reg_sp) ss;
         Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg reg_sw)  0 (reg reg_cl) ;
-        Printf.fprintf oc "\tjal\t%s\n" (reg reg_sw);
+        Printf.fprintf oc "\tjr\t%s\n" (reg reg_sw);
         Printf.fprintf oc "\tnop\n";
         Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg reg_sp) (reg reg_sp) (-ss);
         Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg reg_ra) (ss - 4) (reg reg_sp); 
         (* Printf.fprintf oc "\t#NonTail CallCls\n"; *)
         if List.mem a allregs && a <> regs.(0) then
-            Printf.fprintf oc "\tmov\t%s, %s\n" a regs.(0)
+            Printf.fprintf oc "\tmov\t%s, %s\n" (reg a) (reg regs.(0))
         else if List.mem a allfregs && a <> fregs.(0) then
             (Printf.fprintf oc "\tmov.s\t%s, %s\n" a fregs.(0);
             (*Printf.fprintf oc "\tmov.s\t%s, %s\n" (co_freg a) (co_freg
