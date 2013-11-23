@@ -1,13 +1,13 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use IEEE.STD_LOGIC_SIGNED.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 
 entity ftoi is
   port ( f    :  in STD_LOGIC_VECTOR (31 downto 0);
          round:  in STD_LOGIC_VECTOR (1 downto 0); --00...ROUND,  01...TRUNC,  10...CEIL,  11...FLOOR
-         i    : out STD_LOGIC_VECTOR (31 downto 0);
-         clk: STD_LOGIC
+--         clk: STD_LOGIC;
+         i    : out STD_LOGIC_VECTOR (31 downto 0)
        );
 end ftoi;
 
