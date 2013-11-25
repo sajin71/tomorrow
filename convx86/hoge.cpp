@@ -11,14 +11,14 @@ void procInst(CAsm86Dest* dest, inst_t inst) {
 	dest->pos.push_back( dest->code.size() );
 	CMIPSInstruction mips(inst);
 	
-	if ( mips.isUnknown() ) {
-		dprintf("Unknown Instruction 0x%08X\n", inst);
-		dest->Emit(0xCC);
-	} else {
-		fputs(mips.disasm().c_str() , stderr);
-		fputs("\n", stderr);
+	//if ( mips.isUnknown() ) {
+	//	dprintf("Unknown Instruction 0x%08X\n", inst);
+	//	dest->Emit(0xCC);
+	//} else {
+		//fputs(mips.disasm().c_str() , stderr);
+		//fputs("\n", stderr);
 		mips.tox86(dest);
-	}
+	//}
 
 	
 	//throw std::string("Unknown Opcode/funct");
@@ -36,6 +36,8 @@ int main(void) {
 		unsigned char b[4];
 	} buf;
 	
+	printf("\tDWORD blockram[] = {\n");
+	
 	int instcnt = 0;
 	while ( fread(&buf, sizeof(inst_t), 1, ifp) ==1 ) {
 		
@@ -43,33 +45,46 @@ int main(void) {
 		              buf.b[1] << 16 |
 		              buf.b[2] << 8  |
 		              buf.b[3] << 0;
-		dprintf("0x%08X  ", instLE);
+		
 		instbuf[instcnt] = instLE;
 		instcnt++;
 		
 		procInst(&dest, instLE);
-		dprintf("\n");
-
+		
+		printf("0x%08X, ", instLE);
+		if ( instcnt%16 == 15 ) { printf("\n"); }
 	}
+	printf("\n};\n");
 	
-	dprintf("\n\n");
-	dprintf("\tDWORD off_pos[] = {0xcccccccc, 0xcccccccc, \n");
+	
+	printf("\n\n");
+	printf("\tDWORD off_pos[] = {(DWORD)(softfp+0x20), 0xcccccccc, 0xcccccccc, (DWORD)blockram, sram_offset, 0xcccccccc, \n");
 	for ( unsigned int i=0; i< dest.pos.size(); i++ ) {
-		dprintf("0x%02X, ", dest.pos[i]);
-		if ( i%16 == 15 ) { dprintf("\n"); }
+		printf("0x%02X, ", dest.pos[i]);
+		if ( i%16 == 15 ) { printf("\n"); }
 	}
-	dprintf("\n};\n");
-	dprintf("\tDWORD *pos = off_pos+2;\n"
-			"\n"
-			"__asm {\n"
-			"\tLEA ECX, regs\n"
-			"\tLEA ESI, mem\n"
-			"\tMOV EDI, pos\n"
-			"\tMOV EAX, main_code\n"
-			"\tMOV dword ptr[EDI-4], EAX\n\n"
-			"\tMOV EAX, print_int\n"
-			"\tMOV dword ptr[EDI-8], EAX\n\n"
-			"main_code:\n");
+	printf("\n};\n");
+	printf(
+	"\tDWORD *pos = off_pos+6;\n"
+"\n"
+"__asm {\n"
+"\n"
+	"\tlea  ecx, regs\n"
+	"\tadd  ecx, 128\n"
+	"\tmov  edi, pos\n"
+"\n"
+	"\tlea  eax, main_code\n"
+	"\tmov  [edi-4], eax\n"
+	"\t\n"
+	"\tlea  eax, save_memory\n"
+	"\tmov  [edi-16], eax\n"
+	"\t\n"
+	"\tlea  eax, load_memory\n"
+	"\tmov  [edi-20], eax\n"
+	"\t\n"
+"\n"
+"main_code:\n\n"
+);
 	
 	for ( unsigned int i=0; i< dest.jumpto.size(); i++ ) {
 		unsigned int by = dest.jumpto[i].first;
@@ -94,16 +109,16 @@ int main(void) {
 	
 	dest.pos.push_back( dest.code.size() );
 	for ( unsigned int i=0; i< dest.pos.size()-1; i++ ) {
-		dprintf("// [%08X] 0x%08x\n", i*4, instbuf[i]);
+		printf("// [%08X] 0x%08x\n", i*4, instbuf[i]);
 		CMIPSInstruction mips(instbuf[i]);
-		dprintf("//   %s\n", mips.disasm().c_str() );
-		dprintf("        ");
+		printf("//   %s\n", mips.disasm().c_str() );
+		printf("        ");
 		
 		for ( unsigned int em = dest.pos[i]; em < dest.pos[i+1]; em++ ) {
-			dprintf("_E 0x%02X ", dest.code[em]);
+			printf("_E 0x%02X ", dest.code[em]);
 		}
 		
-		dprintf("\n");
+		printf("\n");
 	}
 	
 	
@@ -112,7 +127,7 @@ int main(void) {
 		//fwrite(&dest.code[i], 1,1, stdout);
 	//	if ( i%16 == 15 ) { dprintf("\n"); }
 	//}
-	dprintf("\n");
+	printf("\n");
 	
 	return 0;
 }

@@ -114,34 +114,37 @@ const tInstJ InstJ[] = {
 const unsigned char opcode_COP1 = 0x11;
 struct tInstFPComp {
 	const char *mnemonic;
+	const char fmt;
 	unsigned char cond;
 };
 const tInstFPComp InstFPComp[] = {
-{ "C.UN.S",    0x01},
-{ "C.EQ.S",    0x02},
-{ "C.OLT.S",   0x04},
+{ "C.UN.S",    0x10, 0x01},
+{ "C.EQ.S",    0x10, 0x02},
+{ "C.OLT.S",   0x10, 0x04},
 };
 
 struct tInstFPArith {
 	const char *mnemonic;
+	unsigned char fmt;
 	unsigned char funct;
 	int opercnt;
 	int oporder[3]; //0...ftに対応するのはアセンブラコードでいうと何番目？ 1...fs 2...fd  (3を指定すると0固定)
 };
 const tInstFPArith InstFPArith[] = {
-{ "ADD.S",    0x00, 3, {2,1,0}},
-{ "SUB.S",    0x01, 3, {2,1,0}},
-{ "MUL.S",    0x02, 3, {2,1,0}},
-{ "DIV.S",    0x03, 3, {2,1,0}},
-{ "SQRT.S",   0x04, 2, {3,1,0}},
-{ "ABS.S",    0x05, 2, {3,1,0}},
-{ "MOV.S",    0x06, 2, {3,1,0}},
-{ "NEG.S",    0x07, 2, {3,1,0}},
-{ "ROUND.W.S",0x0C, 2, {3,1,0}},
-{ "ROUND.S",  0x0C, 2, {3,1,0}},
-{ "FLOOR.W.S",0x0F, 2, {3,1,0}},
-{ "FLOOR.S",  0x0F, 2, {3,1,0}},
-{ "RECIP.S",  0x15, 2, {3,1,0}},
+{ "ADD.S",    0x10, 0x00, 3, {2,1,0}},
+{ "SUB.S",    0x10, 0x01, 3, {2,1,0}},
+{ "MUL.S",    0x10, 0x02, 3, {2,1,0}},
+{ "DIV.S",    0x10, 0x03, 3, {2,1,0}},
+{ "SQRT.S",   0x10, 0x04, 2, {3,1,0}},
+{ "ABS.S",    0x10, 0x05, 2, {3,1,0}},
+{ "MOV.S",    0x10, 0x06, 2, {3,1,0}},
+{ "NEG.S",    0x10, 0x07, 2, {3,1,0}},
+{ "ROUND.W.S",0x10, 0x0C, 2, {3,1,0}},
+{ "ROUND.S",  0x10, 0x0C, 2, {3,1,0}},
+{ "FLOOR.W.S",0x10, 0x0F, 2, {3,1,0}},
+{ "FLOOR.S",  0x10, 0x0F, 2, {3,1,0}},
+{ "RECIP.S",  0x10, 0x15, 2, {3,1,0}},
+{ "CVT.S.W",  0x14, 0x20, 2, {3,1,0}},
 };
 
 
@@ -221,8 +224,8 @@ const char *fregname[32][1] = {
 
 // 整数レジスタ名をレジスタ番号に変換する
 short numreg(char* op) {
-	if ( op[0] == '$' ) {
-		op++;
+	op++;
+	if ( op[-1] == '$' ) {
 		
 		for(int i=0; i<32; i++) {
 			if ( strcasecmp(nregname[i][0], op) == 0 ||
@@ -232,12 +235,12 @@ short numreg(char* op) {
 		}
 	}
 	
-	throw std::string("Invalid int register operand `") + std::string(op) + std::string("'");
+	throw std::string("Invalid int register operand `") + std::string(--op) + std::string("'");
 }
 // 浮動小数点レジスタ名をレジスタ番号に変換する
 short numfreg(char* op) {
-	if ( op[0] == '$' ) {
-		op++;
+	op++;
+	if ( op[-1] == '$' ) {
 		
 		for(int i=0; i<32; i++) {
 			if ( strcasecmp(fregname[i][0], op) == 0 ) {
@@ -246,7 +249,7 @@ short numfreg(char* op) {
 		}
 	}
 	
-	throw std::string("Invalid fp register operand `") + std::string(op) + std::string("'");
+	throw std::string("Invalid fp register operand `") + std::string(--op) + std::string("'");
 }
 
 short str2cc(char* op) {
@@ -723,21 +726,6 @@ bool proc_instFP(char* mnemonic, char** op, int opcnt, tState *state) {
 			break; //break do-while
 		}
 		
-		if ( strcasecmp("CVT.S.W", mnemonic) == 0 ) {
-			
-			if ( opcnt != 2 ) {
-				throw std::string("Operand count not match");
-			}
-			
-			fmt = 0x24; //fmt: W
-			ft = 0;
-			fs = numfreg(trim(op[1]));
-			fd = numfreg(trim(op[0]));
-			tail = 0x20; //CVT.S
-			
-			break; //break do-while
-		}
-		
 		
 		// 比較命令
 		const tInstFPComp *co = NULL;
@@ -761,7 +749,7 @@ bool proc_instFP(char* mnemonic, char** op, int opcnt, tState *state) {
 				throw std::string("Operand count not match");
 			}
 			
-			fmt = 0x10; //S
+			fmt = co->fmt;
 			tail = 0x30 | co->cond;
 			break; //break do-while
 		}
@@ -785,7 +773,7 @@ bool proc_instFP(char* mnemonic, char** op, int opcnt, tState *state) {
 				opn[o] = numfreg(trim(op[o]));
 			}
 			
-			fmt = 0x10; //S
+			fmt = ar->fmt;
 			ft = opn[ ar->oporder[0] ];
 			fs = opn[ ar->oporder[1] ];
 			fd = opn[ ar->oporder[2] ];

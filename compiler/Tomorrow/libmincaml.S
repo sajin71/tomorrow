@@ -1,5 +1,7 @@
 .section ".text"
 min_caml_print_char:
+	sw	$1, -1($0)
+	jr	$31
 min_caml_print_int:
 	sw 	$1 ,-1($0)
 	jr 	$31
