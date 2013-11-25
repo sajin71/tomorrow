@@ -41,7 +41,7 @@ let rec g env = function (* generate virtual machine code *)
             let l = Id.L(Id.genid"l") in
             data := (l, d) :: !data;
             l in
-            let x = Id.genid "l" in
+            (*let x = Id.genid "l" in*)
             Ans(SetCLV(l))
             (*Let((x, Type.Int), SetL(l), Ans(LWC(x, C(0))))*)
     | Closure.Neg(x) -> Ans(Neg(x))
