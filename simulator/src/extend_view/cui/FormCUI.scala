@@ -8,6 +8,7 @@ import scala.util.parsing.combinator.RegexParsers
 import scala.util.control.Breaks
 import java.io.IOException
 import scala.collection.immutable.ListMap
+import java.io.File
 
 /**
  * CUIで動作させるインターフェース
@@ -23,6 +24,27 @@ abstract class FormCUI extends Form {
     def parseArgument(args: Array[String]): Unit = {
         if(args.length == 1){
             this.simulator setExecutable args(0)
+        }else if(args.length == 2){
+            this.simulator setExecutable args(0)
+
+            // 文字列をusbに格納
+            val sendString = (scala.io.Source.fromFile(args(1)).getLines()).toList
+	    	var arr = new Array[Byte](4)
+	    	var i = 0;
+	    	for(str <- sendString){
+	    	    for(c <- str){
+	    	    	arr(i) = c.toByte
+	    	    	i = (i+1)%4
+	    	    	if(i == 0){
+	    	    		usb.sendToCPU(arr)
+	    	    	}
+	    	    }
+	    	}
+	    	
+	    	// 実行
+	    	for(i <- 0 until 1000){
+	    	    simulator stepExecute
+	    	}
         }
     }
     def initializeInterface(): Unit = {}

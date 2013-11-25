@@ -33,7 +33,6 @@ class Tomorrow(usb:USB) extends AbstractCPU(
     usb.addCPUEndListener(this);
 
     def updateUSBData(data:Seq[Byte]): Unit = {
-    	println(data.mkString)
     } 
 	/**
      * 命令の格納されるメモリ空間の先頭アドレス
