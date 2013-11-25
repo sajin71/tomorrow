@@ -46,7 +46,7 @@ let addtyp x = (x, Type.gentyp ())
 %right LESS_MINUS
 %left COMMA
 %left EQUAL LESS_GREATER LESS GREATER LESS_EQUAL GREATER_EQUAL
-%left PLUS MINUS PLUS_DOT MINUS_DOT
+%left PLUS MINUS AST SLASH PLUS_DOT MINUS_DOT
 %left AST_DOT SLASH_DOT
 %right prec_unary_minus
 %left prec_app
@@ -89,7 +89,7 @@ exp: /* 一般の式 (caml2html: parser_exp) */
     { Add($1, $3) }
 | exp MINUS exp
     { Sub($1, $3) }
-| exp AST exp
+| exp AST exp 
     { Mul($1, $3) }
 | exp SLASH exp
     { Div($1, $3) }
@@ -136,6 +136,8 @@ exp: /* 一般の式 (caml2html: parser_exp) */
     { Put($1, $4, $7) }
 | exp SEMICOLON exp
     { Let((Id.gentmp Type.Unit, Type.Unit), $1, $3) }
+| exp SEMICOLON
+    { $1 }
 | ARRAY_CREATE simple_exp simple_exp
     %prec prec_app
     { Array($2, $3) }
