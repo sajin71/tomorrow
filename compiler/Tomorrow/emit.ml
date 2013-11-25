@@ -95,7 +95,7 @@ and g' oc = function (* Emit assembly of each instruction *)
     | NonTail(x), FDiv(y, z) -> Printf.fprintf oc "\tdiv.s\t%s, %s, %s\n" x y z
     | NonTail(x), LWC(y, V(z)) ->
             Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg (reg_sw)) (reg z) (reg y);
-            Printf.fprintf oc "\tlwc\t%s, 0(%s)\n" x (reg (reg_sw))
+            Printf.fprintf oc "\tlwc\t%s, 0(%s)\n" x (reg reg_sw)
     | NonTail(x), LWC(y, C(z)) -> Printf.fprintf oc "\tlwc\t%s, %d(%s)\n" x z (reg y)
     | NonTail(_), SWC(x, y, V(z)) -> 
             Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg (reg_sw)) (reg z) (reg y);
@@ -115,7 +115,7 @@ and g' oc = function (* Emit assembly of each instruction *)
         Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg x) (offset y) (reg reg_sp)
     | NonTail(x), Restore(y) ->
         assert (List.mem x allfregs);
-        Printf.fprintf oc "\tlwc\t%s, %d(%s)\n" (reg x) (offset y) (reg reg_sp)
+        Printf.fprintf oc "\tlwc\t%s, %d(%s)\n" x (offset y) (reg reg_sp)
     (* tail *)
     | Tail, (Nop | SW _ | SWC _ | Comment _ | Save _ as exp) ->
         g' oc (NonTail(Id.gentmp Type.Unit), exp);
@@ -168,8 +168,8 @@ and g' oc = function (* Emit assembly of each instruction *)
         g oc (Tail, e2)
     | Tail, IfFEq(x, y, e1, e2) -> (* TODO for float calculation *)
         let b_else = Id.genid("fbeq_else") in
-        Printf.fprintf oc "\tc.eq.s\t%s, %s, 0"  x y;
-        Printf.fprintf oc "\tbcf\t%s" b_else;
+        Printf.fprintf oc "\tc.eq.s\t%s, %s\n"  x y;
+        Printf.fprintf oc "\tbcf\t%s\n" b_else;
         (*Printf.fprintf oc "\tnop\n";*)
         let stackset_back = !stackset in
         g oc (Tail, e1);
@@ -178,7 +178,7 @@ and g' oc = function (* Emit assembly of each instruction *)
         g oc (Tail, e2)
     | Tail, IfFLE(x, y, e1, e2) ->
         let b_else = Id.genid("fble_else") in
-        Printf.fprintf oc "\tc.olt.s\t%s, %s, 0" y x;
+        Printf.fprintf oc "\tc.olt.s\t%s, %s\n" y x;
         Printf.fprintf oc "tbct\t%s\n" b_else;
         let stackset_back = !stackset in
         g oc (Tail, e1);
@@ -239,7 +239,7 @@ and g' oc = function (* Emit assembly of each instruction *)
     | NonTail(z), IfFEq(x, y, e1, e2) -> (* TODO float calculation *)
         let b_else = Id.genid "fbeq_else" in
         let b_cont = Id.genid "fbeq_cont" in
-        Printf.fprintf oc "\tc.eq.s\t%s,%s, 0\n" x y;
+        Printf.fprintf oc "\tc.eq.s\t%s,%s\n" x y;
         Printf.fprintf oc "\tbcf\t%s" b_else;
         let stackset_back = !stackset in
         g oc (NonTail(z), e1);
@@ -255,7 +255,7 @@ and g' oc = function (* Emit assembly of each instruction *)
     | NonTail(z), IfFLE(x, y, e1, e2) -> (* TODO float calculation *)
         let b_else = Id.genid "fbeq_else" in
         let b_cont = Id.genid "fbeq_cont" in
-        Printf.fprintf oc "\tc.olt.s\t%s, %s, 0\n" y x;
+        Printf.fprintf oc "\tc.olt.s\t%s, %s\n" y x;
         Printf.fprintf oc "\tbct\t%s\n" b_else;
         let stackset_back = !stackset in
         g oc (NonTail(z), e1);
