@@ -20,6 +20,11 @@ package top_pack is
       ALUOp       : in ALU_CTRL;
       PCSource    : in std_logic_vector(1 downto 0);
 
+      PCWriteBCF : in std_logic;
+      PCWriteBCT : in std_logic;
+      FCSRW      : in std_logic;
+      FPRWrite   : in std_logic;
+
       IR         : in  std_logic_vector(31 downto 0);
       MDR        : in  std_logic_vector(31 downto 0);
       PC_OUT     : out std_logic_vector(31 downto 0);
@@ -31,7 +36,7 @@ package top_pack is
   component controller
     port (
       CLK         : in  std_logic;
-      OP          : in  std_logic_vector(5 downto 0);
+      IR          : in  std_logic_vector(31 downto 0);
       BUSY        : in  std_logic;
       PCWriteNC   : out std_logic;
       PCWriteCond : out std_logic;
@@ -45,7 +50,12 @@ package top_pack is
       ALUSrcA     : out std_logic_vector(1 downto 0);
       ALUSrcB     : out std_logic_vector(1 downto 0);
       ALUOp       : out ALU_CTRL;
-      PCSource    : out std_logic_vector(1 downto 0)
+      PCSource    : out std_logic_vector(1 downto 0);
+
+      PCWriteBCF : out std_logic;
+      PCWriteBCT : out std_logic;
+      FCSRW      : out std_logic;
+      FPRWrite   : out std_logic
       );
   end component;
 
@@ -96,5 +106,10 @@ package top_pack is
   signal MEMADDR    : std_logic_vector(31 downto 0);
   signal DATA_WRITE : std_logic_vector(31 downto 0);
   signal BUSY       : std_logic;
-  
+
+  signal PCWriteBCF : std_logic;
+  signal PCWriteBCT : std_logic;
+  signal FCSRW      : std_logic;
+  signal FPRWrite   : std_logic;
+
 end top_pack;

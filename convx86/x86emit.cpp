@@ -55,3 +55,47 @@ void CAsm86Dest::EmitModRMr2r(X86REG dest, X86REG src) {
 	                  (src &7);
 	this->Emit(c);
 }
+
+void CAsm86Dest::EmitBranch(imm_t imm, bool isJZ) {
+	unsigned int to = this->pos.size() + imm;
+	
+	if ( imm < 0 ) {
+		int from86_8 = this->code.size()+2;
+		int to86 = this->pos[to];
+		
+		int disp8 = to86 - from86_8;
+		if ( isInBYTE(disp8) ) {
+			if ( isJZ ) {
+				this->Emit(0x74); //JZ
+			} else {
+				this->Emit(0x75); //JNZ
+			}
+			this->EmitDisp8( (signed char)disp8 );
+			
+			dprintf("\nJ[N]Z %d ;disp8\n", disp8);
+			
+			return;
+		}
+	}
+	
+	if ( isJZ ) {
+		this->Emit(0x0F); //JZ
+		this->Emit(0x84);
+	} else {
+		this->Emit(0x0F); //JNZ
+		this->Emit(0x85);
+	}
+	
+	unsigned int from86_32 = this->code.size()+4;
+	int disp32 = 0;
+	
+	if ( imm < 0 ) {
+		int to86 = this->pos[to];
+		disp32 = to86 - from86_32;
+	} else {
+		this->jumpto.push_back( std::pair<unsigned int, unsigned int>(from86_32, to) );
+	}
+	
+	this->EmitDisp32(disp32);
+	dprintf("\nJ[N]Z %d ;disp32\n", disp32);
+}

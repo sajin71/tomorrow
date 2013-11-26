@@ -52,7 +52,7 @@ std::string tInstR::disasm(inst_t instLE) const {
 
 static void r_generic3(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsigned char shift) {
 	
-	if ( regs[2] == 0 ) {
+	if ( dest->zeroforce && regs[2] == 0 ) {
 		dest->EmitNOP();
 		return;
 	}
@@ -104,7 +104,7 @@ static void r_generic3(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[],
 
 static void r_add(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsigned char shift) {
 	
-	if ( regs[2] == 0 ) {
+	if ( dest->zeroforce && regs[2] == 0 ) {
 		dest->EmitNOP();
 		return;
 	}
@@ -130,7 +130,7 @@ static void r_add(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsi
 
 static void r_slt(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsigned char shift) {
 	
-	if ( regs[2] == 0 ) {
+	if ( dest->zeroforce && regs[2] == 0 ) {
 		dest->EmitNOP();
 		return;
 	}
@@ -166,8 +166,15 @@ static void r_mult(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], uns
 	dest->Emit(0xF7); //MUL
 	dest->EmitModRMexdisp(4, rECX, regs[1]*4);
 	
+	dest->EmitMOV2m();
+	dest->EmitModRMdisp(rEDX, rECX, 128); //Hi
+	dest->EmitMOV2m();
+	dest->EmitModRMdisp(rEAX, rECX, 132); //Lo
+	
 	dprintf("\nMOV EAX, [ECX+%d*4]\n"
-		     "MUL (EAX, )[ECX+%d*4]\n", regs[0], regs[1]);
+		     "MUL (EAX, )[ECX+%d*4]\n"
+		     "MOV [ECX+128], EDX\n"
+		     "MOV [ECX+132], EAX\n", regs[0], regs[1]);
 }
 
 static void r_div(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsigned char shift) {
@@ -182,30 +189,41 @@ static void r_div(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsi
 	dest->Emit(0xF7); //DIV
 	dest->EmitModRMexdisp(6, rECX, regs[1]*4);
 	
+	dest->EmitMOV2m();
+	dest->EmitModRMdisp(rEDX, rECX, 128); //Hi
+	dest->EmitMOV2m();
+	dest->EmitModRMdisp(rEAX, rECX, 132); //Lo
+	
 	dprintf("\nMOV EAX, [ECX+%d*4]\n"
 	         "XOR EDX, EDX\n"
-		     "DIV (EAX, )[ECX+%d*4]\n", regs[0], regs[1]);
+		     "DIV (EAX, )[ECX+%d*4]\n"
+		     "MOV [ECX+128], EDX\n"
+		     "MOV [ECX+132], EAX\n", regs[0], regs[1]);
 }
 
 static void r_mfhilo(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsigned char shift) {
 	
-	if ( regs[2] == 0 ) {
+	if ( dest->zeroforce && regs[2] == 0 ) {
 		dest->EmitNOP();
 		return;
 	}
 	
-	dest->EmitMOV2m();
+	dest->EmitMOV2r();
 	if ( ir->funct == 0x10 ) { //MFHI
-		dest->EmitModRMdisp(rEDX, rECX, regs[2]*4);
-	} else {
-		dest->EmitModRMdisp(rEAX, rECX, regs[2]*4);
+		dest->EmitModRMdisp(rEBX, rECX, 128);
+	} else { //MFLO
+		dest->EmitModRMdisp(rEBX, rECX, 132);
 	}
 	
-	dprintf("\nMOV [ECX+%d*4], E(A|D)X\n", regs[2]);
+	dest->EmitMOV2m();
+	dest->EmitModRMdisp(rEBX, rECX, regs[2]*4);
+	
+	dprintf("\nMOV EBX, [ECX+128/132]\n"
+	        "MOV [ECX+%d*4], EBX\n", regs[2]);
 }
 
 static void r_shift(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsigned char shift) {
-	if ( regs[2] == 0 ) {
+	if ( dest->zeroforce && regs[2] == 0 ) {
 		dest->EmitNOP();
 		return;
 	}
@@ -226,6 +244,43 @@ static void r_shift(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], un
 	dest->Emit(0xC1);
 	dest->EmitModRMexr(exop, rEBX);
 	dest->EmitDisp8(shift);
+	
+	dest->EmitMOV2m();
+	dest->EmitModRMdisp(rEBX, rECX, regs[2]*4);
+}
+
+static void r_shiftv(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsigned char shift) {
+	if ( dest->zeroforce && regs[2] == 0 ) {
+		dest->EmitNOP();
+		return;
+	}
+	
+	// MOV EBX, [ECX+ Rs*4]
+	dest->EmitMOV2r();
+	dest->EmitModRMdisp(rEBX, rECX, regs[1]*4);
+	
+	// PUSH ECX
+	dest->Emit(0x51);
+	
+	// MOV ECX, [ECX+ Rs*4]
+	dest->EmitMOV2r();
+	dest->EmitModRMdisp(rECX, rECX, regs[0]*4);
+	
+	unsigned char exop;
+	if ( ir->funct == 0x04 ) { //SLL
+		exop = 4; //x86(SHL)
+	} else if ( ir->funct == 0x06 ) { //SRL
+		exop = 5; //x86(SHR)
+	} else { //SRA
+		exop = 7; //x86(SAR)
+	}
+	
+	// xxx EBX[, cl]
+	dest->Emit(0xD3);
+	dest->EmitModRMexr(exop, rEBX);
+	
+	// POP ECX
+	dest->Emit(0x59);
 	
 	dest->EmitMOV2m();
 	dest->EmitModRMdisp(rEBX, rECX, regs[2]*4);
@@ -280,6 +335,9 @@ const tInstR InstR[] = {
 { "SLL",    0x18, 0x00, 2, {3,1,0}, true, r_shift },
 { "SRL",    0x18, 0x02, 2, {3,1,0}, true, r_shift },
 { "SRA",    0x18, 0x03, 2, {3,1,0}, true, r_shift },
+{ "SLLV",   0x18, 0x04, 3, {2,1,0}, false, r_shiftv },
+{ "SRLV",   0x18, 0x06, 3, {2,1,0}, false, r_shiftv },
+{ "SRAV",   0x18, 0x07, 3, {2,1,0}, false, r_shiftv },
 };
 
 const unsigned int s_instR = ARRSIZE(InstR);

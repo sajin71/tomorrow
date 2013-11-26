@@ -3,7 +3,7 @@
 
 <?php
 
-$tests = array( "print", "sum-tail", "gcd", "sum", "fib", "ack", "even-odd", "adder", "funcomp", "cls-rec", "cls-bug", "cls-bug2", "shuffle", "spill", "spill2", "spill3", "join-stack", "join-stack2", "join-stack3", "join-reg", "join-reg2", "non-tail-if", "non-tail-if2", "inprod", "inprod-rec", "inprod-loop", "matmul", "matmul-flat");
+$tests = array( "print", "sum-tail", "gcd", "sum", "fib", "ack", "even-odd", "adder", "funcomp", "cls-rec", "cls-bug", "cls-bug2", "shuffle", "spill", "spill2", "spill3", "join-stack", "join-stack2", "join-stack3", "join-reg", "join-reg2", "non-tail-if", "non-tail-if2", "inprod", "inprod-rec", "inprod-loop", "matmul", "matmul-flat", "fdiv");
 
 $gitroot = '../../';
 $testdir = $gitroot . 'compiler/test/';
@@ -37,7 +37,7 @@ foreach ( $tests as $t ) {
 	succ();
 		
 	$remain--;
-	system("{$gitroot}asm/asm {$testdir}{$t}.s  {$testdir}{$t}.bin", $ret);
+	system("cat {$testdir}{$t}.s {$gitroot}testlib.s | {$gitroot}asm/asm  /dev/stdin {$testdir}{$t}.bin", $ret);
 	if ( $ret != 0 ) {
 		fail($remain);
 		continue;

@@ -1,0 +1,505 @@
+Release 14.4 - xst P.49d (lin64)
+Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
+--> 
+Parameter TMPDIR set to xst/projnav.tmp
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.07 secs
+ 
+--> 
+Parameter xsthdpdir set to xst
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.07 secs
+ 
+--> 
+Reading design: top.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Compilation
+  3) Design Hierarchy Analysis
+  4) HDL Analysis
+  5) HDL Synthesis
+     5.1) HDL Synthesis Report
+  6) Advanced HDL Synthesis
+     6.1) Advanced HDL Synthesis Report
+  7) Low Level Synthesis
+  8) Partition Report
+  9) Final Report
+	9.1) Device utilization summary
+	9.2) Partition Resource Summary
+	9.3) TIMING REPORT
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : "top.prj"
+Input Format                       : mixed
+Ignore Synthesis Constraint File   : NO
+
+---- Target Parameters
+Output File Name                   : "top"
+Output Format                      : NGC
+Target Device                      : xc5vlx50t-1-ff1136
+
+---- Source Options
+Top Module Name                    : top
+Automatic FSM Extraction           : YES
+FSM Encoding Algorithm             : Auto
+Safe Implementation                : No
+FSM Style                          : LUT
+RAM Extraction                     : Yes
+RAM Style                          : Auto
+ROM Extraction                     : Yes
+Mux Style                          : Auto
+Decoder Extraction                 : YES
+Priority Encoder Extraction        : Yes
+Shift Register Extraction          : YES
+Logical Shifter Extraction         : YES
+XOR Collapsing                     : YES
+ROM Style                          : Auto
+Mux Extraction                     : Yes
+Resource Sharing                   : YES
+Asynchronous To Synchronous        : NO
+Use DSP Block                      : Auto
+Automatic Register Balancing       : No
+
+---- Target Options
+LUT Combining                      : Off
+Reduce Control Sets                : Off
+Add IO Buffers                     : YES
+Global Maximum Fanout              : 100000
+Add Generic Clock Buffer(BUFG)     : 32
+Register Duplication               : YES
+Slice Packing                      : YES
+Optimize Instantiated Primitives   : NO
+Use Clock Enable                   : Auto
+Use Synchronous Set                : Auto
+Use Synchronous Reset              : Auto
+Pack IO Registers into IOBs        : Auto
+Equivalent register Removal        : YES
+
+---- General Options
+Optimization Goal                  : Speed
+Optimization Effort                : 1
+Power Reduction                    : NO
+Keep Hierarchy                     : No
+Netlist Hierarchy                  : As_Optimized
+RTL Output                         : Yes
+Global Optimization                : AllClockNets
+Read Cores                         : YES
+Write Timing Constraints           : NO
+Cross Clock Analysis               : NO
+Hierarchy Separator                : /
+Bus Delimiter                      : <>
+Case Specifier                     : Maintain
+Slice Utilization Ratio            : 100
+BRAM Utilization Ratio             : 100
+DSP48 Utilization Ratio            : 100
+Verilog 2001                       : YES
+Auto BRAM Packing                  : NO
+Slice Utilization Ratio Delta      : 5
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Compilation                              *
+=========================================================================
+Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/core/RTL/receiver.vhd" in Library work.
+Entity <receiver> compiled.
+Entity <receiver> (Architecture <RTL>) compiled.
+Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/core/RTL/transmitter.vhd" in Library work.
+Entity <transmitter> compiled.
+Entity <transmitter> (Architecture <RTL_arr>) compiled.
+Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/core/temp/top.vhd" in Library work.
+Entity <top> compiled.
+Entity <top> (Architecture <loopback>) compiled.
+
+=========================================================================
+*                     Design Hierarchy Analysis                         *
+=========================================================================
+Analyzing hierarchy for entity <top> in library <work> (architecture <loopback>).
+
+Analyzing hierarchy for entity <receiver> in library <work> (architecture <RTL>) with generics.
+	WTIME = "0000000010010001"
+
+Analyzing hierarchy for entity <transmitter> in library <work> (architecture <RTL_arr>) with generics.
+	WTIME = "0000000010010001"
+
+
+=========================================================================
+*                            HDL Analysis                               *
+=========================================================================
+Analyzing Entity <top> in library <work> (Architecture <loopback>).
+    Set user-defined property "CAPACITANCE =  DONT_CARE" for instance <ib> in unit <top>.
+    Set user-defined property "IBUF_DELAY_VALUE =  0" for instance <ib> in unit <top>.
+    Set user-defined property "IBUF_LOW_PWR =  TRUE" for instance <ib> in unit <top>.
+    Set user-defined property "IOSTANDARD =  DEFAULT" for instance <ib> in unit <top>.
+Entity <top> analyzed. Unit <top> generated.
+
+Analyzing generic Entity <receiver> in library <work> (Architecture <RTL>).
+	WTIME = "0000000010010001"
+Entity <receiver> analyzed. Unit <receiver> generated.
+
+Analyzing generic Entity <transmitter> in library <work> (Architecture <RTL_arr>).
+	WTIME = "0000000010010001"
+Entity <transmitter> analyzed. Unit <transmitter> generated.
+
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Performing bidirectional port resolution...
+
+Synthesizing Unit <receiver>.
+    Related source file is "/home/yuta/cpuex/git/tomorrow/core/RTL/receiver.vhd".
+    Using one-hot encoding for signal <state>.
+    Using one-hot encoding for signal <arrow>.
+    Found 1-bit register for signal <FRESH>.
+    Found 16-bit register for signal <countdown>.
+    Found 3-bit register for signal <letternum>.
+    Found 3-bit adder for signal <letternum$addsub0000> created at line 59.
+    Found 16-bit subtractor for signal <next_countdown$addsub0000> created at line 53.
+    Found 8-bit register for signal <outdatabuf>.
+    Found 8-bit register for signal <recbuf>.
+    Found 4-bit register for signal <state>.
+    Found 1-bit register for signal <t>.
+    Summary:
+	inferred  41 D-type flip-flop(s).
+	inferred   2 Adder/Subtractor(s).
+Unit <receiver> synthesized.
+
+
+Synthesizing Unit <transmitter>.
+    Related source file is "/home/yuta/cpuex/git/tomorrow/core/RTL/transmitter.vhd".
+    Using one-hot encoding for signal <state>.
+    Using one-hot encoding for signal <arrow>.
+    Found 16-bit register for signal <countdown>.
+    Found 3-bit register for signal <letternum>.
+    Found 3-bit adder for signal <letternum$addsub0000> created at line 53.
+    Found 16-bit subtractor for signal <next_countdown$addsub0000> created at line 48.
+    Found 8-bit register for signal <sendbuf>.
+    Found 4-bit register for signal <state>.
+    Summary:
+	inferred  31 D-type flip-flop(s).
+	inferred   2 Adder/Subtractor(s).
+Unit <transmitter> synthesized.
+
+
+Synthesizing Unit <top>.
+    Related source file is "/home/yuta/cpuex/git/tomorrow/core/temp/top.vhd".
+    Found 256x8-bit dual-port RAM <Mram_queue> for signal <queue>.
+    Found 8-bit register for signal <data_out>.
+    Found 8-bit comparator not equal for signal <data_out$cmp_ne0000> created at line 84.
+    Found 8-bit up counter for signal <deq>.
+    Found 8-bit up counter for signal <enq>.
+    Found 1-bit register for signal <go>.
+    Summary:
+	inferred   1 RAM(s).
+	inferred   2 Counter(s).
+	inferred   9 D-type flip-flop(s).
+	inferred   1 Comparator(s).
+Unit <top> synthesized.
+
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# RAMs                                                 : 1
+ 256x8-bit dual-port RAM                               : 1
+# Adders/Subtractors                                   : 4
+ 16-bit subtractor                                     : 2
+ 3-bit adder                                           : 2
+# Counters                                             : 2
+ 8-bit up counter                                      : 2
+# Registers                                            : 13
+ 1-bit register                                        : 3
+ 16-bit register                                       : 2
+ 3-bit register                                        : 2
+ 4-bit register                                        : 2
+ 8-bit register                                        : 4
+# Comparators                                          : 1
+ 8-bit comparator not equal                            : 1
+
+=========================================================================
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+
+Synthesizing (advanced) Unit <top>.
+INFO:Xst:3226 - The RAM <Mram_queue> will be implemented as a BLOCK RAM, absorbing the following register(s): <data_out> <sendmap/sendbuf>
+    -----------------------------------------------------------------------
+    | ram_type           | Block                               |          |
+    -----------------------------------------------------------------------
+    | Port A                                                              |
+    |     aspect ratio   | 256-word x 8-bit                    |          |
+    |     mode           | read-first                          |          |
+    |     clkA           | connected to signal <clk>           | rise     |
+    |     weA            | connected to signal <fresh>         | high     |
+    |     addrA          | connected to signal <enq>           |          |
+    |     diA            | connected to signal <data_in>       |          |
+    -----------------------------------------------------------------------
+    | optimization       | speed                               |          |
+    -----------------------------------------------------------------------
+    | Port B                                                              |
+    |     aspect ratio   | 256-word x 8-bit                    |          |
+    |     mode           | write-first                         |          |
+    |     clkB           | connected to signal <clk>           | rise     |
+    |     enB            | connected to signal <data_out_not0001> | low      |
+    |     addrB          | connected to signal <deq>           |          |
+    |     doB            | connected to signal <sendmap/sendbuf> |          |
+    -----------------------------------------------------------------------
+    | optimization       | speed                               |          |
+    -----------------------------------------------------------------------
+Unit <top> synthesized (advanced).
+
+=========================================================================
+Advanced HDL Synthesis Report
+
+Macro Statistics
+# RAMs                                                 : 1
+ 256x8-bit dual-port block RAM                         : 1
+# Adders/Subtractors                                   : 4
+ 16-bit subtractor                                     : 2
+ 3-bit adder                                           : 2
+# Counters                                             : 2
+ 8-bit up counter                                      : 2
+# Registers                                            : 65
+ Flip-Flops                                            : 65
+# Comparators                                          : 1
+ 8-bit comparator not equal                            : 1
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+
+Optimizing unit <top> ...
+
+Optimizing unit <receiver> ...
+
+Mapping all equations...
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 5) on block top, actual ratio is 0.
+
+Final Macro Processing ...
+
+=========================================================================
+Final Register Report
+
+Macro Statistics
+# Registers                                            : 81
+ Flip-Flops                                            : 81
+
+=========================================================================
+
+=========================================================================
+*                           Partition Report                            *
+=========================================================================
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+=========================================================================
+*                            Final Report                               *
+=========================================================================
+Final Results
+RTL Top Level Output File Name     : top.ngr
+Top Level Output File Name         : top
+Output Format                      : NGC
+Optimization Goal                  : Speed
+Keep Hierarchy                     : No
+
+Design Statistics
+# IOs                              : 3
+
+Cell Usage :
+# BELS                             : 231
+#      GND                         : 1
+#      INV                         : 32
+#      LUT1                        : 16
+#      LUT2                        : 8
+#      LUT3                        : 11
+#      LUT4                        : 5
+#      LUT5                        : 3
+#      LUT6                        : 62
+#      MUXCY                       : 44
+#      VCC                         : 1
+#      XORCY                       : 48
+# FlipFlops/Latches                : 81
+#      FD                          : 57
+#      FDE                         : 15
+#      FDR                         : 3
+#      FDS                         : 5
+#      FDSE                        : 1
+# RAMS                             : 1
+#      RAMB18                      : 1
+# Clock Buffers                    : 1
+#      BUFG                        : 1
+# IO Buffers                       : 3
+#      IBUF                        : 1
+#      IBUFG                       : 1
+#      OBUF                        : 1
+=========================================================================
+
+Device utilization summary:
+---------------------------
+
+Selected Device : 5vlx50tff1136-1 
+
+
+Slice Logic Utilization: 
+ Number of Slice Registers:              81  out of  28800     0%  
+ Number of Slice LUTs:                  137  out of  28800     0%  
+    Number used as Logic:               137  out of  28800     0%  
+
+Slice Logic Distribution: 
+ Number of LUT Flip Flop pairs used:    140
+   Number with an unused Flip Flop:      59  out of    140    42%  
+   Number with an unused LUT:             3  out of    140     2%  
+   Number of fully used LUT-FF pairs:    78  out of    140    55%  
+   Number of unique control sets:         9
+
+IO Utilization: 
+ Number of IOs:                           3
+ Number of bonded IOBs:                   3  out of    480     0%  
+
+Specific Feature Utilization:
+ Number of Block RAM/FIFO:                1  out of     60     1%  
+    Number using Block RAM only:          1
+ Number of BUFG/BUFGCTRLs:                1  out of     32     3%  
+
+---------------------------
+Partition Resource Summary:
+---------------------------
+
+  No Partitions were found in this design.
+
+---------------------------
+
+
+=========================================================================
+TIMING REPORT
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+-----------------------------------+------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)  | Load  |
+-----------------------------------+------------------------+-------+
+MCLK1                              | IBUFG+BUFG             | 82    |
+-----------------------------------+------------------------+-------+
+
+Asynchronous Control Signals Information:
+----------------------------------------
+No asynchronous control signals found in this design
+
+Timing Summary:
+---------------
+Speed Grade: -1
+
+   Minimum period: 3.114ns (Maximum Frequency: 321.130MHz)
+   Minimum input arrival time before clock: 1.154ns
+   Maximum output required time after clock: 6.521ns
+   Maximum combinational path delay: No path found
+
+Timing Detail:
+--------------
+All values displayed in nanoseconds (ns)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'MCLK1'
+  Clock period: 3.114ns (frequency: 321.130MHz)
+  Total number of paths / destination ports: 1936 / 132
+-------------------------------------------------------------------------
+Delay:               3.114ns (Levels of Logic = 2)
+  Source:            enq_4 (FF)
+  Destination:       Mram_queue (RAM)
+  Source Clock:      MCLK1 rising
+  Destination Clock: MCLK1 rising
+
+  Data Path: enq_4 to Mram_queue
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDE:C->Q              3   0.471   1.080  enq_4 (enq_4)
+     LUT6:I0->O            1   0.094   0.576  data_out_not000131_SW0 (N43)
+     LUT5:I3->O           10   0.094   0.385  data_out_not0001_inv1 (data_out_not0001_inv)
+     RAMB18:ENB                0.414          Mram_queue
+    ----------------------------------------
+    Total                      3.114ns (1.073ns logic, 2.041ns route)
+                                       (34.5% logic, 65.5% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'MCLK1'
+  Total number of paths / destination ports: 1 / 1
+-------------------------------------------------------------------------
+Offset:              1.154ns (Levels of Logic = 1)
+  Source:            RS_RX (PAD)
+  Destination:       receivemap/t (FF)
+  Destination Clock: MCLK1 rising
+
+  Data Path: RS_RX to receivemap/t
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             1   0.818   0.336  RS_RX_IBUF (RS_RX_IBUF)
+     FD:D                     -0.018          receivemap/t
+    ----------------------------------------
+    Total                      1.154ns (0.818ns logic, 0.336ns route)
+                                       (70.9% logic, 29.1% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'MCLK1'
+  Total number of paths / destination ports: 15 / 1
+-------------------------------------------------------------------------
+Offset:              6.521ns (Levels of Logic = 3)
+  Source:            Mram_queue (RAM)
+  Destination:       RS_TX (PAD)
+  Source Clock:      MCLK1 rising
+
+  Data Path: Mram_queue to RS_TX
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     RAMB18:CLKB->DOB3     1   2.180   0.789  Mram_queue (sendmap/sendbuf<3>)
+     LUT6:I2->O            1   0.094   0.576  sendmap/TX39 (sendmap/TX39)
+     LUT5:I3->O            1   0.094   0.336  sendmap/TX145 (RS_TX_OBUF)
+     OBUF:I->O                 2.452          RS_TX_OBUF (RS_TX)
+    ----------------------------------------
+    Total                      6.521ns (4.820ns logic, 1.701ns route)
+                                       (73.9% logic, 26.1% route)
+
+=========================================================================
+
+
+Total REAL time to Xst completion: 10.00 secs
+Total CPU time to Xst completion: 9.65 secs
+ 
+--> 
+
+
+Total memory usage is 570464 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings :    0 (   0 filtered)
+Number of infos    :    1 (   0 filtered)
+

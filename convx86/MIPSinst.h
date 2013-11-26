@@ -3,27 +3,31 @@
 #include "instR.h"
 #include "instI.h"
 #include "instJ.h"
+#include "instFP.h"
+#include "instOther.h"
 
 #include <string>
 
-enum MIPSinstType { MIPS_Inst_Unknown, MIPS_Inst_R, MIPS_Inst_I, MIPS_Inst_J };
+enum MIPSinstType { MIPS_Inst_Unknown, MIPS_Inst_R, MIPS_Inst_I, MIPS_Inst_J, MIPS_Inst_FPArith, MIPS_Inst_FPComp, MIPS_Inst_Other };
 
 class CMIPSInstruction {
 private:
-	union {
-		const unsigned char *p;
-		const tInstR *r;
-		const tInstI *i;
-		const tInstJ *j;
-	} is;
+	
+	IInstDetect *detect;
 	
 public:
 	const inst_t instLE;
 	MIPSinstType type;
 	
-	bool isUnknown() { return (type==MIPS_Inst_Unknown); }
+	~CMIPSInstruction() {
+		if ( detect ) {
+			delete detect;
+			detect = NULL;
+		}
+	}
 	
-	// 継承とかにしちゃうと初期化書くのが面倒になる感じなので・・・
+	bool isUnknown() { return (detect==NULL); }
+	
 	void tox86(CAsm86Dest* dest);
 	std::string disasm();
 	

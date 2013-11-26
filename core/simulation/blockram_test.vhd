@@ -5,7 +5,7 @@ use ieee.std_logic_unsigned.all;
 entity blockram is
 
   generic (
-    BRAMBW : integer := 15);
+    BRAMBW : integer := 16);
 
   port (
     CLK       : in  std_logic;
@@ -21,19 +21,20 @@ end blockram;
 
 
 architecture RTL of blockram is
-  type   t_ram is array ((2 ** BRAMBW)-1 downto 0) of std_logic_vector(31 downto 0);
+  type   t_ram is array (39999 downto 0) of std_logic_vector(31 downto 0);
   signal ram : t_ram :=
     (x"6c000000",
-     x"1000fffb",
+     x"1000fffa",
+     x"2063fffc",
      x"20420004",
      x"ac440000",
-     x"10830003",
      x"8c04ffff",
+     x"10600005",
+     x"8c03ffff",
      x"ac04ffff",
      x"2004004b",
      x"ac04ffff",
      x"2004004f",
-     x"3c03d000",
      x"20020000",
      others => x"00000000");
 

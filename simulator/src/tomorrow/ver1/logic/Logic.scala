@@ -49,17 +49,3 @@ class Nor extends ThreeRegisterOperandOpcode(0x00, 0x27) {
 	    programCounter.data += 4	    
 	}
 }
-
-
-
-class Nop extends ThreeRegisterOperandOpcode(0x00, 0x00) {
-	protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
-	    programCounter.data += 4	    
-	}
-}
-class Lui extends ImmediateOperandOpcode(0x0F) {
-	protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
-	    operand.rt.bytes = BigEndianInterpreter interpretAsByteArray (operand.constant << 16)
-	    programCounter.data += 4	    
-	}
-}

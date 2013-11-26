@@ -1,12 +1,12 @@
 all: testsimu disasm hoge
 
 testsimu:
-	 g++ -Wall -m32 -g -DNO_DPRINTF -o testsimu testsimu.cpp instR.cpp instI.cpp instJ.cpp x86emit.cpp MIPSinst.cpp tools.cpp
+	 g++ -Wall -m32 -masm=intel -g -DNO_DPRINTF -o testsimu testsimu.cpp instR.cpp instI.cpp instJ.cpp instFP.cpp instOther.cpp x86emit.cpp MIPSinst.cpp tools.cpp
 
 disasm:
-	 g++ -Wall -o disasm disasm.cpp instR.cpp instI.cpp instJ.cpp x86emit.cpp MIPSinst.cpp tools.cpp
+	 g++ -Wall -g -o disasm disasm.cpp instR.cpp instI.cpp instJ.cpp instFP.cpp instOther.cpp x86emit.cpp MIPSinst.cpp tools.cpp
 
 hoge:
-	g++ -Wall -m32 -g -o hoge testsimu.cpp instR.cpp instI.cpp instJ.cpp x86emit.cpp MIPSinst.cpp tools.cpp
+	g++ -Wall -g -DNO_DPRINTF -o hoge hoge.cpp instR.cpp instI.cpp instJ.cpp instFP.cpp instOther.cpp x86emit.cpp MIPSinst.cpp tools.cpp
 
 .PHONY: all testsimu disasm hoge

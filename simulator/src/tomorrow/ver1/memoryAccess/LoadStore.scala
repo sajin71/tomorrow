@@ -14,22 +14,30 @@ import usb.USB
 
 class LW extends ImmediateOperandOpcode(0x23) {
 	protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
-		val begin = (BigEndianInterpreter interpretAsSignedInteger operand.rs) + operand.constant
-		var data = new Array[Byte](4)
-		for(i <- 0 until 4){
-		    data(i) = memory(begin + i)
+		val begin = (BigEndianInterpreter interpretAsUnsignedInteger operand.rs) + operand.constant
+		if(begin == 0xffffffffL){
+		    operand.rt.bytes = usb.getLatestDataToCPU
+		}else{
+			var data = new Array[Byte](4)
+			for(i <- 0 until 4){
+		    	data(i) = memory(begin + i)
+			}
+			operand.rt.bytes = data
 		}
-		operand.rt.bytes = data
-	    programCounter.data += 4		
+	    programCounter.data += 4
 	}
 }
 
 class SW extends ImmediateOperandOpcode(0x2B) {
 	protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
-		val begin = (BigEndianInterpreter interpretAsSignedInteger operand.rs) + operand.constant
-		val data = operand.rt.bytes
-		for(i <- 0 until (data.length)){
-			memory(begin+i) = data(i)
+		val begin = (BigEndianInterpreter interpretAsUnsignedInteger operand.rs) + operand.constant
+		if(begin == 0xffffffffL){
+		    usb.sendToUser(Array(operand.rt.bytes(0)))
+		}else{
+		    val data = operand.rt.bytes
+			for(i <- 0 until (data.length)){
+				memory(begin+i) = data(i)
+			}
 		}
 	    programCounter.data += 4		
 	}
@@ -44,6 +52,13 @@ class MFHI extends ThreeRegisterOperandOpcode(0x00, 0x10) {
 class MFLO extends ThreeRegisterOperandOpcode(0x00, 0x12) {
 	protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
 	    operand.rd.bytes = registers("LO").bytes
+	    programCounter.data += 4	    
+	}
+}
+
+class LUI extends ImmediateOperandOpcode(0x0f) {// 001111 
+    protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
+        operand.rt.bytes = BigEndianInterpreter interpretAsByteArray (operand.constant << 16);
 	    programCounter.data += 4	    
 	}
 }
