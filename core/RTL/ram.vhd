@@ -7,7 +7,7 @@ use tomorrow_1.ram_pack.all;
 entity ram is
   
   generic (
-    BRAMBW : integer := 15;
+    BRAMBW : integer := 16;
     WTIME  : std_logic_vector(15 downto 0));
 
   port (
