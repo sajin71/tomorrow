@@ -52,7 +52,7 @@ begin
   num <= "0000000000000000000000000000000" when e(7)='1'
  --     else SHL(("0000000"&frac), e-23) when to_left='1'
         else SHL(("000000"&frac), loffset)&'0' when to_left='1'
-        else SHR(("0000000"&frac), eoffset);
+        else SHR(("0000000"&frac), eoffset(4 downto 0));
              
   halfbit <= '1' when e="11111111" -- frac is -1 (1/2)+...
            else '0' when (e(7) or to_left)='1'
