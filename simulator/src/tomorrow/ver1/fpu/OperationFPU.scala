@@ -14,6 +14,7 @@ import java.util.logging.Logger
 import java.util.logging.Level
 import interpreter.BigEndianInterpreter
 import usb.USB
+import tomorrow.ver1.ConditionFPUOpcode
 
 class AddS extends ThreeOperandOpcodeFPU(0x00, 0x10) {
     protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory){
@@ -99,25 +100,24 @@ class RoundW extends ThreeOperandOpcodeFPU(0x0c, 0x10) {
 }
 
 
-class CEqS extends ThreeOperandOpcodeFPU(0x32, 0x10) {
+class CEqS extends ConditionFPUOpcode(0x32) {
     protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory){
         val ft = I.interpretAsFloat(operand.ft)
         val fs = I.interpretAsFloat(operand.fs)
-        val fd = I.interpretAsUnsignedInteger(operand.fd)
         if(ft == fs){
-            if(fd == 0){
+            if(operand.cc == 0){
                 registers("FCSR").bytes = I.interpretAsByteArray(I.interpretAsUnsignedInteger(registers("FCSR").bytes) | 0x00400000) //00000000 01000000 00000000 00000000
             }else{
-            	registers("FCSR").bytes = I.interpretAsByteArray(I.interpretAsUnsignedInteger(registers("FCSR").bytes) | 0x1 << (24+fd))
+            	registers("FCSR").bytes = I.interpretAsByteArray(I.interpretAsUnsignedInteger(registers("FCSR").bytes) | 0x1 << (24+operand.cc))
             }
         }else{
-            if(fd == 0){
+            if(operand.cc == 0){
                 var tmp = registers("FCSR").bytes
                 var tmp2 = tmp(1) & 0xBF
                 registers("FCSR").bytes = Array[Byte](tmp(0), tmp2.toByte, tmp(2), tmp(3))
             }else{
                 var tmp = registers("FCSR").bytes
-                var tmp2 = tmp(0) & (0xff-0x1<< fd)// fd=1の時、0xff-0x02 = 11111101となり,&をとって、2bit目(23+2bit)のみを下ろせる
+                var tmp2 = tmp(0) & (0xff-0x1<< operand.cc)// fd=1の時、0xff-0x02 = 11111101となり,&をとって、2bit目(23+2bit)のみを下ろせる
                 registers("FCSR").bytes = Array[Byte](tmp2.toByte, tmp(1), tmp(2), tmp(3))
             }
             
@@ -125,25 +125,24 @@ class CEqS extends ThreeOperandOpcodeFPU(0x32, 0x10) {
     }
 }
 
-class COltS extends ThreeOperandOpcodeFPU(0x34, 0x10) {
+class COltS extends ConditionFPUOpcode(0x34) {
     protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory){
         val ft = I.interpretAsFloat(operand.ft)
         val fs = I.interpretAsFloat(operand.fs)
-        val fd = I.interpretAsUnsignedInteger(operand.fd)
         if(ft < fs){
-            if(fd == 0){
+            if(operand.cc == 0){
                 registers("FCSR").bytes = I.interpretAsByteArray(I.interpretAsUnsignedInteger(registers("FCSR").bytes) | 0x00400000) //00000000 01000000 00000000 00000000
             }else{
-            	registers("FCSR").bytes = I.interpretAsByteArray(I.interpretAsUnsignedInteger(registers("FCSR").bytes) | 0x1 << (24+fd))
+            	registers("FCSR").bytes = I.interpretAsByteArray(I.interpretAsUnsignedInteger(registers("FCSR").bytes) | 0x1 << (24+operand.cc))
             }
         }else{
-            if(fd == 0){
+            if(operand.cc == 0){
                 var tmp = registers("FCSR").bytes
                 var tmp2 = tmp(1) & 0xBF
                 registers("FCSR").bytes = Array[Byte](tmp(0), tmp2.toByte, tmp(2), tmp(3))
             }else{
                 var tmp = registers("FCSR").bytes
-                var tmp2 = tmp(0) & (0xff-0x1<< fd)// fd=1の時、0xff-0x02 = 11111101となり,&をとって、2bit目(23+2bit)のみを下ろせる
+                var tmp2 = tmp(0) & (0xff-0x1<< operand.cc)// cc=1の時、0xff-0x02 = 11111101となり,&をとって、2bit目(23+2bit)のみを下ろせる
                 registers("FCSR").bytes = Array[Byte](tmp2.toByte, tmp(1), tmp(2), tmp(3))
             }
             

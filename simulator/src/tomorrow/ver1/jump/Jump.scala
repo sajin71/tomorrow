@@ -23,7 +23,7 @@ class Jump extends JumpOpcode(0x02) {
 }
 class JumpRegister extends ThreeRegisterOperandOpcode(0x1b, 0x00) {
     protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
-    	programCounter.data = (BigEndianInterpreter interpretAsSignedInteger operand.rs) * 4
+    	programCounter.data = (BigEndianInterpreter interpretAsSignedInteger operand.rs)
     }
 }
 class Jal extends JumpOpcode(0x03) {
