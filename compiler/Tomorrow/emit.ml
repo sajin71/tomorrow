@@ -284,7 +284,7 @@ and g' oc = function (* Emit assembly of each instruction *)
         Printf.fprintf oc "\tsw\t%s, %d(%s)\n" (reg reg_ra) (ss - 4) (reg reg_sp);
         Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg reg_sp) (reg reg_sp) ss;
         Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg reg_sw)  0 (reg reg_cl) ;
-        Printf.fprintf oc "\tjr\t%s\n" (reg reg_sw);
+        Printf.fprintf oc "\tjal\tclosure_indirect\n";
         Printf.fprintf oc "\tnop\n";
         Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg reg_sp) (reg reg_sp) (-ss);
         Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg reg_ra) (ss - 4) (reg reg_sp); 
@@ -382,6 +382,9 @@ let f oc (Prog(data, fundefs, e)) =
   Printf.fprintf oc "min_caml_print_char:\n";
   Printf.fprintf oc "\tsw\t$1, -1($0)\n";
   Printf.fprintf oc "\tjr\t$31\n";
+
+  Printf.fprintf oc "closure_indirect:\n";
+  Printf.fprintf oc "\tjr\t$27\n";
 
   List.iter (fun fundef -> h oc fundef) fundefs;
   Printf.fprintf oc "min_caml_start:\n";
