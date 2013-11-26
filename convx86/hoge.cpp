@@ -11,6 +11,12 @@ void procInst(CAsm86Dest* dest, inst_t inst) {
 	dest->pos.push_back( dest->code.size() );
 	CMIPSInstruction mips(inst);
 	
+	
+	// ADD esi, 1
+	dest->Emit(0x83);
+	dest->EmitModRMexr(0, rESI);
+	dest->Emit(0x01);
+	
 	//if ( mips.isUnknown() ) {
 	//	dprintf("Unknown Instruction 0x%08X\n", inst);
 	//	dest->Emit(0xCC);

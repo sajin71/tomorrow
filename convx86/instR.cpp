@@ -174,7 +174,7 @@ static void r_mult(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], uns
 	dprintf("\nMOV EAX, [ECX+%d*4]\n"
 		     "MUL (EAX, )[ECX+%d*4]\n"
 		     "MOV [ECX+128], EDX\n"
-		     "MOV [ECX+132], EDX\n", regs[0], regs[1]);
+		     "MOV [ECX+132], EAX\n", regs[0], regs[1]);
 }
 
 static void r_div(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsigned char shift) {
@@ -198,7 +198,7 @@ static void r_div(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsi
 	         "XOR EDX, EDX\n"
 		     "DIV (EAX, )[ECX+%d*4]\n"
 		     "MOV [ECX+128], EDX\n"
-		     "MOV [ECX+132], EDX\n", regs[0], regs[1]);
+		     "MOV [ECX+132], EAX\n", regs[0], regs[1]);
 }
 
 static void r_mfhilo(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsigned char shift) {
