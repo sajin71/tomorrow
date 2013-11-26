@@ -6,8 +6,8 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 entity ftoi is
   port ( f    :  in STD_LOGIC_VECTOR (31 downto 0);
          round:  in STD_LOGIC_VECTOR (1 downto 0); --00...ROUND,  01...TRUNC,  10...CEIL,  11...FLOOR
---         clk: STD_LOGIC;
          i    : out STD_LOGIC_VECTOR (31 downto 0)
+--         clk  : in  STD_LOGIC
        );
 end ftoi;
 
@@ -16,6 +16,7 @@ architecture RTL of ftoi is
   
   signal e     : std_logic_vector(7 downto 0);
   signal eoffset : std_logic_vector(7 downto 0);
+  signal loffset : std_logic_vector(2 downto 0);
   signal num   : std_logic_vector(30 downto 0);
   signal numx  : std_logic_vector(30 downto 0);
   
@@ -39,17 +40,19 @@ begin
   frac(22 downto 0) <= f(22 downto 0);
   
   e <= f(30 downto 23) - 127;
+  
   shostemp <= SHL(frac(22 downto 0), e);
   
   to_left <= '1' when (e(4) and e(3))='1'
            else '0';
 			  
   eoffset <= 23-e;
+  loffset <= not eoffset(2 downto 0); -- e <= 30, then e-23 < 8
   
   num <= "0000000000000000000000000000000" when e(7)='1'
  --     else SHL(("0000000"&frac), e-23) when to_left='1'
-        else SHL(("000000"&frac), not eoffset)&'0' when to_left='1'
-        else SHR(("0000000"&frac), eoffset);
+        else SHL(("000000"&frac), loffset)&'0' when to_left='1'
+        else SHR(("0000000"&frac), eoffset(4 downto 0));
              
   halfbit <= '1' when e="11111111" -- frac is -1 (1/2)+...
            else '0' when (e(7) or to_left)='1'
@@ -63,6 +66,7 @@ begin
             shostemp(6) or shostemp(5) or shostemp(4) or shostemp(3) or shostemp(2) or shostemp(1) or shostemp(0);
   
   
+
   hosei <= '0' when (signbit='1' and ((round="11" and fracbit='1') or (round="00" and halfbit='1')))
                   or (signbit='0' and not ((round="10" and fracbit='1') or (round="00" and halfbit='1')))
       else '1';

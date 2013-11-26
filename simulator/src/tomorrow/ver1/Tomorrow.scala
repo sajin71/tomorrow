@@ -28,12 +28,11 @@ class Tomorrow(usb:USB) extends AbstractCPU(
     HashMap(("HI" -> new IntegerRegister()), ("LO" -> new IntegerRegister()), ("FCSR" -> new IntegerRegister())) ++ 
             ((new Range(0, 32, 1).map((i:Int)=>(s"r${i}"->new IntegerRegister()))) toMap) ++
             (new Range(0, 32, 1).map((i:Int)=>(s"f${i}"->new IntegerRegister()))) toMap,
-    new DividedMemory((0L->0x1000/*4KByte*/), (0x10000000L->0x1000/*4KByte*/))) with USBDataListener {
+    new DividedMemory((0L->0x1000/*4KByte*/), (0x80000000L->0x1000/*4KByte*/))) with USBDataListener {
     
     usb.addCPUEndListener(this);
 
     def updateUSBData(data:Seq[Byte]): Unit = {
-    	println(data.mkString)
     } 
 	/**
      * 命令の格納されるメモリ空間の先頭アドレス

@@ -110,4 +110,13 @@ VhdlTestScript.scenario "../ftoi.vhd" do
 	step 0xce367e8e, 2, -765436800
 	step 0xce367e8e, 3, -765436800
 
+	step 0x4effffff, 0, 2147483520
+	step 0x4effffff, 1, 2147483520
+	step 0x4effffff, 2, 2147483520
+	step 0x4effffff, 3, 2147483520
+
+	step 0xceffffff, 0, -2147483520
+	step 0xceffffff, 1, -2147483520
+	step 0xceffffff, 2, -2147483520
+	step 0xceffffff, 3, -2147483520
 end
