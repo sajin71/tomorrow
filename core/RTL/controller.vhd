@@ -44,7 +44,7 @@ begin  -- RTL
     MEM_SW  when phase = EX_LS and OP = SW                            else
     WAIT_SW when (phase = MEM_SW or phase = WAIT_SW) and BUSY = '1'   else
     EX_FUN  when phase = DECODE and OP = SPEC                         else
-    WB_FUN  when phase = EX_FUN or phase = EX_SFT                     else
+    WB_FUN  when phase = EX_FUN or phase = EX_SFT or phase = EX_SFTV  else
     EX_BEQ  when phase = DECODE and OP = BEQ                          else
     EX_J    when phase = DECODE and OP = J                            else
     EX_ADDI when phase = DECODE and OP = ADDI                         else

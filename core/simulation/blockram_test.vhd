@@ -21,7 +21,7 @@ end blockram;
 
 
 architecture RTL of blockram is
-  type   t_ram is array (39999 downto 0) of std_logic_vector(31 downto 0);
+  type   t_ram is array (34999 downto 0) of std_logic_vector(31 downto 0);
   signal ram : t_ram :=
     (x"6c000000",
      x"1000fffa",
