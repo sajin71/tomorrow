@@ -50,7 +50,7 @@ for var in `ls -1 *.s`
 do 
     echo "connecting library" $var 1>&2
     cd ../
-    ./connect_lib.sh test/$var
+    ./connect_lib.sh shootout/$var
     cd shootout 
 
     echo "assembling" $var 1>&2
