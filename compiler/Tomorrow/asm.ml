@@ -16,7 +16,7 @@ and exp = (* represents each instructions *)
     | Add of Id.t * id_or_imm
     | Sub of Id.t * Id.t
     | Mul of Id.t * id_or_imm
-    | Div of Id.t * Id.t
+    | Div of Id.t * id_or_imm
     | SLL of Id.t * id_or_imm
     | SRL of Id.t * id_or_imm
     | LW of Id.t * id_or_imm
@@ -96,10 +96,10 @@ let fv_id_or_imm = function V(x) -> [x] | _ -> []
 let rec fv_exp = function
     | Nop | Set(_) | SetL(_) | SetCLV(_) | Comment(_) | Restore(_) -> []
     | Mov(x) | Neg(x) | FMov(x) | FNeg(x) | Save(x, _) -> [x]
-    | Add(x, y') | Mul(x, y') | SLL(x, y') | SRL(x, y') | LW(x, y') | LWC(x, y') -> 
+    | Add(x, y') | Mul(x, y') | Div(x, y') | SLL(x, y') | SRL(x, y') | LW(x, y') | LWC(x, y') -> 
             x :: fv_id_or_imm y' 
     | SW(x, y, z') | SWC(x, y, z') -> x :: y :: fv_id_or_imm z'
-    | Sub(x, y) | Div(x, y) | FAdd(x, y) | FSub(x, y) | FMul(x, y) | FDiv(x, y) -> [x; y] 
+    | Sub(x, y) | FAdd(x, y) | FSub(x, y) | FMul(x, y) | FDiv(x, y) -> [x; y] 
     | IfEq(x, y, e1, e2) | IfLE(x, y, e1, e2) | IfGE(x, y, e1, e2) -> 
             x :: y :: remove_and_uniq S.empty (fv e1 @ fv e2) 
     | IfFEq(x, y, e1, e2) | IfFLE(x, y, e1, e2) -> 
