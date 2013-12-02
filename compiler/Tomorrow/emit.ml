@@ -4,6 +4,8 @@ external get_int32 : float -> int32 = "get_int32"
 (*external gethi : float -> int32 = "gethi"*)
 (*external getlo : float -> int32 = "getlo" *)
 
+let log2 x = log10 x /. log10 2.
+
 let stackset = ref S.empty (* Set of already save variables *)
 let stackmap = ref [] (* The position in the stack of the saved variables *)
 
@@ -68,9 +70,12 @@ and g' oc = function (* Emit assembly of each instruction *)
     | NonTail(x), Add(y, V(z)) -> Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg x) (reg y) (reg z)
     | NonTail(x), Add(y, C(z)) -> Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg x) (reg y) z
     | NonTail(x), Sub(y, z) -> Printf.fprintf oc "\tsub\t%s, %s, %s\n" (reg x) (reg y) (reg z)
-    | NonTail(x), Mul(y, V(z)) -> Printf.fprintf oc "\tmul\t%s, %s, %s\n" (reg x) (reg y) (reg z)
-    | NonTail(x), Mul(y, C(z)) -> Printf.fprintf oc "\tmuli\t%s, %s, %d\n" (reg x) (reg y) z
-    | NonTail(x), Div(y, z) -> Printf.fprintf oc "\tdiv\t%s, %s, %s\n" (reg x) (reg y) (reg z)
+    | NonTail(x), Mul(y, V(z)) -> Printf.fprintf oc "\tmulerror\n"
+    | NonTail(x), Mul(y, C(z)) -> Printf.fprintf oc "\tsll\t%s, %s, %d\n" (reg
+    x) (reg y) (int_of_float (log2 (float_of_int z)))
+    | NonTail(x), Div(y, V(z)) -> Printf.fprintf oc "\tdiverror\n"
+    | NonTail(x), Div(y, C(z)) -> Printf.fprintf oc "\tsra\t%s, %s, %d\n" (reg
+    x) (reg y) (int_of_float (log2 (float_of_int z)))
     | NonTail(x), SLL(y, V(z)) -> Printf.fprintf oc "\tsll\t%s, %s, %s\n" (reg x) (reg y) (reg z)
     | NonTail(x), SLL(y, C(z)) -> Printf.fprintf oc "\tsll\t%s, %s, %d\n" (reg x) (reg y) z
     | NonTail(x), SRL(y, V(z)) -> Printf.fprintf oc "\tsrl\t%s, %s, %s\n" (reg x) (reg y) (reg z)
@@ -363,6 +368,11 @@ let h oc { name = Id.L(x); args = _; fargs = _; body = e; ret = _ } =
 let f oc (Prog(data, fundefs, e)) =
   Format.eprintf "generating assembly...@.";
   Printf.fprintf oc "\tlui\t$29, 0x8000\n";
+  Printf.fprintf oc "\tlui\t$30, 0x8001\n";
+  Printf.fprintf oc "\tlui\t$3, 0x8003\n";
+  Printf.fprintf oc "\taddi\t$4, $3, 4\n";
+  Printf.fprintf oc "\tsw\t$4, 0($3)\n";
+
   Printf.fprintf oc "\tjal\tmin_caml_start\n";
   Printf.fprintf oc "\tnop\n";
   Printf.fprintf oc "\thalt\n";
@@ -376,12 +386,12 @@ let f oc (Prog(data, fundefs, e)) =
     data;
 
   (*emitting print_int and print_char*)
-  Printf.fprintf oc "min_caml_print_int:\n";
+  (*Printf.fprintf oc "min_caml_print_int:\n";
   Printf.fprintf oc "\tsw\t$1, -1($0)\n";
   Printf.fprintf oc "\tjr\t$31\n";
   Printf.fprintf oc "min_caml_print_char:\n";
   Printf.fprintf oc "\tsw\t$1, -1($0)\n";
-  Printf.fprintf oc "\tjr\t$31\n";
+  Printf.fprintf oc "\tjr\t$31\n";*)
 
   Printf.fprintf oc "closure_indirect:\n";
   Printf.fprintf oc "\tjr\t$27\n";

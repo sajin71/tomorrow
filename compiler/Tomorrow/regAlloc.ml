@@ -120,7 +120,7 @@ and g' dest cont regenv = function (* allocate registers for instruction *)
     | Add(x, y') -> (Ans(Add(find x Type.Int regenv, find' y' regenv)), regenv)
     | Sub(x, y) -> (Ans(Sub(find x Type.Int regenv, find y Type.Int regenv)), regenv)
     | Mul(x, y') -> (Ans(Mul(find x Type.Int regenv, find' y' regenv)), regenv)
-    | Div(x, y) -> (Ans(Div(find x Type.Int regenv, find y Type.Int regenv)), regenv)
+    | Div(x, y') -> (Ans(Div(find x Type.Int regenv, find' y' regenv)), regenv)
     | SLL(x, y') -> (Ans(SLL(find x Type.Int regenv, find' y' regenv)), regenv)
     | SRL(x, y') -> (Ans(SRL(find x Type.Int regenv, find' y' regenv)), regenv)
     | SW(x, y, z') -> 
