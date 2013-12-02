@@ -20,7 +20,9 @@ DWORD *pos;
 
 const char *print_int_format = "%d";
 const char *print_char_format = "%c";
+const char *print_float_format = "%f";
 
+unsigned int total_insts;
 
 union intflt {
 	DWORD i;
@@ -50,8 +52,9 @@ SOFTFP_UNIOP(sqrt, sqrtf)
 SOFTFP_UNIOP(abs, fabs)
 DWORD MY_CDECL softfp_mov (intflt t, intflt s) { return s.i; }
 SOFTFP_UNIOP(neg, -)
-DWORD MY_CDECL softfp_trunc (intflt t, intflt s) { float f = floorf(s.f); if(f<0){f+=1.0f;} return (int32)f; }
-DWORD MY_CDECL softfp_round (intflt t, intflt s) { float f = floorf(s.f+0.5f); return (int32)f; }
+DWORD MY_CDECL softfp_round (intflt t, intflt s) { float f = roundf(s.f); return (int32)f; }
+DWORD MY_CDECL softfp_trunc (intflt t, intflt s) { float f = truncf(s.f); return (int32)f; }
+DWORD MY_CDECL softfp_ceil  (intflt t, intflt s) { float f = ceilf (s.f); return (int32)f; }
 DWORD MY_CDECL softfp_floor (intflt t, intflt s) { float f = floorf(s.f); return (int32)f; }
 SOFTFP_UNIOP(recip, 1/)
 
@@ -65,10 +68,45 @@ DWORD MY_CDECL softfp_ERR (intflt t, intflt s) { BREAKPOINT return 0; }
 
 
 
+SOFTFP_UNIOP(_sin, sinf)
+SOFTFP_UNIOP(_cos, cosf)
+SOFTFP_UNIOP(_atan, atanf)
+
+
+extern "C" { 
+DWORD MY_CDECL read_int() {
+	int i;
+	scanf("%d", &i);
+	return i;
+}
+
+DWORD MY_CDECL read_float() {
+	intflt r;
+	scanf("%f", &(r.f));
+	return r.i;
+}
+
+
+DWORD MY_CDECL prerr_float(intflt param) {
+	fprintf(stderr, "%lf", (double)param.f);
+	return 0;
+}
+
+
+FILE *my_stderr = stderr;
+
+}
+
+
 void procInst(CAsm86Dest* dest, inst_t inst) {
 	
 	dest->pos.push_back( dest->code.size() );
 	CMIPSInstruction mips(inst);
+	
+	// ADD esi, 1
+	dest->Emit(0x83);
+	dest->EmitModRMexr(0, rESI);
+	dest->Emit(0x01);
 	
 	if ( mips.isUnknown() ) {
 		dprintf("Unknown Instruction 0x%08X\n", inst);
@@ -147,8 +185,8 @@ int main(int argc, char **argv) {
 	
 	ptr_softfp softfp[0x38] = {
 		softfp_add, softfp_sub,  softfp_mul, softfp_div, softfp_sqrt, softfp_abs, softfp_mov, softfp_neg,
-		softfp_ERR, softfp_trunc,softfp_ERR, softfp_ERR, softfp_round,softfp_ERR, softfp_ERR, softfp_floor,
-		softfp_ERR, softfp_ERR, softfp_ERR, softfp_ERR, softfp_ERR,  softfp_recip, softfp_ERR,softfp_ERR };
+		softfp_ERR, softfp_ERR,  softfp_ERR, softfp_ERR, softfp_round,softfp_trunc, softfp_ceil, softfp_floor,
+		softfp_ERR, softfp_ERR,  softfp_ERR, softfp_ERR, softfp_ERR,  softfp_recip,softfp__sin,softfp__cos,softfp__atan };
 	softfp[0x20] = softfp_cvt;
 	softfp[0x31] = softfp_un;
 	softfp[0x32] = softfp_eq;
@@ -179,49 +217,68 @@ int main(int argc, char **argv) {
 	"lea  eax, load_memory \n"
 	"mov  [edi-20], eax \n"
 	
+	"mov  esi, 0 \n" //total counter
+	
 	"call [edi-4] \n"
+	
+	"mov  total_insts, esi \n"
+	
 	"jmp  my_asm_end \n"
 	
 	
 "load_memory: \n"
-	"test  ebx, 0x80000000 \n"
-	"jz    load_memory_blockram \n"
-	
-	"cmp   ebx, 0xffffffff \n"
-	"jnz   load_memory_sram \n"
-	"int 3 \n"
+"	mov edx, ebx \n"
+"	shr edx, 29 \n"
+"	cmp edx, 7 \n"
+"	jz  my_read_syscall \n"
 
-"load_memory_sram: \n"
-	"add   ebx, [edi-8] \n"
-	"mov   eax, [ebx] \n"
-	"ret \n"
-"load_memory_blockram: \n"
-	"add   ebx, [edi-12] \n"
-	"mov   eax, [ebx] \n"
-	"ret \n"
+"	add ebx, [edi-12+edx] \n"
+"	mov eax, [ebx] \n"
+"	ret \n"
+
+"my_read_syscall: \n"
+
+"	cmp   ebx, 0xfffffffe  \n"
+"	jz    my_read_float  \n"
+
+"	push  ecx  \n"
+"	call read_int \n"
+"	pop ecx  \n"
+"	ret  \n"
+
+"my_read_float:  \n"
+"	push ecx  \n"
+"	call read_float  \n"
+"	pop ecx  \n"
+"	ret \n"
 
 
 
 "save_memory: \n"
-	"test  ebx, 0x80000000 \n"
-	"jz    save_memory_blockram \n"
-	
-	"cmp   ebx, 0xffffffff \n"
-	"jz    my_print_int \n"
-	
-	"cmp   ebx, 0xfffffffe \n"
-	"jz    my_print_char \n"
-	
-	"add   ebx, [edi-8] \n"
-	"mov   [ebx], eax \n"
-	"ret \n"
-"save_memory_blockram: \n"
-	"add   ebx, [edi-12] \n"
-	"mov   [ebx], eax \n"
+	"mov edx, ebx \n"
+	"shr edx, 29 \n"
+	"cmp edx, 7 \n"
+	"jz  my_write_syscall \n"
+
+	"add ebx, [edi-12+edx] \n"
+	"mov [ebx], eax \n"
 	"ret \n"
 
+"my_write_syscall: \n"
+	"cmp   ebx, 0xffffffff \n"
+	"jz    my_print_char \n"
 	
-"my_print_int: \n"
+	"cmp   ebx, 0xfffffffd \n"
+	"jz    my_perr_int \n"
+	
+	"cmp   ebx, 0xfffffffc \n"
+	"jz    my_perr_char \n"
+	
+	"cmp   ebx, 0xfffffffb \n"
+	"jz    my_perr_float \n"
+
+	
+//"my_print_int: \n"
 	"push  ecx \n"
 	"push  eax \n"
 	"push  print_int_format \n"
@@ -229,7 +286,7 @@ int main(int argc, char **argv) {
 	"add   esp, 8 \n"
 	"pop   ecx \n"
 	"ret \n"
-	
+
 "my_print_char: \n"
 	"push  ecx \n"
 	"push  eax \n"
@@ -240,6 +297,36 @@ int main(int argc, char **argv) {
 	"ret \n"
 
 
+
+"my_perr_int: \n"
+	"push  ecx \n"
+	"push  eax \n"
+	"push  print_int_format \n"
+	"push  my_stderr \n"
+	"call  fprintf \n"
+	"add   esp, 12 \n"
+	"pop   ecx \n"
+	"ret \n"
+
+"my_perr_char: \n"
+	"push  ecx \n"
+	"push  eax \n"
+	"push  print_char_format \n"
+	"push  my_stderr \n"
+	"call  fprintf \n"
+	"add   esp, 12 \n"
+	"pop   ecx \n"
+	"ret \n"
+
+/* 暗黙の型変換があるので */
+"my_perr_float: \n"
+	"push  ecx \n"
+	"push  eax \n"
+	"call  prerr_float \n"
+	"add   esp, 4 \n"
+	"pop   ecx \n"
+	"ret \n"
+
 "my_asm_end: \n"
 	"nop"
 	
@@ -247,6 +334,8 @@ int main(int argc, char **argv) {
 	:
 	: "eax", "ebx", "ecx", "edx", "esi", "edi", "cc"
 	);
+	
+	fprintf(stderr, "Total Instruction Count: %u\n", total_insts);
 
 	return 0;
 }

@@ -77,8 +77,15 @@ const tInstFPArith InstFPArith[] = {
 { "MOV.S",    0x10, 0x06, 2, {3,1,0}},
 { "NEG.S",    0x10, 0x07, 2, {3,1,0}},
 { "ROUND.W.S",0x10, 0x0C, 2, {3,1,0}},
+{ "TRUNC.W.S",0x10, 0x0D, 2, {3,1,0}},
+{ "CEIL.W.S", 0x10, 0x0E, 2, {3,1,0}},
 { "FLOOR.W.S",0x10, 0x0F, 2, {3,1,0}},
 { "RECIP.S",  0x10, 0x15, 2, {3,1,0}},
+
+{ "_SIN.S",  0x10, 0x16, 2, {3,1,0}},
+{ "_COS.S",  0x10, 0x17, 2, {3,1,0}},
+{ "_ATAN.S",  0x10, 0x18, 2, {3,1,0}},
+
 { "CVT.S.W",  0x14, 0x20, 2, {3,1,0}},
 };
 const unsigned int s_instFPArith = ARRSIZE(InstFPArith);
