@@ -497,7 +497,7 @@ min_caml_create_float_array_end:
     jr  $31
 
 min_caml_truncate:
-    round.s  $f0, $f0 #trunc.sを実装しないと値がずれます
+    round.w.s  $f0, $f0 #trunc.sを実装しないと値がずれます
     mfc1 $1, $f0
     jr    $31
 
