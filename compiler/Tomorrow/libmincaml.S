@@ -406,7 +406,7 @@ ll.21:
 	add.s $f14, $f14, $f16
 	
 	#end kernel atan
-	div.s $f1, $f2, $f5
+	div.s $f1, $f2, $f6
 	add.s $f0, $f1, $f14
 
 	j ll.23
