@@ -103,6 +103,46 @@ jr $31
 
 
 
+# $1 <= $1/10
+# $2 <= $1%10
+
+print_int_div_complete:
+sw $2, 0($19)
+addi $19, $19, 4
+addi $5, $5, -1
+bne $5, $0, print_int_divloop
+
+
+# 表示部分
+
+sw $1, 0($19)
+set $6, 0 #flag: 最上位はもうあった？
+
+set $5, 10 #counter
+print_int_showloop:
+addi $5, $5, -1
+lw $1, 0($19)
+
+beq $5, $0, print_int_impl     #最下位は必ず表示する
+or $3, $1, $6
+beq $3, $0, print_int_continue #上のほうの0なら表示しないでいいです
+
+print_int_impl:
+set $6, 1
+addi $1, $1, 48 #char '0'
+sw $1, -1($0)
+
+print_int_continue:
+addi $19, $19, -4
+bne $5, $0, print_int_showloop
+
+#leave
+jr $31
+
+
+
+
+min_caml_print_byte:
 min_caml_print_char:
 	sw	$1, -1($0)
 	jr	$31
@@ -284,6 +324,9 @@ ll.9:
 ll.10:
 	jr	$31
 min_caml_cos:
+
+swc   $f0, -5($0)
+
 	set	$1, 0x40490fdb #PI
     mfc	$1, $f2
     set $1, 0x40000000 #2.0
