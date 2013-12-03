@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include <map>
 #include <string>
 
@@ -1079,8 +1080,19 @@ int main(int argc, char *argv[]) {
 		if ( dfp == NULL ) {
 			fprintf(stderr, "Warning: debug info can't write\n");
 		} else {
-			for(unsigned int i=0; i<state.labels.size(); i++) {
-				//fprintf(dfp, "%s\t%x",
+			
+			std::vector<std::pair<int, std::string> >lab;
+			
+			std::map<std::string, int>::iterator it = state.labels.begin();
+			while( it != state.labels.end() ) {
+				lab.push_back( std::make_pair( (*it).second, (*it).first ) );
+				it++;
+			}
+			
+			std::sort(lab.begin(), lab.end());
+			
+			for(unsigned int i=0; i<lab.size(); i++) {
+				fprintf(dfp, "%x\t%s\n", lab[i].first *4, lab[i].second.c_str());
 			}
 		}
 	}
