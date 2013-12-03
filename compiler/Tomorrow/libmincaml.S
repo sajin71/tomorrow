@@ -363,7 +363,7 @@ min_caml_atan:
 
 
 ll.21:
-	c.olt.s	$f3, $f0
+	c.olt.s	$f4, $f0
     bct	ll.22
 
 	sub.s	$f14, $f0, $f13
@@ -406,8 +406,8 @@ ll.21:
 	add.s $f14, $f14, $f16
 	
 	#end kernel atan
-	div.s $f2, $f5, $f1
-	sub.s $f0, $f1, $f14
+	div.s $f1, $f2, $f5
+	add.s $f0, $f1, $f14
 
 	j ll.23
 	#TODO return
@@ -454,7 +454,7 @@ ll.22:
 	#end kernel atan
 
 	div.s $f1, $f2, $f5
-	sub.s $f0, $f2, $f14
+	sub.s $f0, $f1, $f14
 
 ll.23:
 	beq	$0, $2, ll.24
