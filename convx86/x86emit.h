@@ -15,13 +15,16 @@ public:
 	std::vector<unsigned int> pos;  //MIPSの命令がどこに対応するか？
 	std::vector<std::pair<unsigned int, unsigned int> > jumpto; //first: x86上  second:MIPS上
 	unsigned char halt;
+	unsigned char writezeroreg;
 	bool zeroforce;
 	
 	void Emit(unsigned char inst86);
 	
 	void EmitMOV2m() { Emit(0x89); };
 	void EmitMOV2r() { Emit(0x8B); };
-	void EmitNOP()    { Emit(0x90); };
+	void EmitNOP()   { Emit(0x90); };
+	
+	void EmitWriteZeroReg() { Emit(writezeroreg); };
 	
 	void EmitDisp8(signed char disp8);
 	void EmitDisp32(disp_t disp32);
@@ -36,6 +39,7 @@ public:
 	
 	CAsm86Dest() {
 		halt = 0xCC;
+		writezeroreg = 0xCC;
 		zeroforce = true;
 	}
 };

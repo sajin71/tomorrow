@@ -41,14 +41,14 @@ let rec g env = function (* generate virtual machine code *)
             let l = Id.L(Id.genid"l") in
             data := (l, d) :: !data;
             l in
-            let x = Id.genid "l" in
+            (*let x = Id.genid "l" in*)
             Ans(SetCLV(l))
             (*Let((x, Type.Int), SetL(l), Ans(LWC(x, C(0))))*)
     | Closure.Neg(x) -> Ans(Neg(x))
     | Closure.Add(x, y) -> Ans(Add(x, V(y)))
     | Closure.Sub(x, y) -> Ans(Sub(x, y))
     | Closure.Mul(x, y) -> Ans(Mul(x, V(y)))
-    | Closure.Div(x, y) -> Ans(Div(x, y))
+    | Closure.Div(x, y) -> Ans(Div(x, V(y)))
     | Closure.FNeg(x) -> Ans(FNeg(x))
     | Closure.FAdd(x, y) -> Ans(FAdd(x, y))
     | Closure.FSub(x, y) -> Ans(FSub(x, y))

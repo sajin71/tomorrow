@@ -4,6 +4,8 @@ external get_int32 : float -> int32 = "get_int32"
 (*external gethi : float -> int32 = "gethi"*)
 (*external getlo : float -> int32 = "getlo" *)
 
+let log2 x = log10 x /. log10 2.
+
 let stackset = ref S.empty (* Set of already save variables *)
 let stackmap = ref [] (* The position in the stack of the saved variables *)
 
@@ -68,9 +70,12 @@ and g' oc = function (* Emit assembly of each instruction *)
     | NonTail(x), Add(y, V(z)) -> Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg x) (reg y) (reg z)
     | NonTail(x), Add(y, C(z)) -> Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg x) (reg y) z
     | NonTail(x), Sub(y, z) -> Printf.fprintf oc "\tsub\t%s, %s, %s\n" (reg x) (reg y) (reg z)
-    | NonTail(x), Mul(y, V(z)) -> Printf.fprintf oc "\tmul\t%s, %s, %s\n" (reg x) (reg y) (reg z)
-    | NonTail(x), Mul(y, C(z)) -> Printf.fprintf oc "\tmuli\t%s, %s, %d\n" (reg x) (reg y) z
-    | NonTail(x), Div(y, z) -> Printf.fprintf oc "\tdiv\t%s, %s, %s\n" (reg x) (reg y) (reg z)
+    | NonTail(x), Mul(y, V(z)) -> Printf.fprintf oc "\tmulerror\n"
+    | NonTail(x), Mul(y, C(z)) -> Printf.fprintf oc "\tsll\t%s, %s, %d\n" (reg
+    x) (reg y) (int_of_float (log2 (float_of_int z)))
+    | NonTail(x), Div(y, V(z)) -> Printf.fprintf oc "\tdiverror\n"
+    | NonTail(x), Div(y, C(z)) -> Printf.fprintf oc "\tsra\t%s, %s, %d\n" (reg
+    x) (reg y) (int_of_float (log2 (float_of_int z)))
     | NonTail(x), SLL(y, V(z)) -> Printf.fprintf oc "\tsll\t%s, %s, %s\n" (reg x) (reg y) (reg z)
     | NonTail(x), SLL(y, C(z)) -> Printf.fprintf oc "\tsll\t%s, %s, %d\n" (reg x) (reg y) z
     | NonTail(x), SRL(y, V(z)) -> Printf.fprintf oc "\tsrl\t%s, %s, %s\n" (reg x) (reg y) (reg z)
@@ -95,7 +100,7 @@ and g' oc = function (* Emit assembly of each instruction *)
     | NonTail(x), FDiv(y, z) -> Printf.fprintf oc "\tdiv.s\t%s, %s, %s\n" x y z
     | NonTail(x), LWC(y, V(z)) ->
             Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg (reg_sw)) (reg z) (reg y);
-            Printf.fprintf oc "\tlwc\t%s, 0(%s)\n" x (reg (reg_sw))
+            Printf.fprintf oc "\tlwc\t%s, 0(%s)\n" x (reg reg_sw)
     | NonTail(x), LWC(y, C(z)) -> Printf.fprintf oc "\tlwc\t%s, %d(%s)\n" x z (reg y)
     | NonTail(_), SWC(x, y, V(z)) -> 
             Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg (reg_sw)) (reg z) (reg y);
@@ -284,7 +289,6 @@ and g' oc = function (* Emit assembly of each instruction *)
         Printf.fprintf oc "\tsw\t%s, %d(%s)\n" (reg reg_ra) (ss - 4) (reg reg_sp);
         Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg reg_sp) (reg reg_sp) ss;
         Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg reg_sw)  0 (reg reg_cl) ;
-(* クロージャには間接ジャンプする *)
         Printf.fprintf oc "\tjal\tclosure_indirect\n";
         Printf.fprintf oc "\tnop\n";
         Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg reg_sp) (reg reg_sp) (-ss);
@@ -365,9 +369,10 @@ let f oc (Prog(data, fundefs, e)) =
   Format.eprintf "generating assembly...@.";
   Printf.fprintf oc "\tlui\t$29, 0x8000\n";
   Printf.fprintf oc "\tlui\t$30, 0x8001\n";
-  Printf.fprintf oc "\tlui\t$3,  0x8003\n";
-  Printf.fprintf oc "      addi $4, $3, 4\n";
-  Printf.fprintf oc "      sw   $4, 0($3)\n";
+  Printf.fprintf oc "\tlui\t$3, 0x8003\n";
+  Printf.fprintf oc "\taddi\t$4, $3, 4\n";
+  Printf.fprintf oc "\tsw\t$4, 0($3)\n";
+
   Printf.fprintf oc "\tjal\tmin_caml_start\n";
   Printf.fprintf oc "\tnop\n";
   Printf.fprintf oc "\thalt\n";
@@ -381,68 +386,15 @@ let f oc (Prog(data, fundefs, e)) =
     data;
 
   (*emitting print_int and print_char*)
-
-(*
-  Printf.fprintf oc "min_caml_print_newline:\n";
-  Printf.fprintf oc "\taddi\t$1, $0, 10\n";
-  Printf.fprintf oc "\tj\tmin_caml_print_char\n";
-
-  Printf.fprintf oc "min_caml_print_int:\n";
+  (*Printf.fprintf oc "min_caml_print_int:\n";
   Printf.fprintf oc "\tsw\t$1, -1($0)\n";
   Printf.fprintf oc "\tjr\t$31\n";
-
-  Printf.fprintf oc "min_caml_print_byte:\n";
   Printf.fprintf oc "min_caml_print_char:\n";
-  Printf.fprintf oc "\tsw\t$1, -2($0)\n";
-  Printf.fprintf oc "\tjr\t$31\n";
-*)
+  Printf.fprintf oc "\tsw\t$1, -1($0)\n";
+  Printf.fprintf oc "\tjr\t$31\n";*)
 
   Printf.fprintf oc "closure_indirect:\n";
   Printf.fprintf oc "\tjr\t$27\n";
-
-(*
-  Printf.fprintf oc "min_caml_truncate:\n";
-  Printf.fprintf oc "\ttrunc.s  $f0, $f0\n";
-  Printf.fprintf oc "\tmfc1 $1, $f0\n";
-  Printf.fprintf oc "\tjr\t$31\n";
-
-  Printf.fprintf oc "min_caml_create_array:\n";
-  Printf.fprintf oc "  set $3, 0x80030000\n";
-  Printf.fprintf oc "  lw  $10, 0($3)\n";
-  Printf.fprintf oc "  mov $4, $10\n";
-  Printf.fprintf oc "  beq $0, $1, min_caml_create_array_end\n";
-  Printf.fprintf oc "\n";
-
-  Printf.fprintf oc "min_caml_create_array_loop:\n";
-  Printf.fprintf oc "  sw  $2, 0($4)\n";
-  Printf.fprintf oc "  addi $4, $4, 4\n";
-  Printf.fprintf oc "  addi $1, $1, -1\n";
-  Printf.fprintf oc "  bne $0, $1, min_caml_create_array_loop\n";
-  Printf.fprintf oc "\n";
-
-  Printf.fprintf oc "min_caml_create_array_end:\n";
-  Printf.fprintf oc "  sw  $4, 0($3)\n";
-  Printf.fprintf oc "  mov $1, $10\n";
-  Printf.fprintf oc "  jr\t$31\n";
-
-  Printf.fprintf oc "min_caml_create_float_array:\n";
-  Printf.fprintf oc "  set $3, 0x80030000\n";
-  Printf.fprintf oc "  lw  $10, 0($3)\n";
-  Printf.fprintf oc "  mov $4, $10\n";
-  Printf.fprintf oc "  beq $0, $1, min_caml_create_float_array_end\n";
-  Printf.fprintf oc "\n";
-  Printf.fprintf oc "min_caml_create_float_array_loop:\n";
-  Printf.fprintf oc "  swc  $f0, 0($4)\n";
-  Printf.fprintf oc "  addi $4, $4, 4\n";
-  Printf.fprintf oc "  addi $1, $1, -1\n";
-  Printf.fprintf oc "  bne $0, $1, min_caml_create_float_array_loop\n";
-  Printf.fprintf oc "\n";
-
-  Printf.fprintf oc "min_caml_create_float_array_end:\n";
-  Printf.fprintf oc "  sw  $4, 0($3)\n";
-  Printf.fprintf oc "  mov $1, $10\n";
-  Printf.fprintf oc "  jr\t$31\n";
-*)
 
   List.iter (fun fundef -> h oc fundef) fundefs;
   Printf.fprintf oc "min_caml_start:\n";

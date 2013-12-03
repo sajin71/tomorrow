@@ -37,7 +37,7 @@ package component_pack is
 
   signal aluzero    : std_logic;
   signal oper       : ALU_OPER;
-  signal pc         : std_logic_vector(31 downto 0) := x"000270cc";
+  signal pc         : std_logic_vector(31 downto 0) := x"0001ffcc";
   signal write_addr : std_logic_vector(4 downto 0);
   signal write_data : std_logic_vector(31 downto 0);
   signal read_data1 : std_logic_vector(31 downto 0);

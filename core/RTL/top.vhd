@@ -94,7 +94,7 @@ begin  -- RTL
 
   ram_map : ram
     generic map (
-      BRAMBW => 16,
+      BRAMBW => 15,
       WTIME  => x"0091")
     port map (
       CLK        => clk,

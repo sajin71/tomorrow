@@ -12,7 +12,7 @@ and exp =
     | Add of Id.t * id_or_imm
     | Sub of Id.t * Id.t 
     | Mul of Id.t * id_or_imm
-    | Div of Id.t * Id.t 
+    | Div of Id.t * id_or_imm 
     | SLL of Id.t * id_or_imm 
     | SRL of Id.t * id_or_imm
     | LW of Id.t * id_or_imm 
