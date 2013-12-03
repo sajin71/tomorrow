@@ -195,11 +195,11 @@ ll.2:
 ll.3:
 	c.olt.s	$f0, $f12
 	bct ll.5
-	c.olt.s	$f0, $f14
+	c.olt.s	$f0, $f11
 	bct ll.4
-	sub.s $f0, $f0, $f14
+	sub.s $f0, $f0, $f11
 ll.4:
-	div.s $f14, $f14, $f3
+	div.s $f11, $f11, $f3
 	j ll.3
 ll.5:
 	#end reduction
@@ -314,11 +314,11 @@ ll.12:
 ll.13:
 	c.olt.s	$f0, $f12
 	bct ll.15
-	c.olt.s	$f0, $f14
+	c.olt.s	$f0, $f11
 	bct ll.14
-	sub.s $f0, $f0, $f14
+	sub.s $f0, $f0, $f11
 ll.14:
-	div.s $f14, $f14, $f3
+	div.s $f11, $f11, $f3
 	j ll.13
 ll.15:
 	#end reduction
@@ -344,7 +344,8 @@ ll.17:
 	#kernel cos store result in $f15, exponent in $f16, term in $f17
 	set	$3, 0x3f800000
 	mtc $3, $f16 #1.0
-	add.s $f15, $f15, $f0 #first term (degree zero)
+    mov.s   $f15, $f16
+	#add.s $f15, $f15, $f0 #first term (degree zero)
 
 	mul.s $f16, $f0, $f16 #second term (degree two)
 	mul.s $f16, $f0, $f16
@@ -386,7 +387,7 @@ ll.18:
 	mul.s $f17, $f7, $f16
 	add.s $f15, $f15, $f17
 
-	mov.s $f0, $f17
+	mov.s $f0, $f15
 	#end kernel sin
 
 ll.19:
@@ -406,15 +407,15 @@ min_caml_atan:
 	mtc	$1, $f5
 	set	$1, 0x40800000 #4.0 
 	mtc	$1, $f6
-    set $1, 0xbeaaaaaa #0.3333333
+    set $1, 0xbeaaaaaa #-0.3333333
     mtc $1, $f7
     set $1, 0x3e4ccccd #0.2
     mtc $1, $f8
-    set $1, 0xbe124925 #0.142857142
+    set $1, 0xbe124925 #-0.142857142
     mtc $1, $f9
     set $1, 0x3de38e38 #0.111111104
     mtc $1, $f10
-    set $1, 0xbdb7d66e #0.08976446
+    set $1, 0xbdb7d66e #-0.08976446
     mtc $1, $f11
     set $1, 0x3d75e7c5 #0.060035485
     mtc $1, $f12
@@ -435,12 +436,12 @@ min_caml_atan:
 
 	mul.s $f15, $f0, $f15 #second term (degree three)
 	mul.s $f15, $f0, $f15
-	mul.s $f16, $f6, $f15
+	mul.s $f16, $f7, $f15
 	add.s $f14, $f14, $f16
 
 	mul.s $f15, $f0, $f15 #third term (degree five) 
 	mul.s $f15, $f0, $f15
-	mul.s $f16, $f7, $f15
+	mul.s $f16, $f8, $f15
 	add.s $f14, $f14, $f16
 
 	mul.s $f15, $f0, $f15 #forth term (degree seven) 
@@ -470,12 +471,12 @@ min_caml_atan:
 
 
 ll.21:
-	c.olt.s	$f3, $f0
+	c.olt.s	$f4, $f0
     bct	ll.22
 
-	sub.s	$f0, $f13, $f14
-	add.s	$f0, $f13, $f15
-	div.s	$f14, $f15, $f0 #$f0 <= (|A| - 1.0 / |A| + 1.0)
+	sub.s	$f14, $f0, $f13
+	add.s	$f15, $f0, $f13
+	div.s	$f0, $f14, $f15 #$f0 <= (|A| - 1.0 / |A| + 1.0)
 
 	#kernel atan store result in $f14, exponent in $f15, term in $f16
 
@@ -484,12 +485,12 @@ ll.21:
 
 	mul.s $f15, $f0, $f15 #second term (degree three)
 	mul.s $f15, $f0, $f15
-	mul.s $f16, $f6, $f15
+	mul.s $f16, $f7, $f15
 	add.s $f14, $f14, $f16
 
 	mul.s $f15, $f0, $f15 #third term (degree five) 
 	mul.s $f15, $f0, $f15
-	mul.s $f16, $f7, $f15
+	mul.s $f16, $f8, $f15
 	add.s $f14, $f14, $f16
 
 	mul.s $f15, $f0, $f15 #forth term (degree seven) 
@@ -513,8 +514,8 @@ ll.21:
 	add.s $f14, $f14, $f16
 	
 	#end kernel atan
-	div.s $f2, $f5, $f1
-	sub.s $f0, $f1, $f14
+	div.s $f1, $f2, $f6
+	add.s $f0, $f1, $f14
 
 	j ll.23
 	#TODO return
@@ -530,12 +531,12 @@ ll.22:
 
 	mul.s $f15, $f0, $f15 #second term (degree three)
 	mul.s $f15, $f0, $f15
-	mul.s $f16, $f6, $f15
+	mul.s $f16, $f7, $f15
 	add.s $f14, $f14, $f16
 
 	mul.s $f15, $f0, $f15 #third term (degree five) 
 	mul.s $f15, $f0, $f15
-	mul.s $f16, $f7, $f15
+	mul.s $f16, $f8, $f15
 	add.s $f14, $f14, $f16
 
 	mul.s $f15, $f0, $f15 #forth term (degree seven) 
@@ -561,7 +562,7 @@ ll.22:
 	#end kernel atan
 
 	div.s $f1, $f2, $f5
-	sub.s $f0, $f2, $f14
+	sub.s $f0, $f1, $f14
 
 ll.23:
 	beq	$0, $2, ll.24
@@ -605,7 +606,7 @@ min_caml_create_float_array_end:
     jr  $31
 
 min_caml_truncate:
-    round.s  $f0, $f0 #trunc.sを実装しないと値がずれます
+    round.w.s  $f0, $f0 #trunc.sを実装しないと値がずれます
     mfc1 $1, $f0
     jr    $31
 
