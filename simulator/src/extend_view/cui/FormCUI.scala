@@ -47,7 +47,11 @@ abstract class FormCUI extends Form {
 	    	        simulator stepExecute;
 	    	    }
                 }catch {
-		    case _ => Console.out.println("halt")
+		    case _ => {
+		      Console.out.println("halt")
+  exit
+}
+
                 }   
         }
     }
