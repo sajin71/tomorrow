@@ -1,6 +1,107 @@
 min_caml_print_int:
-	sw	$1, -1($0)
-	jr	$31
+#	sw	$1, -1($0)
+#	jr	$31
+mov  $19, $29 #stack pointer
+
+slt  $11, $1, $0 #負の数か？
+beq  $11, $0, print_int_neg_finish
+
+#negateする
+addi $11, $0, -1 #0xffffffff
+xor  $1, $1, $11
+addi $1, $1, 1
+
+# print '-'
+addi $11, $0, 45
+sw   $11, -1($0)
+
+print_int_neg_finish:
+
+set  $9, 9 #const for slt
+
+set  $5, 9 #counter
+print_int_divloop:
+
+# http://www.hackersdelight.org/divcMore.pdf
+# q = (n >> 1) + (n >> 2);
+srl $11, $1, 1
+srl $12, $1, 2
+add $11, $11, $12
+
+# q = q + (q >> 4);
+srl $12, $11, 4
+add $11, $11, $12
+
+# q = q + (q >> 8);
+srl $12, $11, 8
+add $11, $11, $12
+
+# q = q + (q >> 16);
+srl $12, $11, 16
+add $11, $11, $12
+
+# q = q >> 3;
+srl $11, $11, 3
+
+# $12=((q << 2) + q)
+sll $12, $11, 2
+add $12, $11, $12
+
+# $12 << 1
+sll $12, $12, 1
+
+# r = n- ...
+sub $2, $1, $12
+
+# a = q
+mov $1, $11
+
+# if (9<r)
+slt $12, $9, $2
+beq $12, $0, print_int_div_complete
+
+addi $1, $1, 1
+addi $2, $2, -10
+
+# $1 <= $1/10
+# $2 <= $1%10
+
+print_int_div_complete:
+sw $2, 0($19)
+addi $19, $19, 4
+addi $5, $5, -1
+bne $5, $0, print_int_divloop
+
+
+# 表示部分
+
+sw $1, 0($19)
+set $6, 0 #flag: 最上位はもうあった？
+
+set $5, 10 #counter
+print_int_showloop:
+addi $5, $5, -1
+lw $1, 0($19)
+
+beq $5, $0, print_int_impl     #最下位は必ず表示する
+or $3, $1, $6
+beq $3, $0, print_int_continue #上のほうの0なら表示しないでいいです
+
+print_int_impl:
+set $6, 1
+addi $1, $1, 48 #char '0'
+sw $1, -1($0)
+
+print_int_continue:
+addi $19, $19, -4
+bne $5, $0, print_int_showloop
+
+#leave
+jr $31
+
+
+
+
 
 min_caml_print_char:
 	sw	$1, -1($0)
@@ -14,7 +115,7 @@ min_caml_read_float:
 	lwc	$f0, -1($0)
 	jr	$31
 
-min_caml_print_new_line:
+min_caml_print_newline:
 	lli	$1, 0xa
 	sw	$1,-1($0)
 
@@ -41,6 +142,11 @@ min_caml_float_of_int:
 
 min_caml_int_of_float:
 	round.w.s	 $f0, $f0
+	mfc	$1, $f0
+	jr	$31
+
+min_caml_truncate:
+	trunc.w.s	 $f0, $f0
 	mfc	$1, $f0
 	jr	$31
 

@@ -37,7 +37,7 @@ foreach ( $tests as $t ) {
 	succ();
 		
 	$remain--;
-	system("cat {$testdir}{$t}.s {$gitroot}testlib.s | {$gitroot}asm/asm  /dev/stdin {$testdir}{$t}.bin", $ret);
+	system("cat {$testdir}{$t}.s {$gitroot}compiler/Tomorrow/libmincaml.S | {$gitroot}asm/asm  /dev/stdin {$testdir}{$t}.bin", $ret);
 	if ( $ret != 0 ) {
 		fail($remain);
 		continue;
