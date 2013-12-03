@@ -206,11 +206,11 @@ ll.12:
 ll.13:
 	c.olt.s	$f0, $f12
 	bct ll.15
-	c.olt.s	$f0, $f14
+	c.olt.s	$f0, $f11
 	bct ll.14
-	sub.s $f0, $f0, $f14
+	sub.s $f0, $f0, $f11
 ll.14:
-	div.s $f14, $f14, $f3
+	div.s $f11, $f11, $f3
 	j ll.13
 ll.15:
 	#end reduction
