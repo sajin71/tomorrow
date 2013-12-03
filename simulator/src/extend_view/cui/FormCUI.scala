@@ -48,7 +48,6 @@ abstract class FormCUI extends Form {
 	    	    }
                 }catch {
 		    case _ => {
-		      Console.out.println("halt")
   exit
 }
 
