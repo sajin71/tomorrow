@@ -287,23 +287,23 @@ ll.10:
 	jr	$31
 min_caml_cos:
 	set	$1, 0x40490fdb #PI
-    mfc	$1, $f2
+    mtc	$1, $f2
     set $1, 0x40000000 #2.0
-	mfc	$1, $f3
+	mtc	$1, $f3
 	set	$1, 0x40800000 #4.0 
-	mfc	$1, $f4
+	mtc	$1, $f4
 	set	$1, 0xbe2aaaac #0.16666668
-	mfc	$1, $f5
+	mtc	$1, $f5
 	set	$1, 0x3c088666 #0.008332824
-	mfc	$1, $f6
+	mtc	$1, $f6
 	set	$1, 0xb94d64b6 #0.00019587841
-	mfc	$1, $f7
+	mtc	$1, $f7
 	set	$1, 0x3f000000 #0.5
-	mfc	$1, $f8
+	mtc	$1, $f8
 	set $1, 0x3d2aa789 #0.04166368
-	mfc	$1, $f9
+	mtc	$1, $f9
 	set	$1, 0xbab38106 #0.0013695068
-	mfc	$1, $f10
+	mtc	$1, $f10
 
 	lli $2, 0x0
 	abs.s	$f0, $f0
@@ -329,7 +329,7 @@ ll.15:
 	#end reduction
 
 	c.olt.s	$f0, $f2
-	bct	ll.6
+	bct	ll.16
 	sub.s	$f0, $f0, $f2
 	# reverse flag
 	lli $3, 1
@@ -418,13 +418,13 @@ min_caml_atan:
     set $1, 0xbe124925 #0.142857142
     mtc $1, $f9
     set $1, 0x3de38e38 #0.111111104
-    mfc $1, $f10
+    mtc $1, $f10
     set $1, 0xbdb7d66e #0.08976446
-    mfc $1, $f11
+    mtc $1, $f11
     set $1, 0x3d75e7c5 #0.060035485
-    mfc $1, $f12
+    mtc $1, $f12
 	set $1, 0x3f800000 #1.0
-	mfc	$1, $f13
+	mtc	$1, $f13
 
 	abs.s	$f0, $f0
 	c.olt.s	$f0, $f3
