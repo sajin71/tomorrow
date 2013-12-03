@@ -366,9 +366,9 @@ ll.21:
 	c.olt.s	$f3, $f0
     bct	ll.22
 
-	sub.s	$f0, $f13, $f14
-	add.s	$f0, $f13, $f15
-	div.s	$f14, $f15, $f0 #$f0 <= (|A| - 1.0 / |A| + 1.0)
+	sub.s	$f14, $f0, $f13
+	add.s	$f15, $f0, $f13
+	div.s	$f0, $f14, $f15 #$f0 <= (|A| - 1.0 / |A| + 1.0)
 
 	#kernel atan store result in $f14, exponent in $f15, term in $f16
 
