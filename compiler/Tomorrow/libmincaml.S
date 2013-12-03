@@ -1,3 +1,11 @@
+min_caml_mul:
+sll $1, $1, 2
+jr $31
+
+min_caml_div:
+sra $1, $1, 1
+jr $31
+
 min_caml_print_int:
 #	sw	$1, -1($0)
 #	jr	$31
@@ -100,8 +108,11 @@ bne $5, $0, print_int_showloop
 jr $31
 
 
-
-
+min_caml_perr_int:
+	sw	$1, -3($0)
+	jr	$31
+min_caml_halt:
+	halt
 
 
 min_caml_print_byte:
@@ -114,7 +125,7 @@ min_caml_read_int:
 	jr	$31
 
 min_caml_read_float:
-	lwc	$f0, -1($0)
+	lwc	$f0, -2($0)
 	jr	$31
 
 min_caml_print_newline:
@@ -230,7 +241,6 @@ ll.7:
 	mul.s $f16, $f0, $f16 #second term (degree three)
 	mul.s $f16, $f0, $f16
     mfc $1, $f16
-    sw	$1, -1($0)
 	mul.s $f17, $f5, $f16
 	add.s $f15, $f15, $f17
 
@@ -652,3 +662,15 @@ ll.27:
     addi    $1, $1, 1
     jr  $31 
 
+min_caml_fless:
+    addi $1, $0, 0
+    c.olt.s $f0, $f1
+    bct ll.28
+    jr  $31
+ll.28:
+    addi    $1, $1, 1
+    jr  $31 
+
+min_caml_fneg:
+	neg.s $f0, $f0
+	jr $31
