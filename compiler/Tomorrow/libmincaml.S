@@ -120,6 +120,7 @@ min_caml_read_float:
 min_caml_print_newline:
 	lli	$1, 0xa
 	sw	$1,-1($0)
+    jr  $31
 
 min_caml_abs_float:
 	abs.s	$f0, $f0
@@ -127,10 +128,6 @@ min_caml_abs_float:
 
 min_caml_fabs:
 	abs.s	$f0, $f0
-	jr	$31
-
-min_caml_fsqr:
-	mul.s	$f1, $f1, $f1
 	jr	$31
 
 min_caml_sqrt:
@@ -164,17 +161,17 @@ min_caml_sin:
 	mtc	$1, $f3
 	set	$1, 0x40800000 #4.0 
 	mtc	$1, $f4
-	set	$1, 0xbe2aaaac #0.16666668
+	set	$1, 0xbe2aaaac #-0.16666668
 	mtc	$1, $f5
 	set	$1, 0x3c088666 #0.008332824
 	mtc	$1, $f6
-	set	$1, 0xb94d64b6 #0.00019587841
+	set	$1, 0xb94d64b6 #-0.00019587841
 	mtc	$1, $f7
-	set	$1, 0x3f000000 #0.5
+	set	$1, 0xbf000000 #-0.5
 	mtc	$1, $f8
 	set $1, 0x3d2aa789 #0.04166368
 	mtc	$1, $f9
-	set	$1, 0xbab38106 #0.0013695068
+	set	$1, 0xbab38106 #-0.0013695068
 	mtc	$1, $f10
 
 	#represent sign bit in $2
@@ -207,14 +204,12 @@ ll.4:
 ll.5:
 	#end reduction
 
-
 	c.olt.s	$f0, $f2
 	bct	ll.6
 	sub.s	$f0, $f0, $f2
 	# reverse flag
 	lli $3, 1
 	xor $2, $2, $3
-
 
 
 ll.6:
@@ -246,7 +241,7 @@ ll.7:
 
 	mul.s $f16, $f0, $f16 #forth term (degree seven) 
 	mul.s $f16, $f0, $f16
-	mul.s $f17, $f6, $f16
+	mul.s $f17, $f7, $f16
 	add.s $f15, $f15, $f17
 
 	mov.s $f0, $f15
@@ -264,17 +259,17 @@ ll.8:
 
 	mul.s $f16, $f0, $f16 #second term (degree two)
 	mul.s $f16, $f0, $f16
-	mul.s $f17, $f7, $f16
+	mul.s $f17, $f8, $f16
 	add.s $f15, $f15, $f17
 
 	mul.s $f16, $f0, $f16 #third term (degree four) 
 	mul.s $f16, $f0, $f16
-	mul.s $f17, $f8, $f16
+	mul.s $f17, $f9, $f16
 	add.s $f15, $f15, $f17
 
 	mul.s $f16, $f0, $f16 #forth term (degree six) 
 	mul.s $f16, $f0, $f16
-	mul.s $f17, $f9, $f16
+	mul.s $f17, $f10, $f16
 	add.s $f15, $f15, $f17
 
 	mov.s $f0, $f15
@@ -292,17 +287,17 @@ min_caml_cos:
 	mtc	$1, $f3
 	set	$1, 0x40800000 #4.0 
 	mtc	$1, $f4
-	set	$1, 0xbe2aaaac #0.16666668
+	set	$1, 0xbe2aaaac #-0.16666668
 	mtc	$1, $f5
 	set	$1, 0x3c088666 #0.008332824
 	mtc	$1, $f6
-	set	$1, 0xb94d64b6 #0.00019587841
+	set	$1, 0xb94d64b6 #-0.00019587841
 	mtc	$1, $f7
-	set	$1, 0x3f000000 #0.5
+	set	$1, 0xbf000000 #-0.5
 	mtc	$1, $f8
 	set $1, 0x3d2aa789 #0.04166368
 	mtc	$1, $f9
-	set	$1, 0xbab38106 #0.0013695068
+	set	$1, 0xbab38106 #-0.0013695068
 	mtc	$1, $f10
 
 	lli $2, 0x0
@@ -353,17 +348,17 @@ ll.17:
 
 	mul.s $f16, $f0, $f16 #second term (degree two)
 	mul.s $f16, $f0, $f16
-	mul.s $f17, $f7, $f16
+	mul.s $f17, $f8, $f16
 	add.s $f15, $f15, $f17
 
 	mul.s $f16, $f0, $f16 #third term (degree four) 
 	mul.s $f16, $f0, $f16
-	mul.s $f17, $f8, $f16
+	mul.s $f17, $f9, $f16
 	add.s $f15, $f15, $f17
 
 	mul.s $f16, $f0, $f16 #forth term (degree six) 
 	mul.s $f16, $f0, $f16
-	mul.s $f17, $f9, $f16
+	mul.s $f17, $f10, $f16
 	add.s $f15, $f15, $f17
 
 	mov.s $f0, $f15
@@ -388,7 +383,7 @@ ll.18:
 
 	mul.s $f16, $f0, $f16 #forth term (degree seven) 
 	mul.s $f16, $f0, $f16
-	mul.s $f17, $f6, $f16
+	mul.s $f17, $f7, $f16
 	add.s $f15, $f15, $f17
 
 	mov.s $f0, $f17
@@ -609,4 +604,50 @@ min_caml_create_float_array_end:
     mov $1, $10
     jr  $31
 
+min_caml_truncate:
+    round.s  $f0, $f0 #trunc.sを実装しないと値がずれます
+    mfc1 $1, $f0
+    jr    $31
+
+min_caml_fhalf:
+    set	$1, 0x3f000000 #0.5
+	mtc	$1, $f1
+    mul.s   $f0, $f0, $f1
+    jr  $31
+
+min_caml_fsqr:
+    mul.s   $f0, $f0, $f0
+    jr  $31
+
+min_caml_fispos:
+    set	$1, 0x0 #0.0
+    mtc	$1, $f1
+
+    c.olt.s $f1, $f0
+    bcf ll.25
+    jr  $31
+ll.25:
+    addi    $1, $1, 1
+    jr  $31 
+min_caml_fisneg:
+    set	$1, 0x0 #0.0
+    mtc	$1, $f1
+
+    c.olt.s $f1, $f0
+    bct ll.26
+    jr  $31
+ll.26:
+    addi    $1, $1, 1
+    jr  $31 
+
+min_caml_fiszero:
+    set	$1, 0x0 #0.0
+    mtc	$1, $f1
+
+    c.eq.s $f1, $f0
+    bct ll.27
+    jr  $31
+ll.27:
+    addi    $1, $1, 1
+    jr  $31 
 
