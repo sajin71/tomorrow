@@ -299,15 +299,15 @@ min_caml_atan:
 	mtc	$1, $f5
 	set	$1, 0x40800000 #4.0 
 	mtc	$1, $f6
-    set $1, 0xbeaaaaaa #0.3333333
+    set $1, 0xbeaaaaaa #-0.3333333
     mtc $1, $f7
     set $1, 0x3e4ccccd #0.2
     mtc $1, $f8
-    set $1, 0xbe124925 #0.142857142
+    set $1, 0xbe124925 #-0.142857142
     mtc $1, $f9
     set $1, 0x3de38e38 #0.111111104
     mtc $1, $f10
-    set $1, 0xbdb7d66e #0.08976446
+    set $1, 0xbdb7d66e #-0.08976446
     mtc $1, $f11
     set $1, 0x3d75e7c5 #0.060035485
     mtc $1, $f12
@@ -328,12 +328,12 @@ min_caml_atan:
 
 	mul.s $f15, $f0, $f15 #second term (degree three)
 	mul.s $f15, $f0, $f15
-	mul.s $f16, $f6, $f15
+	mul.s $f16, $f7, $f15
 	add.s $f14, $f14, $f16
 
 	mul.s $f15, $f0, $f15 #third term (degree five) 
 	mul.s $f15, $f0, $f15
-	mul.s $f16, $f7, $f15
+	mul.s $f16, $f8, $f15
 	add.s $f14, $f14, $f16
 
 	mul.s $f15, $f0, $f15 #forth term (degree seven) 
@@ -377,12 +377,12 @@ ll.21:
 
 	mul.s $f15, $f0, $f15 #second term (degree three)
 	mul.s $f15, $f0, $f15
-	mul.s $f16, $f6, $f15
+	mul.s $f16, $f7, $f15
 	add.s $f14, $f14, $f16
 
 	mul.s $f15, $f0, $f15 #third term (degree five) 
 	mul.s $f15, $f0, $f15
-	mul.s $f16, $f7, $f15
+	mul.s $f16, $f8, $f15
 	add.s $f14, $f14, $f16
 
 	mul.s $f15, $f0, $f15 #forth term (degree seven) 
@@ -423,12 +423,12 @@ ll.22:
 
 	mul.s $f15, $f0, $f15 #second term (degree three)
 	mul.s $f15, $f0, $f15
-	mul.s $f16, $f6, $f15
+	mul.s $f16, $f7, $f15
 	add.s $f14, $f14, $f16
 
 	mul.s $f15, $f0, $f15 #third term (degree five) 
 	mul.s $f15, $f0, $f15
-	mul.s $f16, $f7, $f15
+	mul.s $f16, $f8, $f15
 	add.s $f14, $f14, $f16
 
 	mul.s $f15, $f0, $f15 #forth term (degree seven) 
