@@ -54,7 +54,7 @@ std::string tInstI::disasm(inst_t instLE) const {
 
 static void i_generic(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm_t imm) {
 	if ( dest->zeroforce && regs[1] == 0 ) {
-		dest->EmitNOP();
+		dest->EmitWriteZeroReg();
 		return;
 	}
 	
@@ -115,7 +115,7 @@ static void i_generic(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], 
 
 static void i_ori(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm_t imm) {
 	if ( dest->zeroforce && regs[1] == 0 ) {
-		dest->EmitNOP();
+		dest->EmitWriteZeroReg();
 		return;
 	}
 	
@@ -134,7 +134,7 @@ static void i_ori(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm_
 
 static void i_slti(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm_t imm) {
 	if ( dest->zeroforce && regs[1] == 0 ) {
-		dest->EmitNOP();
+		dest->EmitWriteZeroReg();
 		return;
 	}
 	
@@ -170,7 +170,7 @@ static void i_slti(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm
 
 static void i_lw(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm_t imm) {
 	if ( ii->type == tInstI::T_Mem && dest->zeroforce && regs[1] == 0 ) {
-		dest->EmitNOP();
+		dest->EmitWriteZeroReg();
 		return;
 	}
 	
@@ -268,7 +268,7 @@ static void i_sw(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm_t
 
 static void i_lui(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm_t imm) {
 	if ( dest->zeroforce && regs[1] == 0 ) {
-		dest->EmitNOP();
+		dest->EmitWriteZeroReg();
 		return;
 	}
 	

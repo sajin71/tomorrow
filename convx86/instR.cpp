@@ -53,7 +53,7 @@ std::string tInstR::disasm(inst_t instLE) const {
 static void r_generic3(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsigned char shift) {
 	
 	if ( dest->zeroforce && regs[2] == 0 ) {
-		dest->EmitNOP();
+		dest->EmitWriteZeroReg();
 		return;
 	}
 	
@@ -105,7 +105,7 @@ static void r_generic3(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[],
 static void r_add(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsigned char shift) {
 	
 	if ( dest->zeroforce && regs[2] == 0 ) {
-		dest->EmitNOP();
+		dest->EmitWriteZeroReg();
 		return;
 	}
 	
@@ -131,7 +131,7 @@ static void r_add(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsi
 static void r_slt(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsigned char shift) {
 	
 	if ( dest->zeroforce && regs[2] == 0 ) {
-		dest->EmitNOP();
+		dest->EmitWriteZeroReg();
 		return;
 	}
 	
@@ -204,7 +204,7 @@ static void r_div(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsi
 static void r_mfhilo(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsigned char shift) {
 	
 	if ( dest->zeroforce && regs[2] == 0 ) {
-		dest->EmitNOP();
+		dest->EmitWriteZeroReg();
 		return;
 	}
 	
@@ -224,7 +224,7 @@ static void r_mfhilo(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], u
 
 static void r_shift(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsigned char shift) {
 	if ( dest->zeroforce && regs[2] == 0 ) {
-		dest->EmitNOP();
+		dest->EmitWriteZeroReg();
 		return;
 	}
 	
@@ -251,7 +251,7 @@ static void r_shift(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], un
 
 static void r_shiftv(CAsm86Dest* dest, const tInstR* ir, unsigned char regs[], unsigned char shift) {
 	if ( dest->zeroforce && regs[2] == 0 ) {
-		dest->EmitNOP();
+		dest->EmitWriteZeroReg();
 		return;
 	}
 	

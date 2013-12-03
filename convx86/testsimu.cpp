@@ -134,7 +134,7 @@ int main(int argc, char **argv) {
 		unsigned char b[4];
 	} buf;
 	
-	blockram = (DWORD*)malloc( sizeof(DWORD) * 0x10000 );
+	blockram = (DWORD*)malloc( sizeof(DWORD) * 0x8000 );
 	int brcnt = 0;
 	
 	while ( fread(&buf, sizeof(inst_t), 1, ifp) ==1 ) {
@@ -195,6 +195,7 @@ int main(int argc, char **argv) {
 	
 	
 	pos[-6] = (DWORD)(softfp+0x20);
+	pos[-7] = dest.pos.size() * 4;
 	
 	for ( unsigned int i=0; i< dest.pos.size(); i++ ) {
 		pos[i] = dest.pos[i];
@@ -262,7 +263,22 @@ int main(int argc, char **argv) {
 
 	"add ebx, [edi-12+edx] \n"
 	"mov [ebx], eax \n"
+	
+// Invalidate inst if BlockRAM changed
+	"test edx, edx \n"
+	"jnz  my_write_return \n"
+	
+	"sub ebx, [edi-12] \n"
+	"cmp ebx, [edi-28] \n"
+	"jae my_write_return \n"
+	
+	"mov ebx, [edi+ebx] \n"
+	"add ebx, [edi-4] \n"
+	"mov byte ptr [ebx], 0xcc \n"
+
+"my_write_return: \n"
 	"ret \n"
+
 
 "my_write_syscall: \n"
 	"cmp   ebx, 0xffffffff \n"
