@@ -184,7 +184,7 @@ and g' oc = function (* Emit assembly of each instruction *)
     | Tail, IfFLE(x, y, e1, e2) ->
         let b_else = Id.genid("fble_else") in
         Printf.fprintf oc "\tc.olt.s\t%s, %s\n" y x;
-        Printf.fprintf oc "tbct\t%s\n" b_else;
+        Printf.fprintf oc "\tbct\t%s\n" b_else;
         let stackset_back = !stackset in
         g oc (Tail, e1);
         Printf.fprintf oc "%s:\n" b_else;
@@ -245,7 +245,7 @@ and g' oc = function (* Emit assembly of each instruction *)
         let b_else = Id.genid "fbeq_else" in
         let b_cont = Id.genid "fbeq_cont" in
         Printf.fprintf oc "\tc.eq.s\t%s,%s\n" x y;
-        Printf.fprintf oc "\tbcf\t%s" b_else;
+        Printf.fprintf oc "\tbcf\t%s\n" b_else;
         let stackset_back = !stackset in
         g oc (NonTail(z), e1);
         let stackset1 = !stackset in

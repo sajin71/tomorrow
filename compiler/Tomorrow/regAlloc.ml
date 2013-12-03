@@ -134,7 +134,7 @@ and g' dest cont regenv = function (* allocate registers for instruction *)
     | FMul(x, y) ->
         (Ans(FMul(find x Type.Float regenv, find y Type.Float regenv)), regenv)
     | FDiv(x, y) ->
-        (Ans(FMul(find x Type.Float regenv, find y Type.Float regenv)), regenv)
+        (Ans(FDiv(find x Type.Float regenv, find y Type.Float regenv)), regenv)
     | LWC(x, y') -> (Ans(LWC(find x Type.Int regenv, find' y' regenv)), regenv)
     | SWC(x, y, z') -> (Ans(SWC(find x Type.Float regenv, find y Type.Int regenv, find' z' regenv)), regenv)
     | LW(x, y') -> (Ans(LW(find x Type.Int regenv, find' y' regenv)), regenv)
