@@ -4,7 +4,7 @@
 #include "MIPSinst.h"
 #include "x86emit.h"
 
-inst_t instbuf[10000];
+inst_t instbuf[100000];
 
 void procInst(CAsm86Dest* dest, inst_t inst) {
 	

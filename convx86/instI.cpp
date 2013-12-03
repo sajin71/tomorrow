@@ -121,7 +121,7 @@ static void i_ori(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm_
 		//即値代入
 		dest->Emit(0xC7);
 		dest->EmitModRMexdisp(0, rECX, regs[1]*4);
-		dest->EmitDisp32(imm);
+		dest->EmitDisp32( (uimm_t)imm );
 		
 		dprintf("\nMOV dword ptr [ECX+%d*4], %d\n", regs[1], imm);
 	} else {
