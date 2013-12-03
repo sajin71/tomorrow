@@ -22,23 +22,26 @@ begin  -- RTL
   
   with OPER select
     R <=
-    qadd                           when O_FADD,
-    qadd                           when O_FSUB,
+    qadd                           when O_FADD | O_FSUB,
     qmul                           when O_FMUL,
-    qdiv                           when O_FDIV,
-    qsqrt                          when O_FSQRT,
+--    qdiv                           when O_FDIV,
+--    qsqrt                          when O_FSQRT,
     '0' & D2(30 downto 0)          when O_FABS,
     (not D2(31)) & D2(30 downto 0) when O_FNEG,
-    qround                         when O_FROUND,
-    qfloor                         when O_FFLOOR,
-    qinv                           when O_FRECIP,
-    qcvts                          when others;
+    qftoi                          when O_FROUND | O_FFLOOR,
+--    qinv                           when O_FRECIP,
+    qsitof                         when others;
 
   with OPER select
     a_fadd <=
     (not D1(31)) & D1(30 downto 0) when O_FSUB,
     D1                             when others;
 
+  with OPER select
+    round_op <=
+    "00" when O_FROUND,
+    "11" when others;
+  
   fadd_map : fadd
     port map (
       a   => a_fadd,
@@ -53,41 +56,34 @@ begin  -- RTL
       clk => CLK,
       q   => qmul);
 
-  fdiv_map : fdiv
+  ftoi_map : ftoi
     port map (
-      bunbo => D1,
-      bunsi => D2,
-      clk   => CLK,
-      q     => qdiv);
+      f     => D2,
+      round => round_op,
+      i     => qftoi);
 
-  fsqrt_map : fsqrt
+  sitof_map : sitof
     port map (
-      a   => D2,
-      clk => CLK,
-      q   => qsqrt);
+      i => D2,
+      f => qsitof);
 
-  fround_map : fround
-    port map (
-      a   => D2,
-      clk => CLK,
-      q   => qround);
-
-  ffloor_map : ffloor
-    port map (
-      a   => D2,
-      clk => CLK,
-      q   => qfloor);
-
-  finv_map : finv
-    port map (
-      a   => D2,
-      clk => CLK,
-      q   => qinv);
-
-  fcvts_map : fcvts
-    port map (
-      a   => D2,
-      clk => CLK,
-      q   => qcvts);
+--  fdiv_map : fdiv
+--    port map (
+--      bunbo => D1,
+--      bunsi => D2,
+--      clk   => CLK,
+--      q     => qdiv);
+--
+--  fsqrt_map : fsqrt
+--    port map (
+--      a   => D2,
+--      clk => CLK,
+--      q   => qsqrt);
+--
+--  finv_map : finv
+--    port map (
+--      a   => D2,
+--      clk => CLK,
+--      q   => qinv);
 
 end RTL;

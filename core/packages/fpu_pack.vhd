@@ -17,6 +17,20 @@ package fpu_pack is
       q    : out std_logic_vector(31 downto 0));
   end component;
 
+  component ftoi
+    port (f     : in  std_logic_vector (31 downto 0);
+          round : in  std_logic_vector (1 downto 0);  --00...ROUND,  01...TRUNC,  10...CEIL,  11...FLOOR
+          i     : out std_logic_vector (31 downto 0)
+--         clk  : in  STD_LOGIC
+          );
+  end component;
+
+  component sitof
+    port (i : in  std_logic_vector (31 downto 0);
+          f : out std_logic_vector (31 downto 0)
+--         clk: STD_LOGIC
+          );
+  end component;
   component fdiv
     port (
       bunbo, bunsi : in  std_logic_vector(31 downto 0);
@@ -30,43 +44,22 @@ package fpu_pack is
       clk : in  std_logic;
       q   : out std_logic_vector(31 downto 0));
   end component;
-
-  component fround
-    port (
-      a   : in  std_logic_vector(31 downto 0);
-      clk : in  std_logic;
-      q   : out std_logic_vector(31 downto 0));
-  end component;
-
-  component ffloor
-    port (
-      a   : in  std_logic_vector(31 downto 0);
-      clk : in  std_logic;
-      q   : out std_logic_vector(31 downto 0));
-  end component;
-
-  component finv
-    port (
-      a   : in  std_logic_vector(31 downto 0);
-      clk : in  std_logic;
-      q   : out std_logic_vector(31 downto 0));
-  end component;
-
-  component fcvts
-    port (
-      a   : in  std_logic_vector(31 downto 0);
-      clk : in  std_logic;
-      q   : out std_logic_vector(31 downto 0));
-  end component;
+--
+--  component finv
+--    port (
+--      a   : in  std_logic_vector(31 downto 0);
+--      clk : in  std_logic;
+--      q   : out std_logic_vector(31 downto 0));
+--  end component;
 
   signal qadd   : std_logic_vector(31 downto 0);
   signal qmul   : std_logic_vector(31 downto 0);
   signal qdiv   : std_logic_vector(31 downto 0);
   signal qsqrt  : std_logic_vector(31 downto 0);
-  signal qround : std_logic_vector(31 downto 0);
-  signal qfloor : std_logic_vector(31 downto 0);
   signal qinv   : std_logic_vector(31 downto 0);
-  signal qcvts  : std_logic_vector(31 downto 0);
+  signal qftoi  : std_logic_vector(31 downto 0);
+  signal qsitof : std_logic_vector(31 downto 0);
 
-  signal a_fadd : std_logic_vector(31 downto 0);
+  signal a_fadd   : std_logic_vector(31 downto 0);
+  signal round_op : std_logic_vector(1 downto 0);
 end fpu_pack;
