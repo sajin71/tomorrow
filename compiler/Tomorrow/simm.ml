@@ -2,9 +2,9 @@ open Asm
 
 let rec g env = function (* 16 bit optimization of instructions *)
     | Ans(exp) -> Ans(g' env exp)
-(*    | Let((x, t), Set(i), e) when (-32768 <= i) && (i < 32768) ->
+    | Let((x, t), Set(i), e) ->
             let e' = g (M.add x i env) e in
-            if List.mem x (fv e') then Let((x, t), Li(i), e') else e' *)
+            if List.mem x (fv e') then Let((x, t), Set(i), e') else e'
     | Let(xt, exp, e) -> Let(xt, g' env exp, g env e)
 and g' env = function (* 16 bit optimization of each instruction *)
     | Add(x, V(y)) when M.mem y env -> Add(x, C(M.find y env))
