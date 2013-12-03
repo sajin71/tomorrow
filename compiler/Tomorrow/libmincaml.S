@@ -87,11 +87,11 @@ ll.2:
 ll.3:
 	c.olt.s	$f0, $f12
 	bct ll.5
-	c.olt.s	$f0, $f14
+	c.olt.s	$f0, $f11
 	bct ll.4
-	sub.s $f0, $f0, $f14
+	sub.s $f0, $f0, $f11
 ll.4:
-	div.s $f14, $f14, $f3
+	div.s $f11, $f11, $f3
 	j ll.3
 ll.5:
 	#end reduction
