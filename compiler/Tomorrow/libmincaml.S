@@ -221,7 +221,7 @@ ll.15:
 	#end reduction
 
 	c.olt.s	$f0, $f2
-	bct	ll.6
+	bct	ll.16
 	sub.s	$f0, $f0, $f2
 	# reverse flag
 	lli $3, 1
@@ -310,13 +310,13 @@ min_caml_atan:
     set $1, 0xbe124925 #0.142857142
     mtc $1, $f9
     set $1, 0x3de38e38 #0.111111104
-    mfc $1, $f10
+    mtc $1, $f10
     set $1, 0xbdb7d66e #0.08976446
-    mfc $1, $f11
+    mtc $1, $f11
     set $1, 0x3d75e7c5 #0.060035485
-    mfc $1, $f12
+    mtc $1, $f12
 	set $1, 0x3f800000 #1.0
-	mfc	$1, $f13
+	mtc	$1, $f13
 
 	abs.s	$f0, $f0
 	c.olt.s	$f0, $f3
