@@ -41,8 +41,6 @@ object BigEndianInterpreter extends ByteArrayInterpreter{
             unsignedIntegerPool(bytes)
         }else{
         	var tmp: Long = 0
-        	if(bytes(0) < 0) {tmp = 0xffffffff}
-
         	for(byte <- bytes) {
         		tmp <<= 8
         		tmp += (byte toUnsigned)
