@@ -236,7 +236,8 @@ ll.17:
 	#kernel cos store result in $f15, exponent in $f16, term in $f17
 	set	$3, 0x3f800000
 	mtc $3, $f16 #1.0
-	add.s $f15, $f15, $f0 #first term (degree zero)
+    mov.s   $f15, $f16
+	#add.s $f15, $f15, $f0 #first term (degree zero)
 
 	mul.s $f16, $f0, $f16 #second term (degree two)
 	mul.s $f16, $f0, $f16
@@ -278,7 +279,7 @@ ll.18:
 	mul.s $f17, $f7, $f16
 	add.s $f15, $f15, $f17
 
-	mov.s $f0, $f17
+	mov.s $f0, $f15
 	#end kernel sin
 
 ll.19:
