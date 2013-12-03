@@ -934,16 +934,22 @@ void procline(char *str, tState *state) {
 int main(int argc, char *argv[]) {
 	
 	const char *outfile = "a.bin";
+	const char *debugfile = NULL;
 	FILE *ifp = stdin;
 	
-	if ( argc == 3 ) {
+	if ( argc >= 4 ) {
+		debugfile = argv[3];
+	}
+	if ( argc >= 3 ) {
 		outfile = argv[2];
 	}
 	if ( argc >= 2 ) {
-		ifp = fopen(argv[1], "r");
-		if ( ifp == NULL ) {
-			fprintf(stderr, "input error\n");
-			return 1;
+		if ( strcmp(argv[1], "-") != 0 ) {
+			ifp = fopen(argv[1], "r");
+			if ( ifp == NULL ) {
+				fprintf(stderr, "input error\n");
+				return 1;
+			}
 		}
 	}
 	/* else {
@@ -1066,6 +1072,18 @@ int main(int argc, char *argv[]) {
 		fwrite(&b.b[0], 1, 1, ofp);
 	}
 	fclose(ofp);
+	
+	
+	if ( debugfile != NULL ) {
+		FILE *dfp = fopen(debugfile, "w");
+		if ( dfp == NULL ) {
+			fprintf(stderr, "Warning: debug info can't write\n");
+		} else {
+			for(unsigned int i=0; i<state.labels.size(); i++) {
+				//fprintf(dfp, "%s\t%x",
+			}
+		}
+	}
 	
 	return 0;
 

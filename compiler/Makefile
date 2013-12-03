@@ -42,7 +42,7 @@ TRASH = $(TESTS:%=test/%.s) $(TESTS:%=test/%) $(TESTS:%=test/%.res) $(TESTS:%=te
 test/%.s: $(RESULT) test/%.ml
 	./$(RESULT) test/$*
 test/%.bin: test/%.s
-	../asm/asm $^ $@
+	cat $^ ./Tomorrow/libmincaml.S | ../asm/asm - $@
 test/%.res: test/%.bin
 	../convx86/testsimu < $< > $@
 test/%.ans: test/%.ml

@@ -605,10 +605,10 @@ min_caml_create_float_array_end:
     mov $1, $10
     jr  $31
 
-min_caml_truncate:
-    round.w.s  $f0, $f0 #trunc.sを実装しないと値がずれます
-    mfc1 $1, $f0
-    jr    $31
+#min_caml_truncate:
+#    round.w.s  $f0, $f0 #trunc.sを実装しないと値がずれます
+#    mfc1 $1, $f0
+#    jr    $31
 
 min_caml_fhalf:
     set	$1, 0x3f000000 #0.5
