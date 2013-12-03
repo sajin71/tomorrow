@@ -14,6 +14,7 @@ import tomorrow.ver1.ThreeRegisterOperandOpcode
 import tomorrow.ver1.ImmediateOperandOpcode
 import interpreter.BigEndianInterpreter
 import usb.USB
+import org.omg.CORBA.UserException
 
 class Jump extends JumpOpcode(0x02) {
     protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
@@ -59,5 +60,11 @@ class Nop extends ThreeRegisterOperandOpcode(0x00, 0x00) {
 	protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
 		programCounter.data += 4
 	}
+}
 
+class HaltException() extends UserException("halt")
+class Halt extends JumpOpcode(0x2C) {
+    protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
+        throw new HaltException
+    }
 }

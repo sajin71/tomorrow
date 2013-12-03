@@ -23,12 +23,13 @@ class Tomorrow(usb:USB) extends AbstractCPU(
     		new Sll(), new Srl(), new Sra(), new Slt(), new LUI(), new Nop(),
     		new BCF(), new BCT(), new LWC(), new SWC(), new MFC(), new MTC(), 
     		new AddS(), new SubS(), new MulS(), new DivS(), new SqrtS(), new AbsS(), new MovS(), new NegS(), new RecipS(), new CEqS(), new COltS(), new CvtS(),
-    		new FloorW(), new RoundW()
+    		new FloorW(), new RoundW(),
+                new Halt()
     		),
     HashMap(("HI" -> new IntegerRegister()), ("LO" -> new IntegerRegister()), ("FCSR" -> new IntegerRegister())) ++ 
             ((new Range(0, 32, 1).map((i:Int)=>(s"r${i}"->new IntegerRegister()))) toMap) ++
             (new Range(0, 32, 1).map((i:Int)=>(s"f${i}"->new IntegerRegister()))) toMap,
-    new DividedMemory((0L->0x1000/*4KByte*/), (0x80000000L->0x1000/*4KByte*/))) with USBDataListener {
+    new DividedMemory((0L->0x1fffff/*4KByte*/), (0x80000000L->0x3fffff/*4KByte*/))) with USBDataListener {
     
     usb.addCPUEndListener(this);
 

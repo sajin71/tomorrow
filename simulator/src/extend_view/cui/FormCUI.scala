@@ -42,9 +42,13 @@ abstract class FormCUI extends Form {
 	    	}
 	    	
 	    	// 実行
-	    	for(i <- 0 until 1000){
-	    	    simulator stepExecute
-	    	}
+		try{
+		    while(true){
+	    	        simulator stepExecute;
+	    	    }
+                }catch {
+		    case _ => Console.out.println("halt")
+                }   
         }
     }
     def initializeInterface(): Unit = {}
