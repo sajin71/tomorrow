@@ -108,8 +108,11 @@ bne $5, $0, print_int_showloop
 jr $31
 
 
-min_caml_perr_int:
+min_caml_prerr_int:
 	sw	$1, -3($0)
+	jr	$31
+min_caml_prerr_float:
+	swc	$f0, -5($0)
 	jr	$31
 min_caml_halt:
 	halt
