@@ -42,8 +42,17 @@ min_caml_int_of_float:
 	jr	$31
 
 min_caml_floor:
+    set $1, 0x4b000000
+    mtc $1, $f1
+    abs.s   $f2, $f0
+
+    c.olt.s $f2, $f1
+    bcf floor_ret
+
 	floor.w.s	$f0, $f0
 	cvt.s.w	$f0, $f0
+
+floor_ret:
 	jr	$31
 
 kernel_sin:
@@ -287,10 +296,14 @@ ll.15:
 	xor $2, $2, $3
 
 ll.16:
-div.s	$f13, $f2, $f3
+    div.s	$f13, $f2, $f3
 	c.olt.s	$f0, $f13
 	bct	ll.17
 	sub.s	$f0, $f2, $f0
+    # reverse flag
+	lli $3, 1
+	xor $2, $2, $3
+
 ll.17:
 
 	div.s	$f14, $f2, $f4
