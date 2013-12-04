@@ -6,6 +6,20 @@ min_caml_print_char:
 	sw	$1, -1($0)
 	jr	$31
 
+# print to stderr
+min_caml_prerr_int:
+	sw	$1, -3($0)
+	jr	$31
+min_caml_prerr_char:
+	sw	$1, -4($0)
+	jr	$31
+min_caml_prerr_float:
+	swc	$f0, -5($0)
+	jr	$31
+min_caml_halt:
+	halt
+
+
 min_caml_read_int:
 	lw	$1, -1($0)
 	jr	$31
