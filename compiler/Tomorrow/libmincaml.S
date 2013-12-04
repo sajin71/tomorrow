@@ -11,7 +11,7 @@ min_caml_read_int:
 	jr	$31
 
 min_caml_read_float:
-	lwc	$f0, -1($0)
+	lwc	$f0, -2($0)
 	jr	$31
 
 min_caml_print_newline:
@@ -53,8 +53,6 @@ kernel_sin:
 
 	mul.s $f16, $f0, $f16 #second term (degree three)
 	mul.s $f16, $f0, $f16
-    mfc $1, $f16
-    sw	$1, -1($0)
 	mul.s $f17, $f5, $f16
 	add.s $f15, $f15, $f17
 
@@ -643,7 +641,7 @@ min_caml_fsqr:
     jr  $31
 
 min_caml_fneg:
-    neg.s $f0
+    neg.s $f0, $f0
     jr $31
 
 min_caml_fispos:
@@ -656,6 +654,7 @@ min_caml_fispos:
 ll.25:
     addi    $1, $1, 1
     jr  $31 
+
 min_caml_fisneg:
     set	$1, 0x0 #0.0
     mtc	$1, $f1
@@ -677,4 +676,13 @@ min_caml_fiszero:
 ll.27:
     addi    $1, $1, 1
     jr  $31 
+
+min_caml_fless:
+    set $1, 0x0
+    c.olt.s $f0, $f1
+    bct ll.28
+    jr  $31
+ll.28:
+    addi    $1, $1, 1
+    jr  $31
 
