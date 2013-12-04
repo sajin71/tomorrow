@@ -10,6 +10,9 @@ a.bin: min-min.s
 dest.ppm: a.bin
 	../../convx86/testsimu a.bin < contest.sld > dest.ppm
 
+pdest.png: dest.ppm
+	convert dest.ppm pdest.png
+
 hoge.txt: a.bin
 	../../convx86/hoge < a.bin > hoge.txt
 
