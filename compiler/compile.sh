@@ -10,7 +10,7 @@ echo "connecting libmincaml.S" 1>&2
 echo "assembling" `echo $1 | sed -e "s/\.ml/.s/"` 1>&2 
 ../asm/asm `echo $1 | sed -e "s/\.ml/.s/"` `echo $1 | sed -e "s/\.ml//"`
 
-
+echo "done"
 
 
 
