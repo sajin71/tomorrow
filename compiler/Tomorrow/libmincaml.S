@@ -642,6 +642,10 @@ min_caml_fsqr:
     mul.s   $f0, $f0, $f0
     jr  $31
 
+min_caml_fneg:
+    neg.s $f0
+    jr $31
+
 min_caml_fispos:
     set	$1, 0x0 #0.0
     mtc	$1, $f1
