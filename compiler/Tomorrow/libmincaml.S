@@ -19,7 +19,6 @@ min_caml_prerr_float:
 min_caml_halt:
 	halt
 
-
 min_caml_read_int:
 	lw	$1, -1($0)
 	jr	$31
@@ -684,7 +683,7 @@ min_caml_fispos:
     mtc	$1, $f1
 
     c.olt.s $f1, $f0
-    bcf ll.25
+    bct ll.25
     jr  $31
 ll.25:
     addi    $1, $1, 1
@@ -694,7 +693,7 @@ min_caml_fisneg:
     set	$1, 0x0 #0.0
     mtc	$1, $f1
 
-    c.olt.s $f1, $f0
+    c.olt.s $f0, $f1
     bct ll.26
     jr  $31
 ll.26:
