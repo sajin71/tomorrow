@@ -70,10 +70,12 @@ and g' oc = function (* Emit assembly of each instruction *)
     | NonTail(x), Add(y, V(z)) -> Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg x) (reg y) (reg z)
     | NonTail(x), Add(y, C(z)) -> Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg x) (reg y) z
     | NonTail(x), Sub(y, z) -> Printf.fprintf oc "\tsub\t%s, %s, %s\n" (reg x) (reg y) (reg z)
-    | NonTail(x), Mul(y, V(z)) -> Printf.fprintf oc "\tmulerror\n"
+    | NonTail(x), Mul(y, V(z)) -> Printf.fprintf oc "\tsll\t %s, %s, 2\n" (reg x) (reg y)
+    (*TODO tenuki"\tmulerror\n"*) 
     | NonTail(x), Mul(y, C(z)) -> Printf.fprintf oc "\tsll\t%s, %s, %d\n" (reg
     x) (reg y) (int_of_float (log2 (float_of_int z)))
-    | NonTail(x), Div(y, V(z)) -> Printf.fprintf oc "\tdiverror\n"
+    | NonTail(x), Div(y, V(z)) -> Printf.fprintf oc "\tsra\t%s, %s, 1\n" (reg x) (reg y) 
+    (*TODO tenuki"\tdiverror\n"*)
     | NonTail(x), Div(y, C(z)) -> Printf.fprintf oc "\tsra\t%s, %s, %d\n" (reg
     x) (reg y) (int_of_float (log2 (float_of_int z)))
     | NonTail(x), SLL(y, V(z)) -> Printf.fprintf oc "\tsll\t%s, %s, %s\n" (reg x) (reg y) (reg z)
