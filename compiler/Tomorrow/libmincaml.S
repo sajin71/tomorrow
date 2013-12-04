@@ -46,6 +46,60 @@ min_caml_floor:
 	cvt.s.w	$f0, $f0
 	jr	$31
 
+kernel_sin:
+#kernel sin store result in $f15, exponent in $f16, term in $f17 
+	mov.s	$f15, $f0 #first term
+	mov.s $f16, $f0
+
+	mul.s $f16, $f0, $f16 #second term (degree three)
+	mul.s $f16, $f0, $f16
+    mfc $1, $f16
+    sw	$1, -1($0)
+	mul.s $f17, $f5, $f16
+	add.s $f15, $f15, $f17
+
+	mul.s $f16, $f0, $f16  #third term (degree five) 
+	mul.s $f16, $f0, $f16
+	mul.s $f17, $f6, $f16
+	add.s $f15, $f15, $f17
+
+	mul.s $f16, $f0, $f16 #forth term (degree seven) 
+	mul.s $f16, $f0, $f16
+	mul.s $f17, $f7, $f16
+	add.s $f15, $f15, $f17
+
+	mov.s $f0, $f15
+    
+    jr  $31
+
+kernel_cos:
+#kernel cos store result in $f15, exponent in $f16, term in $f17
+	set	$3, 0x3f800000
+	mtc $3, $f16 #1.0
+	mov.s $f15, $f16 #first term (degree zero)
+	mov.s $f16, $f16
+
+
+	mul.s $f16, $f0, $f16 #second term (degree two)
+	mul.s $f16, $f0, $f16
+	mul.s $f17, $f8, $f16
+	add.s $f15, $f15, $f17
+
+	mul.s $f16, $f0, $f16 #third term (degree four) 
+	mul.s $f16, $f0, $f16
+	mul.s $f17, $f9, $f16
+	add.s $f15, $f15, $f17
+
+	mul.s $f16, $f0, $f16 #forth term (degree six) 
+	mul.s $f16, $f0, $f16
+	mul.s $f17, $f10, $f16
+	add.s $f15, $f15, $f17
+
+	mov.s $f0, $f15
+	#end kernel cos 
+
+    jr  $31
+
 min_caml_sin:
 	set	$1, 0x40490fdb #PI
     mtc	$1, $f2
@@ -115,56 +169,67 @@ ll.7:
 	c.olt.s	$f14, $f0
 	bct	ll.8
 	
+    sw	$31, 4($29)
+    jal kernel_sin
+    nop
+    lw  $31, 4($29)
+
 	#kernel sin store result in $f15, exponent in $f16, term in $f17 
-	mov.s	$f15, $f0 #first term
-	mov.s $f16, $f0
+	#mov.s	$f15, $f0 #first term
+	#mov.s $f16, $f0
 
-	mul.s $f16, $f0, $f16 #second term (degree three)
-	mul.s $f16, $f0, $f16
-    mfc $1, $f16
-    sw	$1, -1($0)
-	mul.s $f17, $f5, $f16
-	add.s $f15, $f15, $f17
+	#mul.s $f16, $f0, $f16 #second term (degree three)
+	#mul.s $f16, $f0, $f16
+    #mfc $1, $f16
+    #sw	$1, -1($0)
+	#mul.s $f17, $f5, $f16
+	#add.s $f15, $f15, $f17
 
-	mul.s $f16, $f0, $f16  #third term (degree five) 
-	mul.s $f16, $f0, $f16
-	mul.s $f17, $f6, $f16
-	add.s $f15, $f15, $f17
+	#mul.s $f16, $f0, $f16  #third term (degree five) 
+	#mul.s $f16, $f0, $f16
+	#mul.s $f17, $f6, $f16
+	#add.s $f15, $f15, $f17
 
-	mul.s $f16, $f0, $f16 #forth term (degree seven) 
-	mul.s $f16, $f0, $f16
-	mul.s $f17, $f7, $f16
-	add.s $f15, $f15, $f17
+	#mul.s $f16, $f0, $f16 #forth term (degree seven) 
+	#mul.s $f16, $f0, $f16
+	#mul.s $f17, $f7, $f16
+	#add.s $f15, $f15, $f17
 
-	mov.s $f0, $f15
+	#mov.s $f0, $f15
 	#end kernel sin
 
 	j	ll.9	
 ll.8:
 	sub.s	$f0, $f13, $f0
+
+    sw  $31, 4($29)
+    jal kernel_cos
+    nop
+    lw  $31, 4($29)
+
 	#kernel cos store result in $f15, exponent in $f16, term in $f17
-	set	$3, 0x3f800000
-	mtc $3, $f16 #1.0
-	mov.s $f15, $f16 #first term (degree zero)
-	mov.s $f16, $f16
+	#set	$3, 0x3f800000
+	#mtc $3, $f16 #1.0
+	#mov.s $f15, $f16 #first term (degree zero)
+	#mov.s $f16, $f16
 
 
-	mul.s $f16, $f0, $f16 #second term (degree two)
-	mul.s $f16, $f0, $f16
-	mul.s $f17, $f8, $f16
-	add.s $f15, $f15, $f17
+	#mul.s $f16, $f0, $f16 #second term (degree two)
+	#mul.s $f16, $f0, $f16
+	#mul.s $f17, $f8, $f16
+	#add.s $f15, $f15, $f17
 
-	mul.s $f16, $f0, $f16 #third term (degree four) 
-	mul.s $f16, $f0, $f16
-	mul.s $f17, $f9, $f16
-	add.s $f15, $f15, $f17
+	#mul.s $f16, $f0, $f16 #third term (degree four) 
+	#mul.s $f16, $f0, $f16
+	#mul.s $f17, $f9, $f16
+	#add.s $f15, $f15, $f17
 
-	mul.s $f16, $f0, $f16 #forth term (degree six) 
-	mul.s $f16, $f0, $f16
-	mul.s $f17, $f10, $f16
-	add.s $f15, $f15, $f17
+	#mul.s $f16, $f0, $f16 #forth term (degree six) 
+	#mul.s $f16, $f0, $f16
+	#mul.s $f17, $f10, $f16
+	#add.s $f15, $f15, $f17
 
-	mov.s $f0, $f15
+	#mov.s $f0, $f15
 	#end kernel cos 
 
 ll.9:
@@ -172,6 +237,7 @@ ll.9:
 	neg.s $f0, $f0
 ll.10:
 	jr	$31
+
 min_caml_cos:
 	set	$1, 0x40490fdb #PI
     mtc	$1, $f2
@@ -233,53 +299,64 @@ ll.17:
 	c.olt.s	$f0, $f14
 	bct	ll.18
 
+    sw  $31, 4($29)
+    jal kernel_cos
+    nop
+    lw  $31, 4($29)
+
 	#kernel cos store result in $f15, exponent in $f16, term in $f17
-	set	$3, 0x3f800000
-	mtc $3, $f16 #1.0
-    mov.s   $f15, $f16
+	#set	$3, 0x3f800000
+	#mtc $3, $f16 #1.0
+    #mov.s   $f15, $f16
 	#add.s $f15, $f15, $f0 #first term (degree zero)
 
-	mul.s $f16, $f0, $f16 #second term (degree two)
-	mul.s $f16, $f0, $f16
-	mul.s $f17, $f8, $f16
-	add.s $f15, $f15, $f17
+	#mul.s $f16, $f0, $f16 #second term (degree two)
+	#mul.s $f16, $f0, $f16
+	#mul.s $f17, $f8, $f16
+	#add.s $f15, $f15, $f17
 
-	mul.s $f16, $f0, $f16 #third term (degree four) 
-	mul.s $f16, $f0, $f16
-	mul.s $f17, $f9, $f16
-	add.s $f15, $f15, $f17
+	#mul.s $f16, $f0, $f16 #third term (degree four) 
+	#mul.s $f16, $f0, $f16
+	#mul.s $f17, $f9, $f16
+	#add.s $f15, $f15, $f17
 
-	mul.s $f16, $f0, $f16 #forth term (degree six) 
-	mul.s $f16, $f0, $f16
-	mul.s $f17, $f10, $f16
-	add.s $f15, $f15, $f17
+	#mul.s $f16, $f0, $f16 #forth term (degree six) 
+	#mul.s $f16, $f0, $f16
+	#mul.s $f17, $f10, $f16
+	#add.s $f15, $f15, $f17
 
-	mov.s $f0, $f15
+	#mov.s $f0, $f15
 	#end kernel cos 
 
 	j	ll.19	
 ll.18:
 	sub.s	$f0, $f13, $f0
+    
+    sw  $31, 4($29)
+    jal kernel_sin
+    nop
+    lw  $31, 4($29)
+
 	#kernel sin store result in $f15, exponent in $f16, term in $f17 
-	mov.s	$f15, $f0 #first term
-	mov.s $f16, $f0
+	#mov.s	$f15, $f0 #first term
+	#mov.s $f16, $f0
 
-	mul.s $f16, $f0, $f16 #second term (degree three)
-	mul.s $f16, $f0, $f16
-	mul.s $f17, $f5, $f16
-	add.s $f15, $f15, $f17
+	#mul.s $f16, $f0, $f16 #second term (degree three)
+	#mul.s $f16, $f0, $f16
+	#mul.s $f17, $f5, $f16
+	#add.s $f15, $f15, $f17
 
-	mul.s $f16, $f0, $f16 #third term (degree five) 
-	mul.s $f16, $f0, $f16
-	mul.s $f17, $f6, $f16
-	add.s $f15, $f15, $f17
+	#mul.s $f16, $f0, $f16 #third term (degree five) 
+	#mul.s $f16, $f0, $f16
+	#mul.s $f17, $f6, $f16
+	#add.s $f15, $f15, $f17
 
-	mul.s $f16, $f0, $f16 #forth term (degree seven) 
-	mul.s $f16, $f0, $f16
-	mul.s $f17, $f7, $f16
-	add.s $f15, $f15, $f17
+	#mul.s $f16, $f0, $f16 #forth term (degree seven) 
+	#mul.s $f16, $f0, $f16
+	#mul.s $f17, $f7, $f16
+	#add.s $f15, $f15, $f17
 
-	mov.s $f0, $f15
+	#mov.s $f0, $f15
 	#end kernel sin
 
 ll.19:
@@ -287,6 +364,46 @@ ll.19:
 	neg.s $f0, $f0
 ll.20:
 	jr	$31
+
+kernel_atan:
+#kernel atan store result in $f14, exponent in $f15, term in $f16
+
+	mov.s $f14, $f0 #first term (degree one)
+	mov.s $f15, $f0
+
+	mul.s $f15, $f0, $f15 #second term (degree three)
+	mul.s $f15, $f0, $f15
+	mul.s $f16, $f7, $f15
+	add.s $f14, $f14, $f16
+
+	mul.s $f15, $f0, $f15 #third term (degree five) 
+	mul.s $f15, $f0, $f15
+	mul.s $f16, $f8, $f15
+	add.s $f14, $f14, $f16
+
+	mul.s $f15, $f0, $f15 #forth term (degree seven) 
+	mul.s $f15, $f0, $f15
+	mul.s $f16, $f9, $f15
+	add.s $f14, $f14, $f16
+
+    mul.s $f15, $f0, $f15 #forth term (degree nine) 
+	mul.s $f15, $f0, $f15
+	mul.s $f16, $f10, $f15
+	add.s $f14, $f14, $f16
+
+    mul.s $f15, $f0, $f15 #forth term (degree eleven) 
+	mul.s $f15, $f0, $f15
+	mul.s $f16, $f11, $f15
+	add.s $f14, $f14, $f16
+
+    mul.s $f15, $f0, $f15 #forth term (degree thirteen) 
+	mul.s $f15, $f0, $f15
+	mul.s $f16, $f12, $f15
+	add.s $f14, $f14, $f16
+	
+    mov.s   $f0, $f14
+	#end kernel atan
+    jr  $31
 
 min_caml_atan:
 	set	$1, 0x40490fdb #PI
@@ -323,41 +440,45 @@ min_caml_atan:
 	#mtc	$3, $f13
 	#floor $f13, $f13#1.0
 
-	mov.s $f14, $f0 #first term (degree one)
-	mov.s $f15, $f0
+    sw  $31, 4($29)
+    jal kernel_atan
+    nop
+    lw  $31, 4($29)
+	#mov.s $f14, $f0 #first term (degree one)
+	#mov.s $f15, $f0
 
-	mul.s $f15, $f0, $f15 #second term (degree three)
-	mul.s $f15, $f0, $f15
-	mul.s $f16, $f7, $f15
-	add.s $f14, $f14, $f16
+	#mul.s $f15, $f0, $f15 #second term (degree three)
+	#mul.s $f15, $f0, $f15
+	#mul.s $f16, $f7, $f15
+	#add.s $f14, $f14, $f16
 
-	mul.s $f15, $f0, $f15 #third term (degree five) 
-	mul.s $f15, $f0, $f15
-	mul.s $f16, $f8, $f15
-	add.s $f14, $f14, $f16
+	#mul.s $f15, $f0, $f15 #third term (degree five) 
+	#mul.s $f15, $f0, $f15
+	#mul.s $f16, $f8, $f15
+	#add.s $f14, $f14, $f16
 
-	mul.s $f15, $f0, $f15 #forth term (degree seven) 
-	mul.s $f15, $f0, $f15
-	mul.s $f16, $f9, $f15
-	add.s $f14, $f14, $f16
+	#mul.s $f15, $f0, $f15 #forth term (degree seven) 
+	#mul.s $f15, $f0, $f15
+	#mul.s $f16, $f9, $f15
+	#add.s $f14, $f14, $f16
 
-    mul.s $f15, $f0, $f15 #forth term (degree nine) 
-	mul.s $f15, $f0, $f15
-	mul.s $f16, $f10, $f15
-	add.s $f14, $f14, $f16
+    #mul.s $f15, $f0, $f15 #forth term (degree nine) 
+	#mul.s $f15, $f0, $f15
+	#mul.s $f16, $f10, $f15
+	#add.s $f14, $f14, $f16
 
-    mul.s $f15, $f0, $f15 #forth term (degree eleven) 
-	mul.s $f15, $f0, $f15
-	mul.s $f16, $f11, $f15
-	add.s $f14, $f14, $f16
+    #mul.s $f15, $f0, $f15 #forth term (degree eleven) 
+	#mul.s $f15, $f0, $f15
+	#mul.s $f16, $f11, $f15
+	#add.s $f14, $f14, $f16
 
-    mul.s $f15, $f0, $f15 #forth term (degree thirteen) 
-	mul.s $f15, $f0, $f15
-	mul.s $f16, $f12, $f15
-	add.s $f14, $f14, $f16
+    #mul.s $f15, $f0, $f15 #forth term (degree thirteen) 
+	#mul.s $f15, $f0, $f15
+	#mul.s $f16, $f12, $f15
+	#add.s $f14, $f14, $f16
 
 
-	mov.s $f0, $f14
+	#mov.s $f0, $f14
 	#end kernel atan 
 	j ll.23
 
@@ -370,44 +491,49 @@ ll.21:
 	add.s	$f15, $f0, $f13
 	div.s	$f0, $f14, $f15 #$f0 <= (|A| - 1.0 / |A| + 1.0)
 
+    sw  $31, 4($29)
+    jal kernel_atan
+    nop
+    lw  $31, 4($29)
+
 	#kernel atan store result in $f14, exponent in $f15, term in $f16
 
-	mov.s $f14, $f0 #first term (degree one)
-	mov.s $f15, $f0
+	#mov.s $f14, $f0 #first term (degree one)
+	#mov.s $f15, $f0
 
-	mul.s $f15, $f0, $f15 #second term (degree three)
-	mul.s $f15, $f0, $f15
-	mul.s $f16, $f7, $f15
-	add.s $f14, $f14, $f16
+	#mul.s $f15, $f0, $f15 #second term (degree three)
+	#mul.s $f15, $f0, $f15
+	#mul.s $f16, $f7, $f15
+	#add.s $f14, $f14, $f16
 
-	mul.s $f15, $f0, $f15 #third term (degree five) 
-	mul.s $f15, $f0, $f15
-	mul.s $f16, $f8, $f15
-	add.s $f14, $f14, $f16
+	#mul.s $f15, $f0, $f15 #third term (degree five) 
+	#mul.s $f15, $f0, $f15
+	#mul.s $f16, $f8, $f15
+	#add.s $f14, $f14, $f16
 
-	mul.s $f15, $f0, $f15 #forth term (degree seven) 
-	mul.s $f15, $f0, $f15
-	mul.s $f16, $f9, $f15
-	add.s $f14, $f14, $f16
+	#mul.s $f15, $f0, $f15 #forth term (degree seven) 
+	#mul.s $f15, $f0, $f15
+	#mul.s $f16, $f9, $f15
+	#add.s $f14, $f14, $f16
 
-    mul.s $f15, $f0, $f15 #forth term (degree nine) 
-	mul.s $f15, $f0, $f15
-	mul.s $f16, $f10, $f15
-	add.s $f14, $f14, $f16
+    #mul.s $f15, $f0, $f15 #forth term (degree nine) 
+	#mul.s $f15, $f0, $f15
+	#mul.s $f16, $f10, $f15
+	#add.s $f14, $f14, $f16
 
-    mul.s $f15, $f0, $f15 #forth term (degree eleven) 
-	mul.s $f15, $f0, $f15
-	mul.s $f16, $f11, $f15
-	add.s $f14, $f14, $f16
+    #mul.s $f15, $f0, $f15 #forth term (degree eleven) 
+	#mul.s $f15, $f0, $f15
+	#mul.s $f16, $f11, $f15
+	#add.s $f14, $f14, $f16
 
-    mul.s $f15, $f0, $f15 #forth term (degree thirteen) 
-	mul.s $f15, $f0, $f15
-	mul.s $f16, $f12, $f15
-	add.s $f14, $f14, $f16
+    #mul.s $f15, $f0, $f15 #forth term (degree thirteen) 
+	#mul.s $f15, $f0, $f15
+	#mul.s $f16, $f12, $f15
+	#add.s $f14, $f14, $f16
 	
 	#end kernel atan
 	div.s $f1, $f2, $f6
-	add.s $f0, $f1, $f14
+	add.s $f0, $f1, $f0
 
 	j ll.23
 	#TODO return
@@ -415,46 +541,50 @@ ll.21:
 ll.22:	
 	div.s	$f0, $f13, $f0
 
+    sw  $31, 4($29)
+    jal kernel_atan
+    nop
+    lw  $31, 4($29)
 
 	#kernel atan store result in $f14, exponent in $f15, term in $f16
 
-	mov.s $f14, $f0 #first term (degree one)
-	mov.s $f15, $f0
+	#mov.s $f14, $f0 #first term (degree one)
+	#mov.s $f15, $f0
 
-	mul.s $f15, $f0, $f15 #second term (degree three)
-	mul.s $f15, $f0, $f15
-	mul.s $f16, $f7, $f15
-	add.s $f14, $f14, $f16
+	#mul.s $f15, $f0, $f15 #second term (degree three)
+	#mul.s $f15, $f0, $f15
+	#mul.s $f16, $f7, $f15
+	#add.s $f14, $f14, $f16
 
-	mul.s $f15, $f0, $f15 #third term (degree five) 
-	mul.s $f15, $f0, $f15
-	mul.s $f16, $f8, $f15
-	add.s $f14, $f14, $f16
+	#mul.s $f15, $f0, $f15 #third term (degree five) 
+	#mul.s $f15, $f0, $f15
+	#mul.s $f16, $f8, $f15
+	#add.s $f14, $f14, $f16
 
-	mul.s $f15, $f0, $f15 #forth term (degree seven) 
-	mul.s $f15, $f0, $f15
-	mul.s $f16, $f9, $f15
-	add.s $f14, $f14, $f16
+	#mul.s $f15, $f0, $f15 #forth term (degree seven) 
+	#mul.s $f15, $f0, $f15
+	#mul.s $f16, $f9, $f15
+	#add.s $f14, $f14, $f16
 
-    mul.s $f15, $f0, $f15 #forth term (degree nine) 
-	mul.s $f15, $f0, $f15
-	mul.s $f16, $f10, $f15
-	add.s $f14, $f14, $f16
+    #mul.s $f15, $f0, $f15 #forth term (degree nine) 
+	#mul.s $f15, $f0, $f15
+	#mul.s $f16, $f10, $f15
+	#add.s $f14, $f14, $f16
 
-    mul.s $f15, $f0, $f15 #forth term (degree eleven) 
-	mul.s $f15, $f0, $f15
-	mul.s $f16, $f11, $f15
-	add.s $f14, $f14, $f16
+    #mul.s $f15, $f0, $f15 #forth term (degree eleven) 
+	#mul.s $f15, $f0, $f15
+	#mul.s $f16, $f11, $f15
+	#add.s $f14, $f14, $f16
 
-    mul.s $f15, $f0, $f15 #forth term (degree thirteen) 
-	mul.s $f15, $f0, $f15
-	mul.s $f16, $f12, $f15
-	add.s $f14, $f14, $f16
+    #mul.s $f15, $f0, $f15 #forth term (degree thirteen) 
+	#mul.s $f15, $f0, $f15
+	#mul.s $f16, $f12, $f15
+	#add.s $f14, $f14, $f16
 	
 	#end kernel atan
 
 	div.s $f1, $f2, $f5
-	sub.s $f0, $f1, $f14
+	sub.s $f0, $f1, $f0
 
 ll.23:
 	beq	$0, $2, ll.24
