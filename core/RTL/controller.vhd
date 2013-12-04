@@ -22,7 +22,7 @@ entity controller is
     RegDst      : out std_logic_vector(1 downto 0);
     RegWrite    : out std_logic;
     ALUSrcA     : out std_logic_vector(1 downto 0);
-    ALUSrcB     : out std_logic_vector(1 downto 0);
+    ALUSrcB     : out std_logic_vector(2 downto 0);
     ALUOp       : out ALU_CTRL;
     PCSource    : out std_logic_vector(1 downto 0);
 
@@ -51,7 +51,7 @@ begin  -- RTL
     (phase = EX_LSC and IR(31 downto 26) = SWC)                                else
     WAIT_SW  when (phase = MEM_SW or phase = WAIT_SW) and BUSY = '1'           else
     EX_FUN   when phase = DECODE and IR(31 downto 26) = SPEC                   else
-    WB_FUN   when phase = EX_FUN or phase = EX_SFT                             else
+    WB_FUN   when phase = EX_FUN or phase = EX_SFT or phase = EX_SFTV          else
     EX_BEQ   when phase = DECODE and IR(31 downto 26) = BEQ                    else
     EX_J     when phase = DECODE and IR(31 downto 26) = J                      else
     EX_ADDI  when phase = DECODE and IR(31 downto 26) = ADDI                   else

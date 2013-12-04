@@ -9,6 +9,11 @@ VhdlTestScript.scenario "../ftoi.vhd" do
 	step 0x00000000, 2, 0
 	step 0x00000000, 3, 0
 
+	step 0x80000000, 0, 0
+	step 0x80000000, 1, 0
+	step 0x80000000, 2, 0
+	step 0x80000000, 3, 0
+
 	step 0x3effffff, 0, 0  #0.49999999999999
 	step 0x3effffff, 1, 0  #0.49999999999999
 	step 0x3effffff, 2, 1  #0.49999999999999
