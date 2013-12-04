@@ -442,6 +442,14 @@ min_caml_atan:
 	set $1, 0x3f800000 #1.0
 	mtc	$1, $f13
 
+    set $2, 0x0
+	mtc	$2, $f11
+	c.olt.s $f0, $f11
+	bcf lll.0
+	lli $2, 1
+
+lll.0:
+
 	abs.s	$f0, $f0
 	c.olt.s	$f0, $f3
     bcf	ll.21
