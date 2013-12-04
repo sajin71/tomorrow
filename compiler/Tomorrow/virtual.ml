@@ -53,7 +53,7 @@ let rec g env = function (* generate virtual machine code *)
     | Closure.FAdd(x, y) -> Ans(FAdd(x, y))
     | Closure.FSub(x, y) -> Ans(FSub(x, y))
     | Closure.FMul(x, y) -> Ans(FMul(x, y))
-    | Closure.FDiv(x, y) -> Ans(FDiv(x, y))
+    | Closure.FDiv(x, y) -> Ans(CallDir(Id.L("my_fdiv"), [], [x; y]))
     | Closure.IfEq(x, y, e1, e2) ->
         (match M.find x env with
         | Type.Bool | Type.Int -> Ans(IfEq(x, y, g env e1, g env e2))

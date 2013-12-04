@@ -40,9 +40,108 @@ min_caml_fabs:
 	abs.s	$f0, $f0
 	jr	$31
 
+
+
+my_fdiv:
+	mov.s $f28, $f0
+
+	mov.s $f0, $f1
+
+	# is 負？
+    ori $15, $0, 0
+    mtc	$15, $f1
+
+    c.olt.s $f0, $f1
+    bct my_fdiv_fu
+    j my_fdiv_call
+
+my_fdiv_fu:
+    ori    $15, $0, 1
+	neg.s $f0, $f0
+
+
+my_fdiv_call:
+
+	mov $25, $31
+	jal kinzi_invsqrt
+	nop
+	mov $31, $25
+
+	# 割る数は xRes * xRes
+	mul.s $f1, $f1, $f1
+	mul.s $f0, $f1, $f28
+
+	bne $15, $0, my_fdiv_ans_neg
+	jr $31
+
+my_fdiv_ans_neg:
+	neg.s $f0, $f0
+	jr $31
+
+
+
+
 min_caml_sqrt:
-	sqrt.s	$f0, $f0
-	jr	$31
+	mov $25, $31
+	jal kinzi_invsqrt
+	nop
+	mov $31, $25
+
+	# xRes * x;
+	mul.s $f0, $f0, $f1
+	
+	jr $31
+
+
+kinzi_invsqrt:
+	# float xHalf = 0.5f * x;
+	set	$21, 0x3f000000 #0.5
+	mtc	$21, $f25
+	mul.s $f25, $f0, $f25
+
+	# const
+	set	$21, 0x3fc00000 #1.5
+	mtc	$21, $f26
+
+	set	$21, 0x5F3759DF #magic
+	
+	# int   tmp   = 0x5F3759DF - ( *(int*)&x >> 1 );
+	mfc $22, $f0
+	srl $22, $22, 1
+	sub $22, $21, $22
+
+	# float xRes  = *(float*)&tmp;
+	mtc $22, $f1
+	
+	mov.s $f22, $f1
+	
+	# xRes * xRes
+	mul.s $f22, $f22, $f22
+
+	mul.s $f22, $f25, $f22
+	sub.s $f22, $f26, $f22
+
+	# xRes *= 
+	mul.s $f1, $f1, $f22
+	
+
+	# //コメントアウトを外すと精度が上がる
+	mov.s $f22, $f1
+	
+	# xRes * xRes
+	mul.s $f22, $f22, $f22
+
+	mul.s $f22, $f25, $f22
+	sub.s $f22, $f26, $f22
+	
+	# xRes *= 
+	mul.s $f1, $f1, $f22
+
+#return is $f1
+	jr $31
+
+
+
 
 min_caml_float_of_int:
 	mtc	$1, $f0
@@ -165,7 +264,25 @@ ll.3:
 	bct ll.4
 	sub.s $f0, $f0, $f11
 ll.4:
-	div.s $f11, $f11, $f3
+#	div.s $f11, $f11, $f3
+
+mov.s $f20, $f0
+mov.s $f21, $f1
+
+mov.s $f0, $f11
+mov.s $f1, $f3
+
+mov $24, $31
+jal my_fdiv
+nop
+mov $31, $24
+
+mov.s $f11, $f0
+
+mov.s $f0, $f20
+mov.s $f1, $f21
+
+
 	j ll.3
 ll.5:
 	#end reduction
@@ -179,13 +296,49 @@ ll.5:
 
 
 ll.6:
-	div.s	$f13, $f2, $f3
+#	div.s	$f13, $f2, $f3
+
+mov.s $f20, $f0
+mov.s $f21, $f1
+
+mov.s $f0, $f2
+mov.s $f1, $f3
+
+mov $24, $31
+jal my_fdiv
+nop
+mov $31, $24
+
+mov.s $f13, $f0
+
+mov.s $f0, $f20
+mov.s $f1, $f21
+
+
 	c.olt.s	$f0, $f13
 	bct	ll.7
 	sub.s	$f0, $f2, $f0
 ll.7:
 
-	div.s	$f14, $f2, $f4
+#	div.s	$f14, $f2, $f4
+
+mov.s $f20, $f0
+mov.s $f21, $f1
+
+mov.s $f0, $f2
+mov.s $f1, $f4
+
+mov $24, $31
+jal my_fdiv
+nop
+mov $31, $24
+
+mov.s $f14, $f0
+
+mov.s $f0, $f20
+mov.s $f1, $f21
+
+
 	c.olt.s	$f14, $f0
 	bct	ll.8
 	
@@ -296,7 +449,23 @@ ll.13:
 	bct ll.14
 	sub.s $f0, $f0, $f11
 ll.14:
-	div.s $f11, $f11, $f3
+#	div.s $f11, $f11, $f3
+mov.s $f20, $f0
+mov.s $f21, $f1
+
+mov.s $f0, $f11
+mov.s $f1, $f3
+
+mov $24, $31
+jal my_fdiv
+nop
+mov $31, $24
+
+mov.s $f11, $f0
+
+mov.s $f0, $f20
+mov.s $f1, $f21
+
 	j ll.13
 ll.15:
 	#end reduction
@@ -309,7 +478,23 @@ ll.15:
 	xor $2, $2, $3
 
 ll.16:
-    div.s	$f13, $f2, $f3
+#    div.s	$f13, $f2, $f3
+mov.s $f20, $f0
+mov.s $f21, $f1
+
+mov.s $f0, $f2
+mov.s $f1, $f3
+
+mov $24, $31
+jal my_fdiv
+nop
+mov $31, $24
+
+mov.s $f13, $f0
+
+mov.s $f0, $f20
+mov.s $f1, $f21
+
 	c.olt.s	$f0, $f13
 	bct	ll.17
 	sub.s	$f0, $f2, $f0
@@ -319,7 +504,23 @@ ll.16:
 
 ll.17:
 
-	div.s	$f14, $f2, $f4
+#	div.s	$f14, $f2, $f4
+mov.s $f20, $f0
+mov.s $f21, $f1
+
+mov.s $f0, $f2
+mov.s $f1, $f4
+
+mov $24, $31
+jal my_fdiv
+nop
+mov $31, $24
+
+mov.s $f14, $f0
+
+mov.s $f0, $f20
+mov.s $f1, $f21
+
 	c.olt.s	$f0, $f14
 	bct	ll.18
 
@@ -521,7 +722,18 @@ ll.21:
 
 	sub.s	$f14, $f0, $f13
 	add.s	$f15, $f0, $f13
-	div.s	$f0, $f14, $f15 #$f0 <= (|A| - 1.0 / |A| + 1.0)
+#	div.s	$f0, $f14, $f15 #$f0 <= (|A| - 1.0 / |A| + 1.0)
+mov.s $f21, $f1
+
+mov.s $f0, $f14
+mov.s $f1, $f15
+
+mov $24, $31
+jal my_fdiv
+nop
+mov $31, $24
+
+mov.s $f1, $f21
 
     sw  $31, 4($29)
     jal kernel_atan
@@ -564,14 +776,40 @@ ll.21:
 	#add.s $f14, $f14, $f16
 	
 	#end kernel atan
-	div.s $f1, $f2, $f6
+#	div.s $f1, $f2, $f6
+mov.s $f20, $f0
+
+mov.s $f0, $f2
+mov.s $f1, $f6
+
+mov $24, $31
+jal my_fdiv
+nop
+mov $31, $24
+
+mov.s $f1, $f0
+
+mov.s $f0, $f20
+
+
 	add.s $f0, $f1, $f0
 
 	j ll.23
 	#TODO return
 
 ll.22:	
-	div.s	$f0, $f13, $f0
+#	div.s	$f0, $f13, $f0
+mov.s $f21, $f1
+
+mov.s $f1, $f0
+mov.s $f0, $f13
+
+mov $24, $31
+jal my_fdiv
+nop
+mov $31, $24
+
+mov.s $f1, $f21
 
     sw  $31, 4($29)
     jal kernel_atan
@@ -615,7 +853,22 @@ ll.22:
 	
 	#end kernel atan
 
-	div.s $f1, $f2, $f5
+#	div.s $f1, $f2, $f5
+mov.s $f20, $f0
+
+mov.s $f0, $f2
+mov.s $f1, $f5
+
+mov $24, $31
+jal my_fdiv
+nop
+mov $31, $24
+
+mov.s $f1, $f0
+
+mov.s $f0, $f20
+
+
 	sub.s $f0, $f1, $f0
 
 ll.23:

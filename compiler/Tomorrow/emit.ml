@@ -375,6 +375,9 @@ let f oc (Prog(data, fundefs, e)) =
   Printf.fprintf oc "\taddi\t$4, $3, 4\n";
   Printf.fprintf oc "\tsw\t$4, 0($3)\n";
 
+  Printf.fprintf oc "\tori\t$3, $0, 0xaa\n";
+  Printf.fprintf oc "\tsw\t$3, -1($0)\n";
+
   Printf.fprintf oc "\tjal\tmin_caml_start\n";
   Printf.fprintf oc "\tnop\n";
   Printf.fprintf oc "\thalt\n";
