@@ -7,8 +7,8 @@ use IEEE.STD_LOGIC_SIGNED.ALL;
 
 entity sitof is
   port ( i  : in  STD_LOGIC_VECTOR (31 downto 0);
-         f  : out STD_LOGIC_VECTOR (31 downto 0)
---         clk: STD_LOGIC
+         f  : out STD_LOGIC_VECTOR (31 downto 0);
+         clk: STD_LOGIC
        );
 end sitof;
 
@@ -21,11 +21,18 @@ end component;
   
   signal inabs    : std_logic_vector(30 downto 0);
   signal expo     : std_logic_vector(4 downto 0);
-  signal shifted  : std_logic_vector(30 downto 0);
-  signal rounded  : std_logic_vector(23 downto 0);
+  signal shifted  : std_logic_vector(29 downto 0);
+  signal expocarry: std_logic;
   
-  signal expoiszero: std_logic;
-  signal expocarry : std_logic;
+  
+-- for stage2
+  signal signbit2   : std_logic;
+  signal expo2      : std_logic_vector(4 downto 0);
+  signal shifted2   : std_logic_vector(22 downto 0);
+  
+  signal rounded2   : std_logic_vector(23 downto 0);
+  signal expoiszero2: std_logic;
+  signal expocarry2 : std_logic;
   
 begin
   
@@ -37,21 +44,29 @@ begin
     o31 => expo
   );
   
-  shifted(30) <= '0';
   shifted(29 downto 0) <= SHL(inabs(29 downto 0), not expo); -- "not expo" means 31-expo; MSB always '1', push out
   
   expocarry <= shifted(6) and (shifted(7) or shifted(5) or shifted(4) or shifted(3) 
                                                     or shifted(2) or shifted(1) or shifted(0));
-  rounded <= shifted(30 downto 7) + expocarry;
+
+  latch: process (clk)
+  begin
+    if rising_edge(clk) then
+	  signbit2   <= i(31);
+      expocarry2 <= expocarry;
+      expo2      <= expo;
+      shifted2   <= shifted(29 downto 7);
+    end if;
+  end process latch;
+
+  rounded2 <= ('0'&shifted2) + expocarry2;
+  expoiszero2 <= '1' when expo2(4 downto 0)="00000" else '0';
   
-  
-  expoiszero <= '1' when expo(4 downto 0)="00000" else '0';
-  
-  f(31) <= i(31); -- sign
-  f(30 downto 23) <= "00000000" when i(31)='0' and expoiszero='1' else
-                     "10011110" when expoiszero='1' else
-                     expo + ("0111111" & rounded(23)); -- expo: frac carried: +127, otherwise: +126
-  f(22 downto 0) <= rounded(22 downto 0); --frac
+  f(31) <= signbit2; -- sign
+  f(30 downto 23) <= "00000000" when signbit2='0' and expoiszero2='1' else
+                     "10011110" when expoiszero2='1' else
+                     expo2 + ("0111111" & rounded2(23)); -- expo: frac carried: +127, otherwise: +126
+  f(22 downto 0) <= rounded2(22 downto 0); --frac
 
 end RTL;
 
