@@ -1,5 +1,5 @@
 min_caml_print_int:
-	sw	$1, -2($0)
+	sw	$1, -1($0)
 	jr	$31
 
 min_caml_print_char:
@@ -24,7 +24,7 @@ min_caml_read_int:
 	jr	$31
 
 min_caml_read_float:
-	lwc	$f0, -2($0)
+	lwc	$f0, -1($0)
 	jr	$31
 
 min_caml_print_newline:
