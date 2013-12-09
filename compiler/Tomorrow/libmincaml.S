@@ -460,8 +460,9 @@ kernel_atan:
 #	add.s $f14, $f14, $f16
 	
 #imporoved with honer method
-#store result in $f14, square in $f15
-	
+#store result in $f15, square in $f16
+	mul.s	$f16, $f0, $f0
+
 	mul.s	$f15, $f12, $f16
 	add.s	$f15, $f15, $f11
 
@@ -483,7 +484,7 @@ kernel_atan:
 	add.s	$f15, $f15, $f0
 
 
-    mov.s   $f0, $f14
+    mov.s   $f0, $f15
 	#end kernel atan
     jr  $31
 
