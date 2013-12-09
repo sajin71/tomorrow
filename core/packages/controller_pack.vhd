@@ -409,17 +409,17 @@ package controller_pack is
   signal outstate   : cont_sigset;
   signal next_phase : T_PHASE;
 
-  signal count      : std_logic_vector(2 downto 0) := "000";
-  signal next_count : std_logic_vector(2 downto 0);
+  signal count      : std_logic_vector(4 downto 0) := "00000";
+  signal next_count : std_logic_vector(4 downto 0);
   signal goto_exfp  : boolean                      := false;
 
-  constant D_ADD   : std_logic_vector(2 downto 0) := "010";
-  constant D_MUL   : std_logic_vector(2 downto 0) := "010";
-  constant D_DIV   : std_logic_vector(2 downto 0) := "011";
-  constant D_SQRT  : std_logic_vector(2 downto 0) := "011";
-  constant D_ROUND : std_logic_vector(2 downto 0) := "000";
-  constant D_FLOOR : std_logic_vector(2 downto 0) := "000";
-  constant D_INV   : std_logic_vector(2 downto 0) := "011";
-  constant D_CVTS  : std_logic_vector(2 downto 0) := "000";
+  constant D_ADD   : std_logic_vector(4 downto 0) := "00010";
+  constant D_MUL   : std_logic_vector(4 downto 0) := "00010";
+  constant D_DIV   : std_logic_vector(4 downto 0) := "11100";
+  constant D_SQRT  : std_logic_vector(4 downto 0) := "11100";
+  constant D_ROUND : std_logic_vector(4 downto 0) := "00000";
+  constant D_FLOOR : std_logic_vector(4 downto 0) := "00000";
+--  constant D_INV   : std_logic_vector(4 downto 0) := "00011";
+  constant D_CVTS  : std_logic_vector(4 downto 0) := "00000";
   
 end controller_pack;

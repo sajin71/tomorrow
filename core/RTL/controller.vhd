@@ -86,7 +86,7 @@ begin  -- RTL
   goto_exfp <= phase = DECODE and IR(31 downto 26) = COP and
                IR(25 downto 24) = "10" and IR(2 downto 0) /= "110";
 
-  next_count <= D_INV when goto_exfp and IR(5 downto 3) = "010" else
+  next_count <=  --D_INV when goto_exfp and IR(5 downto 3) = "010" else
                 D_CVTS    when goto_exfp and IR(5 downto 3) = "100"    else
                 D_ROUND   when goto_exfp and IR(5 downto 0) = "001100" else
                 D_FLOOR   when goto_exfp and IR(5 downto 3) = "001"    else
@@ -94,9 +94,9 @@ begin  -- RTL
                 D_MUL     when goto_exfp and IR(2 downto 0) = "010"    else
                 D_DIV     when goto_exfp and IR(2 downto 0) = "011"    else
                 D_SQRT    when goto_exfp and IR(1 downto 0) = "00"     else
-                "000"     when goto_exfp                               else
-                count - 1 when count /= "000"                          else
-                "000";
+                "00000"   when goto_exfp                               else
+                count - 1 when count /= "00000"                        else
+                "00000";
 
   with phase select
     FPRWrite <=
