@@ -24,8 +24,8 @@ begin  -- RTL
     R <=
     qadd                           when O_FADD | O_FSUB,
     qmul                           when O_FMUL,
---    qdiv                           when O_FDIV,
---    qsqrt                          when O_FSQRT,
+    qdiv                           when O_FDIV,
+    qsqrt                          when O_FSQRT,
     '0' & D2(30 downto 0)          when O_FABS,
     (not D2(31)) & D2(30 downto 0) when O_FNEG,
     qftoi                          when O_FROUND | O_FFLOOR,
@@ -64,26 +64,21 @@ begin  -- RTL
 
   sitof_map : sitof
     port map (
-      i => D2,
-      f => qsitof);
+      i   => D2,
+      f   => qsitof,
+      clk => CLK);
 
---  fdiv_map : fdiv
---    port map (
---      bunbo => D1,
---      bunsi => D2,
---      clk   => CLK,
---      q     => qdiv);
---
---  fsqrt_map : fsqrt
---    port map (
---      a   => D2,
---      clk => CLK,
---      q   => qsqrt);
---
---  finv_map : finv
---    port map (
---      a   => D2,
---      clk => CLK,
---      q   => qinv);
+  fdiv_map : fdiv
+    port map (
+      a      => D2,
+      b      => D1,
+      clk    => CLK,
+      result => qdiv);
+
+  fsqrt_map : fsqrt
+    port map (
+      a      => D2,
+      clk    => CLK,
+      result => qsqrt);
 
 end RTL;

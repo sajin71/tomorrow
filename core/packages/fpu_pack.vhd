@@ -26,31 +26,26 @@ package fpu_pack is
   end component;
 
   component sitof
-    port (i : in  std_logic_vector (31 downto 0);
-          f : out std_logic_vector (31 downto 0)
---         clk: STD_LOGIC
+    port (i   : in  std_logic_vector (31 downto 0);
+          f   : out std_logic_vector (31 downto 0);
+          clk : in  std_logic
           );
   end component;
+
   component fdiv
     port (
-      bunbo, bunsi : in  std_logic_vector(31 downto 0);
-      clk          : in  std_logic;
-      q            : out std_logic_vector(31 downto 0));
+      a      : in  std_logic_vector(31 downto 0);
+      b      : in  std_logic_vector(31 downto 0);
+      clk    : in  std_logic;
+      result : out std_logic_vector(31 downto 0));
   end component;
 
   component fsqrt
     port (
-      a   : in  std_logic_vector(31 downto 0);
-      clk : in  std_logic;
-      q   : out std_logic_vector(31 downto 0));
+      a      : in  std_logic_vector(31 downto 0);
+      clk    : in  std_logic;
+      result : out std_logic_vector(31 downto 0));
   end component;
---
---  component finv
---    port (
---      a   : in  std_logic_vector(31 downto 0);
---      clk : in  std_logic;
---      q   : out std_logic_vector(31 downto 0));
---  end component;
 
   signal qadd   : std_logic_vector(31 downto 0);
   signal qmul   : std_logic_vector(31 downto 0);
