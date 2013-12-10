@@ -5,14 +5,14 @@ Parameter TMPDIR set to xst/projnav.tmp
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.08 secs
+Total CPU time to Xst completion: 0.07 secs
  
 --> 
 Parameter xsthdpdir set to xst
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.08 secs
+Total CPU time to Xst completion: 0.07 secs
  
 --> 
 Reading design: top.prj
@@ -114,25 +114,21 @@ Cores Search Directories           : {"ipcore_dir"  }
 =========================================================================
 *                          HDL Compilation                              *
 =========================================================================
+WARNING:HDLParsers:3607 - Unit work/fadd is now defined in a different file.  It was defined in "/home/yuta/cpuex/git/tomorrow/fpu/fadd.vhd", and is now defined in "/home/yuta/cpuex/isep/tomorrow_1/ipcore_dir/fadd.vhd".
 Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/fpu-shuyoko/PriEncoder31_dara.vhd" in Library work.
 Architecture rtl of Entity priencoder31 is up to date.
-Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/fpu/BitShift_R.vhd" in Library work.
-Architecture rtl of Entity bitshift_r is up to date.
-Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/fpu/zlc.vhd" in Library work.
-Architecture behavior of Entity zlc is up to date.
-Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/fpu/BitShift_L1.vhd" in Library work.
-Architecture rtl of Entity bitshift_l1 is up to date.
-Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/fpu/BitShift_L2.vhd" in Library work.
-Architecture rtl of Entity bitshift_l2 is up to date.
 Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/core/packages/alu_pack.vhd" in Library tomorrow_1.
 Compiling vhdl file "/home/yuta/cpuex/core/packages/fpu_misc.vhd" in Library tomorrow_1.
 Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/core/packages/ram_pack.vhd" in Library tomorrow_1.
 Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/core/packages/controller_pack.vhd" in Library tomorrow_1.
+Package <controller_pack> compiled.
 Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/core/packages/component_pack.vhd" in Library tomorrow_1.
 Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/core/packages/top_pack.vhd" in Library tomorrow_1.
 Compiling vhdl file "/home/yuta/cpuex/core/packages/fpu_pack.vhd" in Library tomorrow_1.
-Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/fpu/fadd.vhd" in Library work.
-Architecture fadd of Entity fadd is up to date.
+Package <fpu_pack> compiled.
+Compiling vhdl file "/home/yuta/cpuex/isep/tomorrow_1/ipcore_dir/fadd.vhd" in Library work.
+Entity <fadd> compiled.
+Entity <fadd> (Architecture <fadd_a>) compiled.
 Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/fpu/fmul.vhd" in Library work.
 Architecture fuml of Entity fmul is up to date.
 Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/fpu-shuyoko/ftoi.vhd" in Library work.
@@ -144,8 +140,7 @@ Architecture fdiv_a of Entity fdiv is up to date.
 Compiling vhdl file "/home/yuta/cpuex/isep/tomorrow_1/ipcore_dir/fsqrt.vhd" in Library work.
 Architecture fsqrt_a of Entity fsqrt is up to date.
 Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/core/RTL/io_manager.vhd" in Library work.
-Entity <io_manager> compiled.
-Entity <io_manager> (Architecture <rtl>) compiled.
+Architecture rtl of Entity io_manager is up to date.
 Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/core/RTL/receiver.vhd" in Library work.
 Architecture rtl of Entity receiver is up to date.
 Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/core/RTL/transmitter.vhd" in Library work.
@@ -157,7 +152,8 @@ Architecture rtl of Entity register_file is up to date.
 Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/core/RTL/alu.vhd" in Library work.
 Architecture rtl of Entity alu is up to date.
 Compiling vhdl file "/home/yuta/cpuex/core/RTL/fpu.vhd" in Library work.
-Architecture rtl of Entity fpu is up to date.
+Entity <fpu> compiled.
+Entity <fpu> (Architecture <rtl>) compiled.
 Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/core/RTL/datapath.vhd" in Library work.
 Architecture rtl of Entity datapath is up to date.
 Compiling vhdl file "/home/yuta/cpuex/git/tomorrow/core/RTL/controller.vhd" in Library work.
@@ -197,21 +193,11 @@ Analyzing hierarchy for entity <transmitter> in library <work> (architecture <rt
 Analyzing hierarchy for entity <blockram> in library <work> (architecture <rtl>) with generics.
 	BRAMBW = 15
 
-Analyzing hierarchy for entity <fadd> in library <work> (architecture <fadd>).
-
 Analyzing hierarchy for entity <fmul> in library <work> (architecture <fuml>).
 
 Analyzing hierarchy for entity <ftoi> in library <work> (architecture <rtl>).
 
 Analyzing hierarchy for entity <sitof> in library <work> (architecture <rtl>).
-
-Analyzing hierarchy for entity <BitShift_R> in library <work> (architecture <rtl>).
-
-Analyzing hierarchy for entity <zlc> in library <work> (architecture <behavior>).
-
-Analyzing hierarchy for entity <BitShift_L1> in library <work> (architecture <rtl>).
-
-Analyzing hierarchy for entity <BitShift_L2> in library <work> (architecture <rtl>).
 
 Analyzing hierarchy for entity <PriEncoder31> in library <work> (architecture <rtl>).
 
@@ -236,24 +222,10 @@ Analyzing Entity <alu> in library <work> (Architecture <rtl>).
 Entity <alu> analyzed. Unit <alu> generated.
 
 Analyzing Entity <fpu> in library <work> (Architecture <rtl>).
+WARNING:Xst:2211 - "/home/yuta/cpuex/core/RTL/fpu.vhd" line 45: Instantiating black box module <fadd>.
 WARNING:Xst:2211 - "/home/yuta/cpuex/core/RTL/fpu.vhd" line 71: Instantiating black box module <fdiv>.
 WARNING:Xst:2211 - "/home/yuta/cpuex/core/RTL/fpu.vhd" line 78: Instantiating black box module <fsqrt>.
 Entity <fpu> analyzed. Unit <fpu> generated.
-
-Analyzing Entity <fadd> in library <work> (Architecture <fadd>).
-Entity <fadd> analyzed. Unit <fadd> generated.
-
-Analyzing Entity <BitShift_R> in library <work> (Architecture <rtl>).
-Entity <BitShift_R> analyzed. Unit <BitShift_R> generated.
-
-Analyzing Entity <zlc> in library <work> (Architecture <behavior>).
-Entity <zlc> analyzed. Unit <zlc> generated.
-
-Analyzing Entity <BitShift_L1> in library <work> (Architecture <rtl>).
-Entity <BitShift_L1> analyzed. Unit <BitShift_L1> generated.
-
-Analyzing Entity <BitShift_L2> in library <work> (Architecture <rtl>).
-Entity <BitShift_L2> analyzed. Unit <BitShift_L2> generated.
 
 Analyzing Entity <fmul> in library <work> (Architecture <fuml>).
 Entity <fmul> analyzed. Unit <fmul> generated.
@@ -394,30 +366,6 @@ WARNING:Xst:646 - Signal <eoffset<7:5>> is assigned but never used. This unconne
 Unit <ftoi> synthesized.
 
 
-Synthesizing Unit <BitShift_R>.
-    Related source file is "/home/yuta/cpuex/git/tomorrow/fpu/BitShift_R.vhd".
-Unit <BitShift_R> synthesized.
-
-
-Synthesizing Unit <zlc>.
-    Related source file is "/home/yuta/cpuex/git/tomorrow/fpu/zlc.vhd".
-WARNING:Xst:737 - Found 5-bit latch for signal <q>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
-Unit <zlc> synthesized.
-
-
-Synthesizing Unit <BitShift_L1>.
-    Related source file is "/home/yuta/cpuex/git/tomorrow/fpu/BitShift_L1.vhd".
-Unit <BitShift_L1> synthesized.
-
-
-Synthesizing Unit <BitShift_L2>.
-    Related source file is "/home/yuta/cpuex/git/tomorrow/fpu/BitShift_L2.vhd".
-WARNING:Xst:647 - Input <Data<27:24>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
-WARNING:Xst:737 - Found 28-bit latch for signal <q>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
-INFO:Xst:2371 - HDL ADVISOR - Logic functions respectively driving the data and gate enable inputs of this latch share common terms. This situation will potentially lead to setup/hold violations and, as a result, to simulation problems. This situation may come from an incomplete case statement (all selector values are not covered). You should carefully review if it was in your intentions to describe such a latch.
-Unit <BitShift_L2> synthesized.
-
-
 Synthesizing Unit <PriEncoder31>.
     Related source file is "/home/yuta/cpuex/git/tomorrow/fpu-shuyoko/PriEncoder31_dara.vhd".
 Unit <PriEncoder31> synthesized.
@@ -544,42 +492,6 @@ WARNING:Xst:647 - Input <MEMADDR<1:0>> is never used. This port will be preserve
 Unit <ram> synthesized.
 
 
-Synthesizing Unit <fadd>.
-    Related source file is "/home/yuta/cpuex/git/tomorrow/fpu/fadd.vhd".
-WARNING:Xst:646 - Signal <frc_ans<27>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
-WARNING:Xst:646 - Signal <frc_ans<3:0>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
-WARNING:Xst:646 - Signal <fin_s<22:0>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
-WARNING:Xst:646 - Signal <fin_l<22:0>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
-WARNING:Xst:646 - Signal <cmp_abs<0>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
-WARNING:Xst:737 - Found 1-bit latch for signal <exp_up2>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
-    Found 31-bit comparator equal for signal <cmp_abs$cmp_eq0000> created at line 75.
-    Found 31-bit comparator greater for signal <cmp_abs$cmp_gt0000> created at line 75.
-    Found 5-bit comparator greatequal for signal <exp_ans$cmp_ge0000> created at line 166.
-    Found 8-bit register for signal <exp_ans2>.
-    Found 8-bit register for signal <exp_ans3>.
-    Found 8-bit subtractor for signal <exp_gap>.
-    Found 1-bit register for signal <exp_up3>.
-    Found 28-bit adder for signal <frc_ans$addsub0000> created at line 161.
-    Found 28-bit addsub for signal <frc_ans1>.
-    Found 28-bit register for signal <frc_ans3>.
-    Found 28-bit register for signal <frc_l2>.
-    Found 28-bit register for signal <frc_s2>.
-    Found 1-bit xor2 for signal <op$xor0000> created at line 95.
-    Found 1-bit register for signal <op2>.
-    Found 1-bit register for signal <rounding3>.
-    Found 1-bit register for signal <sgn_ans2>.
-    Found 1-bit register for signal <sgn_ans3>.
-    Found 5-bit register for signal <shift3>.
-    Found 8-bit subtractor for signal <tmp2>.
-    Found 8-bit adder for signal <tmp2$addsub0000> created at line 164.
-    Found 8-bit adder for signal <tmp2$addsub0001> created at line 164.
-    Summary:
-	inferred 110 D-type flip-flop(s).
-	inferred   6 Adder/Subtractor(s).
-	inferred   3 Comparator(s).
-Unit <fadd> synthesized.
-
-
 Synthesizing Unit <sitof>.
     Related source file is "/home/yuta/cpuex/git/tomorrow/fpu-shuyoko/sitof.vhd".
     Found 5-bit register for signal <expo2>.
@@ -643,27 +555,25 @@ Macro Statistics
 # Multipliers                                          : 3
  13x11-bit multiplier                                  : 2
  13x13-bit multiplier                                  : 1
-# Adders/Subtractors                                   : 26
+# Adders/Subtractors                                   : 20
  16-bit subtractor                                     : 2
  2-bit subtractor                                      : 1
  24-bit adder                                          : 1
  27-bit adder                                          : 3
- 28-bit adder                                          : 1
- 28-bit addsub                                         : 1
  3-bit adder                                           : 2
  31-bit adder                                          : 1
  32-bit adder                                          : 1
  32-bit addsub                                         : 1
  5-bit adder                                           : 1
  5-bit subtractor                                      : 1
- 8-bit adder                                           : 4
- 8-bit subtractor                                      : 3
+ 8-bit adder                                           : 2
+ 8-bit subtractor                                      : 1
  9-bit adder                                           : 3
 # Counters                                             : 4
  5-bit up counter                                      : 2
  9-bit up counter                                      : 2
-# Registers                                            : 64
- 1-bit register                                        : 22
+# Registers                                            : 53
+ 1-bit register                                        : 17
  11-bit register                                       : 2
  13-bit register                                       : 2
  15-bit register                                       : 2
@@ -672,26 +582,18 @@ Macro Statistics
  23-bit register                                       : 1
  24-bit register                                       : 1
  27-bit register                                       : 1
- 28-bit register                                       : 3
  3-bit register                                        : 3
  32-bit register                                       : 5
  4-bit register                                        : 3
- 5-bit register                                        : 7
- 8-bit register                                        : 6
+ 5-bit register                                        : 6
+ 8-bit register                                        : 4
  9-bit register                                        : 2
-# Latches                                              : 3
- 1-bit latch                                           : 1
- 28-bit latch                                          : 1
- 5-bit latch                                           : 1
-# Comparators                                          : 13
+# Comparators                                          : 10
  23-bit comparator greater                             : 1
  23-bit comparator less                                : 1
- 31-bit comparator equal                               : 1
- 31-bit comparator greater                             : 1
  32-bit comparator equal                               : 1
  32-bit comparator less                                : 1
  5-bit comparator equal                                : 1
- 5-bit comparator greatequal                           : 1
  5-bit comparator not equal                            : 1
  8-bit comparator greater                              : 1
  8-bit comparator less                                 : 1
@@ -704,8 +606,8 @@ Macro Statistics
  31-bit shifter logical right                          : 1
 # Tristates                                            : 1
  32-bit tristate buffer                                : 1
-# Xors                                                 : 4
- 1-bit xor2                                            : 3
+# Xors                                                 : 3
+ 1-bit xor2                                            : 2
  32-bit xor2                                           : 1
 
 =========================================================================
@@ -772,17 +674,13 @@ Optimizing FSM <controller_map/phase/FSM> on signal <phase[1:34]> with one-hot e
  ex_cmp   | 0001000000000000000000000000000000
  halt     | 1000000000000000000000000000000000
 ------------------------------------------------
+Reading core <ipcore_dir/fadd.ngc>.
 Reading core <ipcore_dir/fdiv.ngc>.
 Reading core <ipcore_dir/fsqrt.ngc>.
+Loading core <fadd> for timing and area information for instance <fadd_map>.
 Loading core <fdiv> for timing and area information for instance <fdiv_map>.
 Loading core <fsqrt> for timing and area information for instance <fsqrt_map>.
-INFO:Xst:2261 - The FF/Latch <frc_l2_0> in Unit <fadd_map> is equivalent to the following 3 FFs/Latches, which will be removed : <frc_l2_1> <frc_l2_2> <frc_l2_27> 
 INFO:Xst:2261 - The FF/Latch <frc_b_h2_12> in Unit <fmul_map> is equivalent to the following FF/Latch, which will be removed : <frc_a_h2_12> 
-WARNING:Xst:1426 - The value init of the FF/Latch 0 hinder the constant cleaning in the block exp_up2.
-   You should achieve better results by setting this init to 1.
-WARNING:Xst:1710 - FF/Latch <frc_l2_0> (without init value) has a constant value of 0 in block <fadd_map>. This FF/Latch will be trimmed during the optimization process.
-WARNING:Xst:1710 - FF/Latch <frc_l2_26> (without init value) has a constant value of 1 in block <fadd_map>. This FF/Latch will be trimmed during the optimization process.
-WARNING:Xst:1710 - FF/Latch <frc_s2_27> (without init value) has a constant value of 0 in block <fadd_map>. This FF/Latch will be trimmed during the optimization process.
 WARNING:Xst:1710 - FF/Latch <frc_b_h2_12> (without init value) has a constant value of 1 in block <fmul_map>. This FF/Latch will be trimmed during the optimization process.
 WARNING:Xst:2677 - Node <exp_ans3_0> of sequential type is unconnected in block <fmul_map>.
 WARNING:Xst:2677 - Node <exp_ans3_1> of sequential type is unconnected in block <fmul_map>.
@@ -794,7 +692,6 @@ WARNING:Xst:2677 - Node <exp_ans3_6> of sequential type is unconnected in block 
 WARNING:Xst:2677 - Node <exp_ans3_7> of sequential type is unconnected in block <fmul_map>.
 WARNING:Xst:2677 - Node <frc3_0> of sequential type is unconnected in block <fmul_map>.
 WARNING:Xst:2677 - Node <frc3_26> of sequential type is unconnected in block <fmul_map>.
-WARNING:Xst:2404 -  FFs/Latches <frc_l2<27:27>> (without init value) have a constant value of 0 in block <fadd>.
 
 Synthesizing (advanced) Unit <fmul>.
 	Multiplier <Mmult_frc2_hh> in block <fmul> and adder/subtractor <Madd_frc2_ans_addsub0000> in block <fmul> are combined into a MAC<Maddsub_frc2_hh>.
@@ -950,39 +847,31 @@ Macro Statistics
  13x13-to-27-bit MAC                                   : 1
 # Multipliers                                          : 2
  13x11-bit registered multiplier                       : 2
-# Adders/Subtractors                                   : 25
+# Adders/Subtractors                                   : 19
  16-bit subtractor                                     : 2
  2-bit subtractor                                      : 1
  24-bit adder                                          : 1
- 27-bit adder                                          : 3
- 28-bit addsub                                         : 1
+ 27-bit adder                                          : 2
  3-bit adder                                           : 2
  31-bit adder                                          : 1
  32-bit adder                                          : 1
  32-bit addsub                                         : 1
  5-bit adder                                           : 2
  5-bit subtractor                                      : 1
- 8-bit adder                                           : 4
- 8-bit subtractor                                      : 3
+ 8-bit adder                                           : 2
+ 8-bit subtractor                                      : 1
  9-bit adder                                           : 2
 # Counters                                             : 4
  5-bit up counter                                      : 2
  9-bit up counter                                      : 2
-# Registers                                            : 505
- Flip-Flops                                            : 505
-# Latches                                              : 3
- 1-bit latch                                           : 1
- 28-bit latch                                          : 1
- 5-bit latch                                           : 1
-# Comparators                                          : 13
+# Registers                                            : 396
+ Flip-Flops                                            : 396
+# Comparators                                          : 10
  23-bit comparator greater                             : 1
  23-bit comparator less                                : 1
- 31-bit comparator equal                               : 1
- 31-bit comparator greater                             : 1
  32-bit comparator equal                               : 1
  32-bit comparator less                                : 1
  5-bit comparator equal                                : 1
- 5-bit comparator greatequal                           : 1
  5-bit comparator not equal                            : 1
  8-bit comparator greater                              : 1
  8-bit comparator less                                 : 1
@@ -993,8 +882,8 @@ Macro Statistics
  23-bit shifter logical left                           : 1
  30-bit shifter logical left                           : 2
  31-bit shifter logical right                          : 1
-# Xors                                                 : 4
- 1-bit xor2                                            : 3
+# Xors                                                 : 3
+ 1-bit xor2                                            : 2
  32-bit xor2                                           : 1
 
 =========================================================================
@@ -1002,18 +891,8 @@ Macro Statistics
 =========================================================================
 *                         Low Level Synthesis                           *
 =========================================================================
-WARNING:Xst:1710 - FF/Latch <frc_l2_0> (without init value) has a constant value of 0 in block <fadd>. This FF/Latch will be trimmed during the optimization process.
-WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <frc_l2_1> (without init value) has a constant value of 0 in block <fadd>. This FF/Latch will be trimmed during the optimization process.
-WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <frc_l2_2> (without init value) has a constant value of 0 in block <fadd>. This FF/Latch will be trimmed during the optimization process.
-WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <frc_l2_26> (without init value) has a constant value of 1 in block <fadd>. This FF/Latch will be trimmed during the optimization process.
-INFO:Xst:2261 - The FF/Latch <3> in Unit <LPM_LATCH_4> is equivalent to the following 3 FFs/Latches, which will be removed : <2> <1> <0> 
-WARNING:Xst:1710 - FF/Latch <3> (without init value) has a constant value of 0 in block <LPM_LATCH_4>. This FF/Latch will be trimmed during the optimization process.
-WARNING:Xst:1426 - The value init of the FF/Latch exp_up2 hinder the constant cleaning in the block fadd.
-   You should achieve better results by setting this init to 1.
 
 Optimizing unit <top> ...
-
-Optimizing unit <BitShift_R> ...
 
 Optimizing unit <controller> ...
 
@@ -1031,33 +910,21 @@ Optimizing unit <transmitter> ...
 
 Optimizing unit <sitof> ...
 
-Optimizing unit <zlc> ...
-
-Optimizing unit <BitShift_L2> ...
-
-Optimizing unit <fadd> ...
-
 Optimizing unit <fpu> ...
-WARNING:Xst:1710 - FF/Latch <datapath_map/fpu_map/fadd_map/frc_s2_27> (without init value) has a constant value of 0 in block <top>. This FF/Latch will be trimmed during the optimization process.
-WARNING:Xst:2677 - Node <datapath_map/fpu_map/fadd_map/frc_ans3_27> of sequential type is unconnected in block <top>.
-WARNING:Xst:2677 - Node <datapath_map/fpu_map/fadd_map/ls2/q_27> of sequential type is unconnected in block <top>.
 
 Mapping all equations...
 Building and optimizing final netlist ...
-Found area constraint ratio of 100 (+ 5) on block top, actual ratio is 16.
+Found area constraint ratio of 100 (+ 5) on block top, actual ratio is 15.
+INFO:Xst:2260 - The FF/Latch <blk00000003> in Unit <datapath_map/fpu_map/fadd_map> is equivalent to the following FF/Latch : <blk000002ff> 
+INFO:Xst:2260 - The FF/Latch <blk0000021d> in Unit <datapath_map/fpu_map/fadd_map> is equivalent to the following FF/Latch : <blk000002fe> 
+INFO:Xst:2260 - The FF/Latch <blk00000003> in Unit <datapath_map/fpu_map/fadd_map> is equivalent to the following FF/Latch : <blk000002ff> 
+INFO:Xst:2260 - The FF/Latch <blk0000021d> in Unit <datapath_map/fpu_map/fadd_map> is equivalent to the following FF/Latch : <blk000002fe> 
 FlipFlop controller_map/phase_FSM_FFd18 has been replicated 1 time(s)
 FlipFlop controller_map/phase_FSM_FFd19 has been replicated 1 time(s)
 
 Final Macro Processing ...
 
 Processing Unit <top> :
-	Found 2-bit shift register for signal <datapath_map/fpu_map/fadd_map/exp_ans3_0>.
-	Found 2-bit shift register for signal <datapath_map/fpu_map/fadd_map/exp_ans3_1>.
-	Found 2-bit shift register for signal <datapath_map/fpu_map/fadd_map/exp_ans3_2>.
-	Found 2-bit shift register for signal <datapath_map/fpu_map/fadd_map/exp_ans3_3>.
-	Found 2-bit shift register for signal <datapath_map/fpu_map/fadd_map/exp_ans3_4>.
-	Found 2-bit shift register for signal <datapath_map/fpu_map/fadd_map/exp_ans3_5>.
-	Found 2-bit shift register for signal <datapath_map/fpu_map/fadd_map/exp_ans3_6>.
 	Found 2-bit shift register for signal <datapath_map/fpu_map/fmul_map/exp_ans3_8>.
 Unit <top> processed.
 
@@ -1065,10 +932,10 @@ Unit <top> processed.
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 488
- Flip-Flops                                            : 488
-# Shift Registers                                      : 8
- 2-bit shift register                                  : 8
+# Registers                                            : 399
+ Flip-Flops                                            : 399
+# Shift Registers                                      : 1
+ 2-bit shift register                                  : 1
 
 =========================================================================
 
@@ -1097,28 +964,27 @@ Design Statistics
 # IOs                              : 75
 
 Cell Usage :
-# BELS                             : 6784
-#      GND                         : 3
-#      INV                         : 110
-#      LUT1                        : 102
-#      LUT2                        : 235
-#      LUT3                        : 1117
-#      LUT4                        : 330
-#      LUT5                        : 420
-#      LUT6                        : 1459
-#      MUXCY                       : 1401
-#      MUXF7                       : 217
-#      VCC                         : 3
-#      XORCY                       : 1387
-# FlipFlops/Latches                : 2685
-#      FD                          : 791
-#      FDE                         : 1694
-#      FDR                         : 51
-#      FDRS                        : 68
-#      FDS                         : 51
+# BELS                             : 6840
+#      GND                         : 4
+#      INV                         : 107
+#      LUT1                        : 82
+#      LUT2                        : 284
+#      LUT3                        : 1181
+#      LUT4                        : 262
+#      LUT5                        : 426
+#      LUT6                        : 1469
+#      MUXCY                       : 1442
+#      MUXF7                       : 172
+#      MUXF8                       : 1
+#      VCC                         : 4
+#      XORCY                       : 1406
+# FlipFlops/Latches                : 2702
+#      FD                          : 784
+#      FDE                         : 1710
+#      FDR                         : 84
+#      FDRS                        : 70
+#      FDS                         : 53
 #      FDSE                        : 1
-#      LD                          : 24
-#      LDCP                        : 5
 # RAMS                             : 135
 #      RAM32M                      : 1
 #      RAM32X1D                    : 2
@@ -1126,11 +992,11 @@ Cell Usage :
 #      RAM64X1D                    : 16
 #      RAMB18SDP                   : 4
 #      RAMB36_EXP                  : 32
-# Shift Registers                  : 77
-#      SRLC16E                     : 46
+# Shift Registers                  : 78
+#      SRLC16E                     : 47
 #      SRLC32E                     : 31
-# Clock Buffers                    : 2
-#      BUFG                        : 2
+# Clock Buffers                    : 1
+#      BUFG                        : 1
 # IO Buffers                       : 75
 #      IBUF                        : 1
 #      IBUFG                       : 1
@@ -1147,19 +1013,19 @@ Selected Device : 5vlx50tff1136-1
 
 
 Slice Logic Utilization: 
- Number of Slice Registers:            2685  out of  28800     9%  
- Number of Slice LUTs:                 4210  out of  28800    14%  
-    Number used as Logic:              3773  out of  28800    13%  
-    Number used as Memory:              437  out of   7680     5%  
+ Number of Slice Registers:            2702  out of  28800     9%  
+ Number of Slice LUTs:                 4249  out of  28800    14%  
+    Number used as Logic:              3811  out of  28800    13%  
+    Number used as Memory:              438  out of   7680     5%  
        Number used as RAM:              360
-       Number used as SRL:               77
+       Number used as SRL:               78
 
 Slice Logic Distribution: 
- Number of LUT Flip Flop pairs used:   5398
-   Number with an unused Flip Flop:    2713  out of   5398    50%  
-   Number with an unused LUT:          1188  out of   5398    22%  
-   Number of fully used LUT-FF pairs:  1497  out of   5398    27%  
-   Number of unique control sets:       114
+ Number of LUT Flip Flop pairs used:   5487
+   Number with an unused Flip Flop:    2785  out of   5487    50%  
+   Number with an unused LUT:          1238  out of   5487    22%  
+   Number of fully used LUT-FF pairs:  1464  out of   5487    26%  
+   Number of unique control sets:       112
 
 IO Utilization: 
  Number of IOs:                          75
@@ -1168,7 +1034,7 @@ IO Utilization:
 Specific Feature Utilization:
  Number of Block RAM/FIFO:               34  out of     60    56%  
     Number using Block RAM only:         34
- Number of BUFG/BUFGCTRLs:                2  out of     32     6%  
+ Number of BUFG/BUFGCTRLs:                1  out of     32     3%  
  Number of DSP48Es:                       5  out of     48    10%  
 
 ---------------------------
@@ -1189,42 +1055,23 @@ NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
 
 Clock Information:
 ------------------
---------------------------------------------------------------------------------------------------+--------------------------------------------------------------+-------+
-Clock Signal                                                                                      | Clock buffer(FF name)                                        | Load  |
---------------------------------------------------------------------------------------------------+--------------------------------------------------------------+-------+
-MCLK1                                                                                             | IBUFG+BUFG                                                   | 2872  |
-datapath_map/fpu_map/fadd_map/exp_up2_or0000(datapath_map/fpu_map/fadd_map/exp_up2_or00001:O)     | NONE(*)(datapath_map/fpu_map/fadd_map/exp_up2)               | 1     |
-datapath_map/fpu_map/fadd_map/frc_ans1<0>(datapath_map/fpu_map/fadd_map/Maddsub_frc_ans1_xor<0>:O)| NONE(*)(datapath_map/fpu_map/fadd_map/pr/q_4)                | 5     |
-datapath_map/fpu_map/fadd_map/ls2/q_not00011(datapath_map/fpu_map/fadd_map/ls2/q_not00011:O)      | BUFG(*)(datapath_map/fpu_map/fadd_map/ls2/q_26)              | 23    |
-XZBE_3_OBUF                                                                                       | NONE(datapath_map/fpu_map/fmul_map/Madd_frc2_ans_addsub00011)| 1     |
---------------------------------------------------------------------------------------------------+--------------------------------------------------------------+-------+
-(*) These 3 clock signal(s) are generated by combinatorial logic,
-and XST is not able to identify which are the primary clock signals.
-Please use the CLOCK_SIGNAL constraint to specify the clock signal(s) generated by combinatorial logic.
+-----------------------------------+--------------------------------------------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)                                        | Load  |
+-----------------------------------+--------------------------------------------------------------+-------+
+MCLK1                              | IBUFG+BUFG                                                   | 2919  |
+XZBE_3_OBUF                        | NONE(datapath_map/fpu_map/fmul_map/Madd_frc2_ans_addsub00011)| 1     |
+-----------------------------------+--------------------------------------------------------------+-------+
 INFO:Xst:2169 - HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
 
 Asynchronous Control Signals Information:
 ----------------------------------------
------------------------------------------------------------------------------------------------+-------------------------------------------+-------+
-Control Signal                                                                                 | Buffer(FF name)                           | Load  |
------------------------------------------------------------------------------------------------+-------------------------------------------+-------+
-datapath_map/fpu_map/fadd_map/pr/q_0__or0000(datapath_map/fpu_map/fadd_map/pr/q_0__or00001:O)  | NONE(datapath_map/fpu_map/fadd_map/pr/q_0)| 1     |
-datapath_map/fpu_map/fadd_map/pr/q_0__or0001(datapath_map/fpu_map/fadd_map/pr/q_0__or00011:O)  | NONE(datapath_map/fpu_map/fadd_map/pr/q_0)| 1     |
-datapath_map/fpu_map/fadd_map/pr/q_1__and0000(datapath_map/fpu_map/fadd_map/pr/q_1__and00001:O)| NONE(datapath_map/fpu_map/fadd_map/pr/q_1)| 1     |
-datapath_map/fpu_map/fadd_map/pr/q_1__or0000(datapath_map/fpu_map/fadd_map/pr/q_1__or00001:O)  | NONE(datapath_map/fpu_map/fadd_map/pr/q_1)| 1     |
-datapath_map/fpu_map/fadd_map/pr/q_2__and0000(datapath_map/fpu_map/fadd_map/pr/q_2__and00001:O)| NONE(datapath_map/fpu_map/fadd_map/pr/q_2)| 1     |
-datapath_map/fpu_map/fadd_map/pr/q_2__or0000(datapath_map/fpu_map/fadd_map/pr/q_2__or00001:O)  | NONE(datapath_map/fpu_map/fadd_map/pr/q_2)| 1     |
-datapath_map/fpu_map/fadd_map/pr/q_3__and0000(datapath_map/fpu_map/fadd_map/pr/q_3__and00001:O)| NONE(datapath_map/fpu_map/fadd_map/pr/q_3)| 1     |
-datapath_map/fpu_map/fadd_map/pr/q_3__or0000(datapath_map/fpu_map/fadd_map/pr/q_3__or00001:O)  | NONE(datapath_map/fpu_map/fadd_map/pr/q_3)| 1     |
-datapath_map/fpu_map/fadd_map/pr/q_4__and0000(datapath_map/fpu_map/fadd_map/pr/q_4__and00001:O)| NONE(datapath_map/fpu_map/fadd_map/pr/q_4)| 1     |
-datapath_map/fpu_map/fadd_map/pr/q_4__or0000(datapath_map/fpu_map/fadd_map/pr/q_4__or00001:O)  | NONE(datapath_map/fpu_map/fadd_map/pr/q_4)| 1     |
------------------------------------------------------------------------------------------------+-------------------------------------------+-------+
+No asynchronous control signals found in this design
 
 Timing Summary:
 ---------------
 Speed Grade: -1
 
-   Minimum period: 10.937ns (Maximum Frequency: 91.434MHz)
+   Minimum period: 10.896ns (Maximum Frequency: 91.774MHz)
    Minimum input arrival time before clock: 2.802ns
    Maximum output required time after clock: 5.516ns
    Maximum combinational path delay: No path found
@@ -1235,10 +1082,10 @@ All values displayed in nanoseconds (ns)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'MCLK1'
-  Clock period: 10.937ns (frequency: 91.434MHz)
-  Total number of paths / destination ports: 40272575 / 6331
+  Clock period: 10.896ns (frequency: 91.774MHz)
+  Total number of paths / destination ports: 39199682 / 6393
 -------------------------------------------------------------------------
-Delay:               10.937ns (Levels of Logic = 14)
+Delay:               10.896ns (Levels of Logic = 13)
   Source:            controller_map/phase_FSM_FFd16 (FF)
   Destination:       datapath_map/pc_0 (FF)
   Source Clock:      MCLK1 rising
@@ -1249,43 +1096,42 @@ Delay:               10.937ns (Levels of Logic = 14)
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      FDR:C->Q             33   0.471   0.837  controller_map/phase_FSM_FFd16 (controller_map/phase_FSM_FFd16)
-     LUT5:I2->O            1   0.094   0.576  datapath_map/data_in1<18>1_SW0 (N768)
+     LUT5:I2->O            1   0.094   0.576  datapath_map/data_in1<18>1_SW0 (N599)
      LUT6:I4->O            9   0.094   1.113  datapath_map/data_in1<18>1 (datapath_map/data_in1<18>)
-     LUT6:I0->O            6   0.094   0.816  datapath_map/alu_map/DATA_OUT<0>1229 (datapath_map/alu_map/DATA_OUT<0>1229)
-     LUT5:I1->O          112   0.094   0.622  datapath_map/alu_map/DATA_OUT<0>1277 (datapath_map/alu_map/DATA_OUT<0>_bdd27)
-     LUT3:I2->O            2   0.094   0.715  datapath_map/alu_map/DATA_OUT<0>3341 (datapath_map/alu_map/DATA_OUT<0>_bdd656)
-     LUT6:I3->O            1   0.094   0.000  datapath_map/alu_map/DATA_OUT<15>1129_G (N1702)
-     MUXF7:I1->O           2   0.254   0.794  datapath_map/alu_map/DATA_OUT<15>1129 (datapath_map/alu_map/DATA_OUT<15>_bdd23)
-     LUT6:I2->O            2   0.094   0.485  datapath_map/alu_map/DATA_OUT<17>71 (datapath_map/alu_map/DATA_OUT<17>_bdd6)
-     LUT6:I5->O            1   0.094   0.480  datapath_map/alu_map/DATA_OUT<9>1180 (datapath_map/alu_map/DATA_OUT<9>1180)
-     LUT6:I5->O            3   0.094   0.984  datapath_map/alu_map/DATA_OUT<9>1266 (datapath_map/data_out<9>)
-     LUT5:I0->O            1   0.094   0.480  datapath_map/aluzero_cmp_eq0000194_SW0_SW0_SW0_SW0 (N1319)
-     LUT6:I5->O            1   0.094   0.480  datapath_map/aluzero_cmp_eq0000236 (datapath_map/aluzero_cmp_eq0000236)
-     LUT6:I5->O           32   0.094   0.607  datapath_map/pccont (datapath_map/pccont)
+     LUT6:I0->O            7   0.094   0.822  datapath_map/alu_map/DATA_OUT<0>1229 (datapath_map/alu_map/DATA_OUT<0>1229)
+     LUT6:I2->O           39   0.094   0.705  datapath_map/alu_map/DATA_OUT<0>111 (datapath_map/alu_map/DATA_OUT<0>_bdd25)
+     LUT5:I3->O            1   0.094   0.710  datapath_map/alu_map/DATA_OUT<10>261_SW1 (N911)
+     LUT5:I2->O            5   0.094   0.502  datapath_map/alu_map/DATA_OUT<10>261 (datapath_map/alu_map/DATA_OUT<10>_bdd55)
+     LUT6:I5->O            5   0.094   0.811  datapath_map/alu_map/DATA_OUT<10>241 (datapath_map/alu_map/DATA_OUT<10>_bdd49)
+     LUT6:I2->O            1   0.094   0.480  datapath_map/alu_map/DATA_OUT<12>1206 (datapath_map/alu_map/DATA_OUT<12>1206)
+     LUT6:I5->O            3   0.094   0.984  datapath_map/alu_map/DATA_OUT<12>1292 (datapath_map/data_out<12>)
+     LUT5:I0->O            1   0.094   0.480  datapath_map/aluzero_cmp_eq0000194_SW0_SW0_SW0 (N932)
+     LUT6:I5->O            1   0.094   0.576  datapath_map/aluzero_cmp_eq0000236 (datapath_map/aluzero_cmp_eq0000236)
+     LUT6:I4->O           32   0.094   0.607  datapath_map/pccont (datapath_map/pccont)
      LUT3:I2->O            1   0.094   0.000  datapath_map/pc_0_rstpot (datapath_map/pc_0_rstpot)
      FD:D                     -0.018          datapath_map/pc_0
     ----------------------------------------
-    Total                     10.937ns (1.947ns logic, 8.990ns route)
-                                       (17.8% logic, 82.2% route)
+    Total                     10.896ns (1.693ns logic, 9.203ns route)
+                                       (15.5% logic, 84.5% route)
 
 =========================================================================
 Timing constraint: Default OFFSET IN BEFORE for Clock 'MCLK1'
-  Total number of paths / destination ports: 191 / 129
+  Total number of paths / destination ports: 189 / 129
 -------------------------------------------------------------------------
 Offset:              2.802ns (Levels of Logic = 4)
-  Source:            ZD<31> (PAD)
+  Source:            ZD<29> (PAD)
   Destination:       datapath_map/fpr_map/Mram_regf (RAM)
   Destination Clock: MCLK1 rising
 
-  Data Path: ZD<31> to datapath_map/fpr_map/Mram_regf
+  Data Path: ZD<29> to datapath_map/fpr_map/Mram_regf
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     IOBUF:IO->O           1   0.818   0.710  ZD_31_IOBUF (N574)
-     LUT6:I3->O            3   0.094   0.491  ram_map/MDR<31>1 (MDR<31>)
-     LUT6:I5->O            1   0.094   0.000  datapath_map/fwdata<31>_G (N1570)
-     MUXF7:I1->O           2   0.254   0.341  datapath_map/fwdata<31> (datapath_map/fwdata<31>)
-     RAMB18SDP:DI31            0.000          datapath_map/fpr_map/Mram_regf
+     IOBUF:IO->O           1   0.818   0.710  ZD_29_IOBUF (N405)
+     LUT6:I3->O            3   0.094   0.491  ram_map/MDR<29>1 (MDR<29>)
+     LUT6:I5->O            1   0.094   0.000  datapath_map/fwdata<29>_G (N1571)
+     MUXF7:I1->O           2   0.254   0.341  datapath_map/fwdata<29> (datapath_map/fwdata<29>)
+     RAMB18SDP:DI29            0.000          datapath_map/fpr_map/Mram_regf
     ----------------------------------------
     Total                      2.802ns (1.260ns logic, 1.542ns route)
                                        (45.0% logic, 55.0% route)
@@ -1314,15 +1160,15 @@ Offset:              5.516ns (Levels of Logic = 3)
 =========================================================================
 
 
-Total REAL time to Xst completion: 184.00 secs
-Total CPU time to Xst completion: 183.08 secs
+Total REAL time to Xst completion: 198.00 secs
+Total CPU time to Xst completion: 196.41 secs
  
 --> 
 
 
-Total memory usage is 825712 kilobytes
+Total memory usage is 814880 kilobytes
 
 Number of errors   :    0 (   0 filtered)
-Number of warnings :   61 (   0 filtered)
-Number of infos    :   13 (   0 filtered)
+Number of warnings :   40 (   0 filtered)
+Number of infos    :   14 (   0 filtered)
 

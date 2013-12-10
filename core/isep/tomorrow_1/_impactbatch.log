@@ -1,6 +1,6 @@
 iMPACT Version: Dec  4 2012 20:21:56
 
-iMPACT log file Started on Tue Dec 10 14:14:08 2013
+iMPACT log file Started on Tue Dec 10 15:27:17 2013
 
 Preference Table
 Name                 Setting             
@@ -21,8 +21,6 @@ Connecting to cable (Usb Port - USB21).
 Checking cable driver.
  Using libusb.
  Kernel release = 3.5.0-44-generic.
-Downloading /home/yuta/Xilinx/14.4/ISE_DS/ISE/data/xusb_xlp.hex.
-Downloaded firmware version = 1303.
 =======================================================
 Found cable - > ESN = 0000117F68BA01.
 =======================================================

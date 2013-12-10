@@ -1,5 +1,5 @@
 //! **************************************************************************
-// Written by: Map P.49d on Mon Dec 09 23:06:36 2013
+// Written by: Map P.49d on Tue Dec 10 15:21:51 2013
 //! **************************************************************************
 
 SCHEMATIC START;
@@ -401,25 +401,25 @@ TIMEGRP SYS_CLK = BEL "ram_map/data_0" BEL "ram_map/data_1" BEL
         "controller_map/phase_FSM_FFd7" BEL "controller_map/phase_FSM_FFd3"
         BEL "controller_map/phase_FSM_FFd33" BEL
         "controller_map/phase_FSM_FFd14" BEL "controller_map/count_1" BEL
-        "ram_map/io_manager_map/s_enq_4" BEL "ram_map/io_manager_map/s_enq_3"
-        BEL "ram_map/io_manager_map/s_enq_2" BEL
-        "ram_map/io_manager_map/s_enq_1" BEL "ram_map/io_manager_map/s_enq_0"
-        BEL "ram_map/io_manager_map/r_enq_8" BEL
-        "ram_map/io_manager_map/r_enq_7" BEL "ram_map/io_manager_map/r_enq_6"
-        BEL "ram_map/io_manager_map/r_enq_5" BEL
-        "ram_map/io_manager_map/r_enq_4" BEL "ram_map/io_manager_map/r_enq_3"
-        BEL "ram_map/io_manager_map/r_enq_2" BEL
-        "ram_map/io_manager_map/r_enq_1" BEL "ram_map/io_manager_map/r_enq_0"
-        BEL "ram_map/io_manager_map/r_deq_8" BEL
-        "ram_map/io_manager_map/r_deq_7" BEL "ram_map/io_manager_map/r_deq_6"
-        BEL "ram_map/io_manager_map/r_deq_5" BEL
-        "ram_map/io_manager_map/r_deq_4" BEL "ram_map/io_manager_map/r_deq_3"
-        BEL "ram_map/io_manager_map/r_deq_2" BEL
-        "ram_map/io_manager_map/r_deq_1" BEL "ram_map/io_manager_map/r_deq_0"
-        BEL "ram_map/io_manager_map/s_deq_4" BEL
-        "ram_map/io_manager_map/s_deq_3" BEL "ram_map/io_manager_map/s_deq_2"
-        BEL "ram_map/io_manager_map/s_deq_1" BEL
-        "ram_map/io_manager_map/s_deq_0" BEL
+        "controller_map/count_0" BEL "ram_map/io_manager_map/s_enq_4" BEL
+        "ram_map/io_manager_map/s_enq_3" BEL "ram_map/io_manager_map/s_enq_2"
+        BEL "ram_map/io_manager_map/s_enq_1" BEL
+        "ram_map/io_manager_map/s_enq_0" BEL "ram_map/io_manager_map/r_enq_8"
+        BEL "ram_map/io_manager_map/r_enq_7" BEL
+        "ram_map/io_manager_map/r_enq_6" BEL "ram_map/io_manager_map/r_enq_5"
+        BEL "ram_map/io_manager_map/r_enq_4" BEL
+        "ram_map/io_manager_map/r_enq_3" BEL "ram_map/io_manager_map/r_enq_2"
+        BEL "ram_map/io_manager_map/r_enq_1" BEL
+        "ram_map/io_manager_map/r_enq_0" BEL "ram_map/io_manager_map/r_deq_8"
+        BEL "ram_map/io_manager_map/r_deq_7" BEL
+        "ram_map/io_manager_map/r_deq_6" BEL "ram_map/io_manager_map/r_deq_5"
+        BEL "ram_map/io_manager_map/r_deq_4" BEL
+        "ram_map/io_manager_map/r_deq_3" BEL "ram_map/io_manager_map/r_deq_2"
+        BEL "ram_map/io_manager_map/r_deq_1" BEL
+        "ram_map/io_manager_map/r_deq_0" BEL "ram_map/io_manager_map/s_deq_4"
+        BEL "ram_map/io_manager_map/s_deq_3" BEL
+        "ram_map/io_manager_map/s_deq_2" BEL "ram_map/io_manager_map/s_deq_1"
+        BEL "ram_map/io_manager_map/s_deq_0" BEL
         "ram_map/io_manager_map/tx_data_sig_7" BEL
         "ram_map/io_manager_map/tx_data_sig_6" BEL
         "ram_map/io_manager_map/tx_data_sig_5" BEL
@@ -542,78 +542,6 @@ TIMEGRP SYS_CLK = BEL "ram_map/data_0" BEL "ram_map/data_1" BEL
         "ram_map/transmitter_map/countdown_1" BEL
         "ram_map/transmitter_map/state_2" BEL
         "ram_map/transmitter_map/state_1" BEL
-        "datapath_map/fpu_map/fadd_map/exp_ans2_7" BEL
-        "datapath_map/fpu_map/fadd_map/sgn_ans2" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_3" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_4" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_5" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_6" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_7" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_8" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_9" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_10" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_11" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_12" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_13" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_14" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_15" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_16" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_17" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_18" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_19" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_20" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_21" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_22" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_23" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_24" BEL
-        "datapath_map/fpu_map/fadd_map/frc_l2_25" BEL
-        "datapath_map/fpu_map/fadd_map/exp_up3" BEL
-        "datapath_map/fpu_map/fadd_map/exp_ans3_7" BEL
-        "datapath_map/fpu_map/fadd_map/op2" BEL
-        "datapath_map/fpu_map/fadd_map/sgn_ans3" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_1" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_2" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_3" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_4" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_5" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_6" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_7" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_8" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_9" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_10" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_11" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_12" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_13" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_14" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_15" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_16" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_17" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_18" BEL
-        "datapath_map/fpu_map/fadd_map/shift3_0" BEL
-        "datapath_map/fpu_map/fadd_map/shift3_1" BEL
-        "datapath_map/fpu_map/fadd_map/shift3_2" BEL
-        "datapath_map/fpu_map/fadd_map/shift3_3" BEL
-        "datapath_map/fpu_map/fadd_map/shift3_4" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_2" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_3" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_5" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_6" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_8" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_9" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_10" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_11" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_13" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_14" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_16" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_17" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_19" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_20" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_21" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_22" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_24" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_25" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_26" BEL
-        "datapath_map/fpu_map/fadd_map/rounding3" BEL
         "datapath_map/fpu_map/sitof_map/signbit2" BEL
         "datapath_map/fpu_map/sitof_map/shifted2_0" BEL
         "datapath_map/fpu_map/sitof_map/shifted2_1" BEL
@@ -687,31 +615,14 @@ TIMEGRP SYS_CLK = BEL "ram_map/data_0" BEL "ram_map/data_1" BEL
         BEL "controller_map/phase_FSM_FFd2" BEL
         "controller_map/phase_FSM_FFd1" BEL "controller_map/count_4" BEL
         "controller_map/count_3" BEL "controller_map/count_2" BEL
-        "controller_map/count_0" BEL "ram_map/io_manager_map/state_2" BEL
-        "ram_map/receiver_map/state_2" BEL "ram_map/receiver_map/countdown_6"
-        BEL "ram_map/receiver_map/countdown_3" BEL
+        "ram_map/io_manager_map/state_2" BEL "ram_map/receiver_map/state_2"
+        BEL "ram_map/receiver_map/countdown_6" BEL
+        "ram_map/receiver_map/countdown_3" BEL
         "ram_map/transmitter_map/countdown_7" BEL
         "ram_map/transmitter_map/countdown_4" BEL
         "ram_map/transmitter_map/countdown_0" BEL
         "ram_map/transmitter_map/state_3" BEL
         "ram_map/transmitter_map/state_0" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_0" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_19" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_20" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_21" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_22" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_23" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_24" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_25" BEL
-        "datapath_map/fpu_map/fadd_map/frc_s2_26" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_0" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_1" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_4" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_7" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_12" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_15" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_18" BEL
-        "datapath_map/fpu_map/fadd_map/frc_ans3_23" BEL
         "datapath_map/fpu_map/sitof_map/shifted2_20" BEL
         "datapath_map/fpu_map/sitof_map/expocarry2" BEL
         "controller_map/phase_FSM_FFd30" BEL "controller_map/phase_FSM_FFd8"
@@ -754,20 +665,6 @@ TIMEGRP SYS_CLK = BEL "ram_map/data_0" BEL "ram_map/data_1" BEL
         "datapath_map/register_file_map/Mram_regf_pins<78>" PIN
         "datapath_map/register_file_map/Mram_regf_pins<80>" PIN
         "datapath_map/register_file_map/Mram_regf_pins<106>" BEL
-        "datapath_map/fpu_map/fadd_map/Mshreg_exp_ans3_0" BEL
-        "datapath_map/fpu_map/fadd_map/exp_ans3_0" BEL
-        "datapath_map/fpu_map/fadd_map/Mshreg_exp_ans3_1" BEL
-        "datapath_map/fpu_map/fadd_map/exp_ans3_1" BEL
-        "datapath_map/fpu_map/fadd_map/Mshreg_exp_ans3_2" BEL
-        "datapath_map/fpu_map/fadd_map/exp_ans3_2" BEL
-        "datapath_map/fpu_map/fadd_map/Mshreg_exp_ans3_3" BEL
-        "datapath_map/fpu_map/fadd_map/exp_ans3_3" BEL
-        "datapath_map/fpu_map/fadd_map/Mshreg_exp_ans3_4" BEL
-        "datapath_map/fpu_map/fadd_map/exp_ans3_4" BEL
-        "datapath_map/fpu_map/fadd_map/Mshreg_exp_ans3_5" BEL
-        "datapath_map/fpu_map/fadd_map/exp_ans3_5" BEL
-        "datapath_map/fpu_map/fadd_map/Mshreg_exp_ans3_6" BEL
-        "datapath_map/fpu_map/fadd_map/exp_ans3_6" BEL
         "datapath_map/fpu_map/fmul_map/Mshreg_exp_ans3_8" BEL
         "datapath_map/fpu_map/fmul_map/exp_ans3_8" BEL
         "datapath_map/fpu_map/fsqrt_map/blk00000003" BEL
@@ -2997,7 +2894,156 @@ TIMEGRP SYS_CLK = BEL "ram_map/data_0" BEL "ram_map/data_1" BEL
         "datapath_map/fpu_map/fdiv_map/blk00000d90" BEL
         "datapath_map/fpu_map/fdiv_map/blk00000d91" BEL
         "datapath_map/fpu_map/fdiv_map/blk00000d92" BEL
-        "datapath_map/fpu_map/fdiv_map/blk00000d93" BEL "ZCLKMA<0>" BEL
+        "datapath_map/fpu_map/fdiv_map/blk00000d93" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000003" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000004" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000008" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000009" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000000a" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000000b" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000000c" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000000d" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000000e" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000000f" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000010" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000011" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000012" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000013" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000014" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000015" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000016" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000017" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000018" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000019" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000001a" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000001b" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000001c" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000001d" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000005c" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000005d" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000005e" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000005f" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000060" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000061" BEL
+        "datapath_map/fpu_map/fadd_map/blk000000fa" BEL
+        "datapath_map/fpu_map/fadd_map/blk000000fb" BEL
+        "datapath_map/fpu_map/fadd_map/blk000000fc" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000111" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000112" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000113" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000119" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000011a" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000011b" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000011c" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000011d" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000011e" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000011f" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000120" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000121" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000122" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000123" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000124" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000125" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000126" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000127" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000128" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000129" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000012a" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000021d" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000021e" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000021f" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000220" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000221" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000222" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000224" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000226" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000228" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000022a" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000022c" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000022e" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000230" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000232" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000234" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000236" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000238" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000023a" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000023b" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000023d" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000023f" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000241" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000243" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000245" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000247" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000249" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000024b" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000024d" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000024f" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000251" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000252" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000254" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000255" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000256" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000257" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000258" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000259" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000025a" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000025b" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000025c" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000025d" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000025e" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000025f" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000260" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000261" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000262" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000263" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000264" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000265" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000266" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000267" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000268" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000269" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000026a" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000272" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002a8" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002a9" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002aa" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002ab" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002ac" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002ad" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002ae" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002af" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002b0" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002b1" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002b2" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002b5" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002b6" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002b7" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002b8" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002b9" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002ba" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002bb" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002bc" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002bd" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002be" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002bf" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002fe" BEL
+        "datapath_map/fpu_map/fadd_map/blk000002ff" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000319" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000031a" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000031b" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000031c" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000031d" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000031e" BEL
+        "datapath_map/fpu_map/fadd_map/blk0000031f" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000320" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000321" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000322" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000323" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000324" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000325" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000326" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000327" BEL
+        "datapath_map/fpu_map/fadd_map/blk00000328" BEL "ZCLKMA<0>" BEL
         "ZCLKMA<1>" BEL "ram_map/io_manager_map/Mram_sendbuf22/SP" BEL
         "ram_map/io_manager_map/Mram_sendbuf22/DP" BEL
         "ram_map/io_manager_map/Mram_sendbuf21/SP" BEL

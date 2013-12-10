@@ -10,42 +10,41 @@ Target Device  : xc5vlx50t
 Target Package : ff1136
 Target Speed   : -1
 Mapper Version : virtex5 -- $Revision: 1.55 $
-Mapped Date    : Mon Dec  9 23:04:06 2013
+Mapped Date    : Tue Dec 10 15:19:42 2013
 
 Design Summary
 --------------
 Number of errors:      0
-Number of warnings:  130
+Number of warnings:  128
 Slice Logic Utilization:
-  Number of Slice Registers:                 2,684 out of  28,800    9%
-    Number used as Flip Flops:               2,655
-    Number used as Latches:                     29
-  Number of Slice LUTs:                      4,115 out of  28,800   14%
-    Number used as logic:                    3,666 out of  28,800   12%
-      Number using O6 output only:           3,272
-      Number using O5 output only:              96
-      Number using O5 and O6:                  298
-    Number used as Memory:                     437 out of   7,680    5%
+  Number of Slice Registers:                 2,700 out of  28,800    9%
+    Number used as Flip Flops:               2,700
+  Number of Slice LUTs:                      4,201 out of  28,800   14%
+    Number used as logic:                    3,752 out of  28,800   13%
+      Number using O6 output only:           3,368
+      Number using O5 output only:              76
+      Number using O5 and O6:                  308
+    Number used as Memory:                     438 out of   7,680    5%
       Number used as Dual Port RAM:            360
         Number using O6 output only:           356
         Number using O5 and O6:                  4
-      Number used as Shift Register:            77
-        Number using O6 output only:            77
-    Number used as exclusive route-thru:        12
-  Number of route-thrus:                       121
-    Number using O6 output only:               107
-    Number using O5 output only:                13
+      Number used as Shift Register:            78
+        Number using O6 output only:            78
+    Number used as exclusive route-thru:        11
+  Number of route-thrus:                       132
+    Number using O6 output only:                86
+    Number using O5 output only:                45
     Number using O5 and O6:                      1
 
 Slice Logic Distribution:
-  Number of occupied Slices:                 1,706 out of   7,200   23%
-  Number of LUT Flip Flop pairs used:        5,160
-    Number with an unused Flip Flop:         2,476 out of   5,160   47%
-    Number with an unused LUT:               1,045 out of   5,160   20%
-    Number of fully used LUT-FF pairs:       1,639 out of   5,160   31%
-    Number of unique control sets:             117
+  Number of occupied Slices:                 1,675 out of   7,200   23%
+  Number of LUT Flip Flop pairs used:        5,192
+    Number with an unused Flip Flop:         2,492 out of   5,192   47%
+    Number with an unused LUT:                 991 out of   5,192   19%
+    Number of fully used LUT-FF pairs:       1,709 out of   5,192   32%
+    Number of unique control sets:             112
     Number of slice register sites lost
-      to control set restrictions:             283 out of  28,800    1%
+      to control set restrictions:             262 out of  28,800    1%
 
   A LUT Flip Flop pair for this architecture represents one LUT paired with
   one Flip Flop within a slice.  A control set is a unique combination of
@@ -66,15 +65,15 @@ Specific Feature Utilization:
       Number of 36k BlockRAM used:              32
       Number of 18k BlockRAM used:               4
     Total Memory used (KB):                  1,224 out of   2,160   56%
-  Number of BUFG/BUFGCTRLs:                      2 out of      32    6%
-    Number used as BUFGs:                        2
+  Number of BUFG/BUFGCTRLs:                      1 out of      32    3%
+    Number used as BUFGs:                        1
   Number of DSP48Es:                             5 out of      48   10%
 
-Average Fanout of Non-Clock Nets:                4.27
+Average Fanout of Non-Clock Nets:                4.24
 
-Peak Memory Usage:  950 MB
-Total REAL time to MAP completion:  2 mins 32 secs 
-Total CPU time to MAP completion:   2 mins 31 secs 
+Peak Memory Usage:  951 MB
+Total REAL time to MAP completion:  2 mins 11 secs 
+Total CPU time to MAP completion:   2 mins 10 secs 
 
 Table of Contents
 -----------------
@@ -615,14 +614,6 @@ WARNING:Pack:2874 - Trimming timing constraints from pin
    ram_map/blockram_map/Mram_ram9
    of frag REGCLKBL connected to power/ground net
    ram_map/blockram_map/Mram_ram9_REGCLKBL_tiesig
-WARNING:PhysDesignRules:372 - Gated clock. Clock net
-   datapath_map/fpu_map/fadd_map/frc_ans1<0> is sourced by a combinatorial pin.
-   This is not good design practice. Use the CE pin to control the loading of
-   data into the flip-flop.
-WARNING:PhysDesignRules:372 - Gated clock. Clock net
-   datapath_map/fpu_map/fadd_map/exp_up2_or0000 is sourced by a combinatorial
-   pin. This is not good design practice. Use the CE pin to control the loading
-   of data into the flip-flop.
 
 Section 3 - Informational
 -------------------------
@@ -655,9 +646,9 @@ INFO:Pack:1650 - Map created a placed design.
 
 Section 4 - Removed Logic Summary
 ---------------------------------
-  81 block(s) removed
-   6 block(s) optimized away
-   2 signal(s) removed
+ 104 block(s) removed
+   8 block(s) optimized away
+  16 signal(s) removed
 
 Section 5 - Removed Logic
 -------------------------
@@ -672,6 +663,54 @@ To quickly locate the original cause for the removal of a chain of logic, look
 above the place where that logic is listed in the trimming report, then locate
 the lines that are least indented (begin at the leftmost edge).
 
+Loadless block "datapath_map/fpu_map/fadd_map/blk000000eb" (XOR) removed.
+ The signal "datapath_map/fpu_map/fadd_map/sig00000245" is loadless and has been
+removed.
+  Loadless block "datapath_map/fpu_map/fadd_map/blk000000ed" (MUX) removed.
+   The signal "datapath_map/fpu_map/fadd_map/sig00000244" is loadless and has been
+removed.
+    Loadless block "datapath_map/fpu_map/fadd_map/blk000000ef" (MUX) removed.
+     The signal "datapath_map/fpu_map/fadd_map/sig00000243" is loadless and has been
+removed.
+      Loadless block "datapath_map/fpu_map/fadd_map/blk000000f1" (MUX) removed.
+       The signal "datapath_map/fpu_map/fadd_map/sig00000242" is loadless and has been
+removed.
+        Loadless block "datapath_map/fpu_map/fadd_map/blk000000f3" (MUX) removed.
+         The signal "datapath_map/fpu_map/fadd_map/sig00000241" is loadless and has been
+removed.
+          Loadless block "datapath_map/fpu_map/fadd_map/blk000000f5" (MUX) removed.
+           The signal "datapath_map/fpu_map/fadd_map/sig00000240" is loadless and has been
+removed.
+            Loadless block "datapath_map/fpu_map/fadd_map/blk000000f7" (MUX) removed.
+             The signal "datapath_map/fpu_map/fadd_map/sig0000023f" is loadless and has been
+removed.
+              Loadless block "datapath_map/fpu_map/fadd_map/blk000000f9" (MUX) removed.
+               The signal "datapath_map/fpu_map/fadd_map/sig00000260" is loadless and has been
+removed.
+                Loadless block "datapath_map/fpu_map/fadd_map/blk000000d4" (MUX) removed.
+Loadless block "datapath_map/fpu_map/fadd_map/blk000000ec" (XOR) removed.
+Loadless block "datapath_map/fpu_map/fadd_map/blk000000ee" (XOR) removed.
+Loadless block "datapath_map/fpu_map/fadd_map/blk000000f0" (XOR) removed.
+Loadless block "datapath_map/fpu_map/fadd_map/blk000000f2" (XOR) removed.
+Loadless block "datapath_map/fpu_map/fadd_map/blk000000f4" (XOR) removed.
+Loadless block "datapath_map/fpu_map/fadd_map/blk000000f6" (XOR) removed.
+Loadless block "datapath_map/fpu_map/fadd_map/blk000000f8" (XOR) removed.
+Loadless block "datapath_map/fpu_map/fadd_map/blk00000103" (MUX) removed.
+ The signal "datapath_map/fpu_map/fadd_map/sig000001ec" is loadless and has been
+removed.
+  Loadless block "datapath_map/fpu_map/fadd_map/blk0000012c" (ROM) removed.
+ The signal "datapath_map/fpu_map/fadd_map/sig000001ed" is loadless and has been
+removed.
+  Loadless block "datapath_map/fpu_map/fadd_map/blk0000012b" (ROM) removed.
+   The signal "datapath_map/fpu_map/fadd_map/sig000001de" is loadless and has been
+removed.
+    Loadless block "datapath_map/fpu_map/fadd_map/blk00000114" (FF) removed.
+     The signal "datapath_map/fpu_map/fadd_map/sig000001e9" is loadless and has been
+removed.
+      Loadless block "datapath_map/fpu_map/fadd_map/blk0000010d" (MUX) removed.
+       The signal "datapath_map/fpu_map/fadd_map/sig000001e2" is loadless and has been
+removed.
+        Loadless block "datapath_map/fpu_map/fadd_map/blk00000197" (ROM) removed.
 Loadless block "datapath_map/fpu_map/fdiv_map/blk00000244" (XOR) removed.
 Loadless block "datapath_map/fpu_map/fdiv_map/blk00000246" (XOR) removed.
 Loadless block "datapath_map/fpu_map/fdiv_map/blk00000248" (XOR) removed.
@@ -757,11 +796,16 @@ Loadless block "datapath_map/fpu_map/fsqrt_map/blk00000613" (XOR) removed.
  The signal "datapath_map/fpu_map/fsqrt_map/sig000007f7" is loadless and has been
 removed.
   Loadless block "datapath_map/fpu_map/fsqrt_map/blk00000611" (MUX) removed.
+The signal "datapath_map/fpu_map/fadd_map/sig0000008f" is sourceless and has
+been removed.
+Unused block "datapath_map/fpu_map/fadd_map/blk00000006" (MUX) removed.
 
 Optimized Block(s):
 TYPE 		BLOCK
 GND 		XST_GND
 VCC 		XST_VCC
+GND 		datapath_map/fpu_map/fadd_map/blk00000001
+VCC 		datapath_map/fpu_map/fadd_map/blk00000002
 GND 		datapath_map/fpu_map/fdiv_map/blk00000001
 VCC 		datapath_map/fpu_map/fdiv_map/blk00000002
 GND 		datapath_map/fpu_map/fsqrt_map/blk00000001
