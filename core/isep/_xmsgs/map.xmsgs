@@ -23,515 +23,515 @@ To see the details of these <arg fmt="%s" index="4">info</arg> messages, please 
 <msg type="info" file="LIT" num="244" delta="old" >All of the single ended outputs in this design are using slew rate limited output drivers. The delay on speed critical single ended outputs can be dramatically reduced by designating them as fast outputs.
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram1</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram1</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram1_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram1</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram1</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram1_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram1</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram1</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram1_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram1</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram1</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram1_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram10</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram10</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram10_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram10</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram10</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram10_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram10</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram10</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram10_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram10</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram10</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram10_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram11</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram11</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram11_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram11</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram11</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram11_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram11</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram11</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram11_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram11</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram11</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram11_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram12</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram12</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram12_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram12</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram12</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram12_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram12</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram12</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram12_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram12</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram12</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram12_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram13</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram13</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram13_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram13</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram13</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram13_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram13</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram13</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram13_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram13</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram13</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram13_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram14</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram14</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram14_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram14</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram14</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram14_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram14</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram14</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram14_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram14</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram14</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram14_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram15</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram15</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram15_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram15</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram15</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram15_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram15</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram15</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram15_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram15</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram15</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram15_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram16</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram16</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram16_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram16</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram16</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram16_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram16</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram16</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram16_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram16</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram16</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram16_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram17</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram17</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram17_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram17</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram17</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram17_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram17</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram17</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram17_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram17</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram17</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram17_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram18</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram18</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram18_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram18</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram18</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram18_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram18</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram18</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram18_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram18</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram18</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram18_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram19</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram19</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram19_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram19</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram19</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram19_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram19</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram19</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram19_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram19</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram19</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram19_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram2</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram2</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram2_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram2</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram2</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram2_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram2</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram2</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram2_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram2</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram2</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram2_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram20</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram20</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram20_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram20</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram20</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram20_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram20</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram20</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram20_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram20</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram20</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram20_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram21</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram21</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram21_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram21</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram21</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram21_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram21</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram21</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram21_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram21</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram21</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram21_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram22</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram22</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram22_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram22</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram22</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram22_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram22</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram22</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram22_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram22</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram22</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram22_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram23</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram23</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram23_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram23</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram23</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram23_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram23</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram23</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram23_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram23</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram23</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram23_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram24</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram24</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram24_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram24</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram24</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram24_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram24</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram24</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram24_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram24</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram24</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram24_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram25</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram25</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram25_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram25</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram25</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram25_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram25</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram25</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram25_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram25</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram25</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram25_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram26</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram26</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram26_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram26</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram26</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram26_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram26</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram26</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram26_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram26</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram26</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram26_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram27</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram27</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram27_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram27</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram27</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram27_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram27</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram27</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram27_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram27</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram27</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram27_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram28</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram28</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram28_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram28</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram28</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram28_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram28</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram28</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram28_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram28</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram28</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram28_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram29</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram29</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram29_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram29</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram29</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram29_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram29</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram29</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram29_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram29</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram29</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram29_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram3</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram3</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram3_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram3</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram3</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram3_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram3</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram3</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram3_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram3</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram3</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram3_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram30</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram30</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram30_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram30</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram30</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram30_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram30</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram30</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram30_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram30</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram30</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram30_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram31</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram31</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram31_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram31</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram31</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram31_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram31</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram31</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram31_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram31</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram31</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram31_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram32</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram32</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram32_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram32</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram32</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram32_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram32</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram32</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram32_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram32</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram32</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram32_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram4</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram4</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram4_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram4</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram4</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram4_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram4</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram4</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram4_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram4</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram4</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram4_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram5</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram5</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram5_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram5</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram5</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram5_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram5</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram5</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram5_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram5</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram5</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram5_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram6</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram6</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram6_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram6</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram6</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram6_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram6</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram6</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram6_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram6</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram6</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram6_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram7</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram7</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram7_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram7</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram7</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram7_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram7</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram7</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram7_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram7</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram7</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram7_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram8</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram8</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram8_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram8</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram8</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram8_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram8</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram8</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram8_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram8</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram8</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram8_REGCLKBL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram9</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram9</arg>
 of frag <arg fmt="%s" index="2">REGCLKAU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram9_REGCLKAU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram9</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram9</arg>
 of frag <arg fmt="%s" index="2">REGCLKAL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram9_REGCLKAL_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram9</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram9</arg>
 of frag <arg fmt="%s" index="2">REGCLKBU</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram9_REGCLKBU_tiesig</arg>
 </msg>
 
-<msg type="warning" file="Pack" num="2874" delta="new" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram9</arg>
+<msg type="warning" file="Pack" num="2874" delta="old" >Trimming timing constraints from pin <arg fmt="%s" index="1">ram_map/blockram_map/Mram_ram9</arg>
 of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <arg fmt="%s" index="3">ram_map/blockram_map/Mram_ram9_REGCLKBL_tiesig</arg>
 </msg>
 
@@ -545,6 +545,12 @@ of frag <arg fmt="%s" index="2">REGCLKBL</arg> connected to power/ground net <ar
 </msg>
 
 <msg type="info" file="Pack" num="1650" delta="old" >Map created a placed design.
+</msg>
+
+<msg type="warning" file="PhysDesignRules" num="372" delta="new" >Gated clock. Clock net <arg fmt="%s" index="1">datapath_map/fpu_map/fadd_map/frc_ans1&lt;0&gt;</arg> is sourced by a combinatorial pin. This is not good design practice. Use the CE pin to control the loading of data into the flip-flop.
+</msg>
+
+<msg type="warning" file="PhysDesignRules" num="372" delta="new" >Gated clock. Clock net <arg fmt="%s" index="1">datapath_map/fpu_map/fadd_map/exp_up2_or0000</arg> is sourced by a combinatorial pin. This is not good design practice. Use the CE pin to control the loading of data into the flip-flop.
 </msg>
 
 </messages>

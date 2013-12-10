@@ -5,7 +5,7 @@ Loading device for application Rf_Device from file '5vlx50t.nph' in environment
    "top" is an NCD, version 3.2, device xc5vlx50t, package ff1136, speed -1
 Opened constraints file top.pcf.
 
-Tue Dec 10 17:56:40 2013
+Tue Dec 10 20:31:58 2013
 
 /home/yuta/Xilinx/14.4/ISE_DS/ISE/bin/lin64/unwrapped/bitgen -intstyle ise -w -g DebugBitstream:No -g Binary:no -g CRC:Enable -g ConfigRate:2 -g CclkPin:PullUp -g M0Pin:PullUp -g M1Pin:PullUp -g M2Pin:PullUp -g ProgPin:PullUp -g DonePin:PullUp -g InitPin:Pullup -g CsPin:Pullup -g DinPin:Pullup -g BusyPin:Pullup -g RdWrPin:Pullup -g HswapenPin:PullUp -g TckPin:PullUp -g TdiPin:PullUp -g TdoPin:PullUp -g TmsPin:PullUp -g UnusedPin:PullDown -g UserID:0xFFFFFFFF -g ConfigFallback:Enable -g SelectMAPAbort:Enable -g BPI_page_size:1 -g OverTempPowerDown:Disable -g USR_ACCESS:None -g JTAG_SysMon:Enable -g DCIUpdateMode:AsRequired -g StartUpClk:CClk -g DONE_cycle:4 -g GTS_cycle:5 -g GWE_cycle:6 -g LCK_cycle:NoWait -g Match_cycle:Auto -g Security:None -g DonePipe:No -g DriveDone:No -g Encrypt:No top.ncd 
 
@@ -129,7 +129,16 @@ There were 0 CONFIG constraint(s) processed from top.pcf.
 
 
 Running DRC.
-DRC detected 0 errors and 0 warnings.
+WARNING:PhysDesignRules:372 - Gated clock. Clock net
+   datapath_map/fpu_map/fadd_map/frc_ans1<0> is sourced by a combinatorial pin.
+   This is not good design practice. Use the CE pin to control the loading of
+   data into the flip-flop.
+WARNING:PhysDesignRules:372 - Gated clock. Clock net
+   datapath_map/fpu_map/fadd_map/exp_up2_or0000 is sourced by a combinatorial
+   pin. This is not good design practice. Use the CE pin to control the loading
+   of data into the flip-flop.
+DRC detected 0 errors and 2 warnings.  Please see the previously displayed
+individual error or warning messages for more details.
 INFO:Security:50 - The XILINXD_LICENSE_FILE environment variable is set to
 '2100@133.11.27.150'.
 INFO:Security:52 - The LM_LICENSE_FILE environment variable is set to

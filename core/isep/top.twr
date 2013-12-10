@@ -28,19 +28,19 @@ INFO:Timing:3339 - The clock-to-out numbers in this timing report are based on
 Timing constraint: TS_SYS_CLK = PERIOD TIMEGRP "SYS_CLK" 14.52 ns HIGH 50%;
 For more information, see Period Analysis in the Timing Closure User Guide (UG612).
 
- 46969198 paths analyzed, 18538 endpoints analyzed, 0 failing endpoints
+ 48558848 paths analyzed, 18461 endpoints analyzed, 0 failing endpoints
  0 timing errors detected. (0 setup errors, 0 hold errors, 0 component switching limit errors)
- Minimum period is  14.476ns.
+ Minimum period is  14.471ns.
 --------------------------------------------------------------------------------
 
-Paths for end point datapath_map/fpuout_20 (SLICE_X29Y43.A1), 9381 paths
+Paths for end point datapath_map/pc_5 (SLICE_X33Y68.C5), 1395437 paths
 --------------------------------------------------------------------------------
-Slack (setup path):     0.044ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               datapath_map/fpr_map/Mram_regf_ren (RAM)
-  Destination:          datapath_map/fpuout_20 (FF)
+Slack (setup path):     0.049ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               ram_map/blockram_map/Mram_ram16 (RAM)
+  Destination:          datapath_map/pc_5 (FF)
   Requirement:          14.520ns
-  Data Path Delay:      14.151ns (Levels of Logic = 20)
-  Clock Path Skew:      -0.290ns (1.101 - 1.391)
+  Data Path Delay:      14.070ns (Levels of Logic = 10)
+  Clock Path Skew:      -0.366ns (1.083 - 1.449)
   Source Clock:         ZCLKMA_1_OBUF rising at 0.000ns
   Destination Clock:    ZCLKMA_1_OBUF rising at 14.520ns
   Clock Uncertainty:    0.035ns
@@ -51,348 +51,54 @@ Slack (setup path):     0.044ns (requirement - (data path - clock path skew + un
     Discrete Jitter (DJ):       0.000ns
     Phase Error (PE):           0.000ns
 
-  Maximum Data Path: datapath_map/fpr_map/Mram_regf_ren to datapath_map/fpuout_20
+  Maximum Data Path: ram_map/blockram_map/Mram_ram16 to datapath_map/pc_5
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    RAMB36_X1Y6.DOBDOL0  Trcko_DO              2.180   datapath_map/fpr_map/Mram_regf_ren
-                                                       datapath_map/fpr_map/Mram_regf_ren
-    SLICE_X43Y32.C3      net (fanout=27)       1.685   datapath_map/fs_out<16>
-    SLICE_X43Y32.C       Tilo                  0.094   datapath_map/fpu_map/fdiv_map/sig000008ed
-                                                       datapath_map/fpu_map/ftoi_map/Sh1061
-    SLICE_X41Y31.C4      net (fanout=3)        0.521   datapath_map/fpu_map/ftoi_map/Sh106
-    SLICE_X41Y31.C       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/num<21>
-                                                       datapath_map/fpu_map/ftoi_map/Sh501
-    SLICE_X38Y30.D4      net (fanout=3)        0.538   datapath_map/fpu_map/ftoi_map/Sh50
-    SLICE_X38Y30.CMUX    Topdc                 0.389   datapath_map/fpu_map/ftoi_map/hosei407
-                                                       datapath_map/fpu_map/ftoi_map/hosei407_F
-                                                       datapath_map/fpu_map/ftoi_map/hosei407
-    SLICE_X39Y30.C6      net (fanout=2)        0.311   datapath_map/fpu_map/ftoi_map/hosei407
-    SLICE_X39Y30.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/hosei291
-                                                       datapath_map/fpu_map/ftoi_map/hosei4711
-                                                       datapath_map/fpu_map/ftoi_map/hosei471_f7
-    SLICE_X39Y29.A6      net (fanout=1)        0.277   datapath_map/fpu_map/ftoi_map/hosei471
-    SLICE_X39Y29.A       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei237
-                                                       datapath_map/fpu_map/ftoi_map/hosei503
-    SLICE_X39Y29.C6      net (fanout=2)        0.301   datapath_map/fpu_map/ftoi_map/hosei503
-    SLICE_X39Y29.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/hosei237
-                                                       datapath_map/fpu_map/ftoi_map/hosei570_G
-                                                       datapath_map/fpu_map/ftoi_map/hosei570
-    SLICE_X39Y31.C6      net (fanout=2)        0.471   datapath_map/fpu_map/ftoi_map/hosei570
-    SLICE_X39Y31.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/e<2>
-                                                       datapath_map/fpu_map/ftoi_map/hosei6141
-                                                       datapath_map/fpu_map/ftoi_map/hosei614_f7
-    SLICE_X38Y31.C6      net (fanout=2)        0.291   datapath_map/fpu_map/ftoi_map/hosei614
-    SLICE_X38Y31.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/Sh1
-                                                       datapath_map/fpu_map/ftoi_map/hosei6441
-                                                       datapath_map/fpu_map/ftoi_map/hosei644_f7
-    SLICE_X42Y30.C6      net (fanout=2)        0.480   datapath_map/fpu_map/ftoi_map/hosei644
-    SLICE_X42Y30.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/Madd_eoffset_Madd_lut<4>
-                                                       datapath_map/fpu_map/ftoi_map/hosei7081
-                                                       datapath_map/fpu_map/ftoi_map/hosei708_f7
-    SLICE_X43Y30.C6      net (fanout=1)        0.305   datapath_map/fpu_map/ftoi_map/hosei708
-    SLICE_X43Y30.C       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei778
-                                                       datapath_map/fpu_map/ftoi_map/hosei732
-    SLICE_X43Y30.D5      net (fanout=1)        0.226   datapath_map/fpu_map/ftoi_map/hosei732
-    SLICE_X43Y30.D       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei778
-                                                       datapath_map/fpu_map/ftoi_map/hosei778
-    SLICE_X33Y32.A6      net (fanout=1)        0.652   datapath_map/fpu_map/ftoi_map/hosei778
-    SLICE_X33Y32.A       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei
-                                                       datapath_map/fpu_map/ftoi_map/hosei867
-    SLICE_X33Y32.B6      net (fanout=1)        0.135   datapath_map/fpu_map/ftoi_map/hosei867
-    SLICE_X33Y32.B       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei
-                                                       datapath_map/fpu_map/ftoi_map/hosei932
-    SLICE_X28Y34.A5      net (fanout=1)        0.534   datapath_map/fpu_map/ftoi_map/hosei
-    SLICE_X28Y34.COUT    Topcya                0.499   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<3>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_lut<0>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<3>
-    SLICE_X28Y35.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<3>
-    SLICE_X28Y35.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<7>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<7>
-    SLICE_X28Y36.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<7>
-    SLICE_X28Y36.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<11>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<11>
-    SLICE_X28Y37.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<11>
-    SLICE_X28Y37.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<15>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<15>
-    SLICE_X28Y38.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<15>
-    SLICE_X28Y38.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<19>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<19>
-    SLICE_X28Y39.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<19>
-    SLICE_X28Y39.AMUX    Tcina                 0.274   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<23>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<23>
-    SLICE_X29Y43.A1      net (fanout=1)        1.022   datapath_map/fpu_map/qftoi<20>
-    SLICE_X29Y43.CLK     Tas                   0.026   datapath_map/fpuout<20>
-                                                       datapath_map/fpu_map/R<20>1421
-                                                       datapath_map/fpuout_20
-    -------------------------------------------------  ---------------------------
-    Total                                     14.151ns (6.402ns logic, 7.749ns route)
-                                                       (45.2% logic, 54.8% route)
-
---------------------------------------------------------------------------------
-Slack (setup path):     0.046ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               datapath_map/fpr_map/Mram_regf_ren (RAM)
-  Destination:          datapath_map/fpuout_20 (FF)
-  Requirement:          14.520ns
-  Data Path Delay:      14.149ns (Levels of Logic = 20)
-  Clock Path Skew:      -0.290ns (1.101 - 1.391)
-  Source Clock:         ZCLKMA_1_OBUF rising at 0.000ns
-  Destination Clock:    ZCLKMA_1_OBUF rising at 14.520ns
-  Clock Uncertainty:    0.035ns
-
-  Clock Uncertainty:          0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
-    Total System Jitter (TSJ):  0.070ns
-    Total Input Jitter (TIJ):   0.000ns
-    Discrete Jitter (DJ):       0.000ns
-    Phase Error (PE):           0.000ns
-
-  Maximum Data Path: datapath_map/fpr_map/Mram_regf_ren to datapath_map/fpuout_20
-    Location             Delay type         Delay(ns)  Physical Resource
-                                                       Logical Resource(s)
-    -------------------------------------------------  -------------------
-    RAMB36_X1Y6.DOBDOL0  Trcko_DO              2.180   datapath_map/fpr_map/Mram_regf_ren
-                                                       datapath_map/fpr_map/Mram_regf_ren
-    SLICE_X43Y32.C3      net (fanout=27)       1.685   datapath_map/fs_out<16>
-    SLICE_X43Y32.C       Tilo                  0.094   datapath_map/fpu_map/fdiv_map/sig000008ed
-                                                       datapath_map/fpu_map/ftoi_map/Sh1061
-    SLICE_X41Y31.C4      net (fanout=3)        0.521   datapath_map/fpu_map/ftoi_map/Sh106
-    SLICE_X41Y31.C       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/num<21>
-                                                       datapath_map/fpu_map/ftoi_map/Sh501
-    SLICE_X38Y30.D4      net (fanout=3)        0.538   datapath_map/fpu_map/ftoi_map/Sh50
-    SLICE_X38Y30.CMUX    Topdc                 0.389   datapath_map/fpu_map/ftoi_map/hosei407
-                                                       datapath_map/fpu_map/ftoi_map/hosei407_F
-                                                       datapath_map/fpu_map/ftoi_map/hosei407
-    SLICE_X39Y30.C6      net (fanout=2)        0.311   datapath_map/fpu_map/ftoi_map/hosei407
-    SLICE_X39Y30.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/hosei291
-                                                       datapath_map/fpu_map/ftoi_map/hosei4711
-                                                       datapath_map/fpu_map/ftoi_map/hosei471_f7
-    SLICE_X39Y29.A6      net (fanout=1)        0.277   datapath_map/fpu_map/ftoi_map/hosei471
-    SLICE_X39Y29.A       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei237
-                                                       datapath_map/fpu_map/ftoi_map/hosei503
-    SLICE_X39Y29.C6      net (fanout=2)        0.301   datapath_map/fpu_map/ftoi_map/hosei503
-    SLICE_X39Y29.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/hosei237
-                                                       datapath_map/fpu_map/ftoi_map/hosei570_G
-                                                       datapath_map/fpu_map/ftoi_map/hosei570
-    SLICE_X39Y31.C6      net (fanout=2)        0.471   datapath_map/fpu_map/ftoi_map/hosei570
-    SLICE_X39Y31.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/e<2>
-                                                       datapath_map/fpu_map/ftoi_map/hosei6141
-                                                       datapath_map/fpu_map/ftoi_map/hosei614_f7
-    SLICE_X38Y31.C6      net (fanout=2)        0.291   datapath_map/fpu_map/ftoi_map/hosei614
-    SLICE_X38Y31.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/Sh1
-                                                       datapath_map/fpu_map/ftoi_map/hosei6441
-                                                       datapath_map/fpu_map/ftoi_map/hosei644_f7
-    SLICE_X42Y30.D6      net (fanout=2)        0.481   datapath_map/fpu_map/ftoi_map/hosei644
-    SLICE_X42Y30.CMUX    Topdc                 0.389   datapath_map/fpu_map/ftoi_map/Madd_eoffset_Madd_lut<4>
-                                                       datapath_map/fpu_map/ftoi_map/hosei7082
-                                                       datapath_map/fpu_map/ftoi_map/hosei708_f7
-    SLICE_X43Y30.C6      net (fanout=1)        0.305   datapath_map/fpu_map/ftoi_map/hosei708
-    SLICE_X43Y30.C       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei778
-                                                       datapath_map/fpu_map/ftoi_map/hosei732
-    SLICE_X43Y30.D5      net (fanout=1)        0.226   datapath_map/fpu_map/ftoi_map/hosei732
-    SLICE_X43Y30.D       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei778
-                                                       datapath_map/fpu_map/ftoi_map/hosei778
-    SLICE_X33Y32.A6      net (fanout=1)        0.652   datapath_map/fpu_map/ftoi_map/hosei778
-    SLICE_X33Y32.A       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei
-                                                       datapath_map/fpu_map/ftoi_map/hosei867
-    SLICE_X33Y32.B6      net (fanout=1)        0.135   datapath_map/fpu_map/ftoi_map/hosei867
-    SLICE_X33Y32.B       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei
-                                                       datapath_map/fpu_map/ftoi_map/hosei932
-    SLICE_X28Y34.A5      net (fanout=1)        0.534   datapath_map/fpu_map/ftoi_map/hosei
-    SLICE_X28Y34.COUT    Topcya                0.499   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<3>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_lut<0>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<3>
-    SLICE_X28Y35.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<3>
-    SLICE_X28Y35.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<7>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<7>
-    SLICE_X28Y36.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<7>
-    SLICE_X28Y36.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<11>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<11>
-    SLICE_X28Y37.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<11>
-    SLICE_X28Y37.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<15>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<15>
-    SLICE_X28Y38.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<15>
-    SLICE_X28Y38.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<19>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<19>
-    SLICE_X28Y39.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<19>
-    SLICE_X28Y39.AMUX    Tcina                 0.274   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<23>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<23>
-    SLICE_X29Y43.A1      net (fanout=1)        1.022   datapath_map/fpu_map/qftoi<20>
-    SLICE_X29Y43.CLK     Tas                   0.026   datapath_map/fpuout<20>
-                                                       datapath_map/fpu_map/R<20>1421
-                                                       datapath_map/fpuout_20
-    -------------------------------------------------  ---------------------------
-    Total                                     14.149ns (6.399ns logic, 7.750ns route)
-                                                       (45.2% logic, 54.8% route)
-
---------------------------------------------------------------------------------
-Slack (setup path):     0.046ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               datapath_map/fpr_map/Mram_regf_ren (RAM)
-  Destination:          datapath_map/fpuout_20 (FF)
-  Requirement:          14.520ns
-  Data Path Delay:      14.149ns (Levels of Logic = 20)
-  Clock Path Skew:      -0.290ns (1.101 - 1.391)
-  Source Clock:         ZCLKMA_1_OBUF rising at 0.000ns
-  Destination Clock:    ZCLKMA_1_OBUF rising at 14.520ns
-  Clock Uncertainty:    0.035ns
-
-  Clock Uncertainty:          0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
-    Total System Jitter (TSJ):  0.070ns
-    Total Input Jitter (TIJ):   0.000ns
-    Discrete Jitter (DJ):       0.000ns
-    Phase Error (PE):           0.000ns
-
-  Maximum Data Path: datapath_map/fpr_map/Mram_regf_ren to datapath_map/fpuout_20
-    Location             Delay type         Delay(ns)  Physical Resource
-                                                       Logical Resource(s)
-    -------------------------------------------------  -------------------
-    RAMB36_X1Y6.DOBDOL0  Trcko_DO              2.180   datapath_map/fpr_map/Mram_regf_ren
-                                                       datapath_map/fpr_map/Mram_regf_ren
-    SLICE_X43Y32.C3      net (fanout=27)       1.685   datapath_map/fs_out<16>
-    SLICE_X43Y32.C       Tilo                  0.094   datapath_map/fpu_map/fdiv_map/sig000008ed
-                                                       datapath_map/fpu_map/ftoi_map/Sh1061
-    SLICE_X41Y31.C4      net (fanout=3)        0.521   datapath_map/fpu_map/ftoi_map/Sh106
-    SLICE_X41Y31.C       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/num<21>
-                                                       datapath_map/fpu_map/ftoi_map/Sh501
-    SLICE_X38Y30.D4      net (fanout=3)        0.538   datapath_map/fpu_map/ftoi_map/Sh50
-    SLICE_X38Y30.CMUX    Topdc                 0.389   datapath_map/fpu_map/ftoi_map/hosei407
-                                                       datapath_map/fpu_map/ftoi_map/hosei407_F
-                                                       datapath_map/fpu_map/ftoi_map/hosei407
-    SLICE_X39Y30.C6      net (fanout=2)        0.311   datapath_map/fpu_map/ftoi_map/hosei407
-    SLICE_X39Y30.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/hosei291
-                                                       datapath_map/fpu_map/ftoi_map/hosei4711
-                                                       datapath_map/fpu_map/ftoi_map/hosei471_f7
-    SLICE_X39Y29.A6      net (fanout=1)        0.277   datapath_map/fpu_map/ftoi_map/hosei471
-    SLICE_X39Y29.A       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei237
-                                                       datapath_map/fpu_map/ftoi_map/hosei503
-    SLICE_X39Y29.C6      net (fanout=2)        0.301   datapath_map/fpu_map/ftoi_map/hosei503
-    SLICE_X39Y29.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/hosei237
-                                                       datapath_map/fpu_map/ftoi_map/hosei570_G
-                                                       datapath_map/fpu_map/ftoi_map/hosei570
-    SLICE_X39Y31.C6      net (fanout=2)        0.471   datapath_map/fpu_map/ftoi_map/hosei570
-    SLICE_X39Y31.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/e<2>
-                                                       datapath_map/fpu_map/ftoi_map/hosei6141
-                                                       datapath_map/fpu_map/ftoi_map/hosei614_f7
-    SLICE_X38Y31.D6      net (fanout=2)        0.292   datapath_map/fpu_map/ftoi_map/hosei614
-    SLICE_X38Y31.CMUX    Topdc                 0.389   datapath_map/fpu_map/ftoi_map/Sh1
-                                                       datapath_map/fpu_map/ftoi_map/hosei6442
-                                                       datapath_map/fpu_map/ftoi_map/hosei644_f7
-    SLICE_X42Y30.C6      net (fanout=2)        0.480   datapath_map/fpu_map/ftoi_map/hosei644
-    SLICE_X42Y30.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/Madd_eoffset_Madd_lut<4>
-                                                       datapath_map/fpu_map/ftoi_map/hosei7081
-                                                       datapath_map/fpu_map/ftoi_map/hosei708_f7
-    SLICE_X43Y30.C6      net (fanout=1)        0.305   datapath_map/fpu_map/ftoi_map/hosei708
-    SLICE_X43Y30.C       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei778
-                                                       datapath_map/fpu_map/ftoi_map/hosei732
-    SLICE_X43Y30.D5      net (fanout=1)        0.226   datapath_map/fpu_map/ftoi_map/hosei732
-    SLICE_X43Y30.D       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei778
-                                                       datapath_map/fpu_map/ftoi_map/hosei778
-    SLICE_X33Y32.A6      net (fanout=1)        0.652   datapath_map/fpu_map/ftoi_map/hosei778
-    SLICE_X33Y32.A       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei
-                                                       datapath_map/fpu_map/ftoi_map/hosei867
-    SLICE_X33Y32.B6      net (fanout=1)        0.135   datapath_map/fpu_map/ftoi_map/hosei867
-    SLICE_X33Y32.B       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei
-                                                       datapath_map/fpu_map/ftoi_map/hosei932
-    SLICE_X28Y34.A5      net (fanout=1)        0.534   datapath_map/fpu_map/ftoi_map/hosei
-    SLICE_X28Y34.COUT    Topcya                0.499   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<3>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_lut<0>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<3>
-    SLICE_X28Y35.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<3>
-    SLICE_X28Y35.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<7>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<7>
-    SLICE_X28Y36.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<7>
-    SLICE_X28Y36.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<11>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<11>
-    SLICE_X28Y37.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<11>
-    SLICE_X28Y37.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<15>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<15>
-    SLICE_X28Y38.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<15>
-    SLICE_X28Y38.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<19>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<19>
-    SLICE_X28Y39.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<19>
-    SLICE_X28Y39.AMUX    Tcina                 0.274   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<23>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<23>
-    SLICE_X29Y43.A1      net (fanout=1)        1.022   datapath_map/fpu_map/qftoi<20>
-    SLICE_X29Y43.CLK     Tas                   0.026   datapath_map/fpuout<20>
-                                                       datapath_map/fpu_map/R<20>1421
-                                                       datapath_map/fpuout_20
-    -------------------------------------------------  ---------------------------
-    Total                                     14.149ns (6.399ns logic, 7.750ns route)
-                                                       (45.2% logic, 54.8% route)
-
---------------------------------------------------------------------------------
-
-Paths for end point datapath_map/pc_25 (SLICE_X23Y77.C6), 1357228 paths
---------------------------------------------------------------------------------
-Slack (setup path):     0.083ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               datapath_map/register_file_map/Mram_regf (RAM)
-  Destination:          datapath_map/pc_25 (FF)
-  Requirement:          14.520ns
-  Data Path Delay:      14.181ns (Levels of Logic = 12)
-  Clock Path Skew:      -0.221ns (0.493 - 0.714)
-  Source Clock:         ZCLKMA_1_OBUF rising at 0.000ns
-  Destination Clock:    ZCLKMA_1_OBUF rising at 14.520ns
-  Clock Uncertainty:    0.035ns
-
-  Clock Uncertainty:          0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
-    Total System Jitter (TSJ):  0.070ns
-    Total Input Jitter (TIJ):   0.000ns
-    Discrete Jitter (DJ):       0.000ns
-    Phase Error (PE):           0.000ns
-
-  Maximum Data Path: datapath_map/register_file_map/Mram_regf to datapath_map/pc_25
-    Location             Delay type         Delay(ns)  Physical Resource
-                                                       Logical Resource(s)
-    -------------------------------------------------  -------------------
-    RAMB36_X0Y14.DOADOL12Trcko_DO              2.180   datapath_map/register_file_map/Mram_regf
-                                                       datapath_map/register_file_map/Mram_regf
-    SLICE_X14Y73.A1      net (fanout=3)        1.575   datapath_map/read_data1<12>
-    SLICE_X14Y73.A       Tilo                  0.094   datapath_map/alu_map/DATA_OUT_mux0004
-                                                       datapath_map/data_in1<12>1
-    SLICE_X9Y75.D2       net (fanout=10)       1.365   datapath_map/data_in1<12>
-    SLICE_X9Y75.D        Tilo                  0.094   datapath_map/alu_map/DATA_OUT<0>11048
-                                                       datapath_map/alu_map/DATA_OUT<0>6648
-    SLICE_X13Y75.A4      net (fanout=19)       0.950   datapath_map/alu_map/DATA_OUT<0>11048
-    SLICE_X13Y75.A       Tilo                  0.094   N977
-                                                       datapath_map/alu_map/DATA_OUT<0>25861
-    SLICE_X10Y73.A2      net (fanout=1)        0.962   datapath_map/alu_map/DATA_OUT<0>_bdd46
-    SLICE_X10Y73.A       Tilo                  0.094   datapath_map/alu_map/DATA_OUT<12>_bdd13
-                                                       datapath_map/alu_map/DATA_OUT<0>2422
-    SLICE_X6Y75.D5       net (fanout=6)        0.846   datapath_map/alu_map/DATA_OUT<0>_bdd23
-    SLICE_X6Y75.D        Tilo                  0.094   datapath_map/alu_map/DATA_OUT<11>_bdd39
-                                                       datapath_map/alu_map/DATA_OUT<11>192
-    SLICE_X8Y77.D5       net (fanout=3)        0.956   datapath_map/alu_map/DATA_OUT<11>_bdd39
-    SLICE_X8Y77.D        Tilo                  0.094   datapath_map/alu_map/DATA_OUT<17>_bdd10
-                                                       datapath_map/alu_map/DATA_OUT<17>41
-    SLICE_X8Y77.C1       net (fanout=3)        0.891   datapath_map/alu_map/DATA_OUT<17>_bdd10
-    SLICE_X8Y77.C        Tilo                  0.094   datapath_map/alu_map/DATA_OUT<17>_bdd10
-                                                       datapath_map/alu_map/DATA_OUT<17>31
-    SLICE_X13Y80.C2      net (fanout=1)        1.134   datapath_map/alu_map/DATA_OUT<17>_bdd5
-    SLICE_X13Y80.C       Tilo                  0.094   datapath_map/aluout<25>
+    RAMB36_X0Y14.DOBDOL0 Trcko_DOB             2.190   ram_map/blockram_map/Mram_ram16
+                                                       ram_map/blockram_map/Mram_ram16
+    SLICE_X8Y49.B6       net (fanout=31)       1.880   IR<15>
+    SLICE_X8Y49.B        Tilo                  0.094   datapath_map/data_in2<27>
+                                                       datapath_map/data_in2<27>1
+    SLICE_X11Y70.B2      net (fanout=10)       2.121   datapath_map/data_in2<27>
+    SLICE_X11Y70.B       Tilo                  0.094   datapath_map/alu_map/DATA_OUT<0>_bdd487
+                                                       datapath_map/alu_map/DATA_OUT<0>34220
+    SLICE_X19Y74.A6      net (fanout=3)        0.672   datapath_map/alu_map/DATA_OUT<0>_bdd47
+    SLICE_X19Y74.A       Tilo                  0.094   datapath_map/alu_map/DATA_OUT<10>_bdd64
+                                                       datapath_map/alu_map/DATA_OUT<0>3051
+    SLICE_X18Y73.B1      net (fanout=4)        0.897   datapath_map/alu_map/DATA_OUT<0>_bdd602
+    SLICE_X18Y73.B       Tilo                  0.094   datapath_map/alu_map/DATA_OUT<21>_bdd10
+                                                       datapath_map/alu_map/DATA_OUT<17>9
+    SLICE_X19Y65.D2      net (fanout=5)        1.289   datapath_map/alu_map/DATA_OUT<17>_bdd18
+    SLICE_X19Y65.D       Tilo                  0.094   datapath_map/alu_map/DATA_OUT<25>1241
+                                                       datapath_map/alu_map/DATA_OUT<25>1241
+    SLICE_X16Y64.CX      net (fanout=2)        0.315   datapath_map/alu_map/DATA_OUT<25>1241
+    SLICE_X16Y64.CMUX    Taxc                  0.335   N841
+                                                       datapath_map/alu_map/DATA_OUT<25>1280_SW0
+    SLICE_X17Y66.A3      net (fanout=1)        0.593   N841
+    SLICE_X17Y66.A       Tilo                  0.094   datapath_map/aluout<26>
                                                        datapath_map/alu_map/DATA_OUT<25>1305
-    SLICE_X13Y76.D3      net (fanout=2)        0.769   datapath_map/data_out<25>
-    SLICE_X13Y76.D       Tilo                  0.094   datapath_map/aluzero_cmp_eq000035
+    SLICE_X20Y69.B3      net (fanout=2)        0.920   datapath_map/data_out<25>
+    SLICE_X20Y69.B       Tilo                  0.094   datapath_map/aluout<14>
                                                        datapath_map/aluzero_cmp_eq000035
-    SLICE_X13Y76.C6      net (fanout=1)        0.139   datapath_map/aluzero_cmp_eq000035
-    SLICE_X13Y76.C       Tilo                  0.094   datapath_map/aluzero_cmp_eq000035
-                                                       datapath_map/aluzero_cmp_eq0000130_SW0
-    SLICE_X22Y76.A3      net (fanout=1)        0.812   N1306
-    SLICE_X22Y76.A       Tilo                  0.094   datapath_map/pc<2>
+    SLICE_X27Y69.A1      net (fanout=1)        1.009   datapath_map/aluzero_cmp_eq000035
+    SLICE_X27Y69.A       Tilo                  0.094   datapath_map/pc<2>
                                                        datapath_map/pccont
-    SLICE_X23Y77.C6      net (fanout=32)       0.539   datapath_map/pccont
-    SLICE_X23Y77.CLK     Tas                   0.029   datapath_map/pc<26>
-                                                       datapath_map/pc_25_rstpot
-                                                       datapath_map/pc_25
+    SLICE_X33Y68.C5      net (fanout=32)       1.068   datapath_map/pccont
+    SLICE_X33Y68.CLK     Tas                   0.029   datapath_map/pc<6>
+                                                       datapath_map/pc_5_rstpot
+                                                       datapath_map/pc_5
     -------------------------------------------------  ---------------------------
-    Total                                     14.181ns (3.243ns logic, 10.938ns route)
-                                                       (22.9% logic, 77.1% route)
+    Total                                     14.070ns (3.306ns logic, 10.764ns route)
+                                                       (23.5% logic, 76.5% route)
 
 --------------------------------------------------------------------------------
-Slack (setup path):     0.211ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               datapath_map/register_file_map/Mram_regf (RAM)
-  Destination:          datapath_map/pc_25 (FF)
+Slack (setup path):     0.054ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               ram_map/blockram_map/Mram_ram3 (RAM)
+  Destination:          datapath_map/pc_5 (FF)
   Requirement:          14.520ns
-  Data Path Delay:      14.053ns (Levels of Logic = 13)
-  Clock Path Skew:      -0.221ns (0.493 - 0.714)
+  Data Path Delay:      13.928ns (Levels of Logic = 9)
+  Clock Path Skew:      -0.503ns (1.083 - 1.586)
   Source Clock:         ZCLKMA_1_OBUF rising at 0.000ns
   Destination Clock:    ZCLKMA_1_OBUF rising at 14.520ns
   Clock Uncertainty:    0.035ns
@@ -403,63 +109,53 @@ Slack (setup path):     0.211ns (requirement - (data path - clock path skew + un
     Discrete Jitter (DJ):       0.000ns
     Phase Error (PE):           0.000ns
 
-  Maximum Data Path: datapath_map/register_file_map/Mram_regf to datapath_map/pc_25
+  Maximum Data Path: ram_map/blockram_map/Mram_ram3 to datapath_map/pc_5
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    RAMB36_X0Y14.DOBDOL10Trcko_DO              2.180   datapath_map/register_file_map/Mram_regf
-                                                       datapath_map/register_file_map/Mram_regf
-    SLICE_X18Y75.B6      net (fanout=3)        1.053   datapath_map/read_data1<26>
-    SLICE_X18Y75.B       Tilo                  0.094   N1058
-                                                       datapath_map/data_in1<26>1_SW0
-    SLICE_X19Y74.C5      net (fanout=1)        0.361   N598
-    SLICE_X19Y74.C       Tilo                  0.094   datapath_map/data_in1<19>
-                                                       datapath_map/data_in1<26>1
-    SLICE_X14Y74.D1      net (fanout=8)        1.093   datapath_map/data_in1<26>
-    SLICE_X14Y74.D       Tilo                  0.094   datapath_map/alu_map/DATA_OUT<0>1211
-                                                       datapath_map/alu_map/DATA_OUT<0>44411
-    SLICE_X9Y76.D6       net (fanout=34)       0.990   datapath_map/alu_map/DATA_OUT<0>1211
-    SLICE_X9Y76.D        Tilo                  0.094   datapath_map/alu_map/DATA_OUT<0>_bdd27
-                                                       datapath_map/alu_map/DATA_OUT<0>1277
-    SLICE_X3Y72.A6       net (fanout=115)      1.004   datapath_map/alu_map/DATA_OUT<0>_bdd27
-    SLICE_X3Y72.A        Tilo                  0.094   N734
-                                                       datapath_map/alu_map/DATA_OUT<0>246
-    SLICE_X6Y74.A1       net (fanout=2)        1.063   datapath_map/alu_map/DATA_OUT<0>_bdd446
-    SLICE_X6Y74.A        Tilo                  0.094   datapath_map/alu_map/DATA_OUT<0>_bdd595
-                                                       datapath_map/alu_map/DATA_OUT<15>1218
-    SLICE_X6Y74.B3       net (fanout=3)        0.744   datapath_map/alu_map/DATA_OUT<15>_bdd24
-    SLICE_X6Y74.B        Tilo                  0.094   datapath_map/alu_map/DATA_OUT<0>_bdd595
-                                                       datapath_map/alu_map/DATA_OUT<17>71
-    SLICE_X11Y76.B4      net (fanout=2)        0.875   datapath_map/alu_map/DATA_OUT<17>_bdd6
-    SLICE_X11Y76.B       Tilo                  0.094   datapath_map/aluout<10>
-                                                       datapath_map/alu_map/DATA_OUT<9>1180
-    SLICE_X11Y76.A1      net (fanout=1)        1.052   datapath_map/alu_map/DATA_OUT<9>1180
-    SLICE_X11Y76.A       Tilo                  0.094   datapath_map/aluout<10>
-                                                       datapath_map/alu_map/DATA_OUT<9>1266
-    SLICE_X11Y78.B1      net (fanout=2)        1.038   datapath_map/data_out<9>
-    SLICE_X11Y78.B       Tilo                  0.094   datapath_map/alu_map/DATA_OUT<0>_bdd298
-                                                       datapath_map/aluzero_cmp_eq0000194_SW0_SW0_SW0
-    SLICE_X11Y78.A5      net (fanout=1)        0.224   N933
-    SLICE_X11Y78.A       Tilo                  0.094   datapath_map/alu_map/DATA_OUT<0>_bdd298
-                                                       datapath_map/aluzero_cmp_eq0000236
-    SLICE_X22Y76.A6      net (fanout=1)        0.680   datapath_map/aluzero_cmp_eq0000236
-    SLICE_X22Y76.A       Tilo                  0.094   datapath_map/pc<2>
+    RAMB36_X0Y3.DOBDOL0  Trcko_DOB             2.190   ram_map/blockram_map/Mram_ram3
+                                                       ram_map/blockram_map/Mram_ram3
+    SLICE_X7Y53.B2       net (fanout=22)       2.452   IR<2>
+    SLICE_X7Y53.B        Tilo                  0.094   MDR<12>
+                                                       datapath_map/oper<1>1
+    SLICE_X1Y64.B2       net (fanout=123)      2.137   datapath_map/oper<1>
+    SLICE_X1Y64.COUT     Topcyb                0.501   datapath_map/alu_map/Maddsub_DATA_OUT_addsub0000_cy<27>
+                                                       datapath_map/alu_map/Maddsub_DATA_OUT_addsub0000_lut<25>
+                                                       datapath_map/alu_map/Maddsub_DATA_OUT_addsub0000_cy<27>
+    SLICE_X1Y65.CIN      net (fanout=1)        0.000   datapath_map/alu_map/Maddsub_DATA_OUT_addsub0000_cy<27>
+    SLICE_X1Y65.CMUX     Tcinc                 0.334   datapath_map/alu_map/DATA_OUT_addsub0000<31>
+                                                       datapath_map/alu_map/Maddsub_DATA_OUT_addsub0000_xor<31>
+    SLICE_X11Y68.A2      net (fanout=4)        1.490   datapath_map/alu_map/DATA_OUT_addsub0000<30>
+    SLICE_X11Y68.A       Tilo                  0.094   N1394
+                                                       datapath_map/alu_map/DATA_OUT<30>1197_SW0_G
+    SLICE_X11Y68.C6      net (fanout=1)        0.292   N1395
+    SLICE_X11Y68.CMUX    Tilo                  0.392   N1394
+                                                       datapath_map/alu_map/DATA_OUT<30>1233_G
+                                                       datapath_map/alu_map/DATA_OUT<30>1233
+    SLICE_X26Y70.A1      net (fanout=1)        1.335   datapath_map/alu_map/DATA_OUT<30>1233
+    SLICE_X26Y70.A       Tilo                  0.094   datapath_map/aluout<31>
+                                                       datapath_map/alu_map/DATA_OUT<30>1535
+    SLICE_X27Y70.B3      net (fanout=2)        0.572   datapath_map/data_out<30>
+    SLICE_X27Y70.B       Tilo                  0.094   datapath_map/aluout<4>
+                                                       datapath_map/aluzero_cmp_eq000071
+    SLICE_X27Y69.A4      net (fanout=1)        0.666   datapath_map/aluzero_cmp_eq000071
+    SLICE_X27Y69.A       Tilo                  0.094   datapath_map/pc<2>
                                                        datapath_map/pccont
-    SLICE_X23Y77.C6      net (fanout=32)       0.539   datapath_map/pccont
-    SLICE_X23Y77.CLK     Tas                   0.029   datapath_map/pc<26>
-                                                       datapath_map/pc_25_rstpot
-                                                       datapath_map/pc_25
+    SLICE_X33Y68.C5      net (fanout=32)       1.068   datapath_map/pccont
+    SLICE_X33Y68.CLK     Tas                   0.029   datapath_map/pc<6>
+                                                       datapath_map/pc_5_rstpot
+                                                       datapath_map/pc_5
     -------------------------------------------------  ---------------------------
-    Total                                     14.053ns (3.337ns logic, 10.716ns route)
-                                                       (23.7% logic, 76.3% route)
+    Total                                     13.928ns (3.916ns logic, 10.012ns route)
+                                                       (28.1% logic, 71.9% route)
 
 --------------------------------------------------------------------------------
-Slack (setup path):     0.217ns (requirement - (data path - clock path skew + uncertainty))
+Slack (setup path):     0.055ns (requirement - (data path - clock path skew + uncertainty))
   Source:               datapath_map/register_file_map/Mram_regf (RAM)
-  Destination:          datapath_map/pc_25 (FF)
+  Destination:          datapath_map/pc_5 (FF)
   Requirement:          14.520ns
-  Data Path Delay:      14.047ns (Levels of Logic = 13)
-  Clock Path Skew:      -0.221ns (0.493 - 0.714)
+  Data Path Delay:      14.048ns (Levels of Logic = 13)
+  Clock Path Skew:      -0.382ns (1.083 - 1.465)
   Source Clock:         ZCLKMA_1_OBUF rising at 0.000ns
   Destination Clock:    ZCLKMA_1_OBUF rising at 14.520ns
   Clock Uncertainty:    0.035ns
@@ -470,66 +166,66 @@ Slack (setup path):     0.217ns (requirement - (data path - clock path skew + un
     Discrete Jitter (DJ):       0.000ns
     Phase Error (PE):           0.000ns
 
-  Maximum Data Path: datapath_map/register_file_map/Mram_regf to datapath_map/pc_25
+  Maximum Data Path: datapath_map/register_file_map/Mram_regf to datapath_map/pc_5
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    RAMB36_X0Y14.DOADOL12Trcko_DO              2.180   datapath_map/register_file_map/Mram_regf
+    RAMB36_X0Y12.DOADOL5 Trcko_DO              2.180   datapath_map/register_file_map/Mram_regf
                                                        datapath_map/register_file_map/Mram_regf
-    SLICE_X15Y73.D6      net (fanout=3)        0.969   datapath_map/read_data1<12>
-    SLICE_X15Y73.D       Tilo                  0.094   N638
-                                                       datapath_map/data_in1<12>1_SW0
-    SLICE_X14Y73.A5      net (fanout=1)        0.378   N638
-    SLICE_X14Y73.A       Tilo                  0.094   datapath_map/alu_map/DATA_OUT_mux0004
-                                                       datapath_map/data_in1<12>1
-    SLICE_X9Y75.D2       net (fanout=10)       1.365   datapath_map/data_in1<12>
-    SLICE_X9Y75.D        Tilo                  0.094   datapath_map/alu_map/DATA_OUT<0>11048
-                                                       datapath_map/alu_map/DATA_OUT<0>6648
-    SLICE_X13Y75.A4      net (fanout=19)       0.950   datapath_map/alu_map/DATA_OUT<0>11048
-    SLICE_X13Y75.A       Tilo                  0.094   N977
-                                                       datapath_map/alu_map/DATA_OUT<0>25861
-    SLICE_X10Y73.A2      net (fanout=1)        0.962   datapath_map/alu_map/DATA_OUT<0>_bdd46
-    SLICE_X10Y73.A       Tilo                  0.094   datapath_map/alu_map/DATA_OUT<12>_bdd13
-                                                       datapath_map/alu_map/DATA_OUT<0>2422
-    SLICE_X6Y75.D5       net (fanout=6)        0.846   datapath_map/alu_map/DATA_OUT<0>_bdd23
-    SLICE_X6Y75.D        Tilo                  0.094   datapath_map/alu_map/DATA_OUT<11>_bdd39
-                                                       datapath_map/alu_map/DATA_OUT<11>192
-    SLICE_X8Y77.D5       net (fanout=3)        0.956   datapath_map/alu_map/DATA_OUT<11>_bdd39
-    SLICE_X8Y77.D        Tilo                  0.094   datapath_map/alu_map/DATA_OUT<17>_bdd10
-                                                       datapath_map/alu_map/DATA_OUT<17>41
-    SLICE_X8Y77.C1       net (fanout=3)        0.891   datapath_map/alu_map/DATA_OUT<17>_bdd10
-    SLICE_X8Y77.C        Tilo                  0.094   datapath_map/alu_map/DATA_OUT<17>_bdd10
-                                                       datapath_map/alu_map/DATA_OUT<17>31
-    SLICE_X13Y80.C2      net (fanout=1)        1.134   datapath_map/alu_map/DATA_OUT<17>_bdd5
-    SLICE_X13Y80.C       Tilo                  0.094   datapath_map/aluout<25>
-                                                       datapath_map/alu_map/DATA_OUT<25>1305
-    SLICE_X13Y76.D3      net (fanout=2)        0.769   datapath_map/data_out<25>
-    SLICE_X13Y76.D       Tilo                  0.094   datapath_map/aluzero_cmp_eq000035
+    SLICE_X7Y62.A5       net (fanout=5)        0.778   datapath_map/read_data1<5>
+    SLICE_X7Y62.A        Tilo                  0.094   N984
+                                                       controller_map/phase_FSM_Out23_SW1
+    SLICE_X6Y64.C5       net (fanout=1)        0.389   N982
+    SLICE_X6Y64.C        Tilo                  0.094   datapath_map/data_in1<20>
+                                                       datapath_map/data_in1<5>1
+    SLICE_X7Y67.D2       net (fanout=8)        1.263   datapath_map/data_in1<5>
+    SLICE_X7Y67.D        Tilo                  0.094   datapath_map/alu_map/DATA_OUT<0>119102
+                                                       datapath_map/alu_map/DATA_OUT<0>75102
+    SLICE_X6Y69.D5       net (fanout=18)       0.434   datapath_map/alu_map/DATA_OUT<0>119102
+    SLICE_X6Y69.D        Tilo                  0.094   N1244
+                                                       datapath_map/alu_map/DATA_OUT<0>75220_SW0
+    SLICE_X6Y69.C3       net (fanout=5)        0.911   N1244
+    SLICE_X6Y69.C        Tilo                  0.094   N1244
+                                                       datapath_map/alu_map/DATA_OUT<0>431
+    SLICE_X6Y72.B3       net (fanout=6)        0.960   datapath_map/alu_map/DATA_OUT<0>_bdd48
+    SLICE_X6Y72.B        Tilo                  0.094   N653
+                                                       datapath_map/alu_map/DATA_OUT<13>14_SW4
+    SLICE_X14Y74.A6      net (fanout=3)        0.819   N651
+    SLICE_X14Y74.A       Tilo                  0.094   datapath_map/alu_map/DATA_OUT<3>_bdd11
+                                                       datapath_map/alu_map/DATA_OUT<13>14
+    SLICE_X23Y71.B1      net (fanout=2)        1.072   datapath_map/alu_map/DATA_OUT<13>_bdd28
+    SLICE_X23Y71.B       Tilo                  0.094   datapath_map/alu_map/DATA_OUT<11>_bdd5
+                                                       datapath_map/alu_map/DATA_OUT<15>1234
+    SLICE_X25Y72.D2      net (fanout=2)        0.758   datapath_map/alu_map/DATA_OUT<15>1234
+    SLICE_X25Y72.D       Tilo                  0.094   N758
+                                                       datapath_map/alu_map/DATA_OUT<15>1160_SW1
+    SLICE_X20Y69.A2      net (fanout=1)        1.087   N758
+    SLICE_X20Y69.A       Tilo                  0.094   datapath_map/aluout<14>
+                                                       datapath_map/alu_map/DATA_OUT<15>1295
+    SLICE_X20Y69.B6      net (fanout=2)        0.163   datapath_map/data_out<15>
+    SLICE_X20Y69.B       Tilo                  0.094   datapath_map/aluout<14>
                                                        datapath_map/aluzero_cmp_eq000035
-    SLICE_X13Y76.C6      net (fanout=1)        0.139   datapath_map/aluzero_cmp_eq000035
-    SLICE_X13Y76.C       Tilo                  0.094   datapath_map/aluzero_cmp_eq000035
-                                                       datapath_map/aluzero_cmp_eq0000130_SW0
-    SLICE_X22Y76.A3      net (fanout=1)        0.812   N1306
-    SLICE_X22Y76.A       Tilo                  0.094   datapath_map/pc<2>
+    SLICE_X27Y69.A1      net (fanout=1)        1.009   datapath_map/aluzero_cmp_eq000035
+    SLICE_X27Y69.A       Tilo                  0.094   datapath_map/pc<2>
                                                        datapath_map/pccont
-    SLICE_X23Y77.C6      net (fanout=32)       0.539   datapath_map/pccont
-    SLICE_X23Y77.CLK     Tas                   0.029   datapath_map/pc<26>
-                                                       datapath_map/pc_25_rstpot
-                                                       datapath_map/pc_25
+    SLICE_X33Y68.C5      net (fanout=32)       1.068   datapath_map/pccont
+    SLICE_X33Y68.CLK     Tas                   0.029   datapath_map/pc<6>
+                                                       datapath_map/pc_5_rstpot
+                                                       datapath_map/pc_5
     -------------------------------------------------  ---------------------------
-    Total                                     14.047ns (3.337ns logic, 10.710ns route)
+    Total                                     14.048ns (3.337ns logic, 10.711ns route)
                                                        (23.8% logic, 76.2% route)
 
 --------------------------------------------------------------------------------
 
-Paths for end point datapath_map/fpuout_26 (SLICE_X30Y40.D2), 9644 paths
+Paths for end point datapath_map/pc_6 (SLICE_X33Y68.D6), 1395437 paths
 --------------------------------------------------------------------------------
-Slack (setup path):     0.128ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               datapath_map/fpr_map/Mram_regf_ren (RAM)
-  Destination:          datapath_map/fpuout_26 (FF)
+Slack (setup path):     0.065ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               ram_map/blockram_map/Mram_ram16 (RAM)
+  Destination:          datapath_map/pc_6 (FF)
   Requirement:          14.520ns
-  Data Path Delay:      14.091ns (Levels of Logic = 21)
-  Clock Path Skew:      -0.266ns (1.125 - 1.391)
+  Data Path Delay:      14.054ns (Levels of Logic = 10)
+  Clock Path Skew:      -0.366ns (1.083 - 1.449)
   Source Clock:         ZCLKMA_1_OBUF rising at 0.000ns
   Destination Clock:    ZCLKMA_1_OBUF rising at 14.520ns
   Clock Uncertainty:    0.035ns
@@ -540,94 +236,54 @@ Slack (setup path):     0.128ns (requirement - (data path - clock path skew + un
     Discrete Jitter (DJ):       0.000ns
     Phase Error (PE):           0.000ns
 
-  Maximum Data Path: datapath_map/fpr_map/Mram_regf_ren to datapath_map/fpuout_26
+  Maximum Data Path: ram_map/blockram_map/Mram_ram16 to datapath_map/pc_6
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    RAMB36_X1Y6.DOBDOL0  Trcko_DO              2.180   datapath_map/fpr_map/Mram_regf_ren
-                                                       datapath_map/fpr_map/Mram_regf_ren
-    SLICE_X43Y32.C3      net (fanout=27)       1.685   datapath_map/fs_out<16>
-    SLICE_X43Y32.C       Tilo                  0.094   datapath_map/fpu_map/fdiv_map/sig000008ed
-                                                       datapath_map/fpu_map/ftoi_map/Sh1061
-    SLICE_X41Y31.C4      net (fanout=3)        0.521   datapath_map/fpu_map/ftoi_map/Sh106
-    SLICE_X41Y31.C       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/num<21>
-                                                       datapath_map/fpu_map/ftoi_map/Sh501
-    SLICE_X38Y30.D4      net (fanout=3)        0.538   datapath_map/fpu_map/ftoi_map/Sh50
-    SLICE_X38Y30.CMUX    Topdc                 0.389   datapath_map/fpu_map/ftoi_map/hosei407
-                                                       datapath_map/fpu_map/ftoi_map/hosei407_F
-                                                       datapath_map/fpu_map/ftoi_map/hosei407
-    SLICE_X39Y30.C6      net (fanout=2)        0.311   datapath_map/fpu_map/ftoi_map/hosei407
-    SLICE_X39Y30.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/hosei291
-                                                       datapath_map/fpu_map/ftoi_map/hosei4711
-                                                       datapath_map/fpu_map/ftoi_map/hosei471_f7
-    SLICE_X39Y29.A6      net (fanout=1)        0.277   datapath_map/fpu_map/ftoi_map/hosei471
-    SLICE_X39Y29.A       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei237
-                                                       datapath_map/fpu_map/ftoi_map/hosei503
-    SLICE_X39Y29.C6      net (fanout=2)        0.301   datapath_map/fpu_map/ftoi_map/hosei503
-    SLICE_X39Y29.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/hosei237
-                                                       datapath_map/fpu_map/ftoi_map/hosei570_G
-                                                       datapath_map/fpu_map/ftoi_map/hosei570
-    SLICE_X39Y31.C6      net (fanout=2)        0.471   datapath_map/fpu_map/ftoi_map/hosei570
-    SLICE_X39Y31.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/e<2>
-                                                       datapath_map/fpu_map/ftoi_map/hosei6141
-                                                       datapath_map/fpu_map/ftoi_map/hosei614_f7
-    SLICE_X38Y31.C6      net (fanout=2)        0.291   datapath_map/fpu_map/ftoi_map/hosei614
-    SLICE_X38Y31.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/Sh1
-                                                       datapath_map/fpu_map/ftoi_map/hosei6441
-                                                       datapath_map/fpu_map/ftoi_map/hosei644_f7
-    SLICE_X42Y30.C6      net (fanout=2)        0.480   datapath_map/fpu_map/ftoi_map/hosei644
-    SLICE_X42Y30.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/Madd_eoffset_Madd_lut<4>
-                                                       datapath_map/fpu_map/ftoi_map/hosei7081
-                                                       datapath_map/fpu_map/ftoi_map/hosei708_f7
-    SLICE_X43Y30.C6      net (fanout=1)        0.305   datapath_map/fpu_map/ftoi_map/hosei708
-    SLICE_X43Y30.C       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei778
-                                                       datapath_map/fpu_map/ftoi_map/hosei732
-    SLICE_X43Y30.D5      net (fanout=1)        0.226   datapath_map/fpu_map/ftoi_map/hosei732
-    SLICE_X43Y30.D       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei778
-                                                       datapath_map/fpu_map/ftoi_map/hosei778
-    SLICE_X33Y32.A6      net (fanout=1)        0.652   datapath_map/fpu_map/ftoi_map/hosei778
-    SLICE_X33Y32.A       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei
-                                                       datapath_map/fpu_map/ftoi_map/hosei867
-    SLICE_X33Y32.B6      net (fanout=1)        0.135   datapath_map/fpu_map/ftoi_map/hosei867
-    SLICE_X33Y32.B       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei
-                                                       datapath_map/fpu_map/ftoi_map/hosei932
-    SLICE_X28Y34.A5      net (fanout=1)        0.534   datapath_map/fpu_map/ftoi_map/hosei
-    SLICE_X28Y34.COUT    Topcya                0.499   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<3>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_lut<0>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<3>
-    SLICE_X28Y35.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<3>
-    SLICE_X28Y35.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<7>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<7>
-    SLICE_X28Y36.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<7>
-    SLICE_X28Y36.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<11>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<11>
-    SLICE_X28Y37.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<11>
-    SLICE_X28Y37.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<15>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<15>
-    SLICE_X28Y38.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<15>
-    SLICE_X28Y38.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<19>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<19>
-    SLICE_X28Y39.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<19>
-    SLICE_X28Y39.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<23>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<23>
-    SLICE_X28Y40.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<23>
-    SLICE_X28Y40.CMUX    Tcinc                 0.337   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<27>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<27>
-    SLICE_X30Y40.D2      net (fanout=1)        0.793   datapath_map/fpu_map/qftoi<26>
-    SLICE_X30Y40.CLK     Tas                   0.028   datapath_map/fpuout<26>
-                                                       datapath_map/fpu_map/R<26>2531
-                                                       datapath_map/fpuout_26
+    RAMB36_X0Y14.DOBDOL0 Trcko_DOB             2.190   ram_map/blockram_map/Mram_ram16
+                                                       ram_map/blockram_map/Mram_ram16
+    SLICE_X8Y49.B6       net (fanout=31)       1.880   IR<15>
+    SLICE_X8Y49.B        Tilo                  0.094   datapath_map/data_in2<27>
+                                                       datapath_map/data_in2<27>1
+    SLICE_X11Y70.B2      net (fanout=10)       2.121   datapath_map/data_in2<27>
+    SLICE_X11Y70.B       Tilo                  0.094   datapath_map/alu_map/DATA_OUT<0>_bdd487
+                                                       datapath_map/alu_map/DATA_OUT<0>34220
+    SLICE_X19Y74.A6      net (fanout=3)        0.672   datapath_map/alu_map/DATA_OUT<0>_bdd47
+    SLICE_X19Y74.A       Tilo                  0.094   datapath_map/alu_map/DATA_OUT<10>_bdd64
+                                                       datapath_map/alu_map/DATA_OUT<0>3051
+    SLICE_X18Y73.B1      net (fanout=4)        0.897   datapath_map/alu_map/DATA_OUT<0>_bdd602
+    SLICE_X18Y73.B       Tilo                  0.094   datapath_map/alu_map/DATA_OUT<21>_bdd10
+                                                       datapath_map/alu_map/DATA_OUT<17>9
+    SLICE_X19Y65.D2      net (fanout=5)        1.289   datapath_map/alu_map/DATA_OUT<17>_bdd18
+    SLICE_X19Y65.D       Tilo                  0.094   datapath_map/alu_map/DATA_OUT<25>1241
+                                                       datapath_map/alu_map/DATA_OUT<25>1241
+    SLICE_X16Y64.CX      net (fanout=2)        0.315   datapath_map/alu_map/DATA_OUT<25>1241
+    SLICE_X16Y64.CMUX    Taxc                  0.335   N841
+                                                       datapath_map/alu_map/DATA_OUT<25>1280_SW0
+    SLICE_X17Y66.A3      net (fanout=1)        0.593   N841
+    SLICE_X17Y66.A       Tilo                  0.094   datapath_map/aluout<26>
+                                                       datapath_map/alu_map/DATA_OUT<25>1305
+    SLICE_X20Y69.B3      net (fanout=2)        0.920   datapath_map/data_out<25>
+    SLICE_X20Y69.B       Tilo                  0.094   datapath_map/aluout<14>
+                                                       datapath_map/aluzero_cmp_eq000035
+    SLICE_X27Y69.A1      net (fanout=1)        1.009   datapath_map/aluzero_cmp_eq000035
+    SLICE_X27Y69.A       Tilo                  0.094   datapath_map/pc<2>
+                                                       datapath_map/pccont
+    SLICE_X33Y68.D6      net (fanout=32)       1.053   datapath_map/pccont
+    SLICE_X33Y68.CLK     Tas                   0.028   datapath_map/pc<6>
+                                                       datapath_map/pc_6_rstpot
+                                                       datapath_map/pc_6
     -------------------------------------------------  ---------------------------
-    Total                                     14.091ns (6.571ns logic, 7.520ns route)
-                                                       (46.6% logic, 53.4% route)
+    Total                                     14.054ns (3.305ns logic, 10.749ns route)
+                                                       (23.5% logic, 76.5% route)
 
 --------------------------------------------------------------------------------
-Slack (setup path):     0.130ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               datapath_map/fpr_map/Mram_regf_ren (RAM)
-  Destination:          datapath_map/fpuout_26 (FF)
+Slack (setup path):     0.070ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               ram_map/blockram_map/Mram_ram3 (RAM)
+  Destination:          datapath_map/pc_6 (FF)
   Requirement:          14.520ns
-  Data Path Delay:      14.089ns (Levels of Logic = 21)
-  Clock Path Skew:      -0.266ns (1.125 - 1.391)
+  Data Path Delay:      13.912ns (Levels of Logic = 9)
+  Clock Path Skew:      -0.503ns (1.083 - 1.586)
   Source Clock:         ZCLKMA_1_OBUF rising at 0.000ns
   Destination Clock:    ZCLKMA_1_OBUF rising at 14.520ns
   Clock Uncertainty:    0.035ns
@@ -638,94 +294,53 @@ Slack (setup path):     0.130ns (requirement - (data path - clock path skew + un
     Discrete Jitter (DJ):       0.000ns
     Phase Error (PE):           0.000ns
 
-  Maximum Data Path: datapath_map/fpr_map/Mram_regf_ren to datapath_map/fpuout_26
+  Maximum Data Path: ram_map/blockram_map/Mram_ram3 to datapath_map/pc_6
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    RAMB36_X1Y6.DOBDOL0  Trcko_DO              2.180   datapath_map/fpr_map/Mram_regf_ren
-                                                       datapath_map/fpr_map/Mram_regf_ren
-    SLICE_X43Y32.C3      net (fanout=27)       1.685   datapath_map/fs_out<16>
-    SLICE_X43Y32.C       Tilo                  0.094   datapath_map/fpu_map/fdiv_map/sig000008ed
-                                                       datapath_map/fpu_map/ftoi_map/Sh1061
-    SLICE_X41Y31.C4      net (fanout=3)        0.521   datapath_map/fpu_map/ftoi_map/Sh106
-    SLICE_X41Y31.C       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/num<21>
-                                                       datapath_map/fpu_map/ftoi_map/Sh501
-    SLICE_X38Y30.D4      net (fanout=3)        0.538   datapath_map/fpu_map/ftoi_map/Sh50
-    SLICE_X38Y30.CMUX    Topdc                 0.389   datapath_map/fpu_map/ftoi_map/hosei407
-                                                       datapath_map/fpu_map/ftoi_map/hosei407_F
-                                                       datapath_map/fpu_map/ftoi_map/hosei407
-    SLICE_X39Y30.C6      net (fanout=2)        0.311   datapath_map/fpu_map/ftoi_map/hosei407
-    SLICE_X39Y30.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/hosei291
-                                                       datapath_map/fpu_map/ftoi_map/hosei4711
-                                                       datapath_map/fpu_map/ftoi_map/hosei471_f7
-    SLICE_X39Y29.A6      net (fanout=1)        0.277   datapath_map/fpu_map/ftoi_map/hosei471
-    SLICE_X39Y29.A       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei237
-                                                       datapath_map/fpu_map/ftoi_map/hosei503
-    SLICE_X39Y29.C6      net (fanout=2)        0.301   datapath_map/fpu_map/ftoi_map/hosei503
-    SLICE_X39Y29.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/hosei237
-                                                       datapath_map/fpu_map/ftoi_map/hosei570_G
-                                                       datapath_map/fpu_map/ftoi_map/hosei570
-    SLICE_X39Y31.C6      net (fanout=2)        0.471   datapath_map/fpu_map/ftoi_map/hosei570
-    SLICE_X39Y31.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/e<2>
-                                                       datapath_map/fpu_map/ftoi_map/hosei6141
-                                                       datapath_map/fpu_map/ftoi_map/hosei614_f7
-    SLICE_X38Y31.C6      net (fanout=2)        0.291   datapath_map/fpu_map/ftoi_map/hosei614
-    SLICE_X38Y31.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/Sh1
-                                                       datapath_map/fpu_map/ftoi_map/hosei6441
-                                                       datapath_map/fpu_map/ftoi_map/hosei644_f7
-    SLICE_X42Y30.D6      net (fanout=2)        0.481   datapath_map/fpu_map/ftoi_map/hosei644
-    SLICE_X42Y30.CMUX    Topdc                 0.389   datapath_map/fpu_map/ftoi_map/Madd_eoffset_Madd_lut<4>
-                                                       datapath_map/fpu_map/ftoi_map/hosei7082
-                                                       datapath_map/fpu_map/ftoi_map/hosei708_f7
-    SLICE_X43Y30.C6      net (fanout=1)        0.305   datapath_map/fpu_map/ftoi_map/hosei708
-    SLICE_X43Y30.C       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei778
-                                                       datapath_map/fpu_map/ftoi_map/hosei732
-    SLICE_X43Y30.D5      net (fanout=1)        0.226   datapath_map/fpu_map/ftoi_map/hosei732
-    SLICE_X43Y30.D       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei778
-                                                       datapath_map/fpu_map/ftoi_map/hosei778
-    SLICE_X33Y32.A6      net (fanout=1)        0.652   datapath_map/fpu_map/ftoi_map/hosei778
-    SLICE_X33Y32.A       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei
-                                                       datapath_map/fpu_map/ftoi_map/hosei867
-    SLICE_X33Y32.B6      net (fanout=1)        0.135   datapath_map/fpu_map/ftoi_map/hosei867
-    SLICE_X33Y32.B       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei
-                                                       datapath_map/fpu_map/ftoi_map/hosei932
-    SLICE_X28Y34.A5      net (fanout=1)        0.534   datapath_map/fpu_map/ftoi_map/hosei
-    SLICE_X28Y34.COUT    Topcya                0.499   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<3>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_lut<0>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<3>
-    SLICE_X28Y35.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<3>
-    SLICE_X28Y35.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<7>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<7>
-    SLICE_X28Y36.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<7>
-    SLICE_X28Y36.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<11>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<11>
-    SLICE_X28Y37.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<11>
-    SLICE_X28Y37.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<15>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<15>
-    SLICE_X28Y38.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<15>
-    SLICE_X28Y38.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<19>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<19>
-    SLICE_X28Y39.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<19>
-    SLICE_X28Y39.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<23>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<23>
-    SLICE_X28Y40.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<23>
-    SLICE_X28Y40.CMUX    Tcinc                 0.337   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<27>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<27>
-    SLICE_X30Y40.D2      net (fanout=1)        0.793   datapath_map/fpu_map/qftoi<26>
-    SLICE_X30Y40.CLK     Tas                   0.028   datapath_map/fpuout<26>
-                                                       datapath_map/fpu_map/R<26>2531
-                                                       datapath_map/fpuout_26
+    RAMB36_X0Y3.DOBDOL0  Trcko_DOB             2.190   ram_map/blockram_map/Mram_ram3
+                                                       ram_map/blockram_map/Mram_ram3
+    SLICE_X7Y53.B2       net (fanout=22)       2.452   IR<2>
+    SLICE_X7Y53.B        Tilo                  0.094   MDR<12>
+                                                       datapath_map/oper<1>1
+    SLICE_X1Y64.B2       net (fanout=123)      2.137   datapath_map/oper<1>
+    SLICE_X1Y64.COUT     Topcyb                0.501   datapath_map/alu_map/Maddsub_DATA_OUT_addsub0000_cy<27>
+                                                       datapath_map/alu_map/Maddsub_DATA_OUT_addsub0000_lut<25>
+                                                       datapath_map/alu_map/Maddsub_DATA_OUT_addsub0000_cy<27>
+    SLICE_X1Y65.CIN      net (fanout=1)        0.000   datapath_map/alu_map/Maddsub_DATA_OUT_addsub0000_cy<27>
+    SLICE_X1Y65.CMUX     Tcinc                 0.334   datapath_map/alu_map/DATA_OUT_addsub0000<31>
+                                                       datapath_map/alu_map/Maddsub_DATA_OUT_addsub0000_xor<31>
+    SLICE_X11Y68.A2      net (fanout=4)        1.490   datapath_map/alu_map/DATA_OUT_addsub0000<30>
+    SLICE_X11Y68.A       Tilo                  0.094   N1394
+                                                       datapath_map/alu_map/DATA_OUT<30>1197_SW0_G
+    SLICE_X11Y68.C6      net (fanout=1)        0.292   N1395
+    SLICE_X11Y68.CMUX    Tilo                  0.392   N1394
+                                                       datapath_map/alu_map/DATA_OUT<30>1233_G
+                                                       datapath_map/alu_map/DATA_OUT<30>1233
+    SLICE_X26Y70.A1      net (fanout=1)        1.335   datapath_map/alu_map/DATA_OUT<30>1233
+    SLICE_X26Y70.A       Tilo                  0.094   datapath_map/aluout<31>
+                                                       datapath_map/alu_map/DATA_OUT<30>1535
+    SLICE_X27Y70.B3      net (fanout=2)        0.572   datapath_map/data_out<30>
+    SLICE_X27Y70.B       Tilo                  0.094   datapath_map/aluout<4>
+                                                       datapath_map/aluzero_cmp_eq000071
+    SLICE_X27Y69.A4      net (fanout=1)        0.666   datapath_map/aluzero_cmp_eq000071
+    SLICE_X27Y69.A       Tilo                  0.094   datapath_map/pc<2>
+                                                       datapath_map/pccont
+    SLICE_X33Y68.D6      net (fanout=32)       1.053   datapath_map/pccont
+    SLICE_X33Y68.CLK     Tas                   0.028   datapath_map/pc<6>
+                                                       datapath_map/pc_6_rstpot
+                                                       datapath_map/pc_6
     -------------------------------------------------  ---------------------------
-    Total                                     14.089ns (6.568ns logic, 7.521ns route)
-                                                       (46.6% logic, 53.4% route)
+    Total                                     13.912ns (3.915ns logic, 9.997ns route)
+                                                       (28.1% logic, 71.9% route)
 
 --------------------------------------------------------------------------------
-Slack (setup path):     0.130ns (requirement - (data path - clock path skew + uncertainty))
-  Source:               datapath_map/fpr_map/Mram_regf_ren (RAM)
-  Destination:          datapath_map/fpuout_26 (FF)
+Slack (setup path):     0.071ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               datapath_map/register_file_map/Mram_regf (RAM)
+  Destination:          datapath_map/pc_6 (FF)
   Requirement:          14.520ns
-  Data Path Delay:      14.089ns (Levels of Logic = 21)
-  Clock Path Skew:      -0.266ns (1.125 - 1.391)
+  Data Path Delay:      14.032ns (Levels of Logic = 13)
+  Clock Path Skew:      -0.382ns (1.083 - 1.465)
   Source Clock:         ZCLKMA_1_OBUF rising at 0.000ns
   Destination Clock:    ZCLKMA_1_OBUF rising at 14.520ns
   Clock Uncertainty:    0.035ns
@@ -736,170 +351,323 @@ Slack (setup path):     0.130ns (requirement - (data path - clock path skew + un
     Discrete Jitter (DJ):       0.000ns
     Phase Error (PE):           0.000ns
 
-  Maximum Data Path: datapath_map/fpr_map/Mram_regf_ren to datapath_map/fpuout_26
+  Maximum Data Path: datapath_map/register_file_map/Mram_regf to datapath_map/pc_6
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    RAMB36_X1Y6.DOBDOL0  Trcko_DO              2.180   datapath_map/fpr_map/Mram_regf_ren
-                                                       datapath_map/fpr_map/Mram_regf_ren
-    SLICE_X43Y32.C3      net (fanout=27)       1.685   datapath_map/fs_out<16>
-    SLICE_X43Y32.C       Tilo                  0.094   datapath_map/fpu_map/fdiv_map/sig000008ed
-                                                       datapath_map/fpu_map/ftoi_map/Sh1061
-    SLICE_X41Y31.C4      net (fanout=3)        0.521   datapath_map/fpu_map/ftoi_map/Sh106
-    SLICE_X41Y31.C       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/num<21>
-                                                       datapath_map/fpu_map/ftoi_map/Sh501
-    SLICE_X38Y30.D4      net (fanout=3)        0.538   datapath_map/fpu_map/ftoi_map/Sh50
-    SLICE_X38Y30.CMUX    Topdc                 0.389   datapath_map/fpu_map/ftoi_map/hosei407
-                                                       datapath_map/fpu_map/ftoi_map/hosei407_F
-                                                       datapath_map/fpu_map/ftoi_map/hosei407
-    SLICE_X39Y30.C6      net (fanout=2)        0.311   datapath_map/fpu_map/ftoi_map/hosei407
-    SLICE_X39Y30.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/hosei291
-                                                       datapath_map/fpu_map/ftoi_map/hosei4711
-                                                       datapath_map/fpu_map/ftoi_map/hosei471_f7
-    SLICE_X39Y29.A6      net (fanout=1)        0.277   datapath_map/fpu_map/ftoi_map/hosei471
-    SLICE_X39Y29.A       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei237
-                                                       datapath_map/fpu_map/ftoi_map/hosei503
-    SLICE_X39Y29.C6      net (fanout=2)        0.301   datapath_map/fpu_map/ftoi_map/hosei503
-    SLICE_X39Y29.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/hosei237
-                                                       datapath_map/fpu_map/ftoi_map/hosei570_G
-                                                       datapath_map/fpu_map/ftoi_map/hosei570
-    SLICE_X39Y31.C6      net (fanout=2)        0.471   datapath_map/fpu_map/ftoi_map/hosei570
-    SLICE_X39Y31.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/e<2>
-                                                       datapath_map/fpu_map/ftoi_map/hosei6141
-                                                       datapath_map/fpu_map/ftoi_map/hosei614_f7
-    SLICE_X38Y31.D6      net (fanout=2)        0.292   datapath_map/fpu_map/ftoi_map/hosei614
-    SLICE_X38Y31.CMUX    Topdc                 0.389   datapath_map/fpu_map/ftoi_map/Sh1
-                                                       datapath_map/fpu_map/ftoi_map/hosei6442
-                                                       datapath_map/fpu_map/ftoi_map/hosei644_f7
-    SLICE_X42Y30.C6      net (fanout=2)        0.480   datapath_map/fpu_map/ftoi_map/hosei644
-    SLICE_X42Y30.CMUX    Tilo                  0.392   datapath_map/fpu_map/ftoi_map/Madd_eoffset_Madd_lut<4>
-                                                       datapath_map/fpu_map/ftoi_map/hosei7081
-                                                       datapath_map/fpu_map/ftoi_map/hosei708_f7
-    SLICE_X43Y30.C6      net (fanout=1)        0.305   datapath_map/fpu_map/ftoi_map/hosei708
-    SLICE_X43Y30.C       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei778
-                                                       datapath_map/fpu_map/ftoi_map/hosei732
-    SLICE_X43Y30.D5      net (fanout=1)        0.226   datapath_map/fpu_map/ftoi_map/hosei732
-    SLICE_X43Y30.D       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei778
-                                                       datapath_map/fpu_map/ftoi_map/hosei778
-    SLICE_X33Y32.A6      net (fanout=1)        0.652   datapath_map/fpu_map/ftoi_map/hosei778
-    SLICE_X33Y32.A       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei
-                                                       datapath_map/fpu_map/ftoi_map/hosei867
-    SLICE_X33Y32.B6      net (fanout=1)        0.135   datapath_map/fpu_map/ftoi_map/hosei867
-    SLICE_X33Y32.B       Tilo                  0.094   datapath_map/fpu_map/ftoi_map/hosei
-                                                       datapath_map/fpu_map/ftoi_map/hosei932
-    SLICE_X28Y34.A5      net (fanout=1)        0.534   datapath_map/fpu_map/ftoi_map/hosei
-    SLICE_X28Y34.COUT    Topcya                0.499   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<3>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_lut<0>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<3>
-    SLICE_X28Y35.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<3>
-    SLICE_X28Y35.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<7>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<7>
-    SLICE_X28Y36.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<7>
-    SLICE_X28Y36.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<11>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<11>
-    SLICE_X28Y37.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<11>
-    SLICE_X28Y37.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<15>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<15>
-    SLICE_X28Y38.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<15>
-    SLICE_X28Y38.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<19>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<19>
-    SLICE_X28Y39.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<19>
-    SLICE_X28Y39.COUT    Tbyp                  0.104   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<23>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<23>
-    SLICE_X28Y40.CIN     net (fanout=1)        0.000   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<23>
-    SLICE_X28Y40.CMUX    Tcinc                 0.337   datapath_map/fpu_map/ftoi_map/Madd_answer_cy<27>
-                                                       datapath_map/fpu_map/ftoi_map/Madd_answer_cy<27>
-    SLICE_X30Y40.D2      net (fanout=1)        0.793   datapath_map/fpu_map/qftoi<26>
-    SLICE_X30Y40.CLK     Tas                   0.028   datapath_map/fpuout<26>
-                                                       datapath_map/fpu_map/R<26>2531
-                                                       datapath_map/fpuout_26
+    RAMB36_X0Y12.DOADOL5 Trcko_DO              2.180   datapath_map/register_file_map/Mram_regf
+                                                       datapath_map/register_file_map/Mram_regf
+    SLICE_X7Y62.A5       net (fanout=5)        0.778   datapath_map/read_data1<5>
+    SLICE_X7Y62.A        Tilo                  0.094   N984
+                                                       controller_map/phase_FSM_Out23_SW1
+    SLICE_X6Y64.C5       net (fanout=1)        0.389   N982
+    SLICE_X6Y64.C        Tilo                  0.094   datapath_map/data_in1<20>
+                                                       datapath_map/data_in1<5>1
+    SLICE_X7Y67.D2       net (fanout=8)        1.263   datapath_map/data_in1<5>
+    SLICE_X7Y67.D        Tilo                  0.094   datapath_map/alu_map/DATA_OUT<0>119102
+                                                       datapath_map/alu_map/DATA_OUT<0>75102
+    SLICE_X6Y69.D5       net (fanout=18)       0.434   datapath_map/alu_map/DATA_OUT<0>119102
+    SLICE_X6Y69.D        Tilo                  0.094   N1244
+                                                       datapath_map/alu_map/DATA_OUT<0>75220_SW0
+    SLICE_X6Y69.C3       net (fanout=5)        0.911   N1244
+    SLICE_X6Y69.C        Tilo                  0.094   N1244
+                                                       datapath_map/alu_map/DATA_OUT<0>431
+    SLICE_X6Y72.B3       net (fanout=6)        0.960   datapath_map/alu_map/DATA_OUT<0>_bdd48
+    SLICE_X6Y72.B        Tilo                  0.094   N653
+                                                       datapath_map/alu_map/DATA_OUT<13>14_SW4
+    SLICE_X14Y74.A6      net (fanout=3)        0.819   N651
+    SLICE_X14Y74.A       Tilo                  0.094   datapath_map/alu_map/DATA_OUT<3>_bdd11
+                                                       datapath_map/alu_map/DATA_OUT<13>14
+    SLICE_X23Y71.B1      net (fanout=2)        1.072   datapath_map/alu_map/DATA_OUT<13>_bdd28
+    SLICE_X23Y71.B       Tilo                  0.094   datapath_map/alu_map/DATA_OUT<11>_bdd5
+                                                       datapath_map/alu_map/DATA_OUT<15>1234
+    SLICE_X25Y72.D2      net (fanout=2)        0.758   datapath_map/alu_map/DATA_OUT<15>1234
+    SLICE_X25Y72.D       Tilo                  0.094   N758
+                                                       datapath_map/alu_map/DATA_OUT<15>1160_SW1
+    SLICE_X20Y69.A2      net (fanout=1)        1.087   N758
+    SLICE_X20Y69.A       Tilo                  0.094   datapath_map/aluout<14>
+                                                       datapath_map/alu_map/DATA_OUT<15>1295
+    SLICE_X20Y69.B6      net (fanout=2)        0.163   datapath_map/data_out<15>
+    SLICE_X20Y69.B       Tilo                  0.094   datapath_map/aluout<14>
+                                                       datapath_map/aluzero_cmp_eq000035
+    SLICE_X27Y69.A1      net (fanout=1)        1.009   datapath_map/aluzero_cmp_eq000035
+    SLICE_X27Y69.A       Tilo                  0.094   datapath_map/pc<2>
+                                                       datapath_map/pccont
+    SLICE_X33Y68.D6      net (fanout=32)       1.053   datapath_map/pccont
+    SLICE_X33Y68.CLK     Tas                   0.028   datapath_map/pc<6>
+                                                       datapath_map/pc_6_rstpot
+                                                       datapath_map/pc_6
     -------------------------------------------------  ---------------------------
-    Total                                     14.089ns (6.568ns logic, 7.521ns route)
-                                                       (46.6% logic, 53.4% route)
+    Total                                     14.032ns (3.336ns logic, 10.696ns route)
+                                                       (23.8% logic, 76.2% route)
+
+--------------------------------------------------------------------------------
+
+Paths for end point datapath_map/pc_16 (SLICE_X26Y69.B1), 1395437 paths
+--------------------------------------------------------------------------------
+Slack (setup path):     0.140ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               datapath_map/pc_8 (FF)
+  Destination:          datapath_map/pc_16 (FF)
+  Requirement:          14.520ns
+  Data Path Delay:      14.341ns (Levels of Logic = 13)
+  Clock Path Skew:      -0.004ns (1.150 - 1.154)
+  Source Clock:         ZCLKMA_1_OBUF rising at 0.000ns
+  Destination Clock:    ZCLKMA_1_OBUF rising at 14.520ns
+  Clock Uncertainty:    0.035ns
+
+  Clock Uncertainty:          0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter (TSJ):  0.070ns
+    Total Input Jitter (TIJ):   0.000ns
+    Discrete Jitter (DJ):       0.000ns
+    Phase Error (PE):           0.000ns
+
+  Maximum Data Path: datapath_map/pc_8 to datapath_map/pc_16
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X29Y68.BQ      Tcko                  0.450   datapath_map/pc<10>
+                                                       datapath_map/pc_8
+    SLICE_X6Y61.C2       net (fanout=67)       2.690   datapath_map/pc<8>
+    SLICE_X6Y61.C        Tilo                  0.094   N911
+                                                       datapath_map/data_in1<8>1_SW0
+    SLICE_X7Y61.C5       net (fanout=1)        0.226   N777
+    SLICE_X7Y61.C        Tilo                  0.094   datapath_map/alu_map/DATA_OUT<18>199
+                                                       datapath_map/data_in1<8>1
+    SLICE_X8Y66.B2       net (fanout=8)        1.588   datapath_map/data_in1<8>
+    SLICE_X8Y66.B        Tilo                  0.094   datapath_map/alu_map/DATA_OUT<0>_bdd216
+                                                       datapath_map/alu_map/DATA_OUT<0>6637
+    SLICE_X8Y68.D5       net (fanout=13)       1.058   datapath_map/alu_map/DATA_OUT<0>11037
+    SLICE_X8Y68.D        Tilo                  0.094   datapath_map/alu_map/DATA_OUT<0>_bdd169
+                                                       datapath_map/alu_map/DATA_OUT<0>871
+    SLICE_X17Y65.B1      net (fanout=22)       1.856   datapath_map/alu_map/DATA_OUT<0>_bdd169
+    SLICE_X17Y65.B       Tilo                  0.094   datapath_map/alu_map/DATA_OUT<10>_bdd37
+                                                       datapath_map/alu_map/DATA_OUT<0>3211
+    SLICE_X21Y65.B3      net (fanout=2)        0.603   datapath_map/alu_map/DATA_OUT<0>_bdd624
+    SLICE_X21Y65.B       Tilo                  0.094   datapath_map/alu_map/DATA_OUT<1>1415
+                                                       datapath_map/alu_map/DATA_OUT<1>1415
+    SLICE_X19Y68.B4      net (fanout=1)        0.664   datapath_map/alu_map/DATA_OUT<1>1415
+    SLICE_X19Y68.B       Tilo                  0.094   datapath_map/alu_map/DATA_OUT<0>_bdd400
+                                                       datapath_map/alu_map/DATA_OUT<1>1462
+    SLICE_X19Y68.A5      net (fanout=1)        0.224   datapath_map/alu_map/DATA_OUT<1>1462
+    SLICE_X19Y68.A       Tilo                  0.094   datapath_map/alu_map/DATA_OUT<0>_bdd400
+                                                       datapath_map/alu_map/DATA_OUT<1>1486
+    SLICE_X20Y64.A1      net (fanout=1)        1.045   datapath_map/alu_map/DATA_OUT<1>1486
+    SLICE_X20Y64.A       Tilo                  0.094   datapath_map/aluout<0>
+                                                       datapath_map/alu_map/DATA_OUT<1>1551
+    SLICE_X23Y64.CX      net (fanout=2)        0.459   datapath_map/data_out<1>
+    SLICE_X23Y64.CMUX    Taxc                  0.330   N816
+                                                       datapath_map/aluzero_cmp_eq0000311_SW1
+    SLICE_X20Y64.C6      net (fanout=1)        0.303   N816
+    SLICE_X20Y64.C       Tilo                  0.094   datapath_map/aluout<0>
+                                                       datapath_map/aluzero_cmp_eq0000130_SW0_SW0_SW0
+    SLICE_X27Y69.A5      net (fanout=1)        0.749   N1253
+    SLICE_X27Y69.A       Tilo                  0.094   datapath_map/pc<2>
+                                                       datapath_map/pccont
+    SLICE_X26Y69.B1      net (fanout=32)       1.035   datapath_map/pccont
+    SLICE_X26Y69.CLK     Tas                   0.027   datapath_map/pc<18>
+                                                       datapath_map/pc_16_rstpot
+                                                       datapath_map/pc_16
+    -------------------------------------------------  ---------------------------
+    Total                                     14.341ns (1.841ns logic, 12.500ns route)
+                                                       (12.8% logic, 87.2% route)
+
+--------------------------------------------------------------------------------
+Slack (setup path):     0.156ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               ram_map/blockram_map/Mram_ram3 (RAM)
+  Destination:          datapath_map/pc_16 (FF)
+  Requirement:          14.520ns
+  Data Path Delay:      13.893ns (Levels of Logic = 9)
+  Clock Path Skew:      -0.436ns (1.150 - 1.586)
+  Source Clock:         ZCLKMA_1_OBUF rising at 0.000ns
+  Destination Clock:    ZCLKMA_1_OBUF rising at 14.520ns
+  Clock Uncertainty:    0.035ns
+
+  Clock Uncertainty:          0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter (TSJ):  0.070ns
+    Total Input Jitter (TIJ):   0.000ns
+    Discrete Jitter (DJ):       0.000ns
+    Phase Error (PE):           0.000ns
+
+  Maximum Data Path: ram_map/blockram_map/Mram_ram3 to datapath_map/pc_16
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    RAMB36_X0Y3.DOBDOL0  Trcko_DOB             2.190   ram_map/blockram_map/Mram_ram3
+                                                       ram_map/blockram_map/Mram_ram3
+    SLICE_X7Y53.B2       net (fanout=22)       2.452   IR<2>
+    SLICE_X7Y53.B        Tilo                  0.094   MDR<12>
+                                                       datapath_map/oper<1>1
+    SLICE_X1Y64.B2       net (fanout=123)      2.137   datapath_map/oper<1>
+    SLICE_X1Y64.COUT     Topcyb                0.501   datapath_map/alu_map/Maddsub_DATA_OUT_addsub0000_cy<27>
+                                                       datapath_map/alu_map/Maddsub_DATA_OUT_addsub0000_lut<25>
+                                                       datapath_map/alu_map/Maddsub_DATA_OUT_addsub0000_cy<27>
+    SLICE_X1Y65.CIN      net (fanout=1)        0.000   datapath_map/alu_map/Maddsub_DATA_OUT_addsub0000_cy<27>
+    SLICE_X1Y65.CMUX     Tcinc                 0.334   datapath_map/alu_map/DATA_OUT_addsub0000<31>
+                                                       datapath_map/alu_map/Maddsub_DATA_OUT_addsub0000_xor<31>
+    SLICE_X11Y68.A2      net (fanout=4)        1.490   datapath_map/alu_map/DATA_OUT_addsub0000<30>
+    SLICE_X11Y68.A       Tilo                  0.094   N1394
+                                                       datapath_map/alu_map/DATA_OUT<30>1197_SW0_G
+    SLICE_X11Y68.C6      net (fanout=1)        0.292   N1395
+    SLICE_X11Y68.CMUX    Tilo                  0.392   N1394
+                                                       datapath_map/alu_map/DATA_OUT<30>1233_G
+                                                       datapath_map/alu_map/DATA_OUT<30>1233
+    SLICE_X26Y70.A1      net (fanout=1)        1.335   datapath_map/alu_map/DATA_OUT<30>1233
+    SLICE_X26Y70.A       Tilo                  0.094   datapath_map/aluout<31>
+                                                       datapath_map/alu_map/DATA_OUT<30>1535
+    SLICE_X27Y70.B3      net (fanout=2)        0.572   datapath_map/data_out<30>
+    SLICE_X27Y70.B       Tilo                  0.094   datapath_map/aluout<4>
+                                                       datapath_map/aluzero_cmp_eq000071
+    SLICE_X27Y69.A4      net (fanout=1)        0.666   datapath_map/aluzero_cmp_eq000071
+    SLICE_X27Y69.A       Tilo                  0.094   datapath_map/pc<2>
+                                                       datapath_map/pccont
+    SLICE_X26Y69.B1      net (fanout=32)       1.035   datapath_map/pccont
+    SLICE_X26Y69.CLK     Tas                   0.027   datapath_map/pc<18>
+                                                       datapath_map/pc_16_rstpot
+                                                       datapath_map/pc_16
+    -------------------------------------------------  ---------------------------
+    Total                                     13.893ns (3.914ns logic, 9.979ns route)
+                                                       (28.2% logic, 71.8% route)
+
+--------------------------------------------------------------------------------
+Slack (setup path):     0.171ns (requirement - (data path - clock path skew + uncertainty))
+  Source:               ram_map/blockram_map/Mram_ram3 (RAM)
+  Destination:          datapath_map/pc_16 (FF)
+  Requirement:          14.520ns
+  Data Path Delay:      13.883ns (Levels of Logic = 9)
+  Clock Path Skew:      -0.431ns (1.150 - 1.581)
+  Source Clock:         ZCLKMA_1_OBUF rising at 0.000ns
+  Destination Clock:    ZCLKMA_1_OBUF rising at 14.520ns
+  Clock Uncertainty:    0.035ns
+
+  Clock Uncertainty:          0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter (TSJ):  0.070ns
+    Total Input Jitter (TIJ):   0.000ns
+    Discrete Jitter (DJ):       0.000ns
+    Phase Error (PE):           0.000ns
+
+  Maximum Data Path: ram_map/blockram_map/Mram_ram3 to datapath_map/pc_16
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    RAMB36_X0Y3.DOBDOL0  Trcko_DOWB            2.180   ram_map/blockram_map/Mram_ram3
+                                                       ram_map/blockram_map/Mram_ram3
+    SLICE_X7Y53.B2       net (fanout=22)       2.452   IR<2>
+    SLICE_X7Y53.B        Tilo                  0.094   MDR<12>
+                                                       datapath_map/oper<1>1
+    SLICE_X1Y64.B2       net (fanout=123)      2.137   datapath_map/oper<1>
+    SLICE_X1Y64.COUT     Topcyb                0.501   datapath_map/alu_map/Maddsub_DATA_OUT_addsub0000_cy<27>
+                                                       datapath_map/alu_map/Maddsub_DATA_OUT_addsub0000_lut<25>
+                                                       datapath_map/alu_map/Maddsub_DATA_OUT_addsub0000_cy<27>
+    SLICE_X1Y65.CIN      net (fanout=1)        0.000   datapath_map/alu_map/Maddsub_DATA_OUT_addsub0000_cy<27>
+    SLICE_X1Y65.CMUX     Tcinc                 0.334   datapath_map/alu_map/DATA_OUT_addsub0000<31>
+                                                       datapath_map/alu_map/Maddsub_DATA_OUT_addsub0000_xor<31>
+    SLICE_X11Y68.A2      net (fanout=4)        1.490   datapath_map/alu_map/DATA_OUT_addsub0000<30>
+    SLICE_X11Y68.A       Tilo                  0.094   N1394
+                                                       datapath_map/alu_map/DATA_OUT<30>1197_SW0_G
+    SLICE_X11Y68.C6      net (fanout=1)        0.292   N1395
+    SLICE_X11Y68.CMUX    Tilo                  0.392   N1394
+                                                       datapath_map/alu_map/DATA_OUT<30>1233_G
+                                                       datapath_map/alu_map/DATA_OUT<30>1233
+    SLICE_X26Y70.A1      net (fanout=1)        1.335   datapath_map/alu_map/DATA_OUT<30>1233
+    SLICE_X26Y70.A       Tilo                  0.094   datapath_map/aluout<31>
+                                                       datapath_map/alu_map/DATA_OUT<30>1535
+    SLICE_X27Y70.B3      net (fanout=2)        0.572   datapath_map/data_out<30>
+    SLICE_X27Y70.B       Tilo                  0.094   datapath_map/aluout<4>
+                                                       datapath_map/aluzero_cmp_eq000071
+    SLICE_X27Y69.A4      net (fanout=1)        0.666   datapath_map/aluzero_cmp_eq000071
+    SLICE_X27Y69.A       Tilo                  0.094   datapath_map/pc<2>
+                                                       datapath_map/pccont
+    SLICE_X26Y69.B1      net (fanout=32)       1.035   datapath_map/pccont
+    SLICE_X26Y69.CLK     Tas                   0.027   datapath_map/pc<18>
+                                                       datapath_map/pc_16_rstpot
+                                                       datapath_map/pc_16
+    -------------------------------------------------  ---------------------------
+    Total                                     13.883ns (3.904ns logic, 9.979ns route)
+                                                       (28.1% logic, 71.9% route)
 
 --------------------------------------------------------------------------------
 
 Hold Paths: TS_SYS_CLK = PERIOD TIMEGRP "SYS_CLK" 14.52 ns HIGH 50%;
 --------------------------------------------------------------------------------
 
-Paths for end point ram_map/blockram_map/Mram_ram7 (RAMB36_X0Y15.ADDRAU10), 1 path
+Paths for end point datapath_map/fpu_map/fdiv_map/blk00000105 (SLICE_X32Y4.BX), 1 path
 --------------------------------------------------------------------------------
-Slack (hold path):      0.314ns (requirement - (clock path skew + uncertainty - data path))
-  Source:               datapath_map/aluout_12 (FF)
-  Destination:          ram_map/blockram_map/Mram_ram7 (RAM)
+Slack (hold path):      0.316ns (requirement - (clock path skew + uncertainty - data path))
+  Source:               datapath_map/fpu_map/fdiv_map/blk0000011c (FF)
+  Destination:          datapath_map/fpu_map/fdiv_map/blk00000105 (FF)
   Requirement:          0.000ns
-  Data Path Delay:      0.514ns (Levels of Logic = 0)
-  Clock Path Skew:      0.200ns (0.742 - 0.542)
+  Data Path Delay:      0.327ns (Levels of Logic = 0)
+  Clock Path Skew:      0.011ns (0.149 - 0.138)
   Source Clock:         ZCLKMA_1_OBUF rising at 14.520ns
   Destination Clock:    ZCLKMA_1_OBUF rising at 14.520ns
   Clock Uncertainty:    0.000ns
 
-  Minimum Data Path: datapath_map/aluout_12 to ram_map/blockram_map/Mram_ram7
-    Location                Delay type         Delay(ns)  Physical Resource
-                                                          Logical Resource(s)
-    ----------------------------------------------------  -------------------
-    SLICE_X9Y77.CQ          Tcko                  0.414   datapath_map/aluout<12>
-                                                          datapath_map/aluout_12
-    RAMB36_X0Y15.ADDRAU10   net (fanout=67)       0.394   datapath_map/aluout<12>
-    RAMB36_X0Y15.CLKARDCLKU Trckc_ADDRA (-Th)     0.294   ram_map/blockram_map/Mram_ram7
-                                                          ram_map/blockram_map/Mram_ram7
-    ----------------------------------------------------  ---------------------------
-    Total                                         0.514ns (0.120ns logic, 0.394ns route)
-                                                          (23.3% logic, 76.7% route)
-
---------------------------------------------------------------------------------
-
-Paths for end point ram_map/blockram_map/Mram_ram7 (RAMB36_X0Y15.ADDRAL10), 1 path
---------------------------------------------------------------------------------
-Slack (hold path):      0.319ns (requirement - (clock path skew + uncertainty - data path))
-  Source:               datapath_map/aluout_12 (FF)
-  Destination:          ram_map/blockram_map/Mram_ram7 (RAM)
-  Requirement:          0.000ns
-  Data Path Delay:      0.514ns (Levels of Logic = 0)
-  Clock Path Skew:      0.195ns (0.737 - 0.542)
-  Source Clock:         ZCLKMA_1_OBUF rising at 14.520ns
-  Destination Clock:    ZCLKMA_1_OBUF rising at 14.520ns
-  Clock Uncertainty:    0.000ns
-
-  Minimum Data Path: datapath_map/aluout_12 to ram_map/blockram_map/Mram_ram7
-    Location                Delay type         Delay(ns)  Physical Resource
-                                                          Logical Resource(s)
-    ----------------------------------------------------  -------------------
-    SLICE_X9Y77.CQ          Tcko                  0.414   datapath_map/aluout<12>
-                                                          datapath_map/aluout_12
-    RAMB36_X0Y15.ADDRAL10   net (fanout=67)       0.394   datapath_map/aluout<12>
-    RAMB36_X0Y15.CLKARDCLKL Trckc_ADDRA (-Th)     0.294   ram_map/blockram_map/Mram_ram7
-                                                          ram_map/blockram_map/Mram_ram7
-    ----------------------------------------------------  ---------------------------
-    Total                                         0.514ns (0.120ns logic, 0.394ns route)
-                                                          (23.3% logic, 76.7% route)
-
---------------------------------------------------------------------------------
-
-Paths for end point datapath_map/fpu_map/fdiv_map/blk0000003f (SLICE_X44Y6.AX), 1 path
---------------------------------------------------------------------------------
-Slack (hold path):      0.321ns (requirement - (clock path skew + uncertainty - data path))
-  Source:               datapath_map/fpu_map/fdiv_map/blk00000056 (FF)
-  Destination:          datapath_map/fpu_map/fdiv_map/blk0000003f (FF)
-  Requirement:          0.000ns
-  Data Path Delay:      0.331ns (Levels of Logic = 0)
-  Clock Path Skew:      0.010ns (0.142 - 0.132)
-  Source Clock:         ZCLKMA_1_OBUF rising at 14.520ns
-  Destination Clock:    ZCLKMA_1_OBUF rising at 14.520ns
-  Clock Uncertainty:    0.000ns
-
-  Minimum Data Path: datapath_map/fpu_map/fdiv_map/blk00000056 to datapath_map/fpu_map/fdiv_map/blk0000003f
+  Minimum Data Path: datapath_map/fpu_map/fdiv_map/blk0000011c to datapath_map/fpu_map/fdiv_map/blk00000105
     Location             Delay type         Delay(ns)  Physical Resource
                                                        Logical Resource(s)
     -------------------------------------------------  -------------------
-    SLICE_X45Y6.BQ       Tcko                  0.414   datapath_map/fpu_map/fdiv_map/sig00000797
-                                                       datapath_map/fpu_map/fdiv_map/blk00000056
-    SLICE_X44Y6.AX       net (fanout=2)        0.153   datapath_map/fpu_map/fdiv_map/sig00000732
-    SLICE_X44Y6.CLK      Tckdi       (-Th)     0.236   datapath_map/fpu_map/fdiv_map/sig000007ac
-                                                       datapath_map/fpu_map/fdiv_map/blk0000003f
+    SLICE_X33Y4.AQ       Tcko                  0.414   datapath_map/fpu_map/fdiv_map/sig00000265
+                                                       datapath_map/fpu_map/fdiv_map/blk0000011c
+    SLICE_X32Y4.BX       net (fanout=2)        0.155   datapath_map/fpu_map/fdiv_map/sig00000262
+    SLICE_X32Y4.CLK      Tckdi       (-Th)     0.242   datapath_map/fpu_map/fdiv_map/sig000002da
+                                                       datapath_map/fpu_map/fdiv_map/blk00000105
     -------------------------------------------------  ---------------------------
-    Total                                      0.331ns (0.178ns logic, 0.153ns route)
-                                                       (53.8% logic, 46.2% route)
+    Total                                      0.327ns (0.172ns logic, 0.155ns route)
+                                                       (52.6% logic, 47.4% route)
+
+--------------------------------------------------------------------------------
+
+Paths for end point datapath_map/fpu_map/fdiv_map/blk0000003d (SLICE_X54Y0.BX), 1 path
+--------------------------------------------------------------------------------
+Slack (hold path):      0.320ns (requirement - (clock path skew + uncertainty - data path))
+  Source:               datapath_map/fpu_map/fdiv_map/blk00000054 (FF)
+  Destination:          datapath_map/fpu_map/fdiv_map/blk0000003d (FF)
+  Requirement:          0.000ns
+  Data Path Delay:      0.359ns (Levels of Logic = 0)
+  Clock Path Skew:      0.039ns (0.197 - 0.158)
+  Source Clock:         ZCLKMA_1_OBUF rising at 14.520ns
+  Destination Clock:    ZCLKMA_1_OBUF rising at 14.520ns
+  Clock Uncertainty:    0.000ns
+
+  Minimum Data Path: datapath_map/fpu_map/fdiv_map/blk00000054 to datapath_map/fpu_map/fdiv_map/blk0000003d
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X55Y0.AQ       Tcko                  0.414   datapath_map/fpu_map/fdiv_map/sig0000072c
+                                                       datapath_map/fpu_map/fdiv_map/blk00000054
+    SLICE_X54Y0.BX       net (fanout=2)        0.176   datapath_map/fpu_map/fdiv_map/sig0000071f
+    SLICE_X54Y0.CLK      Tckdi       (-Th)     0.231   datapath_map/fpu_map/fdiv_map/sig00000812
+                                                       datapath_map/fpu_map/fdiv_map/blk0000003d
+    -------------------------------------------------  ---------------------------
+    Total                                      0.359ns (0.183ns logic, 0.176ns route)
+                                                       (51.0% logic, 49.0% route)
+
+--------------------------------------------------------------------------------
+
+Paths for end point datapath_map/fpu_map/fdiv_map/blk00000104 (SLICE_X32Y4.AX), 1 path
+--------------------------------------------------------------------------------
+Slack (hold path):      0.323ns (requirement - (clock path skew + uncertainty - data path))
+  Source:               datapath_map/fpu_map/fdiv_map/blk0000011b (FF)
+  Destination:          datapath_map/fpu_map/fdiv_map/blk00000104 (FF)
+  Requirement:          0.000ns
+  Data Path Delay:      0.334ns (Levels of Logic = 0)
+  Clock Path Skew:      0.011ns (0.149 - 0.138)
+  Source Clock:         ZCLKMA_1_OBUF rising at 14.520ns
+  Destination Clock:    ZCLKMA_1_OBUF rising at 14.520ns
+  Clock Uncertainty:    0.000ns
+
+  Minimum Data Path: datapath_map/fpu_map/fdiv_map/blk0000011b to datapath_map/fpu_map/fdiv_map/blk00000104
+    Location             Delay type         Delay(ns)  Physical Resource
+                                                       Logical Resource(s)
+    -------------------------------------------------  -------------------
+    SLICE_X33Y4.BQ       Tcko                  0.414   datapath_map/fpu_map/fdiv_map/sig00000265
+                                                       datapath_map/fpu_map/fdiv_map/blk0000011b
+    SLICE_X32Y4.AX       net (fanout=2)        0.156   datapath_map/fpu_map/fdiv_map/sig00000263
+    SLICE_X32Y4.CLK      Tckdi       (-Th)     0.236   datapath_map/fpu_map/fdiv_map/sig000002da
+                                                       datapath_map/fpu_map/fdiv_map/blk00000104
+    -------------------------------------------------  ---------------------------
+    Total                                      0.334ns (0.178ns logic, 0.156ns route)
+                                                       (53.3% logic, 46.7% route)
 
 --------------------------------------------------------------------------------
 
@@ -910,7 +678,7 @@ Slack: 12.298ns (period - min period limit)
   Min period limit: 2.222ns (450.045MHz) (Tdspper_MULP)
   Physical resource: datapath_map/fpu_map/fmul_map/Madd_frc2_ans1/CLK
   Logical resource: datapath_map/fpu_map/fmul_map/Madd_frc2_ans1/CLK
-  Location pin: DSP48_X0Y14.CLK
+  Location pin: DSP48_X0Y8.CLK
   Clock network: ZCLKMA_1_OBUF
 --------------------------------------------------------------------------------
 Slack: 12.298ns (period - min period limit)
@@ -918,7 +686,7 @@ Slack: 12.298ns (period - min period limit)
   Min period limit: 2.222ns (450.045MHz) (Trper_CLKA)
   Physical resource: ram_map/blockram_map/Mram_ram10/CLKAL
   Logical resource: ram_map/blockram_map/Mram_ram10/CLKAL
-  Location pin: RAMB36_X0Y22.CLKARDCLKL
+  Location pin: RAMB36_X0Y20.CLKARDCLKL
   Clock network: ZCLKMA_1_OBUF
 --------------------------------------------------------------------------------
 Slack: 12.298ns (period - min period limit)
@@ -926,7 +694,7 @@ Slack: 12.298ns (period - min period limit)
   Min period limit: 2.222ns (450.045MHz) (Trper_CLKA)
   Physical resource: ram_map/blockram_map/Mram_ram10/CLKAU
   Logical resource: ram_map/blockram_map/Mram_ram10/CLKAU
-  Location pin: RAMB36_X0Y22.CLKARDCLKU
+  Location pin: RAMB36_X0Y20.CLKARDCLKU
   Clock network: ZCLKMA_1_OBUF
 --------------------------------------------------------------------------------
 
@@ -943,7 +711,7 @@ Clock to Setup on destination clock MCLK1
                | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 ---------------+---------+---------+---------+---------+
-MCLK1          |   14.476|         |         |         |
+MCLK1          |   14.471|         |         |         |
 ---------------+---------+---------+---------+---------+
 
 
@@ -952,23 +720,23 @@ Timing summary:
 
 Timing errors: 0  Score: 0  (Setup/Max: 0, Hold: 0)
 
-Constraints cover 46969198 paths, 0 nets, and 25153 connections
+Constraints cover 48558848 paths, 0 nets, and 24635 connections
 
 Design statistics:
-   Minimum period:  14.476ns{1}   (Maximum frequency:  69.080MHz)
+   Minimum period:  14.471ns{1}   (Maximum frequency:  69.104MHz)
 
 
 ------------------------------------Footnotes-----------------------------------
 1)  The minimum period statistic assumes all single cycle delays.
 
-Analysis completed Tue Dec 10 17:56:31 2013 
+Analysis completed Tue Dec 10 20:31:49 2013 
 --------------------------------------------------------------------------------
 
 Trace Settings:
 -------------------------
 Trace Settings 
 
-Peak Memory Usage: 626 MB
+Peak Memory Usage: 625 MB
 
 
 
