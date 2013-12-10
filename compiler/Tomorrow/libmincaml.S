@@ -103,6 +103,11 @@ min_caml_print_char:
 	sw	$1, -1($0)
 	jr	$31
 
+min_caml_print_xfloat:
+	mfc1 $1, $f0
+	j min_caml_print_int
+
+
 # print to stderr
 min_caml_prerr_int:
 	sw	$1, -3($0)
@@ -121,7 +126,7 @@ min_caml_read_int:
 	jr	$31
 
 min_caml_read_float:
-	lwc	$f0, -1($0)
+	lwc	$f0, -2($0)
 	jr	$31
 
 min_caml_print_newline:
