@@ -22,16 +22,16 @@ entity io_manager is
 end io_manager;
 
 architecture RTL of io_manager is
-  type   t_recvbuf is array (0 to 31) of std_logic_vector(31 downto 0);
+  type   t_recvbuf is array (0 to 511) of std_logic_vector(31 downto 0);
   type   t_sendbuf is array (0 to 31) of std_logic_vector(7 downto 0);
   signal recvbuf     : t_recvbuf                    := (others => x"00000000");
   signal sendbuf     : t_sendbuf                    := (others => x"00");
   signal s_enq       : std_logic_vector(4 downto 0) := "00000";
   signal next_s_enq  : std_logic_vector(4 downto 0);
   signal s_deq       : std_logic_vector(4 downto 0) := "00000";
-  signal r_enq       : std_logic_vector(4 downto 0) := "00000";
-  signal r_deq       : std_logic_vector(4 downto 0) := "00000";
-  signal next_r_deq  : std_logic_vector(4 downto 0);
+  signal r_enq       : std_logic_vector(8 downto 0) := "000000000";
+  signal r_deq       : std_logic_vector(8 downto 0) := "000000000";
+  signal next_r_deq  : std_logic_vector(8 downto 0);
   signal sw_busy_sig : std_logic;
   signal lw_busy_sig : std_logic;
   signal tx_go_sig   : std_logic                    := '0';

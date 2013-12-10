@@ -5,9 +5,9 @@ package fpu_pack is
 
   component fadd
     port (
-      a, b : in  std_logic_vector(31 downto 0);
-      clk  : in  std_logic;
-      q    : out std_logic_vector(31 downto 0));
+      a, b   : in  std_logic_vector(31 downto 0);
+      clk    : in  std_logic;
+      result : out std_logic_vector(31 downto 0));
   end component;
 
   component fmul
