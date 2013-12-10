@@ -1,0 +1,162 @@
+--------------------------------------------------------------------------------
+Release 14.4 Trace  (lin64)
+Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
+
+/home/yuta/Xilinx/14.4/ISE_DS/ISE/bin/lin64/unwrapped/trce -intstyle ise -v 3
+-s 1 -n 3 -fastpaths -xml top.twx top.ncd -o top.twr top.pcf
+
+Design file:              top.ncd
+Physical constraint file: top.pcf
+Device,package,speed:     xc5vlx50t,ff1136,-1 (PRODUCTION 1.73 2012-12-04, STEPPING level 0)
+Report level:             verbose report
+
+Environment Variable      Effect 
+--------------------      ------ 
+NONE                      No environment variables were set
+--------------------------------------------------------------------------------
+
+INFO:Timing:2698 - No timing constraints found, doing default enumeration.
+INFO:Timing:3412 - To improve timing, see the Timing Closure User Guide (UG612).
+INFO:Timing:2752 - To get complete path coverage, use the unconstrained paths 
+   option. All paths that are not constrained will be reported in the 
+   unconstrained paths section(s) of the report.
+INFO:Timing:3339 - The clock-to-out numbers in this timing report are based on 
+   a 50 Ohm transmission line loading model.  For the details of this model, 
+   and for more information on accounting for different loading conditions, 
+   please see the device datasheet.
+
+
+
+Data Sheet report:
+-----------------
+All values displayed in nanoseconds (ns)
+
+Setup/Hold to clock MCLK1
+------------+------------+------------+------------------+--------+
+            |Max Setup to|Max Hold to |                  | Clock  |
+Source      | clk (edge) | clk (edge) |Internal Clock(s) | Phase  |
+------------+------------+------------+------------------+--------+
+RS_RX       |   -0.579(R)|    2.555(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<0>       |    3.728(R)|    1.074(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<1>       |    4.484(R)|    0.726(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<2>       |    5.525(R)|    0.461(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<3>       |    3.168(R)|    1.087(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<4>       |    4.138(R)|    0.532(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<5>       |    3.896(R)|    0.678(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<6>       |    4.942(R)|    0.830(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<7>       |    4.965(R)|    0.015(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<8>       |    5.043(R)|    0.731(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<9>       |    5.301(R)|    0.804(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<10>      |    4.900(R)|    0.641(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<11>      |    5.113(R)|    0.523(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<12>      |    4.471(R)|    0.968(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<13>      |    4.607(R)|    0.388(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<14>      |    6.018(R)|    0.367(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<15>      |    4.969(R)|    0.151(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<16>      |    4.899(R)|   -0.435(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<17>      |    4.182(R)|   -0.385(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<18>      |    4.272(R)|    0.521(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<19>      |    5.770(R)|    0.066(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<20>      |    5.493(R)|    0.923(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<21>      |    3.866(R)|    0.665(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<22>      |    4.441(R)|    0.228(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<23>      |    4.874(R)|    0.275(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<24>      |    4.806(R)|   -0.250(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<25>      |    4.242(R)|    0.382(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<26>      |    4.448(R)|   -0.421(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<27>      |    3.934(R)|    0.563(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<28>      |    4.195(R)|    0.045(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<29>      |    4.609(R)|   -0.106(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<30>      |    3.358(R)|    0.287(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<31>      |    3.357(R)|    0.345(R)|ZCLKMA_1_OBUF     |   0.000|
+------------+------------+------------+------------------+--------+
+
+Clock MCLK1 to Pad
+------------+------------+------------------+--------+
+            | clk (edge) |                  | Clock  |
+Destination |   to PAD   |Internal Clock(s) | Phase  |
+------------+------------+------------------+--------+
+RS_TX       |   12.032(R)|ZCLKMA_1_OBUF     |   0.000|
+XWA         |   11.110(R)|ZCLKMA_1_OBUF     |   0.000|
+ZA<0>       |    8.934(R)|ZCLKMA_1_OBUF     |   0.000|
+ZA<1>       |   11.925(R)|ZCLKMA_1_OBUF     |   0.000|
+ZA<2>       |   10.229(R)|ZCLKMA_1_OBUF     |   0.000|
+ZA<3>       |    9.788(R)|ZCLKMA_1_OBUF     |   0.000|
+ZA<4>       |    8.865(R)|ZCLKMA_1_OBUF     |   0.000|
+ZA<5>       |   10.793(R)|ZCLKMA_1_OBUF     |   0.000|
+ZA<6>       |    8.711(R)|ZCLKMA_1_OBUF     |   0.000|
+ZA<7>       |   10.335(R)|ZCLKMA_1_OBUF     |   0.000|
+ZA<8>       |   10.868(R)|ZCLKMA_1_OBUF     |   0.000|
+ZA<9>       |    9.759(R)|ZCLKMA_1_OBUF     |   0.000|
+ZA<10>      |   10.668(R)|ZCLKMA_1_OBUF     |   0.000|
+ZA<11>      |    9.809(R)|ZCLKMA_1_OBUF     |   0.000|
+ZA<12>      |   10.240(R)|ZCLKMA_1_OBUF     |   0.000|
+ZA<13>      |   10.801(R)|ZCLKMA_1_OBUF     |   0.000|
+ZA<14>      |   10.138(R)|ZCLKMA_1_OBUF     |   0.000|
+ZA<15>      |    8.890(R)|ZCLKMA_1_OBUF     |   0.000|
+ZA<16>      |    8.849(R)|ZCLKMA_1_OBUF     |   0.000|
+ZA<17>      |    8.747(R)|ZCLKMA_1_OBUF     |   0.000|
+ZA<18>      |    8.758(R)|ZCLKMA_1_OBUF     |   0.000|
+ZA<19>      |    9.304(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<0>       |    9.665(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<1>       |    9.983(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<2>       |   10.266(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<3>       |   10.022(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<4>       |    9.983(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<5>       |    9.952(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<6>       |    9.620(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<7>       |    9.984(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<8>       |    9.960(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<9>       |    9.835(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<10>      |    9.994(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<11>      |    9.987(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<12>      |   10.460(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<13>      |   10.600(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<14>      |   10.733(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<15>      |   10.732(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<16>      |   10.709(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<17>      |   10.862(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<18>      |   10.297(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<19>      |   10.338(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<20>      |    9.989(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<21>      |    9.866(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<22>      |   10.021(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<23>      |    9.870(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<24>      |   10.721(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<25>      |   10.717(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<26>      |   10.616(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<27>      |   10.282(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<28>      |   10.901(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<29>      |    9.959(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<30>      |   10.293(R)|ZCLKMA_1_OBUF     |   0.000|
+ZD<31>      |   10.292(R)|ZCLKMA_1_OBUF     |   0.000|
+------------+------------+------------------+--------+
+
+Clock to Setup on destination clock MCLK1
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+MCLK1          |   16.178|         |         |         |
+---------------+---------+---------+---------+---------+
+
+Pad to Pad
+---------------+---------------+---------+
+Source Pad     |Destination Pad|  Delay  |
+---------------+---------------+---------+
+MCLK1          |ZCLKMA<0>      |    7.989|
+MCLK1          |ZCLKMA<1>      |    7.908|
+---------------+---------------+---------+
+
+
+Analysis completed Tue Dec 10 17:45:36 2013 
+--------------------------------------------------------------------------------
+
+Trace Settings:
+-------------------------
+Trace Settings 
+
+Peak Memory Usage: 614 MB
+
+
+

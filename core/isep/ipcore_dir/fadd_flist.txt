@@ -1,0 +1,14 @@
+# Output products list for <fadd>
+fadd/doc/floating_point_ds335.pdf
+fadd/doc/floating_point_v5_0_readme.txt
+fadd/doc/floating_point_v5_0_vinfo.html
+fadd.asy
+fadd.gise
+fadd.ngc
+fadd.sym
+fadd.vhd
+fadd.vho
+fadd.xco
+fadd.xise
+fadd_flist.txt
+fadd_xmdf.tcl
