@@ -10,7 +10,7 @@ Target Device  : xc5vlx50t
 Target Package : ff1136
 Target Speed   : -1
 Mapper Version : virtex5 -- $Revision: 1.55 $
-Mapped Date    : Tue Dec 10 17:41:33 2013
+Mapped Date    : Tue Dec 10 17:52:31 2013
 
 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 INFO:Security:50 - The XILINXD_LICENSE_FILE environment variable is set to
@@ -29,75 +29,587 @@ version of Xilinx tools will continue to function, but you no longer qualify for
 Xilinx software updates or new releases.
 ----------------------------------------------------------------------
 Mapping design into LUTs...
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram1
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram1_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram1
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram1_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram1
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram1_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram1
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram1_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram10
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram10_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram10
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram10_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram10
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram10_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram10
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram10_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram11
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram11_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram11
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram11_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram11
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram11_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram11
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram11_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram12
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram12_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram12
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram12_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram12
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram12_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram12
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram12_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram13
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram13_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram13
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram13_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram13
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram13_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram13
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram13_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram14
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram14_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram14
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram14_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram14
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram14_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram14
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram14_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram15
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram15_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram15
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram15_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram15
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram15_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram15
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram15_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram16
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram16_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram16
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram16_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram16
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram16_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram16
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram16_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram17
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram17_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram17
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram17_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram17
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram17_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram17
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram17_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram18
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram18_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram18
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram18_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram18
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram18_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram18
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram18_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram19
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram19_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram19
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram19_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram19
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram19_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram19
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram19_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram2
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram2_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram2
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram2_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram2
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram2_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram2
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram2_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram20
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram20_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram20
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram20_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram20
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram20_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram20
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram20_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram21
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram21_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram21
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram21_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram21
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram21_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram21
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram21_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram22
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram22_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram22
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram22_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram22
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram22_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram22
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram22_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram23
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram23_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram23
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram23_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram23
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram23_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram23
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram23_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram24
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram24_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram24
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram24_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram24
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram24_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram24
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram24_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram25
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram25_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram25
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram25_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram25
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram25_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram25
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram25_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram26
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram26_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram26
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram26_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram26
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram26_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram26
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram26_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram27
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram27_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram27
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram27_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram27
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram27_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram27
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram27_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram28
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram28_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram28
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram28_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram28
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram28_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram28
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram28_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram29
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram29_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram29
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram29_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram29
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram29_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram29
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram29_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram3
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram3_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram3
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram3_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram3
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram3_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram3
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram3_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram30
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram30_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram30
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram30_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram30
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram30_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram30
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram30_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram31
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram31_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram31
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram31_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram31
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram31_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram31
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram31_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram32
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram32_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram32
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram32_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram32
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram32_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram32
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram32_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram4
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram4_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram4
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram4_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram4
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram4_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram4
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram4_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram5
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram5_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram5
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram5_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram5
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram5_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram5
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram5_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram6
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram6_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram6
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram6_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram6
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram6_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram6
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram6_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram7
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram7_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram7
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram7_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram7
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram7_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram7
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram7_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram8
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram8_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram8
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram8_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram8
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram8_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram8
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram8_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram9
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram9_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram9
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram9_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram9
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram9_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram9
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram9_REGCLKBL_tiesig
 Running directed packing...
 Running delay-based LUT packing...
 Updating timing models...
 INFO:Map:215 - The Interim Design Summary has been generated in the MAP Report
    (.mrp).
 Running timing-driven placement...
-Total REAL time at the beginning of Placer: 26 secs 
-Total CPU  time at the beginning of Placer: 24 secs 
+Total REAL time at the beginning of Placer: 25 secs 
+Total CPU  time at the beginning of Placer: 25 secs 
 
 Phase 1.1  Initial Placement Analysis
-Phase 1.1  Initial Placement Analysis (Checksum:3e2bca4) REAL time: 28 secs 
+Phase 1.1  Initial Placement Analysis (Checksum:5d3dcebb) REAL time: 27 secs 
 
 Phase 2.7  Design Feasibility Check
-Phase 2.7  Design Feasibility Check (Checksum:3e2bca4) REAL time: 28 secs 
+Phase 2.7  Design Feasibility Check (Checksum:5d3dcebb) REAL time: 28 secs 
 
 Phase 3.31  Local Placement Optimization
-Phase 3.31  Local Placement Optimization (Checksum:3e2bca4) REAL time: 28 secs 
+Phase 3.31  Local Placement Optimization (Checksum:5d3dcebb) REAL time: 28 secs 
 
 Phase 4.37  Local Placement Optimization
-Phase 4.37  Local Placement Optimization (Checksum:3e2bca4) REAL time: 28 secs 
+Phase 4.37  Local Placement Optimization (Checksum:5d3dcebb) REAL time: 28 secs 
 
 Phase 5.33  Local Placement Optimization
-Phase 5.33  Local Placement Optimization (Checksum:3e2bca4) REAL time: 29 secs 
+Phase 5.33  Local Placement Optimization (Checksum:5d3dcebb) REAL time: 47 secs 
 
 Phase 6.32  Local Placement Optimization
-Phase 6.32  Local Placement Optimization (Checksum:3e2bca4) REAL time: 29 secs 
+Phase 6.32  Local Placement Optimization (Checksum:5d3dcebb) REAL time: 47 secs 
 
 Phase 7.2  Initial Clock and IO Placement
-....
-Phase 7.2  Initial Clock and IO Placement (Checksum:7138ba53) REAL time: 30 secs 
+
+Phase 7.2  Initial Clock and IO Placement (Checksum:a2b93933) REAL time: 48 secs 
 
 Phase 8.36  Local Placement Optimization
-Phase 8.36  Local Placement Optimization (Checksum:7138ba53) REAL time: 30 secs 
+Phase 8.36  Local Placement Optimization (Checksum:a2b93933) REAL time: 48 secs 
 
 Phase 9.30  Global Clock Region Assignment
-Phase 9.30  Global Clock Region Assignment (Checksum:7138ba53) REAL time: 30 secs 
+Phase 9.30  Global Clock Region Assignment (Checksum:a2b93933) REAL time: 48 secs 
 
 Phase 10.3  Local Placement Optimization
-....
-Phase 10.3  Local Placement Optimization (Checksum:9b5e52ca) REAL time: 30 secs 
+Phase 10.3  Local Placement Optimization (Checksum:a2b93933) REAL time: 48 secs 
 
 Phase 11.5  Local Placement Optimization
-Phase 11.5  Local Placement Optimization (Checksum:9b5e52ca) REAL time: 30 secs 
+Phase 11.5  Local Placement Optimization (Checksum:a2b93933) REAL time: 48 secs 
 
 Phase 12.8  Global Placement
-.................................................................................................
-..............
-.............................................................................................................................................................
-.....................................
+............................................................................................................
+....................
+.................................................................................................................................................................................
 .......................
-Phase 12.8  Global Placement (Checksum:1a092fb3) REAL time: 55 secs 
+.......................
+................
+Phase 12.8  Global Placement (Checksum:755d9847) REAL time: 1 mins 11 secs 
 
 Phase 13.29  Local Placement Optimization
-Phase 13.29  Local Placement Optimization (Checksum:1a092fb3) REAL time: 55 secs 
+Phase 13.29  Local Placement Optimization (Checksum:755d9847) REAL time: 1 mins 11 secs 
 
 Phase 14.5  Local Placement Optimization
-Phase 14.5  Local Placement Optimization (Checksum:1a092fb3) REAL time: 55 secs 
+Phase 14.5  Local Placement Optimization (Checksum:755d9847) REAL time: 1 mins 12 secs 
 
 Phase 15.18  Placement Optimization
-Phase 15.18  Placement Optimization (Checksum:9206454c) REAL time: 2 mins 21 secs 
+Phase 15.18  Placement Optimization (Checksum:53ebfd2d) REAL time: 2 mins 32 secs 
 
 Phase 16.5  Local Placement Optimization
-Phase 16.5  Local Placement Optimization (Checksum:9206454c) REAL time: 2 mins 22 secs 
+Phase 16.5  Local Placement Optimization (Checksum:53ebfd2d) REAL time: 2 mins 32 secs 
 
 Phase 17.34  Placement Validation
-Phase 17.34  Placement Validation (Checksum:9206454c) REAL time: 2 mins 22 secs 
+Phase 17.34  Placement Validation (Checksum:53ebfd2d) REAL time: 2 mins 33 secs 
 
-Total REAL time to Placer completion: 2 mins 22 secs 
-Total CPU  time to Placer completion: 2 mins 19 secs 
+Total REAL time to Placer completion: 2 mins 33 secs 
+Total CPU  time to Placer completion: 2 mins 33 secs 
 Running post-placement packing...
 Writing output files...
 
@@ -106,11 +618,11 @@ Design Summary
 
 Design Summary:
 Number of errors:      0
-Number of warnings:    0
+Number of warnings:  128
 Slice Logic Utilization:
   Number of Slice Registers:                 2,700 out of  28,800    9%
     Number used as Flip Flops:               2,700
-  Number of Slice LUTs:                      4,245 out of  28,800   14%
+  Number of Slice LUTs:                      4,246 out of  28,800   14%
     Number used as logic:                    3,797 out of  28,800   13%
       Number using O6 output only:           3,458
       Number using O5 output only:              76
@@ -121,18 +633,18 @@ Slice Logic Utilization:
         Number using O5 and O6:                  4
       Number used as Shift Register:            78
         Number using O6 output only:            78
-    Number used as exclusive route-thru:        10
-  Number of route-thrus:                        92
-    Number using O6 output only:                85
-    Number using O5 output only:                 6
+    Number used as exclusive route-thru:        11
+  Number of route-thrus:                       106
+    Number using O6 output only:                86
+    Number using O5 output only:                19
     Number using O5 and O6:                      1
 
 Slice Logic Distribution:
-  Number of occupied Slices:                 1,756 out of   7,200   24%
-  Number of LUT Flip Flop pairs used:        5,277
-    Number with an unused Flip Flop:         2,577 out of   5,277   48%
-    Number with an unused LUT:               1,032 out of   5,277   19%
-    Number of fully used LUT-FF pairs:       1,668 out of   5,277   31%
+  Number of occupied Slices:                 1,676 out of   7,200   23%
+  Number of LUT Flip Flop pairs used:        5,261
+    Number with an unused Flip Flop:         2,561 out of   5,261   48%
+    Number with an unused LUT:               1,015 out of   5,261   19%
+    Number of fully used LUT-FF pairs:       1,685 out of   5,261   32%
     Number of unique control sets:             112
     Number of slice register sites lost
       to control set restrictions:             262 out of  28,800    1%
@@ -147,10 +659,11 @@ Slice Logic Distribution:
 
 IO Utilization:
   Number of bonded IOBs:                        75 out of     480   15%
+    Number of LOCed IOBs:                       75 out of      75  100%
 
 Specific Feature Utilization:
-  Number of BlockRAM/FIFO:                      35 out of      60   58%
-    Number using BlockRAM only:                 35
+  Number of BlockRAM/FIFO:                      36 out of      60   60%
+    Number using BlockRAM only:                 36
     Total primitives used:
       Number of 36k BlockRAM used:              32
       Number of 18k BlockRAM used:               4
@@ -161,9 +674,9 @@ Specific Feature Utilization:
 
 Average Fanout of Non-Clock Nets:                4.27
 
-Peak Memory Usage:  940 MB
-Total REAL time to MAP completion:  2 mins 27 secs 
-Total CPU time to MAP completion:   2 mins 24 secs 
+Peak Memory Usage:  954 MB
+Total REAL time to MAP completion:  2 mins 38 secs 
+Total CPU time to MAP completion:   2 mins 37 secs 
 
 Mapping completed.
 See MAP report file "top_map.mrp" for details.
