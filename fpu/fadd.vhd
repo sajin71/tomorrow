@@ -60,12 +60,13 @@ architecture fadd of fadd is
   -- stage3
   signal exp_ans3,exp_ans : std_logic_vector(7 downto 0);
   signal sgn_ans3 : std_logic;
+  signal ans_head : std_logic_vector(8 downto 0);
   signal rounding3 : std_logic;
   signal frc_ans,frc_ans3 : std_logic_vector(27 downto 0);
   signal exp_up3 : std_logic;
   signal shift3 : std_logic_vector(4 downto 0);
   signal tmp : std_logic_vector(27 downto 0);
-  signal tmp2 : std_logic_vector(7 downto 0);
+  signal tmp2 : std_logic_vector(8 downto 0);
   
 begin  
 
@@ -111,8 +112,9 @@ begin
   pr: zlc
     port map(frc_ans1,shift);
   
-  exp_up2 <= '1' when frc_ans1(26 downto 2) = "1111111111111111111111111" or 
-                      frc_ans1(25 downto 1) = "1111111111111111111111111";
+  exp_up2 <= '1' when frc_ans1(25 downto 2) = "111111111111111111111111" and (frc_ans1(26) or frc_ans1(1))='1'
+             else '0';
+
   frc2 <= "1000000000000000000000000000"
           when frc_ans1(26 downto 2) = "1111111111111111111111111"
           else "0100000000000000000000000000"
@@ -161,11 +163,12 @@ begin
   frc_ans <= frc_ans3 + (rounding3 & "0000") when shift3(4 downto 2) = "000" 
              else tmp;
   
-  tmp2 <= exp_ans3 + exp_up3 + 1 - shift3;
+  --tmp2 <= exp_ans3 + exp_up3 + 1 - shift3;
+  tmp2 <= ('0'&exp_ans3) + ("0000000" & exp_up3 & (not exp_up3)) - ("0000"&shift3);
   
-  exp_ans <= "00000000" when tmp2 < 0 or shift3 >= "11010"
-             else tmp2;
+  ans_head <= "000000000" when tmp2(8)='1' or shift3 >= "11010" or exp_ans3="00000000"
+             else sgn_ans3&tmp2(7 downto 0);
 
-  q <= sgn_ans3 & exp_ans & frc_ans(26 downto 4);
+  q <= ans_head & frc_ans(26 downto 4);
                
 end fadd;
