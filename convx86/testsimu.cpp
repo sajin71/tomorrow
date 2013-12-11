@@ -74,12 +74,12 @@ SOFTFP_UNIOP(_atan, atanf)
 
 
 extern "C" { 
-
 DWORD MY_CDECL read_dword() {
-	unsigned char r[4];
-	fread(r, 1, 4, stdin);
+	unsigned char p[4];
+	fread(p, 1, 4, stdin);
 	
-	return ( ((DWORD)r[0]&0xff)<<24 | ((DWORD)r[1]&0xff)<<16 | ((DWORD)r[2]&0xff)<<8 | ((DWORD)r[3]&0xff));
+	DWORD r = (p[0] << 24) | (p[1] << 16) | (p[2] << 8) | p[3];
+	return r;
 }
 
 DWORD MY_CDECL read_int() {
@@ -250,7 +250,7 @@ int main(int argc, char **argv) {
 "	cmp   ebx, 0xfffffffe  \n"
 "	jz    my_read_float  \n"
 
-"	cmp   ebx, 0xfffffffd  \n"
+"	cmp   ebx, 0xffffffff  \n"
 "	jz    my_read_int  \n"
 
 "	push  ecx  \n"
