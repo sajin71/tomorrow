@@ -65,7 +65,8 @@ begin  -- RTL
   sitof_map : sitof
     port map (
       i => D2,
-      f => qsitof);
+      f => qsitof,
+      clk => CLK);
 
 --  fdiv_map : fdiv
 --    port map (

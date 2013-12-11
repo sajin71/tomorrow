@@ -27,8 +27,8 @@ package fpu_pack is
 
   component sitof
     port (i : in  std_logic_vector (31 downto 0);
-          f : out std_logic_vector (31 downto 0)
---         clk: STD_LOGIC
+          f : out std_logic_vector (31 downto 0);
+         clk: STD_LOGIC
           );
   end component;
   component fdiv
