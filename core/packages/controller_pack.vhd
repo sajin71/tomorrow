@@ -420,6 +420,6 @@ package controller_pack is
   constant D_ROUND : std_logic_vector(2 downto 0) := "000";
   constant D_FLOOR : std_logic_vector(2 downto 0) := "000";
   constant D_INV   : std_logic_vector(2 downto 0) := "011";
-  constant D_CVTS  : std_logic_vector(2 downto 0) := "000";
+  constant D_CVTS  : std_logic_vector(2 downto 0) := "001";
   
 end controller_pack;
