@@ -44,8 +44,22 @@ DWORD MY_CDECL softfp_##name (intflt t, intflt s) { intflt ret; ret.f = func(s.f
 DWORD MY_CDECL softfp_##name (intflt t, intflt s) { return (s.f op t.f)?1:0; }
 
 
-SOFTFP_BINOP(add, +)
-SOFTFP_BINOP(sub, -)
+//SOFTFP_BINOP(add, +)
+DWORD MY_CDECL softfp_add (intflt t, intflt s) {
+	intflt ret;
+	ret.f = s.f + t.f;
+	
+//	fprintf(stderr, "0\t%d\t%d\t%d\t%f\t%f\t%f\n", s.s, t.s, ret.s, s.f, t.f, ret.f);
+	return ret.i;
+}
+//SOFTFP_BINOP(sub, -)
+DWORD MY_CDECL softfp_sub (intflt t, intflt s) {
+	intflt ret;
+	ret.f = s.f - t.f;
+	
+//	fprintf(stderr, "1\t%d\t%d\t%d\t%f\t%f\t%f\n", s.s, t.s, ret.s, s.f, t.f, ret.f);
+	return ret.i;
+}
 SOFTFP_BINOP(mul, *)
 SOFTFP_BINOP(div, /)
 SOFTFP_UNIOP(sqrt, sqrtf)
