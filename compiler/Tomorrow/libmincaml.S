@@ -98,6 +98,47 @@ bne $5, $0, print_int_showloop
 jr $31
 
 
+#16進ダンプします。アセンブラレベルデバッグのためなるべくレジスタ使わない方向で
+# $1...引数 $12,$13,$14使用
+
+min_caml_print_fhex:
+mfc1 $1, $f0
+
+min_caml_print_hex:
+ori $12, $0, 0x30 #'0'
+sw $12, -1($0)
+ori $12, $0, 0x78 #'x'
+sw $12, -1($0)
+
+#counter
+ori $13, $0, 32
+
+print_hex_loop:
+addi $13, $13, -4
+
+srlv $14, $1, $13
+andi $14, $14, 15
+
+addi $12, $14, -10
+slt $12, $12, $0
+
+addi $14, $14, 48
+
+bne $12, $0, print_hex_u10
+addi $14, $14, 7
+
+print_hex_u10:
+sw $14, -1($0)
+
+bne $13, $0, print_hex_loop
+
+ori $12, $0, 0x0a #\n
+sw $12, -1($0)
+jr $31
+
+
+
+
 
 min_caml_print_char:
 	sw	$1, -1($0)
