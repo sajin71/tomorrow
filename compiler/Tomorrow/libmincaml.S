@@ -129,6 +129,10 @@ min_caml_read_float:
 	lwc	$f0, -2($0)
 	jr	$31
 
+min_caml_read_raw:
+	lwc	$f0, -3($0)
+	jr	$31
+
 min_caml_print_newline:
 	lli	$1, 0xa
 	sw	$1,-1($0)
