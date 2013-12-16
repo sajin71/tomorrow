@@ -18,7 +18,7 @@ entity datapath is
     RegDst      : in std_logic_vector(1 downto 0);
     RegWrite    : in std_logic;
     ALUSrcA     : in std_logic_vector(1 downto 0);
-    ALUSrcB     : in std_logic_vector(1 downto 0);
+    ALUSrcB     : in std_logic_vector(2 downto 0);
     ALUOp       : in ALU_CTRL;
     PCSource    : in std_logic_vector(1 downto 0);
 
@@ -102,10 +102,11 @@ begin  -- RTL
 
   with ALUSrcB select
     data_in2 <=
-    read_data2                                       when "00",
-    (2           => '1', others => '0')              when "01",
-    (15 downto 0 => IR(15)) & IR(15 downto 0)        when "10",
-    (13 downto 0 => IR(15)) & IR(15 downto 0) & "00" when others;
+    read_data2                                       when "000",
+    (2           => '1', others => '0')              when "001",
+    (15 downto 0 => IR(15)) & IR(15 downto 0)        when "010",
+    (13 downto 0 => IR(15)) & IR(15 downto 0) & "00" when "011",
+    (15 downto 0 => '0') & IR(15 downto 0)           when others;
 
   with PCSource select
     next_pc <=

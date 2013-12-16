@@ -16,7 +16,7 @@ package controller_pack is
     t_regdst      : std_logic_vector(1 downto 0);
     t_regwrite    : std_logic;
     t_alusrca     : std_logic_vector(1 downto 0);
-    t_alusrcb     : std_logic_vector(1 downto 0);
+    t_alusrcb     : std_logic_vector(2 downto 0);
     t_aluop       : ALU_CTRL;
     t_pcsource    : std_logic_vector(1 downto 0);
   end record;
@@ -32,7 +32,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '0',
      t_alusrca     => "00",
-     t_alusrcb     => "01",
+     t_alusrcb     => "001",
      t_aluop       => C_ADD,
      t_pcsource    => "00");
 
@@ -47,7 +47,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '0',
      t_alusrca     => "00",
-     t_alusrcb     => "11",
+     t_alusrcb     => "011",
      t_aluop       => C_ADD,
      t_pcsource    => "00");
 
@@ -62,7 +62,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '0',
      t_alusrca     => "01",
-     t_alusrcb     => "10",
+     t_alusrcb     => "010",
      t_aluop       => C_ADD,
      t_pcsource    => "00");
 
@@ -77,7 +77,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '0',
      t_alusrca     => "00",
-     t_alusrcb     => "00",
+     t_alusrcb     => "000",
      t_aluop       => C_ADD,
      t_pcsource    => "00");
 
@@ -92,7 +92,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '1',
      t_alusrca     => "00",
-     t_alusrcb     => "00",
+     t_alusrcb     => "000",
      t_aluop       => C_ADD,
      t_pcsource    => "00");
 
@@ -107,7 +107,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '0',
      t_alusrca     => "00",
-     t_alusrcb     => "00",
+     t_alusrcb     => "000",
      t_aluop       => C_ADD,
      t_pcsource    => "00");
 
@@ -122,7 +122,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '0',
      t_alusrca     => "01",
-     t_alusrcb     => "00",
+     t_alusrcb     => "000",
      t_aluop       => C_FUNCT,
      t_pcsource    => "00");
 
@@ -137,7 +137,7 @@ package controller_pack is
      t_regdst      => "01",
      t_regwrite    => '1',
      t_alusrca     => "00",
-     t_alusrcb     => "00",
+     t_alusrcb     => "000",
      t_aluop       => C_ADD,
      t_pcsource    => "00");
 
@@ -152,7 +152,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '0',
      t_alusrca     => "01",
-     t_alusrcb     => "00",
+     t_alusrcb     => "000",
      t_aluop       => C_SUB,
      t_pcsource    => "01");
 
@@ -167,7 +167,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '0',
      t_alusrca     => "00",
-     t_alusrcb     => "00",
+     t_alusrcb     => "000",
      t_aluop       => C_ADD,
      t_pcsource    => "10");
 
@@ -182,7 +182,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '0',
      t_alusrca     => "01",
-     t_alusrcb     => "10",
+     t_alusrcb     => "010",
      t_aluop       => C_ADD,
      t_pcsource    => "00");
 
@@ -197,7 +197,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '0',
      t_alusrca     => "01",
-     t_alusrcb     => "10",
+     t_alusrcb     => "100",
      t_aluop       => C_AND,
      t_pcsource    => "00");
 
@@ -212,7 +212,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '0',
      t_alusrca     => "01",
-     t_alusrcb     => "10",
+     t_alusrcb     => "100",
      t_aluop       => C_OR,
      t_pcsource    => "00");
 
@@ -227,7 +227,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '1',
      t_alusrca     => "00",
-     t_alusrcb     => "00",
+     t_alusrcb     => "000",
      t_aluop       => C_ADD,
      t_pcsource    => "00");
 
@@ -242,7 +242,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '0',
      t_alusrca     => "01",
-     t_alusrcb     => "00",
+     t_alusrcb     => "000",
      t_aluop       => C_SUB,
      t_pcsource    => "01");
 
@@ -257,7 +257,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '0',
      t_alusrca     => "00",
-     t_alusrcb     => "01",
+     t_alusrcb     => "001",
      t_aluop       => C_ADD,
      t_pcsource    => "10");
 
@@ -272,7 +272,7 @@ package controller_pack is
      t_regdst      => "10",
      t_regwrite    => '1',
      t_alusrca     => "00",
-     t_alusrcb     => "00",
+     t_alusrcb     => "000",
      t_aluop       => C_ADD,
      t_pcsource    => "00");
 
@@ -287,7 +287,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '0',
      t_alusrca     => "10",
-     t_alusrcb     => "00",
+     t_alusrcb     => "000",
      t_aluop       => C_SFT,
      t_pcsource    => "00");
 
@@ -302,7 +302,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '0',
      t_alusrca     => "11",
-     t_alusrcb     => "00",
+     t_alusrcb     => "000",
      t_aluop       => C_SFT,
      t_pcsource    => "00");
 
@@ -317,7 +317,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '0',
      t_alusrca     => "00",
-     t_alusrcb     => "00",
+     t_alusrcb     => "000",
      t_aluop       => C_ADD,
      t_pcsource    => "11");
 
@@ -332,7 +332,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '1',
      t_alusrca     => "00",
-     t_alusrcb     => "00",
+     t_alusrcb     => "000",
      t_aluop       => C_ADD,
      t_pcsource    => "00");
 
@@ -347,7 +347,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '1',
      t_alusrca     => "00",
-     t_alusrcb     => "00",
+     t_alusrcb     => "000",
      t_aluop       => C_ADD,
      t_pcsource    => "00");
 
@@ -362,7 +362,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '0',
      t_alusrca     => "00",
-     t_alusrcb     => "00",
+     t_alusrcb     => "000",
      t_aluop       => C_ADD,
      t_pcsource    => "01");
 
@@ -377,7 +377,7 @@ package controller_pack is
      t_regdst      => "00",
      t_regwrite    => '0',
      t_alusrca     => "00",
-     t_alusrcb     => "00",
+     t_alusrcb     => "000",
      t_aluop       => C_ADD,
      t_pcsource    => "00");
 
@@ -409,17 +409,17 @@ package controller_pack is
   signal outstate   : cont_sigset;
   signal next_phase : T_PHASE;
 
-  signal count      : std_logic_vector(2 downto 0) := "000";
-  signal next_count : std_logic_vector(2 downto 0);
+  signal count      : std_logic_vector(4 downto 0) := "00000";
+  signal next_count : std_logic_vector(4 downto 0);
   signal goto_exfp  : boolean                      := false;
 
-  constant D_ADD   : std_logic_vector(2 downto 0) := "011";
-  constant D_MUL   : std_logic_vector(2 downto 0) := "010";
-  constant D_DIV   : std_logic_vector(2 downto 0) := "011";
-  constant D_SQRT  : std_logic_vector(2 downto 0) := "011";
-  constant D_ROUND : std_logic_vector(2 downto 0) := "011";
-  constant D_FLOOR : std_logic_vector(2 downto 0) := "011";
-  constant D_INV   : std_logic_vector(2 downto 0) := "011";
-  constant D_CVTS  : std_logic_vector(2 downto 0) := "011";
+  constant D_ADD   : std_logic_vector(4 downto 0) := "00011";
+  constant D_MUL   : std_logic_vector(4 downto 0) := "00010";
+  constant D_DIV   : std_logic_vector(4 downto 0) := "11100";
+  constant D_SQRT  : std_logic_vector(4 downto 0) := "11100";
+  constant D_ROUND : std_logic_vector(4 downto 0) := "00000";
+  constant D_FLOOR : std_logic_vector(4 downto 0) := "00000";
+--  constant D_INV   : std_logic_vector(4 downto 0) := "00011";
+  constant D_CVTS  : std_logic_vector(4 downto 0) := "00001";
   
 end controller_pack;

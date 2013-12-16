@@ -23,6 +23,7 @@ begin  -- RTL
        else Data(11 downto 0) & "0000000000000000" when Shift = "100"
        else Data(7  downto 0) & "00000000000000000000" when Shift = "101"
        else Data(3  downto 0) & "000000000000000000000000" when Shift = "110"
-       else "0000000000000000000000000000" when Shift = "111";
+       else "0000000000000000000000000000" when Shift = "111"
+		 else Data(27 downto 0);
 
 end RTL;

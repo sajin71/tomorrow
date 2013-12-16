@@ -58,33 +58,35 @@ static void i_generic(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], 
 		return;
 	}
 	
+	uint32_t imm86;
+	
+	union {
+		imm_t s;
+		uimm_t u;
+	} imm_sign;
+	imm_sign.s = imm;
+	
 	unsigned char exop = 0;
 	if ( ii->opcode == 0x08 ) {
+		imm86 = imm_sign.s;
 		exop = 0; //ADD
 	} else if ( ii->opcode == 0x0C ) {
+		imm86 = imm_sign.u;
 		exop = 4; //AND
 	} else if ( ii->opcode == 0x0D ) {
+		imm86 = imm_sign.u;
 		exop = 1; //OR
 	} else {
 		throw std::string("Unknown InstI generic");
 	}
 	
-	unsigned char op = 0xCC;
-	if ( isInBYTE(imm) ) {
-		op = 0x83;
-	} else {
-		op = 0x81;
-	}
+	unsigned char op = 0x81;
 	
 	if ( regs[0] == regs[1] ) {
 		dest->Emit(op);
 		dest->EmitModRMexdisp(exop, rECX, regs[0]*4);
 		
-		if ( isInBYTE(imm) ) {
-			dest->EmitDisp8( (signed char)imm );
-		} else {
-			dest->EmitDisp32(imm);
-		}
+		dest->EmitDisp32(imm86);
 		dprintf("\nXXX dword ptr [ECX+%d*4], %d\n", regs[1], imm);
 	} else {
 		// MOV EBX, [ECX+ Rs*4]
@@ -94,11 +96,7 @@ static void i_generic(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], 
 		// ADD EBX, 5
 		dest->Emit(op);
 		dest->EmitModRMexr(exop, rEBX);
-		if ( isInBYTE(imm) ) {
-			dest->EmitDisp8( (signed char)imm );
-		} else {
-			dest->EmitDisp32(imm);
-		}
+		dest->EmitDisp32(imm86);
 		
 		// MOV [ECX+ Rt*4], EBX
 		dest->EmitMOV2m();
@@ -123,7 +121,7 @@ static void i_ori(CAsm86Dest* dest, const tInstI* ii, unsigned char regs[], imm_
 		//即値代入
 		dest->Emit(0xC7);
 		dest->EmitModRMexdisp(0, rECX, regs[1]*4);
-		dest->EmitDisp32(imm);
+		dest->EmitDisp32( (uimm_t)imm );
 		
 		dprintf("\nMOV dword ptr [ECX+%d*4], %d\n", regs[1], imm);
 	} else {

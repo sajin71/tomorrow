@@ -16,7 +16,7 @@ package top_pack is
       RegDst      : in std_logic_vector(1 downto 0);
       RegWrite    : in std_logic;
       ALUSrcA     : in std_logic_vector(1 downto 0);
-      ALUSrcB     : in std_logic_vector(1 downto 0);
+      ALUSrcB     : in std_logic_vector(2 downto 0);
       ALUOp       : in ALU_CTRL;
       PCSource    : in std_logic_vector(1 downto 0);
 
@@ -48,7 +48,7 @@ package top_pack is
       RegDst      : out std_logic_vector(1 downto 0);
       RegWrite    : out std_logic;
       ALUSrcA     : out std_logic_vector(1 downto 0);
-      ALUSrcB     : out std_logic_vector(1 downto 0);
+      ALUSrcB     : out std_logic_vector(2 downto 0);
       ALUOp       : out ALU_CTRL;
       PCSource    : out std_logic_vector(1 downto 0);
 
@@ -96,7 +96,7 @@ package top_pack is
   signal RegDst      : std_logic_vector(1 downto 0);
   signal RegWrite    : std_logic;
   signal ALUSrcA     : std_logic_vector(1 downto 0);
-  signal ALUSrcB     : std_logic_vector(1 downto 0);
+  signal ALUSrcB     : std_logic_vector(2 downto 0);
   signal ALUOp       : ALU_CTRL;
   signal PCSource    : std_logic_vector(1 downto 0);
 

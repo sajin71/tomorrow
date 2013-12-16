@@ -1,0 +1,144 @@
+iMPACT Version: 14.4
+
+iMPACT log file Started on Tue Dec 10 17:59:42 2013
+
+Welcome to iMPACT
+iMPACT Version: 14.4
+Project: '/home/yuta/hardware/3/test//auto_project.ipf' already exists.
+Original project has been renamed to'/home/yuta/hardware/3/test//auto_project_1.ipf'.
+Project: /home/yuta/hardware/3/test//auto_project.ipf created.
+// *** BATCH CMD : setMode -bs
+GUI --- Auto connect to cable...
+// *** BATCH CMD : setCable -port auto
+AutoDetecting cable. Please wait.
+*** WARNING ***: When port is set to auto detect mode, cable speed is set todefault 6 MHz regardless of explicit arguments supplied for setting the baudrates
+PROGRESS_START - Starting Operation.
+Connecting to cable (Usb Port - USB21).
+Checking cable driver.
+File version of /home/yuta/Xilinx/14.4/ISE_DS/ISE/bin/lin64/xusbdfwu.hex = 1030.
+File version of /usr/share/xusbdfwu.hex = 1030.
+ Using libusb.
+ Kernel release = 3.5.0-44-generic.
+ Max current requested during enumeration is 74 mA.
+Type = 0x0004.
+ Cable Type = 3, Revision = 0.
+ Setting cable speed to 6 MHz.
+Cable connection established.
+Firmware version = 1303.
+File version of /home/yuta/Xilinx/14.4/ISE_DS/ISE/data/xusb_xlp.hex = 1303.
+Firmware hex file version = 1303.
+PLD file version = 0012h.
+ PLD version = 0012h.
+PROGRESS_END - End Operation.
+Elapsed time =      0 sec.
+Type = 0x0004.
+ESN option: 0000117F68BA01.
+Attempting to identify devices in the boundary-scan chain configuration...
+INFO:iMPACT - Current time: 13/12/10 17:59
+// *** BATCH CMD : Identify -inferir 
+PROGRESS_START - Starting Operation.
+Identifying chain contents...'0': : Manufacturer's ID = Xilinx xc5vlx50t, Version : 8
+INFO:iMPACT:1777 - 
+   Reading /home/yuta/Xilinx/14.4/ISE_DS/ISE/virtex5/data/xc5vlx50t.bsd...
+INFO:iMPACT:501 - '1': Added Device xc5vlx50t successfully.
+----------------------------------------------------------------------
+'1': : Manufacturer's ID = Xilinx xcf16p, Version : 14
+INFO:iMPACT:1777 - 
+   Reading /home/yuta/Xilinx/14.4/ISE_DS/ISE/xcfp/data/xcf16p.bsd...
+INFO:iMPACT:501 - '1': Added Device xcf16p successfully.
+----------------------------------------------------------------------
+done.
+PROGRESS_END - End Operation.
+Elapsed time =      0 sec.
+// *** BATCH CMD : identifyMPM 
+// *** BATCH CMD : assignFile -p 2 -file "/home/yuta/cpuex/isep/top.bit"
+'2': Loading file '/home/yuta/cpuex/isep/top.bit' ...
+done.
+INFO:iMPACT:2257 - Startup Clock has been changed to 'JtagClk' in the bitstream   stored in memory,
+   but the original bitstream file remains unchanged.
+UserID read from the bitstream file = 0xFFFFFFFF.
+----------------------------------------------------------------------
+INFO:iMPACT:501 - '2': Added Device xc5vlx50t successfully.
+----------------------------------------------------------------------
+INFO:iMPACT - Current time: 13/12/10 18:00
+// *** BATCH CMD : Program -p 2 
+Maximum TCK operating frequency for this device chain: 15000000.
+Validating chain...
+Boundary-scan chain validated successfully.
+2: Device Temperature: Current Reading: -273.00 C
+2: VCCINT Supply: Current Reading:   0.000 V
+2: VCCAUX Supply: Current Reading:   0.000 V
+PROGRESS_START - Starting Operation.
+'2': Programming device...
+ Match_cycle = NoWait.
+Match cycle: NoWait
+ LCK_cycle = NoWait.
+LCK cycle: NoWait
+done.
+INFO:iMPACT:2219 - Status register values:
+INFO:iMPACT - 0011 1111 0011 1110 0000 1011 1100 0000 
+INFO:iMPACT:579 - '2': Completed downloading bit file to device.
+INFO:iMPACT:188 - '2': Programming completed successfully.
+ Match_cycle = NoWait.
+Match cycle: NoWait
+ LCK_cycle = NoWait.
+LCK cycle: NoWait
+INFO:iMPACT - '2': Checking done pin....done.
+'2': Programmed successfully.
+PROGRESS_END - End Operation.
+Elapsed time =      4 sec.
+INFO:iMPACT - Current time: 13/12/10 18:05
+// *** BATCH CMD : Program -p 2 
+Maximum TCK operating frequency for this device chain: 15000000.
+Validating chain...
+Boundary-scan chain validated successfully.
+2: Device Temperature: Current Reading: -273.00 C
+2: VCCINT Supply: Current Reading:   0.000 V
+2: VCCAUX Supply: Current Reading:   0.000 V
+PROGRESS_START - Starting Operation.
+'2': Programming device...
+ Match_cycle = NoWait.
+Match cycle: NoWait
+ LCK_cycle = NoWait.
+LCK cycle: NoWait
+done.
+INFO:iMPACT:2219 - Status register values:
+INFO:iMPACT - 0011 1111 0011 1110 0000 1011 1100 0000 
+INFO:iMPACT:579 - '2': Completed downloading bit file to device.
+INFO:iMPACT:188 - '2': Programming completed successfully.
+ Match_cycle = NoWait.
+Match cycle: NoWait
+ LCK_cycle = NoWait.
+LCK cycle: NoWait
+INFO:iMPACT - '2': Checking done pin....done.
+'2': Programmed successfully.
+PROGRESS_END - End Operation.
+Elapsed time =      4 sec.
+INFO:iMPACT - Current time: 13/12/10 18:14
+// *** BATCH CMD : Program -p 2 
+Maximum TCK operating frequency for this device chain: 15000000.
+Validating chain...
+Boundary-scan chain validated successfully.
+2: Device Temperature: Current Reading: -273.00 C
+2: VCCINT Supply: Current Reading:   0.000 V
+2: VCCAUX Supply: Current Reading:   0.000 V
+PROGRESS_START - Starting Operation.
+'2': Programming device...
+ Match_cycle = NoWait.
+Match cycle: NoWait
+ LCK_cycle = NoWait.
+LCK cycle: NoWait
+done.
+INFO:iMPACT:2219 - Status register values:
+INFO:iMPACT - 0011 1111 0011 1110 0000 1011 1100 0000 
+INFO:iMPACT:579 - '2': Completed downloading bit file to device.
+INFO:iMPACT:188 - '2': Programming completed successfully.
+ Match_cycle = NoWait.
+Match cycle: NoWait
+ LCK_cycle = NoWait.
+LCK cycle: NoWait
+INFO:iMPACT - '2': Checking done pin....done.
+'2': Programmed successfully.
+PROGRESS_END - End Operation.
+Elapsed time =      4 sec.
+Cable is not connected.

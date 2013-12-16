@@ -1,0 +1,112 @@
+iMPACT Version: Dec  4 2012 20:21:56
+
+iMPACT log file Started on Tue Dec 10 15:27:17 2013
+
+Preference Table
+Name                 Setting             
+StartupClock         Auto_Correction     
+AutoSignature        False               
+KeepSVF              False               
+ConcurrentMode       False               
+UseHighz             False               
+ConfigOnFailure      Stop                
+UserLevel            Novice              
+MessageLevel         Detailed            
+svfUseTime           false               
+SpiByteSwap          Auto_Correction     
+AutoInfer            false               
+SvfPlayDisplayComments false               
+Enumerating cables. Please wait.
+Connecting to cable (Usb Port - USB21).
+Checking cable driver.
+ Using libusb.
+ Kernel release = 3.5.0-44-generic.
+=======================================================
+Found cable - > ESN = 0000117F68BA01.
+=======================================================
+Connecting to cable (Usb Port - USB22).
+Checking cable driver.
+ Using libusb.
+ Kernel release = 3.5.0-44-generic.
+Connecting to cable (Usb Port - USB21).
+Checking cable driver.
+File version of /home/yuta/Xilinx/14.4/ISE_DS/ISE/bin/lin64/xusbdfwu.hex = 1030.
+File version of /usr/share/xusbdfwu.hex = 1030.
+ Using libusb.
+ Kernel release = 3.5.0-44-generic.
+ Max current requested during enumeration is 74 mA.
+Type = 0x0004.
+ Cable Type = 3, Revision = 0.
+ Setting cable speed to 6 MHz.
+Cable connection established.
+Firmware version = 1303.
+File version of /home/yuta/Xilinx/14.4/ISE_DS/ISE/data/xusb_xlp.hex = 1303.
+Firmware hex file version = 1303.
+PLD file version = 0012h.
+ PLD version = 0012h.
+Type = 0x0004.
+ESN option: 0000117F68BA01.
+INFO:iMPACT - Failed to open file: -- File ? --, replace with 'bypass'.
+INFO:iMPACT:1777 - 
+   Reading /home/yuta/Xilinx/14.4/ISE_DS/ISE/xcfp/data/xcf16p.bsd...
+INFO:iMPACT:501 - '1': Added Device xcf16p successfully.
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+INFO:iMPACT:1835 - Loading CFI file -- File ? --.cfi
+Revision information not found, proceed with device default setting.
+'2': Loading file '/home/yuta/cpuex/isep/tomorrow_1/top.bit' ...
+done.
+INFO:iMPACT:1777 - 
+   Reading /home/yuta/Xilinx/14.4/ISE_DS/ISE/virtex5/data/xc5vlx50t.bsd...
+INFO:iMPACT:2257 - Startup Clock has been changed to 'JtagClk' in the bitstream   stored in memory,
+   but the original bitstream file remains unchanged.
+UserID read from the bitstream file = 0xFFFFFFFF.
+INFO:iMPACT:501 - '2': Added Device xc5vlx50t successfully.
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+Active mode is BS
+AutoDetecting cable. Please wait.
+*** WARNING ***: When port is set to auto detect mode, cable speed is set todefault 6 MHz regardless of explicit arguments supplied for setting the baudrates
+Connecting to cable (Usb Port - USB21).
+Checking cable driver.
+File version of /home/yuta/Xilinx/14.4/ISE_DS/ISE/bin/lin64/xusbdfwu.hex = 1030.
+File version of /usr/share/xusbdfwu.hex = 1030.
+ Using libusb.
+ Kernel release = 3.5.0-44-generic.
+ Max current requested during enumeration is 74 mA.
+Type = 0x0004.
+ Cable Type = 3, Revision = 0.
+ Setting cable speed to 6 MHz.
+Cable connection established.
+Firmware version = 1303.
+File version of /home/yuta/Xilinx/14.4/ISE_DS/ISE/data/xusb_xlp.hex = 1303.
+Firmware hex file version = 1303.
+PLD file version = 0012h.
+ PLD version = 0012h.
+Type = 0x0004.
+ESN option: 0000117F68BA01.
+Maximum TCK operating frequency for this device chain: 15000000.
+Validating chain...
+Boundary-scan chain validated successfully.
+2: Device Temperature: Current Reading: -273.00 C
+2: VCCINT Supply: Current Reading:   0.000 V
+2: VCCAUX Supply: Current Reading:   0.000 V
+'2': Programming device...
+ Match_cycle = NoWait.
+Match cycle: NoWait
+ LCK_cycle = NoWait.
+LCK cycle: NoWait
+done.
+INFO:iMPACT:2219 - Status register values:
+INFO:iMPACT - 0011 1111 0011 1110 0000 1011 1100 0000 
+INFO:iMPACT:579 - '2': Completed downloading bit file to device.
+INFO:iMPACT:188 - '2': Programming completed successfully.
+ Match_cycle = NoWait.
+Match cycle: NoWait
+ LCK_cycle = NoWait.
+LCK cycle: NoWait
+INFO:iMPACT - '2': Checking done pin....done.
+'2': Programmed successfully.
+Elapsed time =      4 sec.
+----------------------------------------------------------------------
+----------------------------------------------------------------------

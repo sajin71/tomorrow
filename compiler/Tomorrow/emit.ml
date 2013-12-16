@@ -70,10 +70,12 @@ and g' oc = function (* Emit assembly of each instruction *)
     | NonTail(x), Add(y, V(z)) -> Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg x) (reg y) (reg z)
     | NonTail(x), Add(y, C(z)) -> Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg x) (reg y) z
     | NonTail(x), Sub(y, z) -> Printf.fprintf oc "\tsub\t%s, %s, %s\n" (reg x) (reg y) (reg z)
-    | NonTail(x), Mul(y, V(z)) -> Printf.fprintf oc "\tmulerror\n"
+    | NonTail(x), Mul(y, V(z)) -> Printf.fprintf oc "\tsll\t %s, %s, 2\n" (reg x) (reg y)
+    (*TODO tenuki"\tmulerror\n"*) 
     | NonTail(x), Mul(y, C(z)) -> Printf.fprintf oc "\tsll\t%s, %s, %d\n" (reg
     x) (reg y) (int_of_float (log2 (float_of_int z)))
-    | NonTail(x), Div(y, V(z)) -> Printf.fprintf oc "\tdiverror\n"
+    | NonTail(x), Div(y, V(z)) -> Printf.fprintf oc "\tsra\t%s, %s, 1\n" (reg x) (reg y) 
+    (*TODO tenuki"\tdiverror\n"*)
     | NonTail(x), Div(y, C(z)) -> Printf.fprintf oc "\tsra\t%s, %s, %d\n" (reg
     x) (reg y) (int_of_float (log2 (float_of_int z)))
     | NonTail(x), SLL(y, V(z)) -> Printf.fprintf oc "\tsll\t%s, %s, %s\n" (reg x) (reg y) (reg z)
@@ -184,7 +186,7 @@ and g' oc = function (* Emit assembly of each instruction *)
     | Tail, IfFLE(x, y, e1, e2) ->
         let b_else = Id.genid("fble_else") in
         Printf.fprintf oc "\tc.olt.s\t%s, %s\n" y x;
-        Printf.fprintf oc "tbct\t%s\n" b_else;
+        Printf.fprintf oc "\tbct\t%s\n" b_else;
         let stackset_back = !stackset in
         g oc (Tail, e1);
         Printf.fprintf oc "%s:\n" b_else;
@@ -245,7 +247,7 @@ and g' oc = function (* Emit assembly of each instruction *)
         let b_else = Id.genid "fbeq_else" in
         let b_cont = Id.genid "fbeq_cont" in
         Printf.fprintf oc "\tc.eq.s\t%s,%s\n" x y;
-        Printf.fprintf oc "\tbcf\t%s" b_else;
+        Printf.fprintf oc "\tbcf\t%s\n" b_else;
         let stackset_back = !stackset in
         g oc (NonTail(z), e1);
         let stackset1 = !stackset in
