@@ -8,6 +8,9 @@ package strage
 trait Memory extends Map[Long, Byte]{
     def update(addr: Long, data: Byte): Unit
     
+    def updateMemory(addr: Long, data: Int): Unit
+    def updateMemory(addr: Long): Int
+    
     def + [B1 >: Byte](kv: (Long, B1)) = this
     def -(key: Long) = this
 }

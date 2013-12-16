@@ -29,7 +29,7 @@ class JumpRegister extends ThreeRegisterOperandOpcode(0x1b, 0x00) {
 }
 class Jal extends JumpOpcode(0x03) {
     protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
-    	registers("r31").bytes = BigEndianInterpreter interpretAsByteArray (programCounter.data + 8)
+    	registers("r31").data_=((programCounter.data + 8))
     	programCounter.data = ((programCounter.data toLong) & (0xf00000000L)).toInt
         programCounter.data += operand.constant << 2
     }

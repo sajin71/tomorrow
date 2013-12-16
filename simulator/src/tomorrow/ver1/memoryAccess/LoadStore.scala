@@ -18,11 +18,7 @@ class LW extends ImmediateOperandOpcode(0x23) {
 		if(begin == 0xffffffffL){
 		    operand.rt.bytes = usb.getLatestDataToCPU
 		}else{
-		    var data = new Array[Byte](4)
-		    for(i <- 0 until 4){
-		    	data(i) = memory(begin + i)
-		    }
-		    operand.rt.bytes = data
+		    operand.rt.data_=(memory.updateMemory(begin))
 		}
 		programCounter.data += 4
 	}
@@ -34,10 +30,7 @@ class SW extends ImmediateOperandOpcode(0x2B) {
 		if(begin == 0xffffffffL){
 		    usb.sendToUser(Array(operand.rt.bytes(3)))
 		}else{
-		    val data = operand.rt.bytes
-		    for(i <- 0 until (data.length)){
-			memory(begin+i) = data(i)
-		    }
+		    memory.updateMemory(begin, BigEndianInterpreter.interpretAsSignedInteger(operand.rt))
 		}
 	    programCounter.data += 4		
 	}

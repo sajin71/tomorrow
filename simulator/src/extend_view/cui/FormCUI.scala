@@ -24,6 +24,16 @@ abstract class FormCUI extends Form {
     def parseArgument(args: Array[String]): Unit = {
         if(args.length == 1){
             this.simulator setExecutable args(0)
+	    	// 実行
+		try{
+		    while(true){
+	    	        simulator stepExecute;
+	    	    }
+                }catch {
+		    case _ => {
+                        exit
+                    }
+                }   
         }else if(args.length == 2){
             this.simulator setExecutable args(0)
 

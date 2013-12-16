@@ -17,4 +17,7 @@ class IntegerRegister extends Register{
 	def bytes_=(bytes: Seq[Byte]): Unit = {
         data = BigEndianInterpreter interpretAsSignedInteger (bytes)
 	}
+	def data_=(float: Float): Unit = {
+	    bytes = BigEndianInterpreter.interpretAsByteArray(float)
+	}
 }

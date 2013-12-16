@@ -34,7 +34,6 @@ abstract class AbstractCPU(usb: USB, instructionSet: Set[Opcode], registers: Map
 	def getState(): CPUMemonto = {
 	    new CPUMemonto(programCounter.bytes, registers.map((elem:(String, Register))=>(elem._1, elem._2.bytes)), memory)
 	}
-	
 	/**
 	 * executableAddressからの番地に登録する。
 	 */

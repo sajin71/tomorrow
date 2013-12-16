@@ -36,6 +36,21 @@ class DividedMemory(validArea: Seq[(Long, Memory)]) extends Memory{
             }
         }
     }
+    def updateMemory(addr: Long, data: Int): Unit = {
+        for(area <- validArea) {
+            if(area._1 <= addr && addr < area._1 + area._2.size){
+                area._2.updateMemory(addr - area._1, data)
+            }
+        }
+    }
+    def updateMemory(addr: Long): Int = {
+        for(area <- validArea) {
+            if(area._1 <= addr && addr < area._1 + area._2.size){
+                return area._2.updateMemory(addr - area._1)
+            }
+        }
+        return 0
+    }
     
     def get(addr: Long): Option[Byte] = {
         for(area <- validArea) {
