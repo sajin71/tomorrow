@@ -14,7 +14,7 @@ import usb.USB
 
 class LW extends ImmediateOperandOpcode(0x23) {
 	protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
-		val begin = (BigEndianInterpreter interpretAsUnsignedInteger operand.rs) + operand.constant
+		val begin = (((BigEndianInterpreter interpretAsUnsignedInteger operand.rs) + operand.constant) toLong) & 0xffffffffL
 		if(begin == 0xffffffffL){
 		    operand.rt.bytes = usb.getLatestDataToCPU
 		}else{
@@ -26,7 +26,7 @@ class LW extends ImmediateOperandOpcode(0x23) {
 
 class SW extends ImmediateOperandOpcode(0x2B) {
 	protected def apply(usb: USB, operand: Operand, programCounter: IntegerRegister, registers: Map[String, Register], memory: Memory) = {
-		val begin = (BigEndianInterpreter interpretAsUnsignedInteger operand.rs) + operand.constant
+		val begin = (((BigEndianInterpreter interpretAsUnsignedInteger operand.rs) + operand.constant) toLong) & 0xffffffffL
 		if(begin == 0xffffffffL){
 		    usb.sendToUser(Array(operand.rt.bytes(3)))
 		}else{
