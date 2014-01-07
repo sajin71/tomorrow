@@ -2384,6 +2384,9 @@ let rec rt size_x size_y =
  let prev = create_pixelline () in
  let cur  = create_pixelline () in
  let next = create_pixelline () in
+
+(* 0xAA ╓Р╫пно *)
+print_char 170;
  read_parameter();
  write_ppm_header ();
  init_dirvecs();
