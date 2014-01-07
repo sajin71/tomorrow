@@ -14,6 +14,10 @@ entity top is
     RS_RX : in  std_logic;
     RS_TX : out std_logic;
 
+    LED7SEG  : out STD_LOGIC_VECTOR(0 to 7);
+    LEDDYN   : out STD_LOGIC_VECTOR(3 downto 0);
+    XRST     : in std_logic;
+
     XE1    : out   std_logic;                       -- E1
     E2A    : out   std_logic;                       -- E2
     XE3    : out   std_logic;                       -- E3
@@ -87,6 +91,9 @@ begin  -- RTL
       ALUOp       => ALUOp,
       PCSource    => PCSource,
 
+      StepCount   => StepCount,
+      XRST        => XRST,
+
       PCWriteBCF => PCWriteBCF,
       PCWriteBCT => PCWriteBCT,
       FCSRW      => FCSRW,
@@ -127,4 +134,13 @@ begin  -- RTL
   ZDP    <= "0000";
   ZCLKMA <= (clk, clk);
   
+  led: c_led7seg port map (
+    clk     => clk,
+    LED7SEG => LED7SEG,
+    LEDDYN  => LEDDYN,
+    data    => StepCount(31 downto 16),
+    dp      => StepCount(15 downto 12)
+	);
+
+
 end RTL;

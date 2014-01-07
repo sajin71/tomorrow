@@ -122,7 +122,7 @@ NET RS_RX			LOC=J11;
 #// = Inputs. =
 #NET  CLK48M 	   LOC=H17;
 NET  MCLK1		   LOC=J16;
-#NET XRST		   LOC=H18;
+NET XRST		   LOC=H18;
 
 #////////////////////////////////////////
 #// UNIVERSAL-I/O connection.
@@ -477,6 +477,28 @@ NET  ZZA		   IOSTANDARD = LVTTL;
 #NET  IOA<125>	   IOSTANDARD = LVTTL;
 #NET  IOA<126>	   IOSTANDARD = LVTTL;
 
+
+
+# 7seg LED
+
+NET  LED7SEG<6>    LOC=D34; #  3 8C-2
+NET  LED7SEG<2>    LOC=J32; #  6   -3
+NET  LED7SEG<7>    LOC=F34; #  9   -4
+NET  LED7SEG<3>    LOC=D32; # 12   -5
+NET  LED7SEG<4>    LOC=A33; # 15   -6
+NET  LED7SEG<1>    LOC=H32; # 18   -7
+NET  LED7SEG<5>    LOC=G32; # 17 8B-7
+NET  LED7SEG<0>    LOC=L29; # 14   -6
+
+NET  LEDDYN<3>     LOC=G33; # 11 8B-5
+NET  LEDDYN<2>     LOC=C33; #  8   -4
+NET  LEDDYN<1>     LOC=K31; #  5   -3
+NET  LEDDYN<0>     LOC=E33; #  2   -2
+
+NET  LED7SEG<*> IOSTANDARD = LVTTL;
+NET  LEDDYN<*>  IOSTANDARD = LVTTL;
+
+
 #////////////////////////////////////////
 #// Clock Type Define.
 #////////////////////////////////////////
@@ -485,10 +507,11 @@ NET  ZZA		   IOSTANDARD = LVTTL;
 #// = Inputs. =
 #NET  CLK48M 	   IOSTANDARD = LVTTL;
 NET  MCLK1		   IOSTANDARD = LVTTL;
-#NET XRST		   IOSTANDARD = LVTTL;
+NET XRST		   IOSTANDARD = LVTTL;
 NET RS_TX		   IOSTANDARD = LVTTL;
 NET RS_RX		   IOSTANDARD = LVTTL;
 
+NET   "XRST"						   TIG;
 
 ############################################################################
 # Clock constraints                                                        #

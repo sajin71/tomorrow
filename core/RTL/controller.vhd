@@ -25,6 +25,9 @@ entity controller is
     ALUSrcB     : out std_logic_vector(2 downto 0);
     ALUOp       : out ALU_CTRL;
     PCSource    : out std_logic_vector(1 downto 0);
+ 
+    StepCount   : out std_logic_vector(31 downto 0);
+    XRST        : in  std_logic;
 
     PCWriteBCF : out std_logic;
     PCWriteBCT : out std_logic;
@@ -123,11 +126,17 @@ begin  -- RTL
   ALUOp       <= outstate.t_aluop;
   PCSource    <= outstate.t_pcsource;
 
+  StepCount   <= step_count;
+
   latch : process (CLK)
   begin  -- process latch
     if rising_edge(CLK) then
       phase <= next_phase;
       count <= next_count;
+      
+      if phase = FETCH then
+        step_count <= step_count + 1;
+      end if;
     end if;
   end process latch;
   

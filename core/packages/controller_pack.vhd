@@ -412,6 +412,8 @@ package controller_pack is
   signal count      : std_logic_vector(2 downto 0) := "000";
   signal next_count : std_logic_vector(2 downto 0);
   signal goto_exfp  : boolean                      := false;
+  
+  signal step_count : std_logic_vector(31 downto 0) := x"00000000";
 
   constant D_ADD   : std_logic_vector(2 downto 0) := "010";
   constant D_MUL   : std_logic_vector(2 downto 0) := "010";

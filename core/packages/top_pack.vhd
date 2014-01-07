@@ -52,6 +52,9 @@ package top_pack is
       ALUOp       : out ALU_CTRL;
       PCSource    : out std_logic_vector(1 downto 0);
 
+      StepCount   : out std_logic_vector(31 downto 0);
+      XRST        : in  std_logic;
+
       PCWriteBCF : out std_logic;
       PCWriteBCT : out std_logic;
       FCSRW      : out std_logic;
@@ -84,6 +87,16 @@ package top_pack is
       );  
   end component;
 
+  component c_led7seg
+    port (
+      clk      : in  STD_LOGIC;
+      data     : in  STD_LOGIC_VECTOR(15 downto 0);
+      dp       : in  STD_LOGIC_VECTOR(3 downto 0);
+      LED7SEG  : out STD_LOGIC_VECTOR(0 to 7);
+      LEDDYN   : out STD_LOGIC_VECTOR(3 downto 0)
+      );  
+  end component;
+
   signal clk, iclk : std_logic;
 
   signal PCWriteNC   : std_logic;
@@ -112,4 +125,5 @@ package top_pack is
   signal FCSRW      : std_logic;
   signal FPRWrite   : std_logic;
 
+  signal StepCount  : std_logic_vector(31 downto 0);
 end top_pack;
