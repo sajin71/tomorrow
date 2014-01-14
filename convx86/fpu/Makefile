@@ -1,7 +1,7 @@
 SRCS=$(shell find ./  -maxdepth 1 -name "*.cpp" )
 OBJS=$(SRCS:.cpp=.o)
 TESTSRCS=$(shell find ./test -name "*.cpp")
-CXXFLAGS +=-std=c++0x -I/usr/src/gtest -I. -g
+CXXFLAGS +=-std=c++0x -I/usr/src/gtest -I. -g -O2
 
 all: $(OBJS)
 test: autotest
