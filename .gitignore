@@ -8,6 +8,8 @@ simulator/.project
 simulator/.cache
 simulator/.classpath
 
+convx86/fpu/autotest
+
 *.cmi
 *.cmo
 compiler/lexer.ml
