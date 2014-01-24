@@ -44,8 +44,22 @@ DWORD MY_CDECL softfp_##name (intflt t, intflt s) { intflt ret; ret.f = func(s.f
 DWORD MY_CDECL softfp_##name (intflt t, intflt s) { return (s.f op t.f)?1:0; }
 
 
-SOFTFP_BINOP(add, +)
-SOFTFP_BINOP(sub, -)
+//SOFTFP_BINOP(add, +)
+DWORD MY_CDECL softfp_add (intflt t, intflt s) {
+	intflt ret;
+	ret.f = s.f + t.f;
+	
+//	fprintf(stderr, "0\t%d\t%d\t%d\t%f\t%f\t%f\n", s.s, t.s, ret.s, s.f, t.f, ret.f);
+	return ret.i;
+}
+//SOFTFP_BINOP(sub, -)
+DWORD MY_CDECL softfp_sub (intflt t, intflt s) {
+	intflt ret;
+	ret.f = s.f - t.f;
+	
+//	fprintf(stderr, "1\t%d\t%d\t%d\t%f\t%f\t%f\n", s.s, t.s, ret.s, s.f, t.f, ret.f);
+	return ret.i;
+}
 SOFTFP_BINOP(mul, *)
 SOFTFP_BINOP(div, /)
 SOFTFP_UNIOP(sqrt, sqrtf)
@@ -74,6 +88,14 @@ SOFTFP_UNIOP(_atan, atanf)
 
 
 extern "C" { 
+DWORD MY_CDECL read_dword() {
+	unsigned char p[4];
+	fread(p, 1, 4, stdin);
+	
+	DWORD r = (p[0] << 24) | (p[1] << 16) | (p[2] << 8) | p[3];
+	return r;
+}
+
 DWORD MY_CDECL read_int() {
 	int i;
 	scanf("%d", &i);
@@ -242,6 +264,15 @@ int main(int argc, char **argv) {
 "	cmp   ebx, 0xfffffffe  \n"
 "	jz    my_read_float  \n"
 
+"	cmp   ebx, 0xffffffff  \n"
+"	jz    my_read_int  \n"
+
+"	push  ecx  \n"
+"	call read_dword \n"
+"	pop ecx  \n"
+"	ret  \n"
+
+"my_read_int:  \n"
 "	push  ecx  \n"
 "	call read_int \n"
 "	pop ecx  \n"

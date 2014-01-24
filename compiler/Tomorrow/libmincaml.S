@@ -1,10 +1,153 @@
 min_caml_print_int:
-	sw	$1, -1($0)
-	jr	$31
+mov  $19, $29 #stack pointer
+
+slt  $11, $1, $0 #負の数か？
+beq  $11, $0, print_int_neg_finish
+
+#negateする
+addi $11, $0, -1 #0xffffffff
+xor  $1, $1, $11
+addi $1, $1, 1
+
+# print '-'
+addi $11, $0, 45
+sw   $11, -1($0)
+
+print_int_neg_finish:
+
+set  $9, 9 #const for slt
+
+set  $5, 9 #counter
+print_int_divloop:
+
+# http://www.hackersdelight.org/divcMore.pdf
+# q = (n >> 1) + (n >> 2);
+srl $11, $1, 1
+srl $12, $1, 2
+add $11, $11, $12
+
+# q = q + (q >> 4);
+srl $12, $11, 4
+add $11, $11, $12
+
+# q = q + (q >> 8);
+srl $12, $11, 8
+add $11, $11, $12
+
+# q = q + (q >> 16);
+srl $12, $11, 16
+add $11, $11, $12
+
+# q = q >> 3;
+srl $11, $11, 3
+
+# $12=((q << 2) + q)
+sll $12, $11, 2
+add $12, $11, $12
+
+# $12 << 1
+sll $12, $12, 1
+
+# r = n- ...
+sub $2, $1, $12
+
+# a = q
+mov $1, $11
+
+# if (9<r)
+slt $12, $9, $2
+beq $12, $0, print_int_div_complete
+
+addi $1, $1, 1
+addi $2, $2, -10
+
+# $1 <= $1/10
+# $2 <= $1%10
+
+print_int_div_complete:
+sw $2, 0($19)
+addi $19, $19, 4
+addi $5, $5, -1
+bne $5, $0, print_int_divloop
+
+
+# 表示部分
+
+sw $1, 0($19)
+set $6, 0 #flag: 最上位はもうあった？
+
+set $5, 10 #counter
+print_int_showloop:
+addi $5, $5, -1
+lw $1, 0($19)
+
+beq $5, $0, print_int_impl     #最下位は必ず表示する
+or $3, $1, $6
+beq $3, $0, print_int_continue #上のほうの0なら表示しないでいいです
+
+print_int_impl:
+set $6, 1
+addi $1, $1, 48 #char '0'
+sw $1, -1($0)
+
+print_int_continue:
+addi $19, $19, -4
+bne $5, $0, print_int_showloop
+
+#leave
+jr $31
+
+
+#16進ダンプします。アセンブラレベルデバッグのためなるべくレジスタ使わない方向で
+# $1...引数 $12,$13,$14使用
+
+min_caml_print_fhex:
+mfc1 $1, $f0
+
+min_caml_print_hex:
+ori $12, $0, 0x30 #'0'
+sw $12, -1($0)
+ori $12, $0, 0x78 #'x'
+sw $12, -1($0)
+
+#counter
+ori $13, $0, 32
+
+print_hex_loop:
+addi $13, $13, -4
+
+srlv $14, $1, $13
+andi $14, $14, 15
+
+addi $12, $14, -10
+slt $12, $12, $0
+
+addi $14, $14, 48
+
+bne $12, $0, print_hex_u10
+addi $14, $14, 7
+
+print_hex_u10:
+sw $14, -1($0)
+
+bne $13, $0, print_hex_loop
+
+ori $12, $0, 0x0a #\n
+sw $12, -1($0)
+jr $31
+
+
+
+
 
 min_caml_print_char:
 	sw	$1, -1($0)
 	jr	$31
+
+min_caml_print_xfloat:
+	mfc1 $1, $f0
+	j min_caml_print_int
+
 
 # print to stderr
 min_caml_prerr_int:
@@ -24,7 +167,11 @@ min_caml_read_int:
 	jr	$31
 
 min_caml_read_float:
-	lwc	$f0, -1($0)
+	lwc	$f0, -2($0)
+	jr	$31
+
+min_caml_read_raw:
+	lwc	$f0, -3($0)
 	jr	$31
 
 min_caml_print_newline:
@@ -40,9 +187,108 @@ min_caml_fabs:
 	abs.s	$f0, $f0
 	jr	$31
 
+
+
+my_fdiv:
+	mov.s $f28, $f0
+
+	mov.s $f0, $f1
+
+	# is 負？
+    ori $15, $0, 0
+    mtc	$15, $f1
+
+    c.olt.s $f0, $f1
+    bct my_fdiv_fu
+    j my_fdiv_call
+
+my_fdiv_fu:
+    ori    $15, $0, 1
+	neg.s $f0, $f0
+
+
+my_fdiv_call:
+
+	mov $25, $31
+	jal kinzi_invsqrt
+	nop
+	mov $31, $25
+
+	# 割る数は xRes * xRes
+	mul.s $f1, $f1, $f1
+	mul.s $f0, $f1, $f28
+
+	bne $15, $0, my_fdiv_ans_neg
+	jr $31
+
+my_fdiv_ans_neg:
+	neg.s $f0, $f0
+	jr $31
+
+
+
+
 min_caml_sqrt:
-	sqrt.s	$f0, $f0
-	jr	$31
+	mov $25, $31
+	jal kinzi_invsqrt
+	nop
+	mov $31, $25
+
+	# xRes * x;
+	mul.s $f0, $f0, $f1
+	
+	jr $31
+
+
+kinzi_invsqrt:
+	# float xHalf = 0.5f * x;
+	set	$21, 0x3f000000 #0.5
+	mtc	$21, $f25
+	mul.s $f25, $f0, $f25
+
+	# const
+	set	$21, 0x3fc00000 #1.5
+	mtc	$21, $f26
+
+	set	$21, 0x5F3759DF #magic
+	
+	# int   tmp   = 0x5F3759DF - ( *(int*)&x >> 1 );
+	mfc $22, $f0
+	srl $22, $22, 1
+	sub $22, $21, $22
+
+	# float xRes  = *(float*)&tmp;
+	mtc $22, $f1
+	
+	mov.s $f22, $f1
+	
+	# xRes * xRes
+	mul.s $f22, $f22, $f22
+
+	mul.s $f22, $f25, $f22
+	sub.s $f22, $f26, $f22
+
+	# xRes *= 
+	mul.s $f1, $f1, $f22
+	
+
+	# //コメントアウトを外すと精度が上がる
+	mov.s $f22, $f1
+	
+	# xRes * xRes
+	mul.s $f22, $f22, $f22
+
+	mul.s $f22, $f25, $f22
+	sub.s $f22, $f26, $f22
+	
+	# xRes *= 
+	mul.s $f1, $f1, $f22
+
+#return is $f1
+	jr $31
+
+
+
 
 min_caml_float_of_int:
 	mtc	$1, $f0
@@ -199,7 +445,26 @@ ll.3:
 	bct ll.4
 	sub.s $f0, $f0, $f11
 ll.4:
-	div.s $f11, $f11, $f3
+#	div.s $f11, $f11, $f3
+
+mov.s $f20, $f0
+mov.s $f21, $f1
+
+mov.s $f0, $f11
+mov.s $f1, $f3
+
+mov $24, $31
+jal my_fdiv
+nop
+mov $31, $24
+
+mov.s $f11, $f0
+
+mov.s $f0, $f20
+mov.s $f1, $f21
+
+
+
 	j ll.3
 ll.5:
 	#end reduction
@@ -213,13 +478,54 @@ ll.5:
 
 
 ll.6:
-	div.s	$f13, $f2, $f3
+#	div.s	$f13, $f2, $f3
+
+
+mov.s $f20, $f0
+mov.s $f21, $f1
+
+mov.s $f0, $f2
+mov.s $f1, $f3
+
+mov $24, $31
+jal my_fdiv
+nop
+mov $31, $24
+
+mov.s $f13, $f0
+
+mov.s $f0, $f20
+mov.s $f1, $f21
+
+
+
 	c.olt.s	$f0, $f13
 	bct	ll.7
 	sub.s	$f0, $f2, $f0
 ll.7:
 
-	div.s	$f14, $f2, $f4
+#	div.s	$f14, $f2, $f4
+
+
+
+mov.s $f20, $f0
+mov.s $f21, $f1
+
+mov.s $f0, $f2
+mov.s $f1, $f4
+
+mov $24, $31
+jal my_fdiv
+nop
+mov $31, $24
+
+mov.s $f14, $f0
+
+mov.s $f0, $f20
+mov.s $f1, $f21
+
+
+
 	c.olt.s	$f14, $f0
 	bct	ll.8
 	
@@ -330,7 +636,26 @@ ll.13:
 	bct ll.14
 	sub.s $f0, $f0, $f11
 ll.14:
-	div.s $f11, $f11, $f3
+#	div.s $f11, $f11, $f3
+
+
+mov.s $f20, $f0
+mov.s $f21, $f1
+
+mov.s $f0, $f11
+mov.s $f1, $f3
+
+mov $24, $31
+jal my_fdiv
+nop
+mov $31, $24
+
+mov.s $f11, $f0
+
+mov.s $f0, $f20
+mov.s $f1, $f21
+
+
 	j ll.13
 ll.15:
 	#end reduction
@@ -343,7 +668,27 @@ ll.15:
 	xor $2, $2, $3
 
 ll.16:
-	div.s	$f13, $f2, $f3
+#	div.s	$f13, $f2, $f3
+
+
+mov.s $f20, $f0
+mov.s $f21, $f1
+
+mov.s $f0, $f2
+mov.s $f1, $f3
+
+mov $24, $31
+jal my_fdiv
+nop
+mov $31, $24
+
+mov.s $f13, $f0
+
+mov.s $f0, $f20
+mov.s $f1, $f21
+
+
+
 	c.olt.s	$f0, $f13
 	bct	ll.17
 	sub.s	$f0, $f2, $f0
@@ -353,7 +698,27 @@ ll.16:
 
 ll.17:
 
-	div.s	$f14, $f2, $f4
+#	div.s	$f14, $f2, $f4
+
+
+mov.s $f20, $f0
+mov.s $f21, $f1
+
+mov.s $f0, $f2
+mov.s $f1, $f4
+
+mov $24, $31
+jal my_fdiv
+nop
+mov $31, $24
+
+mov.s $f14, $f0
+
+mov.s $f0, $f20
+mov.s $f1, $f21
+
+
+
 	c.olt.s	$f0, $f14
 	bct	ll.18
 
@@ -460,8 +825,9 @@ kernel_atan:
 #	add.s $f14, $f14, $f16
 	
 #imporoved with honer method
-#store result in $f14, square in $f15
-	
+#store result in $f15, square in $f16
+	mul.s	$f16, $f0, $f0
+
 	mul.s	$f15, $f12, $f16
 	add.s	$f15, $f15, $f11
 
@@ -483,7 +849,7 @@ kernel_atan:
 	add.s	$f15, $f15, $f0
 
 
-    mov.s   $f0, $f14
+    mov.s   $f0, $f15
 	#end kernel atan
     jr  $31
 
@@ -579,7 +945,27 @@ ll.21:
 
 	sub.s	$f14, $f0, $f13
 	add.s	$f15, $f0, $f13
-	div.s	$f0, $f14, $f15 #$f0 <= (|A| - 1.0 / |A| + 1.0)
+#	div.s	$f0, $f14, $f15 #$f0 <= (|A| - 1.0 / |A| + 1.0)
+
+
+#mov.s $f20, $f0
+mov.s $f21, $f1
+
+mov.s $f0, $f14
+mov.s $f1, $f15
+
+mov $24, $31
+jal my_fdiv
+nop
+mov $31, $24
+
+#mov.s $f**, $f0
+
+#mov.s $f0, $f20
+mov.s $f1, $f21
+
+
+
 
 	sw  $31, 4($29)
 	jal kernel_atan
@@ -622,14 +1008,51 @@ ll.21:
 	#add.s $f14, $f14, $f16
 	
 	#end kernel atan
-	div.s $f1, $f2, $f6
+#	div.s $f1, $f2, $f6
+
+
+mov.s $f20, $f0
+mov.s $f21, $f1
+
+mov.s $f0, $f2
+mov.s $f1, $f6
+
+mov $24, $31
+jal my_fdiv
+nop
+mov $31, $24
+
+mov.s $f1, $f0
+
+mov.s $f0, $f20
+#mov.s $f1, $f21
+
+
 	add.s $f0, $f1, $f0
 
 	j ll.23
 	#TODO return
 
 ll.22:	
-	div.s	$f0, $f13, $f0
+#	div.s	$f0, $f13, $f0
+
+
+mov.s $f20, $f0
+mov.s $f21, $f1
+
+mov.s $f0, $f13
+mov.s $f1, $f20
+
+mov $24, $31
+jal my_fdiv
+nop
+mov $31, $24
+
+#mov.s $f**, $f0
+
+#mov.s $f0, $f20
+mov.s $f1, $f21
+
 
 	sw  $31, 4($29)
 	jal kernel_atan
@@ -673,7 +1096,26 @@ ll.22:
 	
 	#end kernel atan
 
-	div.s $f1, $f2, $f5
+#	div.s $f1, $f2, $f5
+
+
+mov.s $f20, $f0
+#mov.s $f21, $f1
+
+mov.s $f0, $f2
+mov.s $f1, $f5
+
+mov $24, $31
+jal my_fdiv
+nop
+mov $31, $24
+
+mov.s $f1, $f0
+
+mov.s $f0, $f20
+#mov.s $f1, $f21
+
+
 	sub.s $f0, $f1, $f0
 
 ll.23:
@@ -682,99 +1124,100 @@ ll.23:
 ll.24:
 	jr	$31
 	
+	
 min_caml_create_array:
-	set $3, 0x80030000
-	lw  $10, 0($3)
-	mov $4, $10
-	beq $0, $1, min_caml_create_array_end
+    set $3, 0x80030000
+    lw  $10, 0($3)
+    mov $4, $10
+    beq $0, $1, min_caml_create_array_end
 
 min_caml_create_array_loop:
-	sw  $2, 0($4)
-	addi $4, $4, 4
-	addi $1, $1, -1
-	bne $0, $1, min_caml_create_array_loop
+    sw  $2, 0($4)
+    addi $4, $4, 4
+    addi $1, $1, -1
+    bne $0, $1, min_caml_create_array_loop
 
 min_caml_create_array_end:
-	sw  $4, 0($3)
-	mov $1, $10
-	jr    $31
+    sw  $4, 0($3)
+    mov $1, $10
+    jr    $31
 
 
 min_caml_create_float_array:
-	set $3, 0x80030000
-	lw  $10, 0($3)
-	mov $4, $10
-	beq $0, $1, min_caml_create_float_array_end
+    set $3, 0x80030000
+    lw  $10, 0($3)
+    mov $4, $10
+    beq $0, $1, min_caml_create_float_array_end
 
 min_caml_create_float_array_loop:
-	swc  $f0, 0($4)
-	addi $4, $4, 4
-	addi $1, $1, -1
-	bne $0, $1, min_caml_create_float_array_loop
+    swc  $f0, 0($4)
+    addi $4, $4, 4
+    addi $1, $1, -1
+    bne $0, $1, min_caml_create_float_array_loop
 
 min_caml_create_float_array_end:
-	sw  $4, 0($3)
-	mov $1, $10
-	jr  $31
+    sw  $4, 0($3)
+    mov $1, $10
+    jr  $31
 
 min_caml_truncate:
-	round.w.s  $f0, $f0 #trunc.sを実装しないと値がずれます
-	mfc1 $1, $f0
-	jr    $31
+    round.w.s  $f0, $f0 #trunc.sを実装しないと値がずれます
+    mfc1 $1, $f0
+    jr    $31
 
 min_caml_fhalf:
-	set	$1, 0x3f000000 #0.5
+    set	$1, 0x3f000000 #0.5
 	mtc	$1, $f1
-	mul.s   $f0, $f0, $f1
-	jr  $31
+    mul.s   $f0, $f0, $f1
+    jr  $31
 
 min_caml_fsqr:
-	mul.s   $f0, $f0, $f0
-	jr  $31
+    mul.s   $f0, $f0, $f0
+    jr  $31
 
 min_caml_fneg:
-	neg.s $f0, $f0
-	jr $31
+    neg.s $f0, $f0
+    jr $31
 
 min_caml_fispos:
-	set	$1, 0x0 #0.0
-	mtc	$1, $f1
+    set	$1, 0x0 #0.0
+    mtc	$1, $f1
 
-	c.olt.s $f1, $f0
-	bct ll.25
-	jr  $31
+    c.olt.s $f1, $f0
+    bct ll.25
+    jr  $31
 ll.25:
-	addi    $1, $1, 1
-	jr  $31 
+    addi    $1, $1, 1
+    jr  $31 
 
 min_caml_fisneg:
-	set	$1, 0x0 #0.0
-	mtc	$1, $f1
+    set	$1, 0x0 #0.0
+    mtc	$1, $f1
 
-	c.olt.s $f0, $f1
-	bct ll.26
-	jr  $31
+    c.olt.s $f0, $f1
+    bct ll.26
+    jr  $31
 ll.26:
-	addi    $1, $1, 1
-	jr  $31 
+    addi    $1, $1, 1
+    jr  $31 
 
 min_caml_fiszero:
-	set	$1, 0x0 #0.0
-	mtc	$1, $f1
+    set	$1, 0x0 #0.0
+    mtc	$1, $f1
 
-	c.eq.s $f1, $f0
-	bct ll.27
-	jr  $31
+    c.eq.s $f1, $f0
+    bct ll.27
+    jr  $31
 ll.27:
-	addi    $1, $1, 1
-	jr  $31 
+    addi    $1, $1, 1
+    jr  $31 
 
 min_caml_fless:
-	set $1, 0x0
-	c.olt.s $f0, $f1
-	bct ll.28
-	jr  $31
+    set $1, 0x0
+    c.olt.s $f0, $f1
+    bct ll.28
+    jr  $31
 ll.28:
-	addi    $1, $1, 1
-	jr  $31
+    addi    $1, $1, 1
+    jr  $31
 
