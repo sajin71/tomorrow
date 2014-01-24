@@ -511,7 +511,7 @@ NET XRST		   IOSTANDARD = LVTTL;
 NET RS_TX		   IOSTANDARD = LVTTL;
 NET RS_RX		   IOSTANDARD = LVTTL;
 
-NET   "XRST"						   TIG;
+#NET   "XRST"						   TIG;
 
 ############################################################################
 # Clock constraints                                                        #

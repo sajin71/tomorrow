@@ -138,9 +138,12 @@ begin  -- RTL
     clk     => clk,
     LED7SEG => LED7SEG,
     LEDDYN  => LEDDYN,
-    data    => StepCount(31 downto 16),
-    dp      => StepCount(15 downto 12)
+    data    => LEDData,
+    dp      => "0000"
 	);
+	
+	LEDData <= StepCount(15 downto 0) when XRST='1'
+	        else StepCount(31 downto 16);
 
 
 end RTL;

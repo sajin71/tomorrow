@@ -126,4 +126,5 @@ package top_pack is
   signal FPRWrite   : std_logic;
 
   signal StepCount  : std_logic_vector(31 downto 0);
+  signal LEDData    : std_logic_vector(15 downto 0);
 end top_pack;
