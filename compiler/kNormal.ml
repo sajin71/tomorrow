@@ -28,6 +28,52 @@ type t = (* K正規化後の式 (caml2html: knormal_t) *)
   | ExtFunApp of Id.t * Id.t list
 and fundef = { name : Id.t * Type.t; args : (Id.t * Type.t) list; body : t }
 
+let var_lst_to_string lst =
+  let rec var_lst_rec_to_string lst result = match lst with
+    | [] -> result
+    | x::[] -> result ^ x 
+    | x::xs -> var_lst_rec_to_string xs (result ^ x ^ ",") in
+  var_lst_rec_to_string lst ""
+   
+let rec t_to_string = function 
+  | Unit -> "Unit"
+  | Int(x) -> "Int(" ^ (string_of_int x) ^ ")" 
+  | Float(x) -> "Float(" ^ (string_of_float x) ^ ")"
+  | Neg(x) -> "Neg(" ^ x ^ ")"
+  | Add(x, y) -> "Add(" ^ x ^ "," ^ y ^ ")"
+  | Sub(x, y) -> "Sub(" ^ x ^ "," ^ y ^ ")"
+  | Mul(x, y) -> "Mul(" ^ x ^ "," ^ y ^ ")"
+  | Div(x, y) -> "Div(" ^ x ^ "," ^ y ^ ")"
+  | FNeg(x) -> "FNeg(" ^ x ^ ")"
+  | FAdd(x, y) -> "FAdd(" ^ x ^ "," ^ y ^ ")"
+  | FSub(x, y) -> "FSub(" ^ x ^ "," ^ y ^ ")"
+  | FMul(x, y) -> "FMul(" ^ x ^ "," ^ y ^ ")"
+  | FDiv(x, y) -> "FDiv(" ^ x ^ "," ^ y ^ ")"
+  | IfEq(x, y, e1, e2) -> 
+          "IfEq(" ^ x ^ "," ^ y ^ "," ^ t_to_string e1 ^ "," ^ t_to_string e2 ^ ")"
+  | IfLE(x, y, e1, e2) ->
+          "IfLE(" ^ x ^ "," ^ y ^ "," ^ t_to_string e1 ^ "," ^ t_to_string e2 ^ ")"
+  | Let((x, t), e1, e2) -> 
+          "Let(" ^ x ^ "," ^ "," ^ t_to_string e1 ^ "," ^ t_to_string e2 ^ ")"
+  | Var(x) -> "Var(" ^ x ^ ")"
+  | LetRec({ name = (x, t); args = yts; body = e1 }, e2) ->
+          "LetRec({" ^ x ^ "," ^ "(" ^ var_lst_to_string (List.map fst yts) 
+          ^ ")" ^ ",body=" ^ t_to_string e1 ^ "}," ^ t_to_string e2 ^ ")" 
+  | App(x, ys) -> "App(" ^ x ^ "," ^ "(" ^ var_lst_to_string ys ^ "))" 
+  | Tuple(ys) -> "Tuple(" ^ var_lst_to_string ys ^ ")"    
+  | LetTuple(xts, y, e) -> "LetTuple((" ^ var_lst_to_string (List.map fst xts) ^
+                            ")," ^ y ^ "," ^ t_to_string e ^ ")"
+  | Get(x, y) -> "Get(" ^ x ^ "," ^ y ^ ")"
+  | Put(x, y, z) -> "Put(" ^ x ^ "," ^ y ^ "," ^ z ^ ")"
+  | ExtArray(x) -> "ExtArray(" ^ x ^ ")"
+  | ExtFunApp(x, ys) -> "ExtArray(" ^ x ^ ",(" ^ var_lst_to_string ys ^ "))"
+
+let rec effect = function (* ÉûºîÍÑ¤ÎÍ­Ìµ (caml2html: elim_effect) *)
+  | Let(_, e1, e2) | IfEq(_, _, e1, e2) | IfLE(_, _, e1, e2) -> effect e1 || effect e2
+  | LetRec(_, e) | LetTuple(_, _, e) -> effect e
+  | App _ | Put _ | ExtFunApp _ -> true
+  | _ -> false
+
 let rec fv = function (* 式に出現する（自由な）変数 (caml2html: knormal_fv) *)
   | Unit | Int(_) | Float(_) | ExtArray(_) -> S.empty
   | Neg(x) | FNeg(x) -> S.singleton x
