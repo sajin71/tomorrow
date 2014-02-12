@@ -44,10 +44,10 @@ begin  -- RTL
   
   fadd_map : fadd
     port map (
-      a      => a_fadd,
-      b      => D2,
-      clk    => CLK,
-      result => qadd);
+      a   => a_fadd,
+      b   => D2,
+      clk => CLK,
+      q   => qadd);
 
   fmul_map : fmul
     port map (
