@@ -126,7 +126,7 @@ and g' oc = function (* Emit assembly of each instruction *)
     (* tail *)
     | Tail, (Nop | SW _ | SWC _ | Comment _ | Save _ as exp) ->
         g' oc (NonTail(Id.gentmp Type.Unit), exp);
-        Printf.fprintf oc "jr $31\n" 
+        Printf.fprintf oc "\tjr $31\n" 
         (*Printf.fprintf oc "\tnop\n"*)
     | Tail, (Set _ | SetL _ |  Mov _ | Neg _ | Add _ | Sub _ |Mul _ | Div _ | SLL _ | SRL _ | LW _ 
         as exp) ->

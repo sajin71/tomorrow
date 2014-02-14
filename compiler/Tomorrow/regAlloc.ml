@@ -45,7 +45,7 @@ let rec alloc dest cont regenv x t =
         | Type.Unit -> ["%g0"] (* dummy *)
         | Type.Float -> allfregs
         | _ -> allregs in
-    if all = ["%r0"] then Alloc("%r0") else (* [XX] ad hoc optimization *)
+    if all = ["%g0"] then Alloc("%g0") else (* [XX] ad hoc optimization *)
     if is_reg x then Alloc(x) else
     let free = fv cont in
     try
