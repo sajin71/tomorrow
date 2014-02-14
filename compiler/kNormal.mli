@@ -28,5 +28,6 @@ and fundef = { name : Id.t * Type.t; args : (Id.t * Type.t) list; body : t }
 
 val t_to_string : t -> string
 val effect : t -> bool
+val size : t -> int
 val fv : t -> S.t
 val f : Syntax.t -> t

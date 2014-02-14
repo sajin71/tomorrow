@@ -74,6 +74,12 @@ let rec effect = function (* ÉûºîÍÑ¤ÎÍ­Ìµ (caml2html: elim_effect) *
   | App _ | Put _ | ExtFunApp _ -> true
   | _ -> false
 
+let rec size = function
+  | IfEq(_, _, e1, e2) | IfLE(_, _, e1, e2)
+  | Let(_, e1, e2) | LetRec({ body = e1 }, e2) -> 1 + size e1 + size e2
+  | LetTuple(_, _, e) -> 1 + size e
+  | _ -> 1
+
 let rec fv = function (* 式に出現する（自由な）変数 (caml2html: knormal_fv) *)
   | Unit | Int(_) | Float(_) | ExtArray(_) -> S.empty
   | Neg(x) | FNeg(x) -> S.singleton x
