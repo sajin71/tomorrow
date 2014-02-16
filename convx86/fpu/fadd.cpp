@@ -17,7 +17,6 @@ fadd::fadd(uint32_t& a, uint32_t& b, uint32_t& q) : a(a), b(b), q(q)
 						  , ls(frc2, __tmp, frc_ans2)
 						  , pr(frc_ans1, shift)
 						  , ls2(frc_ans3, __tmp2, tmp){
-    exp_up2 = 0;
 }
 fadd::~fadd(){
 }
@@ -42,8 +41,8 @@ void fadd::update(){
     frc_a[26] = 1;
 
     frc_b = fin_b << 3;
-    frc_a[27] = 0;
-    frc_a[26] = 1;
+    frc_b[27] = 0;
+    frc_b[26] = 1;
 
     fin_l = (cmp_abs[1] == 0) ? fin_a : fin_b;
     fin_s = (cmp_abs[1] == 0) ? fin_b : fin_a;
@@ -80,15 +79,15 @@ void fadd::update(){
 
     bool _flag1 = true, _flag2 = true;
     for(int i = 1; i <= 26; i++){
-	    if(!frc_ans1[i]){
-		if(i == 1){
-		    _flag2 = false;
-		}else if(i == 26){
-		    _flag1 = false;
-		}else{
-		    _flag1 = _flag2 = false;
-		}
+	if(!frc_ans1[i]){
+	    if(i == 1){
+		_flag2 = false;
+	    }else if(i == 26){
+		_flag1 = false;
+	    }else{
+		_flag1 = _flag2 = false;
 	    }
+	}
     }
     if(_flag1){
 	frc2 = 0;
@@ -123,7 +122,7 @@ void fadd::update(){
 
     q = frc_ans.to_ulong() >> 4;
     for(int i = 0; i < 9; i++){
-	q |= (frc_ans[i] << (31-i));
+	q |= (ans_head[i] << ((31-8)+i));
     }
 }
 void fadd::clockUpdate(){
