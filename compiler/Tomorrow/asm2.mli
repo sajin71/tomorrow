@@ -1,15 +1,16 @@
 type ret = 
     | Value of (Id.t * Type.t) option
     | Cls of Id.t * Id.t list * Id.t list
-    | Dir of Id.t * Id.t list * Id.t list
+    | Dir of Id.l * Id.t list * Id.t list
 
 type inst =
     | Nop
+    | End of int option (* represents the end of true block of if *)
     | Set of Id.t * int
     | SetL of Id.t * Id.l
-    | SetCLV of Id.t * Id.t
+    | SetCLV of Id.t * Id.l
     | Mov of Id.t * Id.t
-    | Neg of Id.t
+    | Neg of Id.t * Id.t
     | Add of Id.t * Id.t * Asm.id_or_imm
     | Sub of Id.t * Id.t * Id.t
     | Mul of Id.t * Id.t * Asm.id_or_imm
@@ -24,8 +25,8 @@ type inst =
     | FSub of Id.t * Id.t * Id.t
     | FMul of Id.t * Id.t * Id.t
     | FDiv of Id.t * Id.t * Id.t
-    | LWC of Id.t * Id.t * id_or_imm
-    | SWC of Id.t * Id.t * id_or_imm
+    | LWC of Id.t * Id.t * Asm.id_or_imm
+    | SWC of Id.t * Id.t * Asm.id_or_imm
     (* virtual instructions *)
     | IfEq of Id.t * Id.t * int (* shows where the else block starts *)
     | IfLE of Id.t * Id.t * int
