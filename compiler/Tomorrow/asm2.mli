@@ -5,7 +5,8 @@ type ret =
 
 type inst =
     | Nop
-    | End of int option (* represents the end of true block of if *)
+    (* | End of int option (* represents the end of true block of if *) *)
+    | Jump of int (* shows where to jump (relative address) *)
     | Set of Id.t * int
     | SetL of Id.t * Id.l
     | SetCLV of Id.t * Id.l
@@ -50,4 +51,5 @@ type dest = Tail | NonTail of Id.t
 
 val f : Asm.prog -> prog
 
+val gen_index_lst : int -> int list 
 val print_prog : prog -> unit

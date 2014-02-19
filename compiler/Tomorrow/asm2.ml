@@ -5,7 +5,8 @@ type ret =
 
 type inst =
     | Nop
-    | End of int option(* represents the end of true block of if (states where it jumps)*)
+    (* | End of int option(* represents the end of true block of if (states * where it jumps)*) *)
+    | Jump of int (* shows where to jump (relative address) *)
     | Set of Id.t * int
     | SetL of Id.t * Id.l
     | SetCLV of Id.t * Id.l
@@ -39,6 +40,8 @@ type inst =
     | Save of Id.t * Id.t
     | Restore of Id.t * Id.t
     | Return of ret 
+
+type flow = (inst * int list * int list) list
 
 type t = inst list
 
@@ -89,7 +92,7 @@ and g' prev = function
             Return(Value(Some(tmp, Type.Float))) :: g' prev (NonTail(tmp), exp)
     | Tail, Asm.Restore(_) -> (* won't be neccesarry *)
             prev
-    | Tail, Asm.IfEq(x, y, e1, e2) ->
+    | Tail, Asm.IfEq(x, y, e1, e2) -> (* TODO end in else list end? *)
             let cont, else_start = g'_tail_if e1 e2 in
             cont @ [IfEq(x, y, else_start)] @ prev
     | Tail, Asm.IfLE(x, y, e1, e2) ->
@@ -126,13 +129,13 @@ and g' prev = function
 and g'_tail_if e1 e2 =
     let true_list = g [] (Tail, e1) in
     let false_list = g [] (Tail, e2) in
-    let cont = false_list @ (End(None) :: true_list) in
-    let else_start = List.length true_list + 2 in
+    let cont = false_list @ true_list in
+    let else_start = List.length true_list + 1 in
     (cont, else_start)
 and g'_non_tail_if z e1 e2 =
     let true_list = g [] (NonTail(z), e1) in
     let false_list = g [] (NonTail(z), e2) in
-    let cont = false_list @ (End(Some(List.length false_list + 1)) :: true_list) in
+    let cont = false_list @ (Jump(List.length false_list + 1) :: true_list) in
     let else_start = List.length true_list + 2 in
     (cont, else_start)
 
@@ -147,10 +150,15 @@ let rec string_of_id_list = function
     | x::[] -> x
     | x::xs -> x ^ ", " ^ string_of_id_list xs
 
+let gen_index_lst n =
+    let rec gen_index_lst_rec m result =
+        if m >= n then result
+        else gen_index_lst_rec (m + 1) (m :: result)
+    in List.rev (gen_index_lst_rec 0 [])
+
 let print_inst = function
     | Nop -> print_string "Nop\n"
-    | End(None) -> print_string ("End\n")
-    | End(Some(n)) -> print_string ("End " ^ string_of_int n ^ " \n")
+    | Jump(n) -> print_string ("Jump " ^ string_of_int n ^ " \n")
     | Set(x, v) -> print_string ("Set " ^ x ^ ", " ^ string_of_int v ^ "\n")
     | SetL(x, Id.L(l)) -> print_string ("SetL " ^ x ^ ", " ^ "L(" ^ l ^ ")\n")
     | SetCLV(x, Id.L(l)) -> print_string ("SetCLV " ^ x ^ ", " ^ l ^ "\n")
@@ -179,6 +187,8 @@ let print_inst = function
     | FDiv(x, y, z) -> print_string ("FDiv " ^ x ^ ", " ^ y ^ ", " ^ z ^ "\n")
     | LWC(x, y, Asm.V(z)) -> print_string ("LWC " ^ x ^ ", " ^ y ^ ", " ^ z ^ "\n")
     | LWC(x, y, Asm.C(z)) -> print_string ("LWC " ^ x ^ ", " ^ y ^ ", " ^ string_of_int z ^ "\n")
+    | SWC(x, y, Asm.V(z)) -> print_string ("SWC " ^ x ^ ", " ^ y ^ ", " ^ z ^ "\n")
+    | SWC(x, y, Asm.C(z)) -> print_string ("SWC " ^ x ^ ", " ^ y ^ ", " ^ string_of_int z ^ "\n")
     | IfEq(x, y, else_start) -> print_string ("IfEq " ^ x ^ ", " ^ y ^ " else_start: " ^ string_of_int else_start ^ "\n") 
     | IfLE(x, y, else_start) -> print_string ("IfLE " ^ x ^ ", " ^ y ^ " else_start: " ^ string_of_int else_start ^ "\n")
     | IfGE(x, y, else_start) -> print_string ("IfGE " ^ x ^ ", " ^ y ^ " else_start: " ^ string_of_int else_start ^ "\n")
@@ -197,12 +207,12 @@ let print_inst = function
 let print_fundef { name = Id.L(l); args = xs; fargs = ys; body = insts; ret
 = t} = 
     print_string (l ^ ": args: " ^ string_of_id_list xs ^ " fargs: " ^ string_of_id_list ys ^ "ret: " ^ Type.t_to_string t ^ "\n");
-    List.iter print_inst insts
+    List.iter2 (fun index inst -> print_int index; print_string ": "; print_inst inst) (gen_index_lst (List.length insts)) insts 
 
 let print_prog (Prog(datas, fundefs, insts)) = 
     List.iter (fun (Id.L(l), data) -> print_string (l ^ ": "); print_float data;print_string "\n") datas;
     print_string "\n";
     List.iter print_fundef fundefs;
     print_string "\n";
-    List.iter print_inst insts 
+    List.iter2 (fun index inst -> print_int index; print_string ": "; print_inst inst) (gen_index_lst (List.length insts)) insts 
 
