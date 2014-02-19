@@ -41,8 +41,6 @@ type inst =
     | Restore of Id.t * Id.t
     | Return of ret 
 
-type flow = (inst * int list * int list) list
-
 type t = inst list
 
 type fundef = {name : Id.l; args : Id.t list; fargs : Id.t list; body : t; ret : Type.t }
