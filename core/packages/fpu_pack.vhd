@@ -32,19 +32,18 @@ package fpu_pack is
           );
   end component;
 
-  component fdiv
+  component finv
     port (
-      a      : in  std_logic_vector(31 downto 0);
-      b      : in  std_logic_vector(31 downto 0);
-      clk    : in  std_logic;
-      result : out std_logic_vector(31 downto 0));
+      clk : in  std_logic;
+      a   : in  std_logic_vector(31 downto 0);
+      q   : out std_logic_vector(31 downto 0));
   end component;
 
   component fsqrt
     port (
-      a      : in  std_logic_vector(31 downto 0);
-      clk    : in  std_logic;
-      result : out std_logic_vector(31 downto 0));
+      clk : in  std_logic;
+      a   : in  std_logic_vector(31 downto 0);
+      q   : out std_logic_vector(31 downto 0));
   end component;
 
   signal qadd   : std_logic_vector(31 downto 0);
@@ -57,4 +56,7 @@ package fpu_pack is
 
   signal a_fadd   : std_logic_vector(31 downto 0);
   signal round_op : std_logic_vector(1 downto 0);
+
+  signal t_inv  : std_logic_vector(31 downto 0);
+  signal t_inv2 : std_logic_vector(31 downto 0);
 end fpu_pack;

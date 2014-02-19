@@ -13,7 +13,7 @@
 
 uint32_t fsqrt(uint32_t a){
   FILE *fd = fopen("./fsqrttablesim.dat","r");
-  uint32_t a0,a1,e,s,gc[2],y,q;
+  uint32_t a0,a1,e,gc[2],y,q;
 
   if(!fd){
     perror("fopen()");
@@ -23,7 +23,6 @@ uint32_t fsqrt(uint32_t a){
   a0 = (a<<9)>>23;		/* a0 <= a(22 downto 14) */
   a1 = (a<<18)>>18;		/* a1 <= a(13 downto 0) */
   e = (a<<1)>>24;		/* e <= a(30 downto 23) */
-  s = a>>31;			/* s <= a(31) */
 
   if(fseek(fd,8*(((e&1)<<9)|a0),SEEK_SET)<0){
     perror("fseek()");
@@ -38,10 +37,10 @@ uint32_t fsqrt(uint32_t a){
   y = gc[1] + ((gc[0] * a1)>>13);	/* GWIDTH = 13 */
 
   if((e&1) == 0){
-    q = (s<<31) | ((e+126)<<22) | y;
+    q = ((63+(e>>1))<<23) | y;
   }
   else{
-    q = (s<<31) | ((e+127)<<22) | y;
+    q = ((64+(e>>1))<<23) | y;
   }
 
   if(fclose(fd) == EOF){

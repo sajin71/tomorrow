@@ -29,7 +29,7 @@ begin  -- RTL
     '0' & D2(30 downto 0)          when O_FABS,
     (not D2(31)) & D2(30 downto 0) when O_FNEG,
     qftoi                          when O_FROUND | O_FFLOOR,
---    qinv                           when O_FRECIP,
+    qinv                           when O_FRECIP,
     qsitof                         when others;
 
   with OPER select
@@ -68,17 +68,39 @@ begin  -- RTL
       f   => qsitof,
       clk => CLK);
 
-  fdiv_map : fdiv
+  finv_map : finv
     port map (
-      a      => D2,
-      b      => D1,
-      clk    => CLK,
-      result => qdiv);
+      clk => CLK,
+      a   => D2,
+      q   => qinv);
 
   fsqrt_map : fsqrt
     port map (
-      a      => D2,
-      clk    => CLK,
-      result => qsqrt);
+      clk => CLK,
+      a   => D2,
+      q   => qsqrt);
+
+
+  -- for fdiv
+  
+  fdiv_finv : finv
+    port map (
+      clk => CLK,
+      a   => D1,
+      q   => t_inv);
+
+  tinvlatch : process (CLK)
+  begin  -- process tinvlatch
+    if rising_edge(CLK) then
+      t_inv2 <= t_inv;
+    end if;
+  end process tinvlatch;
+
+  fdiv_fmul : fmul
+    port map (
+      a   => D2,
+      b   => t_inv2,
+      clk => CLK,
+      q   => qdiv);
 
 end RTL;
