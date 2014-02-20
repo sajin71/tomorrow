@@ -23,9 +23,16 @@ let make_if_end_node else_len = (inst, Pred(pred_lst index), Succ([index + else_
 
 let add_as_set x lst =
     if List.mem x lst then lst else x::lst
+
+let add_list_as_set xs lst =
+    List.fold_right add_as_set xs lst
+
 let rec remove_all a = function
     | [] -> []
     | x :: xs -> if x = a then remove_all a xs else x :: remove_all a xs
+
+let sub_list_as_set xs lst =
+    List.fold_right remove_all xs lst
 
 let rec make_irregular_edge_list inst_list pred_lst succ_lst del_lst n =
     if n >= List.length inst_list then pred_lst, succ_lst, del_lst
@@ -45,25 +52,26 @@ let inst_to_node index = function
     | e -> Node(index, Pred(pred_lst index), Succ([index + 1]))
 
 let make_default_flow_graph inst_list =
-    List.map2 inst_to_node (Asm2.gen_index_lst (List.length inst_list)) inst_list 
+    List.map2 inst_to_node (gen_index_lst (List.length inst_list)) inst_list 
 
 let format_flow_node (Node(index, Pred(in_lst), Succ(out_lst))) pred_lst succ_lst del_lst =
     let new_in_nodes = List.map (fun(x, y) -> y) (List.filter (fun (x, y) -> x = index) pred_lst) in
-    let new_in_nodes' = List.fold_right (remove_all) (List.map (fun(x, y) -> y) (List.filter (fun (x, y) -> x = index) del_lst)) new_in_nodes in
-    let in_lst'' = List.fold_right (add_as_set) in_lst new_in_nodes' in
-    let in_lst' = List.fold_right (remove_all) (List.map (fun(x, y) -> y) (List.filter (fun (x, y) -> x = index) del_lst)) in_lst'' in
+    let new_in_nodes' = sub_list_as_set (List.map (fun(x, y) -> y) (List.filter (fun (x, y) -> x = index) del_lst)) new_in_nodes in
+    let in_lst'' = add_list_as_set in_lst new_in_nodes' in
+    let in_lst' = sub_list_as_set  (List.map (fun(x, y) -> y) (List.filter (fun (x, y) -> x = index) del_lst)) in_lst'' in
     let new_out_nodes = List.map (fun(x, y) -> y) (List.filter (fun (x, y) -> x = index) succ_lst) in
-    let out_lst'  = List.fold_right (add_as_set) out_lst new_out_nodes in
+    let out_lst'  = add_list_as_set out_lst new_out_nodes in
     Node(index, Pred(in_lst'), Succ(out_lst'))
 
 let rec g inst_list =
     let pred_lst, succ_lst, del_lst = make_irregular_edge_list inst_list [] [] [] 0 in
     let default_flow_graph = make_default_flow_graph inst_list in
     List.map (fun node -> format_flow_node node pred_lst succ_lst del_lst) default_flow_graph
-let h { Asm2.name = Id.L(l); Asm2.args = xs; Asm2.fargs = ys; Asm2.body = e; Asm2.ret = t}=
+
+let h { name = Id.L(l); args = xs; fargs = ys; body = e; ret = t}=
     l, g e
 
-let f (Asm2.Prog(data, fundefs, e)) =
+let f (Prog(data, fundefs, e)) =
     List.map h fundefs, g e
    
 let rec print_int_lst = function

@@ -49,6 +49,19 @@ type prog = Prog of (Id.l * float) list * fundef list * t
 
 type dest = Tail | NonTail of Id.t
 
+let add_as_set x lst =
+    if List.mem x lst then lst else x::lst
+
+let add_list_as_set xs lst =
+    List.fold_right add_as_set xs lst
+
+let rec remove_all a = function
+    | [] -> []
+    | x :: xs -> if x = a then remove_all a xs else x :: remove_all a xs
+
+let sub_list_as_set xs lst =
+    List.fold_right remove_all xs lst
+
 let rec g prev = function (* Make Instruction List(Reversed) *)
     | (dest, Asm.Ans(exp)) -> g' prev (dest, exp)
     | (dest, Asm.Let((x, t), exp, e)) -> g [] (dest, e) @ g' [] (NonTail(x), exp) @ prev

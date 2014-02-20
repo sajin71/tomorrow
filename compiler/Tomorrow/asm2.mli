@@ -49,6 +49,11 @@ type prog = Prog of (Id.l * float) list * fundef list * t
 
 type dest = Tail | NonTail of Id.t
 
+val add_as_set : 'a -> 'a list -> 'a list
+val add_list_as_set : 'a list -> 'a list -> 'a list
+val remove_all : 'a -> 'a list -> 'a list
+val sub_list_as_set : 'a list -> 'a list -> 'a list
+
 val f : Asm.prog -> prog
 
 val gen_index_lst : int -> int list 
