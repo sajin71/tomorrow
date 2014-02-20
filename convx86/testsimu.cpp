@@ -55,7 +55,6 @@ DWORD MY_CDECL softfp_##name (intflt t, intflt s) { return (s.f op t.f)?1:0; }
 SOFTFP_BINOP(add, +)
 SOFTFP_BINOP(sub, -)
 SOFTFP_BINOP(mul, *)
-SOFTFP_BINOP(div, /)
 
 
 // Thanks to YutaMarunaka
@@ -109,6 +108,15 @@ DWORD MY_CDECL softfp_recip (intflt unused, intflt input) {
 	
 	return q;
 }
+
+// s/t
+DWORD MY_CDECL softfp_div (intflt t, intflt s) {
+	intflt inv;
+	inv.i = softfp_recip(t, t);
+	
+	return softfp_mul(s, inv);
+}
+
 
 
 SOFTFP_UNIOP(abs, fabs)
