@@ -19,6 +19,7 @@ DWORD *blockram;
 DWORD *pos;
 
 
+uint32_t fpu_fmul(uint32_t fin_a, uint32_t fin_b);
 /** External Table Object File **/
 // fsqrt_table.o
 extern uint32_t _binary_fsqrt_table_start[];
@@ -54,7 +55,11 @@ DWORD MY_CDECL softfp_##name (intflt t, intflt s) { return (s.f op t.f)?1:0; }
 
 SOFTFP_BINOP(add, +)
 SOFTFP_BINOP(sub, -)
-SOFTFP_BINOP(mul, *)
+
+
+DWORD MY_CDECL softfp_mul (intflt t, intflt s) {
+	return fpu_fmul(s.i, t.i);
+}
 
 
 // Thanks to YutaMarunaka
