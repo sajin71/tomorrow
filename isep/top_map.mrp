@@ -1,0 +1,844 @@
+Release 14.4 Map P.49d (lin64)
+Xilinx Mapping Report File for Design 'top'
+
+Design Information
+------------------
+Command Line   : map -intstyle ise -p xc5vlx50t-ff1136-1 -w -logic_opt off -ol
+high -t 1 -register_duplication off -global_opt off -mt off -cm area -ir off -pr
+off -lc off -power off -o top_map.ncd top.ngd top.pcf 
+Target Device  : xc5vlx50t
+Target Package : ff1136
+Target Speed   : -1
+Mapper Version : virtex5 -- $Revision: 1.55 $
+Mapped Date    : Thu Feb 20 07:21:25 2014
+
+Design Summary
+--------------
+Number of errors:      0
+Number of warnings:  134
+Slice Logic Utilization:
+  Number of Slice Registers:                   648 out of  28,800    2%
+    Number used as Flip Flops:                 648
+  Number of Slice LUTs:                      3,022 out of  28,800   10%
+    Number used as logic:                    2,628 out of  28,800    9%
+      Number using O6 output only:           2,306
+      Number using O5 output only:              71
+      Number using O5 and O6:                  251
+    Number used as Memory:                     386 out of   7,680    5%
+      Number used as Dual Port RAM:            360
+        Number using O6 output only:           356
+        Number using O5 and O6:                  4
+      Number used as Shift Register:            26
+        Number using O6 output only:            26
+    Number used as exclusive route-thru:         8
+  Number of route-thrus:                        78
+    Number using O6 output only:                75
+    Number using O5 output only:                 2
+    Number using O5 and O6:                      1
+
+Slice Logic Distribution:
+  Number of occupied Slices:                 1,094 out of   7,200   15%
+  Number of LUT Flip Flop pairs used:        3,239
+    Number with an unused Flip Flop:         2,591 out of   3,239   79%
+    Number with an unused LUT:                 217 out of   3,239    6%
+    Number of fully used LUT-FF pairs:         431 out of   3,239   13%
+    Number of unique control sets:              93
+    Number of slice register sites lost
+      to control set restrictions:             222 out of  28,800    1%
+
+  A LUT Flip Flop pair for this architecture represents one LUT paired with
+  one Flip Flop within a slice.  A control set is a unique combination of
+  clock, reset, set, and enable signals for a registered element.
+  The Slice Logic Distribution report is not meaningful if the design is
+  over-mapped for a non-slice resource or if Placement fails.
+  OVERMAPPING of BRAM resources should be ignored if the design is
+  over-mapped for a non-BRAM resource or if placement fails.
+
+IO Utilization:
+  Number of bonded IOBs:                        75 out of     480   15%
+    Number of LOCed IOBs:                       75 out of      75  100%
+
+Specific Feature Utilization:
+  Number of BlockRAM/FIFO:                      38 out of      60   63%
+    Number using BlockRAM only:                 38
+    Total primitives used:
+      Number of 36k BlockRAM used:              35
+      Number of 18k BlockRAM used:               4
+    Total Memory used (KB):                  1,332 out of   2,160   61%
+  Number of BUFG/BUFGCTRLs:                      1 out of      32    3%
+    Number used as BUFGs:                        1
+  Number of DSP48Es:                            13 out of      48   27%
+
+Average Fanout of Non-Clock Nets:                5.08
+
+Peak Memory Usage:  916 MB
+Total REAL time to MAP completion:  1 mins 58 secs 
+Total CPU time to MAP completion:   1 mins 53 secs 
+
+Table of Contents
+-----------------
+Section 1 - Errors
+Section 2 - Warnings
+Section 3 - Informational
+Section 4 - Removed Logic Summary
+Section 5 - Removed Logic
+Section 6 - IOB Properties
+Section 7 - RPMs
+Section 8 - Guide Report
+Section 9 - Area Group and Partition Summary
+Section 10 - Timing Report
+Section 11 - Configuration String Information
+Section 12 - Control Set Information
+Section 13 - Utilization by Hierarchy
+
+Section 1 - Errors
+------------------
+
+Section 2 - Warnings
+--------------------
+WARNING:Security:43 - No license file was found in the standard Xilinx license
+directory.
+WARNING:Security:44 - Since no license file was found,
+WARNING:Security:42 - Your software subscription period has lapsed. Your current
+version of Xilinx tools will continue to function, but you no longer qualify for
+Xilinx software updates or new releases.
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   datapath_map/fpu_map/fdiv_finv/table_ref/U0/xst_blk_mem_generator/gnativebmg.
+   native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/v5_init.ram/SP.SINGLE_PRIM36.S
+   P
+   of frag REGCLKAU connected to power/ground net
+   datapath_map/fpu_map/fdiv_finv/table_ref/U0/xst_blk_mem_generator/gnativebmg.
+   native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/v5_init.ram/SP.SINGLE_PRIM36.S
+   P_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   datapath_map/fpu_map/fdiv_finv/table_ref/U0/xst_blk_mem_generator/gnativebmg.
+   native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/v5_init.ram/SP.SINGLE_PRIM36.S
+   P
+   of frag REGCLKAL connected to power/ground net
+   datapath_map/fpu_map/fdiv_finv/table_ref/U0/xst_blk_mem_generator/gnativebmg.
+   native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/v5_init.ram/SP.SINGLE_PRIM36.S
+   P_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   datapath_map/fpu_map/finv_map/table_ref/U0/xst_blk_mem_generator/gnativebmg.n
+   ative_blk_mem_gen/valid.cstr/ramloop[0].ram.r/v5_init.ram/SP.SINGLE_PRIM36.SP
+   of frag REGCLKAU connected to power/ground net
+   datapath_map/fpu_map/finv_map/table_ref/U0/xst_blk_mem_generator/gnativebmg.n
+   ative_blk_mem_gen/valid.cstr/ramloop[0].ram.r/v5_init.ram/SP.SINGLE_PRIM36.SP
+   _REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   datapath_map/fpu_map/finv_map/table_ref/U0/xst_blk_mem_generator/gnativebmg.n
+   ative_blk_mem_gen/valid.cstr/ramloop[0].ram.r/v5_init.ram/SP.SINGLE_PRIM36.SP
+   of frag REGCLKAL connected to power/ground net
+   datapath_map/fpu_map/finv_map/table_ref/U0/xst_blk_mem_generator/gnativebmg.n
+   ative_blk_mem_gen/valid.cstr/ramloop[0].ram.r/v5_init.ram/SP.SINGLE_PRIM36.SP
+   _REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   datapath_map/fpu_map/fsqrt_map/table_ref/U0/xst_blk_mem_generator/gnativebmg.
+   native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/v5_init.ram/SP.SINGLE_PRIM36.S
+   P
+   of frag REGCLKAU connected to power/ground net
+   datapath_map/fpu_map/fsqrt_map/table_ref/U0/xst_blk_mem_generator/gnativebmg.
+   native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/v5_init.ram/SP.SINGLE_PRIM36.S
+   P_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   datapath_map/fpu_map/fsqrt_map/table_ref/U0/xst_blk_mem_generator/gnativebmg.
+   native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/v5_init.ram/SP.SINGLE_PRIM36.S
+   P
+   of frag REGCLKAL connected to power/ground net
+   datapath_map/fpu_map/fsqrt_map/table_ref/U0/xst_blk_mem_generator/gnativebmg.
+   native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/v5_init.ram/SP.SINGLE_PRIM36.S
+   P_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram1
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram1_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram1
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram1_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram1
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram1_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram1
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram1_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram10
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram10_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram10
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram10_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram10
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram10_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram10
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram10_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram11
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram11_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram11
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram11_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram11
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram11_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram11
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram11_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram12
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram12_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram12
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram12_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram12
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram12_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram12
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram12_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram13
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram13_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram13
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram13_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram13
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram13_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram13
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram13_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram14
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram14_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram14
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram14_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram14
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram14_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram14
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram14_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram15
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram15_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram15
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram15_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram15
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram15_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram15
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram15_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram16
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram16_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram16
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram16_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram16
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram16_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram16
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram16_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram17
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram17_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram17
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram17_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram17
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram17_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram17
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram17_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram18
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram18_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram18
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram18_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram18
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram18_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram18
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram18_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram19
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram19_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram19
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram19_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram19
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram19_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram19
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram19_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram2
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram2_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram2
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram2_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram2
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram2_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram2
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram2_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram20
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram20_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram20
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram20_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram20
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram20_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram20
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram20_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram21
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram21_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram21
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram21_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram21
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram21_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram21
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram21_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram22
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram22_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram22
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram22_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram22
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram22_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram22
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram22_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram23
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram23_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram23
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram23_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram23
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram23_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram23
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram23_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram24
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram24_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram24
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram24_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram24
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram24_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram24
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram24_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram25
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram25_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram25
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram25_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram25
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram25_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram25
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram25_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram26
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram26_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram26
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram26_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram26
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram26_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram26
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram26_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram27
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram27_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram27
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram27_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram27
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram27_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram27
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram27_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram28
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram28_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram28
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram28_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram28
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram28_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram28
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram28_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram29
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram29_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram29
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram29_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram29
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram29_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram29
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram29_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram3
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram3_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram3
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram3_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram3
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram3_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram3
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram3_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram30
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram30_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram30
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram30_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram30
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram30_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram30
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram30_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram31
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram31_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram31
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram31_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram31
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram31_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram31
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram31_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram32
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram32_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram32
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram32_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram32
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram32_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram32
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram32_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram4
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram4_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram4
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram4_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram4
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram4_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram4
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram4_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram5
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram5_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram5
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram5_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram5
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram5_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram5
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram5_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram6
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram6_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram6
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram6_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram6
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram6_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram6
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram6_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram7
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram7_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram7
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram7_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram7
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram7_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram7
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram7_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram8
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram8_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram8
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram8_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram8
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram8_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram8
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram8_REGCLKBL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram9
+   of frag REGCLKAU connected to power/ground net
+   ram_map/blockram_map/Mram_ram9_REGCLKAU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram9
+   of frag REGCLKAL connected to power/ground net
+   ram_map/blockram_map/Mram_ram9_REGCLKAL_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram9
+   of frag REGCLKBU connected to power/ground net
+   ram_map/blockram_map/Mram_ram9_REGCLKBU_tiesig
+WARNING:Pack:2874 - Trimming timing constraints from pin
+   ram_map/blockram_map/Mram_ram9
+   of frag REGCLKBL connected to power/ground net
+   ram_map/blockram_map/Mram_ram9_REGCLKBL_tiesig
+
+Section 3 - Informational
+-------------------------
+INFO:Security:50 - The XILINXD_LICENSE_FILE environment variable is set to
+'2100@133.11.27.150'.
+INFO:Security:52 - The LM_LICENSE_FILE environment variable is set to
+'1717@133.11.27.150'.
+INFO:Security:54 - 'xc5vlx50t' is a WebPack part.
+INFO:LIT:243 - Logical network ram_map/io_manager_map/Mram_sendbuf22/SPO has no
+   load.
+INFO:LIT:395 - The above info message is repeated 17 more times for the
+   following (max. 5 shown):
+   ram_map/io_manager_map/Mram_sendbuf21/SPO,
+   ram_map/io_manager_map/Mram_recvbuf882/SPO,
+   ram_map/io_manager_map/Mram_recvbuf881/SPO,
+   ram_map/io_manager_map/Mram_recvbuf872/SPO,
+   ram_map/io_manager_map/Mram_recvbuf871/SPO
+   To see the details of these info messages, please use the -detail switch.
+INFO:MapLib:562 - No environment variables are currently set.
+INFO:LIT:244 - All of the single ended outputs in this design are using slew
+   rate limited output drivers. The delay on speed critical single ended outputs
+   can be dramatically reduced by designating them as fast outputs.
+INFO:Pack:1716 - Initializing temperature to 85.000 Celsius. (default - Range:
+   0.000 to 85.000 Celsius)
+INFO:Pack:1720 - Initializing voltage to 0.950 Volts. (default - Range: 0.950 to
+   1.050 Volts)
+INFO:Map:215 - The Interim Design Summary has been generated in the MAP Report
+   (.mrp).
+INFO:Pack:1650 - Map created a placed design.
+
+Section 4 - Removed Logic Summary
+---------------------------------
+   8 block(s) optimized away
+
+Section 5 - Removed Logic
+-------------------------
+
+Optimized Block(s):
+TYPE 		BLOCK
+GND 		XST_GND
+VCC 		XST_VCC
+GND 		datapath_map/fpu_map/fdiv_finv/table_ref/XST_GND
+VCC 		datapath_map/fpu_map/fdiv_finv/table_ref/XST_VCC
+GND 		datapath_map/fpu_map/finv_map/table_ref/XST_GND
+VCC 		datapath_map/fpu_map/finv_map/table_ref/XST_VCC
+GND 		datapath_map/fpu_map/fsqrt_map/table_ref/XST_GND
+VCC 		datapath_map/fpu_map/fsqrt_map/table_ref/XST_VCC
+
+To enable printing of redundant blocks removed and signals merged, set the
+detailed map report option and rerun map.
+
+Section 6 - IOB Properties
+--------------------------
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+| IOB Name                           | Type             | Direction | IO Standard          | Diff  | Drive    | Slew | Reg (s)      | Resistor | IOB      |
+|                                    |                  |           |                      | Term  | Strength | Rate |              |          | Delay    |
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ADVA                               | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| E2A                                | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| MCLK1                              | IOB              | INPUT     | LVTTL                |       |          |      |              |          |          |
+| RS_RX                              | IOB              | INPUT     | LVTTL                |       |          |      |              |          |          |
+| RS_TX                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| XE1                                | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| XE3                                | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| XFT                                | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| XGA                                | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| XLBO                               | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| XWA                                | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| XZBE<0>                            | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| XZBE<1>                            | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| XZBE<2>                            | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| XZBE<3>                            | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| XZCKE                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZA<0>                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZA<1>                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZA<2>                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZA<3>                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZA<4>                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZA<5>                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZA<6>                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZA<7>                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZA<8>                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZA<9>                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZA<10>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZA<11>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZA<12>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZA<13>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZA<14>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZA<15>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZA<16>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZA<17>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZA<18>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZA<19>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZCLKMA<0>                          | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZCLKMA<1>                          | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<0>                              | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<1>                              | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<2>                              | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<3>                              | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<4>                              | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<5>                              | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<6>                              | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<7>                              | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<8>                              | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<9>                              | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<10>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<11>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<12>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<13>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<14>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<15>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<16>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<17>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<18>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<19>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<20>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<21>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<22>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<23>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<24>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<25>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<26>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<27>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<28>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<29>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<30>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZD<31>                             | IOB              | BIDIR     | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZDP<0>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZDP<1>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZDP<2>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZDP<3>                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| ZZA                                | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Section 7 - RPMs
+----------------
+
+Section 8 - Guide Report
+------------------------
+Guide not run on this design.
+
+Section 9 - Area Group and Partition Summary
+--------------------------------------------
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+Area Group Information
+----------------------
+
+  No area groups were found in this design.
+
+----------------------
+
+Section 10 - Timing Report
+--------------------------
+A logic-level (pre-route) timing report can be generated by using Xilinx static
+timing analysis tools, Timing Analyzer (GUI) or TRCE (command line), with the
+mapped NCD and PCF files. Please note that this timing report will be generated
+using estimated delay information. For accurate numbers, please generate a
+timing report with the post Place and Route NCD file.
+
+For more information about the Timing Analyzer, consult the Xilinx Timing
+Analyzer Reference Manual; for more information about TRCE, consult the Xilinx
+Command Line Tools User Guide "TRACE" chapter.
+
+Section 11 - Configuration String Details
+-----------------------------------------
+Use the "-detail" map option to print out Configuration Strings
+
+Section 12 - Control Set Information
+------------------------------------
+Use the "-detail" map option to print out Control Set Information.
+
+Section 13 - Utilization by Hierarchy
+-------------------------------------
+Use the "-detail" map option to print out the Utilization by Hierarchy section.
