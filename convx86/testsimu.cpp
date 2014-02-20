@@ -18,6 +18,14 @@ DWORD sram_offset;
 DWORD *blockram;
 DWORD *pos;
 
+
+/** External Table Object File **/
+// fsqrt_table.o
+extern uint32_t _binary_fsqrt_table_start[];
+// finv_table.o
+extern uint32_t _binary_finv_table_start[];
+
+
 const char *print_int_format = "%d";
 const char *print_char_format = "%c";
 const char *print_float_format = "%f";
@@ -48,7 +56,61 @@ SOFTFP_BINOP(add, +)
 SOFTFP_BINOP(sub, -)
 SOFTFP_BINOP(mul, *)
 SOFTFP_BINOP(div, /)
-SOFTFP_UNIOP(sqrt, sqrtf)
+
+
+// Thanks to YutaMarunaka
+DWORD MY_CDECL softfp_sqrt (intflt unused, intflt input) {
+	
+	uint32_t a0,a1,e,gc[2],y,q;
+	uint32_t a = input.i;
+
+	a0 = (a<<9)>>23;  /* a0 <= a(22 downto 14) */
+	a1 = (a<<18)>>18; /* a1 <= a(13 downto 0)  */
+	e = (a<<1)>>24;   /* e  <= a(30 downto 23) */
+	
+	uint32_t tablepos = 2*(((e&1)<<9)|a0);
+	gc[0] = _binary_fsqrt_table_start[tablepos];
+	gc[1] = _binary_fsqrt_table_start[tablepos+1];
+
+	y = gc[1] + ((gc[0] * a1)>>13);  /* GWIDTH = 13 */
+
+	if((e&1) == 0){
+		q = ((63+(e>>1))<<23) | y;
+	} else {
+		q = ((64+(e>>1))<<23) | y;
+	}
+	
+	return q;
+}
+
+
+// Thanks to YutaMarunaka
+DWORD MY_CDECL softfp_recip (intflt unused, intflt input) {
+	
+	uint32_t a0,a1,e,s,gc[2],y,q;
+	uint32_t a = input.i;
+
+	a0 = (a<<9)>>22;   /* a0 <= a(22 downto 13) */
+	a1 = (a<<19)>>19;  /* a1 <= a(12 downto 0) */
+	e = (a<<1)>>24;    /* e <= a(30 downto 23) */
+	s = a>>31;         /* s <= a(31) */
+	
+	uint32_t tablepos = 2*a0;
+	gc[0] = _binary_finv_table_start[tablepos];
+	gc[1] = _binary_finv_table_start[tablepos+1];
+
+	y = gc[1] - ((gc[0] * a1)>>12);  /* GWIDTH = 12 */
+
+	if(a0 == 0 && a1 == 0){
+		q = (s<<31) | ((254 - e)<<23);
+	} else {
+		q = (s<<31) | ((253 - e)<<23) | y;
+	}
+	
+	return q;
+}
+
+
 SOFTFP_UNIOP(abs, fabs)
 DWORD MY_CDECL softfp_mov (intflt t, intflt s) { return s.i; }
 SOFTFP_UNIOP(neg, -)
@@ -56,7 +118,6 @@ DWORD MY_CDECL softfp_round (intflt t, intflt s) { float f = roundf(s.f); return
 DWORD MY_CDECL softfp_trunc (intflt t, intflt s) { float f = truncf(s.f); return (int32)f; }
 DWORD MY_CDECL softfp_ceil  (intflt t, intflt s) { float f = ceilf (s.f); return (int32)f; }
 DWORD MY_CDECL softfp_floor (intflt t, intflt s) { float f = floorf(s.f); return (int32)f; }
-SOFTFP_UNIOP(recip, 1/)
 
 DWORD MY_CDECL softfp_cvt (intflt t, intflt s) { intflt ret; ret.f = (float)s.s; return ret.i; }
 
