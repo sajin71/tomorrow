@@ -86,7 +86,7 @@ begin  -- RTL
   goto_exfp <= phase = DECODE and IR(31 downto 26) = COP and
                IR(25 downto 24) = "10" and IR(2 downto 0) /= "110";
 
-  next_count <=  --D_INV when goto_exfp and IR(5 downto 3) = "010" else
+  next_count <= D_RECIP when goto_exfp and IR(5 downto 3) = "010" else
                 D_CVTS    when goto_exfp and IR(5 downto 3) = "100"    else
                 D_ROUND   when goto_exfp and IR(5 downto 0) = "001100" else
                 D_FLOOR   when goto_exfp and IR(5 downto 3) = "001"    else

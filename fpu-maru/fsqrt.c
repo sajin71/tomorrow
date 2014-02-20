@@ -11,21 +11,20 @@
     return 0;					\
   } while(0)
 
-uint32_t finv(uint32_t a){
-  FILE *fd = fopen("./finvtablesim.dat","r");
-  uint32_t a0,a1,e,s,gc[2],y,q;
+uint32_t fsqrt(uint32_t a){
+  FILE *fd = fopen("./fsqrttablesim.dat","r");
+  uint32_t a0,a1,e,gc[2],y,q;
 
   if(!fd){
     perror("fopen()");
     return 0;
   }
 
-  a0 = (a<<9)>>22;		/* a0 <= a(22 downto 13) */
-  a1 = (a<<19)>>19;		/* a1 <= a(12 downto 0) */
+  a0 = (a<<9)>>23;		/* a0 <= a(22 downto 14) */
+  a1 = (a<<18)>>18;		/* a1 <= a(13 downto 0) */
   e = (a<<1)>>24;		/* e <= a(30 downto 23) */
-  s = a>>31;			/* s <= a(31) */
 
-  if(fseek(fd,8*a0,SEEK_SET)<0){
+  if(fseek(fd,8*(((e&1)<<9)|a0),SEEK_SET)<0){
     perror("fseek()");
     FCL_RET(fd);
   }
@@ -35,13 +34,13 @@ uint32_t finv(uint32_t a){
     FCL_RET(fd);
   }
 
-  y = gc[1] - ((gc[0] * a1)>>12);	/* GWIDTH = 12 */
+  y = gc[1] + ((gc[0] * a1)>>13);	/* GWIDTH = 13 */
 
-  if(a0 == 0 && a1 == 0){
-    q = (s<<31) | ((254 - e)<<23);
+  if((e&1) == 0){
+    q = ((63+(e>>1))<<23) | y;
   }
   else{
-    q = (s<<31) | ((253 - e)<<23) | y;
+    q = ((64+(e>>1))<<23) | y;
   }
 
   if(fclose(fd) == EOF){

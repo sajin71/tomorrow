@@ -1,0 +1,3 @@
+finvとfsqrtできました。両方共誤差は±3ulp以内です。
+finv.c,fsqrt.cにC言語での実装があります。
+実行の際はfinvtablesim.datとfsqrttablesim.datがソースコードと同じディレクトリにある必要があります。
