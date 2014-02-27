@@ -6,86 +6,73 @@
 	jal	min_caml_start
 	nop
 	halt
-l.6584:	# 128.000000
+l.8609:	# 128.000000
 	.long	0x43000000
-l.6551:	# 0.900000
+l.8568:	# 0.900000
 	.long	0x3f666666
-l.6550:	# 0.200000
+l.8567:	# 0.200000
 	.long	0x3e4ccccd
-l.6456:	# 150.000000
+l.8470:	# 150.000000
 	.long	0x43160000
-l.6454:	# -150.000000
+l.8469:	# -150.000000
 	.long	0xc3160000
-l.6438:	# 0.100000
+l.8451:	# 0.100000
 	.long	0x3dcccccd
-l.6435:	# -2.000000
+l.8447:	# -2.000000
 	.long	0xc0000000
-l.6433:	# 0.003906
+l.8445:	# 0.003906
 	.long	0x3b800000
-l.6411:	# 20.000000
+l.8421:	# 20.000000
 	.long	0x41a00000
-l.6410:	# 0.050000
+l.8420:	# 0.050000
 	.long	0x3d4ccccd
-l.6406:	# 0.250000
+l.8415:	# 0.250000
 	.long	0x3e800000
-l.6402:	# 10.000000
+l.8411:	# 10.000000
 	.long	0x41200000
-l.6398:	# 0.300000
+l.8405:	# 0.300000
 	.long	0x3e99999a
-l.6397:	# 255.000000
+l.8404:	# 255.000000
 	.long	0x437f0000
-l.6396:	# 0.500000
+l.8403:	# 0.500000
 	.long	0x3f000000
-l.6395:	# 0.150000
+l.8402:	# 0.150000
 	.long	0x3e19999a
-l.6393:	# 3.141593
+l.8398:	# 3.141593
 	.long	0x40490fdb
-l.6392:	# 30.000000
+l.8397:	# 30.000000
 	.long	0x41f00000
-l.6391:	# 15.000000
+l.8396:	# 15.000000
 	.long	0x41700000
-l.6390:	# 0.000100
+l.8395:	# 0.000100
 	.long	0x38d1b717
-l.6347:	# 100000000.000000
+l.8330:	# 100000000.000000
 	.long	0x4cbebc20
-l.6343:	# 1000000000.000000
+l.8326:	# 1000000000.000000
 	.long	0x4e6e6b28
-l.6323:	# -0.100000
+l.8306:	# -0.100000
 	.long	0xbdcccccd
-l.6310:	# 0.010000
+l.8293:	# 0.010000
 	.long	0x3c23d70a
-l.6309:	# -0.200000
+l.8292:	# -0.200000
 	.long	0xbe4ccccd
-l.6118:	# 2.000000
+l.8054:	# 2.000000
 	.long	0x40000000
-l.6084:	# -200.000000
+l.8020:	# -200.000000
 	.long	0xc3480000
-l.6082:	# 200.000000
+l.8018:	# 200.000000
 	.long	0x43480000
-l.6078:	# 0.017453
+l.8017:	# 0.017453
 	.long	0x3c8efa35
-l.5995:	# -1.000000
+l.7947:	# -1.000000
 	.long	0xbf800000
-l.5994:	# 1.000000
+l.7946:	# 1.000000
 	.long	0x3f800000
-l.5993:	# 0.000000
+l.7945:	# 0.000000
 	.long	0x0
 closure_indirect:
 	jr	$27
-xor.2461:
-	set	$3, 0
-	bne	$1, $3, beq_else.8719
-	mov	$1, $2
-	jr $31
-beq_else.8719:
-	set	$1, 0
-	bne	$2, $1, beq_else.8720
-	set	$1, 1
-	jr $31
-beq_else.8720:
-	set	$1, 0
-	jr $31
-sgn.2464:
+sgn.2466:
 	swc	$f0, 0($29)
 	sw	$31, 4($29)
 	addi	$29, $29, 8
@@ -94,7 +81,7 @@ sgn.2464:
 	addi	$29, $29, -8
 	lw	 $31, 4($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8721
+	bne	$1, $2, beq_else.10284
 	lwc	$f0, 0($29)
 	sw	$31, 4($29)
 	addi	$29, $29, 8
@@ -103,32 +90,16 @@ sgn.2464:
 	addi	$29, $29, -8
 	lw	 $31, 4($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8722
-	setclv	$f0, l.5995
+	bne	$1, $2, beq_else.10285
+	setclv	$f0, l.7947
 	jr $31
-beq_else.8722:
-	setclv	$f0, l.5994
+beq_else.10285:
+	setclv	$f0, l.7946
 	jr $31
-beq_else.8721:
-	setclv	$f0, l.5993
+beq_else.10284:
+	setclv	$f0, l.7945
 	jr $31
-fneg_cond.2466:
-	set	$2, 0
-	bne	$1, $2, beq_else.8723
-	j	min_caml_fneg
-beq_else.8723:
-	jr $31
-add_mod5.2469:
-	add	$1, $1, $2
-	set	$2, 5
-	slt	$27, $1, $2
-	bne	$27, $0, ble_else.8724
-	set	$2, 5
-	sub	$1, $1, $2
-	jr $31
-ble_else.8724:
-	jr $31
-vecset.2472:
+vecset.2474:
 	set	$2, 0
 	sll	$2, $2, 2
 	add	$27, $2, $1
@@ -141,8 +112,8 @@ vecset.2472:
 	sll	$2, $2, 2
 	add	$27, $2, $1
 	swc	$f2, 0($27)
-jr $31
-vecfill.2477:
+	jr $31
+vecfill.2479:
 	set	$2, 0
 	sll	$2, $2, 2
 	add	$27, $2, $1
@@ -155,11 +126,8 @@ vecfill.2477:
 	sll	$2, $2, 2
 	add	$27, $2, $1
 	swc	$f0, 0($27)
-jr $31
-vecbzero.2480:
-	setclv	$f0, l.5993
-	j	vecfill.2477
-veccpy.2482:
+	jr $31
+veccpy.2484:
 	set	$3, 0
 	set	$4, 0
 	sll	$4, $4, 2
@@ -184,8 +152,8 @@ veccpy.2482:
 	sll	$2, $3, 2
 	add	$27, $2, $1
 	swc	$f0, 0($27)
-jr $31
-vecunit_sgn.2490:
+	jr $31
+vecunit_sgn.2492:
 	set	$3, 0
 	sll	$3, $3, 2
 	add	$27, $3, $1
@@ -242,23 +210,23 @@ vecunit_sgn.2490:
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8728
+	bne	$1, $2, beq_else.10289
 	set	$1, 0
 	lw	$2, 0($29)
-	bne	$2, $1, beq_else.8730
-	setclv	$f0, l.5994
+	bne	$2, $1, beq_else.10291
+	setclv	$f0, l.7946
 	lwc	$f1, 16($29)
 	div.s	$f0, $f0, $f1
-	j	beq_cont.8731
-beq_else.8730:
-	setclv	$f0, l.5995
+	j	beq_cont.10292
+beq_else.10291:
+	setclv	$f0, l.7947
 	lwc	$f1, 16($29)
 	div.s	$f0, $f0, $f1
-beq_cont.8731:
-	j	beq_cont.8729
-beq_else.8728:
-	setclv	$f0, l.5994
-beq_cont.8729:
+beq_cont.10292:
+	j	beq_cont.10290
+beq_else.10289:
+	setclv	$f0, l.7946
+beq_cont.10290:
 	set	$1, 0
 	set	$2, 0
 	sll	$2, $2, 2
@@ -287,8 +255,8 @@ beq_cont.8729:
 	sll	$1, $1, 2
 	add	$27, $1, $3
 	swc	$f0, 0($27)
-jr $31
-veciprod.2493:
+	jr $31
+veciprod.2495:
 	set	$3, 0
 	sll	$3, $3, 2
 	add	$27, $3, $1
@@ -319,7 +287,7 @@ veciprod.2493:
 	mul.s	$f1, $f1, $f2
 	add.s	$f0, $f0, $f1
 	jr $31
-veciprod2.2496:
+veciprod2.2498:
 	set	$2, 0
 	sll	$2, $2, 2
 	add	$27, $2, $1
@@ -338,7 +306,7 @@ veciprod2.2496:
 	mul.s	$f1, $f1, $f2
 	add.s	$f0, $f0, $f1
 	jr $31
-vecaccum.2501:
+vecaccum.2503:
 	set	$3, 0
 	set	$4, 0
 	sll	$4, $4, 2
@@ -381,8 +349,8 @@ vecaccum.2501:
 	sll	$2, $3, 2
 	add	$27, $2, $1
 	swc	$f0, 0($27)
-jr $31
-vecadd.2505:
+	jr $31
+vecadd.2507:
 	set	$3, 0
 	set	$4, 0
 	sll	$4, $4, 2
@@ -422,8 +390,8 @@ vecadd.2505:
 	sll	$2, $3, 2
 	add	$27, $2, $1
 	swc	$f0, 0($27)
-jr $31
-vecscale.2511:
+	jr $31
+vecscale.2513:
 	set	$2, 0
 	set	$3, 0
 	sll	$3, $3, 2
@@ -451,8 +419,8 @@ vecscale.2511:
 	sll	$2, $2, 2
 	add	$27, $2, $1
 	swc	$f0, 0($27)
-jr $31
-vecaccumv.2514:
+	jr $31
+vecaccumv.2516:
 	set	$4, 0
 	set	$5, 0
 	sll	$5, $5, 2
@@ -507,181 +475,8 @@ vecaccumv.2514:
 	sll	$2, $4, 2
 	add	$27, $2, $1
 	swc	$f0, 0($27)
-jr $31
-o_texturetype.2518:
-	lw	$1, 0($1)
 	jr $31
-o_form.2520:
-	lw	$1, 4($1)
-	jr $31
-o_reflectiontype.2522:
-	lw	$1, 8($1)
-	jr $31
-o_isinvert.2524:
-	lw	$1, 24($1)
-	jr $31
-o_isrot.2526:
-	lw	$1, 12($1)
-	jr $31
-o_param_a.2528:
-	lw	$1, 16($1)
-	set	$2, 0
-	sll	$2, $2, 2
-	add	$27, $2, $1
-	lwc	$f0, 0($27)
-	jr $31
-o_param_b.2530:
-	lw	$1, 16($1)
-	set	$2, 1
-	sll	$2, $2, 2
-	add	$27, $2, $1
-	lwc	$f0, 0($27)
-	jr $31
-o_param_c.2532:
-	lw	$1, 16($1)
-	set	$2, 2
-	sll	$2, $2, 2
-	add	$27, $2, $1
-	lwc	$f0, 0($27)
-	jr $31
-o_param_abc.2534:
-	lw	$1, 16($1)
-	jr $31
-o_param_x.2536:
-	lw	$1, 20($1)
-	set	$2, 0
-	sll	$2, $2, 2
-	add	$27, $2, $1
-	lwc	$f0, 0($27)
-	jr $31
-o_param_y.2538:
-	lw	$1, 20($1)
-	set	$2, 1
-	sll	$2, $2, 2
-	add	$27, $2, $1
-	lwc	$f0, 0($27)
-	jr $31
-o_param_z.2540:
-	lw	$1, 20($1)
-	set	$2, 2
-	sll	$2, $2, 2
-	add	$27, $2, $1
-	lwc	$f0, 0($27)
-	jr $31
-o_diffuse.2542:
-	lw	$1, 28($1)
-	set	$2, 0
-	sll	$2, $2, 2
-	add	$27, $2, $1
-	lwc	$f0, 0($27)
-	jr $31
-o_hilight.2544:
-	lw	$1, 28($1)
-	set	$2, 1
-	sll	$2, $2, 2
-	add	$27, $2, $1
-	lwc	$f0, 0($27)
-	jr $31
-o_color_red.2546:
-	lw	$1, 32($1)
-	set	$2, 0
-	sll	$2, $2, 2
-	add	$27, $2, $1
-	lwc	$f0, 0($27)
-	jr $31
-o_color_green.2548:
-	lw	$1, 32($1)
-	set	$2, 1
-	sll	$2, $2, 2
-	add	$27, $2, $1
-	lwc	$f0, 0($27)
-	jr $31
-o_color_blue.2550:
-	lw	$1, 32($1)
-	set	$2, 2
-	sll	$2, $2, 2
-	add	$27, $2, $1
-	lwc	$f0, 0($27)
-	jr $31
-o_param_r1.2552:
-	lw	$1, 36($1)
-	set	$2, 0
-	sll	$2, $2, 2
-	add	$27, $2, $1
-	lwc	$f0, 0($27)
-	jr $31
-o_param_r2.2554:
-	lw	$1, 36($1)
-	set	$2, 1
-	sll	$2, $2, 2
-	add	$27, $2, $1
-	lwc	$f0, 0($27)
-	jr $31
-o_param_r3.2556:
-	lw	$1, 36($1)
-	set	$2, 2
-	sll	$2, $2, 2
-	add	$27, $2, $1
-	lwc	$f0, 0($27)
-	jr $31
-o_param_ctbl.2558:
-	lw	$1, 40($1)
-	jr $31
-p_rgb.2560:
-	lw	$1, 0($1)
-	jr $31
-p_intersection_points.2562:
-	lw	$1, 4($1)
-	jr $31
-p_surface_ids.2564:
-	lw	$1, 8($1)
-	jr $31
-p_calc_diffuse.2566:
-	lw	$1, 12($1)
-	jr $31
-p_energy.2568:
-	lw	$1, 16($1)
-	jr $31
-p_received_ray_20percent.2570:
-	lw	$1, 20($1)
-	jr $31
-p_group_id.2572:
-	lw	$1, 24($1)
-	set	$2, 0
-	sll	$2, $2, 2
-	add	$27, $2, $1
-	lw	$1, 0($27)
-	jr $31
-p_set_group_id.2574:
-	lw	$1, 24($1)
-	set	$3, 0
-	sll	$3, $3, 2
-	add	$27, $3, $1
-	sw	$2, 0($27)
-jr $31
-p_nvectors.2577:
-	lw	$1, 28($1)
-	jr $31
-d_vec.2579:
-	lw	$1, 0($1)
-	jr $31
-d_const.2581:
-	lw	$1, 4($1)
-	jr $31
-r_surface_id.2583:
-	lw	$1, 0($1)
-	jr $31
-r_dvec.2585:
-	lw	$1, 4($1)
-	jr $31
-r_bright.2587:
-	lwc	$f0, 8($1)
-	jr $31
-rad.2589:
-	setclv	$f1, l.6078
-	mul.s	$f0, $f0, $f1
-	jr $31
-read_screen_settings.2591:
+read_screen_settings.2593:
 	lw	$1, 20($28)
 	lw	$2, 16($28)
 	lw	$3, 12($28)
@@ -737,12 +532,8 @@ read_screen_settings.2591:
 	nop
 	addi	$29, $29, -40
 	lw	 $31, 36($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	rad.2589
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
+	setclv	$f1, l.8017
+	mul.s	$f0, $f0, $f1
 	swc	$f0, 32($29)
 	sw	$31, 36($29)
 	addi	$29, $29, 40
@@ -766,12 +557,8 @@ read_screen_settings.2591:
 	nop
 	addi	$29, $29, -48
 	lw	 $31, 44($29)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	rad.2589
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
+	setclv	$f1, l.8017
+	mul.s	$f0, $f0, $f1
 	swc	$f0, 44($29)
 	sw	$31, 52($29)
 	addi	$29, $29, 56
@@ -791,14 +578,14 @@ read_screen_settings.2591:
 	set	$1, 0
 	lwc	$f1, 36($29)
 	mul.s	$f2, $f1, $f0
-	setclv	$f3, l.6082
+	setclv	$f3, l.8018
 	mul.s	$f2, $f2, $f3
 	sll	$1, $1, 2
 	lw	$2, 12($29)
 	add	$27, $1, $2
 	swc	$f2, 0($27)
 	set	$1, 1
-	setclv	$f2, l.6084
+	setclv	$f2, l.8020
 	lwc	$f3, 40($29)
 	mul.s	$f2, $f3, $f2
 	sll	$1, $1, 2
@@ -807,7 +594,7 @@ read_screen_settings.2591:
 	set	$1, 2
 	lwc	$f2, 48($29)
 	mul.s	$f4, $f1, $f2
-	setclv	$f5, l.6082
+	setclv	$f5, l.8018
 	mul.s	$f4, $f4, $f5
 	sll	$1, $1, 2
 	add	$27, $1, $2
@@ -818,7 +605,7 @@ read_screen_settings.2591:
 	add	$27, $1, $3
 	swc	$f2, 0($27)
 	set	$1, 1
-	setclv	$f4, l.5993
+	setclv	$f4, l.7945
 	sll	$1, $1, 2
 	add	$27, $1, $3
 	swc	$f4, 0($27)
@@ -924,8 +711,8 @@ read_screen_settings.2591:
 	sll	$1, $1, 2
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-jr $31
-read_light.2593:
+	jr $31
+read_light.2595:
 	lw	$1, 8($28)
 	lw	$2, 4($28)
 	sw	$2, 0($29)
@@ -942,12 +729,8 @@ read_light.2593:
 	nop
 	addi	$29, $29, -16
 	lw	 $31, 12($29)
-	sw	$31, 12($29)
-	addi	$29, $29, 16
-	jal	rad.2589
-	nop
-	addi	$29, $29, -16
-	lw	 $31, 12($29)
+	setclv	$f1, l.8017
+	mul.s	$f0, $f0, $f1
 	swc	$f0, 8($29)
 	sw	$31, 12($29)
 	addi	$29, $29, 16
@@ -974,12 +757,8 @@ read_light.2593:
 	nop
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	rad.2589
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
+	setclv	$f1, l.8017
+	mul.s	$f0, $f0, $f1
 	lwc	$f1, 8($29)
 	swc	$f0, 16($29)
 	mov.s	$f0, $f1
@@ -1032,8 +811,8 @@ read_light.2593:
 	lw	$2, 0($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-jr $31
-rotate_quadratic_matrix.2595:
+	jr $31
+rotate_quadratic_matrix.2597:
 	set	$3, 0
 	sll	$3, $3, 2
 	add	$27, $3, $2
@@ -1117,28 +896,26 @@ rotate_quadratic_matrix.2595:
 	lwc	$f4, 20($29)
 	lwc	$f5, 12($29)
 	mul.s	$f6, $f5, $f4
-	mul.s	$f6, $f6, $f1
-	lwc	$f7, 8($29)
-	mul.s	$f8, $f7, $f0
-	sub.s	$f6, $f6, $f8
-	mul.s	$f8, $f7, $f4
-	mul.s	$f8, $f8, $f1
-	mul.s	$f9, $f5, $f0
-	add.s	$f8, $f8, $f9
-	mul.s	$f9, $f2, $f0
-	mul.s	$f10, $f5, $f4
-	mul.s	$f10, $f10, $f0
-	mul.s	$f11, $f7, $f1
+	mul.s	$f7, $f6, $f1
+	lwc	$f8, 8($29)
+	mul.s	$f9, $f8, $f0
+	sub.s	$f7, $f7, $f9
+	mul.s	$f9, $f8, $f4
+	mul.s	$f10, $f9, $f1
+	mul.s	$f11, $f5, $f0
 	add.s	$f10, $f10, $f11
-	mul.s	$f11, $f7, $f4
-	mul.s	$f0, $f11, $f0
+	mul.s	$f11, $f2, $f0
+	mul.s	$f6, $f6, $f0
+	mul.s	$f12, $f8, $f1
+	add.s	$f6, $f6, $f12
+	mul.s	$f0, $f9, $f0
 	mul.s	$f1, $f5, $f1
 	sub.s	$f0, $f0, $f1
 	swc	$f0, 28($29)
-	swc	$f8, 32($29)
-	swc	$f10, 36($29)
-	swc	$f6, 40($29)
-	swc	$f9, 44($29)
+	swc	$f10, 32($29)
+	swc	$f6, 36($29)
+	swc	$f7, 40($29)
+	swc	$f11, 44($29)
 	swc	$f3, 48($29)
 	mov.s	$f0, $f4
 	sw	$31, 52($29)
@@ -1299,7 +1076,7 @@ rotate_quadratic_matrix.2595:
 	add	$27, $1, $2
 	swc	$f0, 0($27)
 	set	$1, 0
-	setclv	$f0, l.6118
+	setclv	$f0, l.8054
 	lwc	$f2, 40($29)
 	lwc	$f3, 76($29)
 	mul.s	$f4, $f3, $f2
@@ -1322,38 +1099,35 @@ rotate_quadratic_matrix.2595:
 	add	$27, $1, $2
 	swc	$f0, 0($27)
 	set	$1, 1
-	setclv	$f0, l.6118
+	setclv	$f0, l.8054
 	lwc	$f4, 48($29)
-	mul.s	$f10, $f3, $f4
-	mul.s	$f5, $f10, $f5
-	lwc	$f10, 44($29)
-	mul.s	$f12, $f7, $f10
-	mul.s	$f9, $f12, $f9
-	add.s	$f5, $f5, $f9
-	lwc	$f9, 68($29)
-	mul.s	$f12, $f1, $f9
-	mul.s	$f11, $f12, $f11
-	add.s	$f5, $f5, $f11
-	mul.s	$f0, $f0, $f5
+	mul.s	$f3, $f3, $f4
+	mul.s	$f4, $f3, $f5
+	lwc	$f5, 44($29)
+	mul.s	$f5, $f7, $f5
+	mul.s	$f7, $f5, $f9
+	add.s	$f4, $f4, $f7
+	lwc	$f7, 68($29)
+	mul.s	$f1, $f1, $f7
+	mul.s	$f7, $f1, $f11
+	add.s	$f4, $f4, $f7
+	mul.s	$f0, $f0, $f4
 	sll	$1, $1, 2
 	add	$27, $1, $2
 	swc	$f0, 0($27)
 	set	$1, 2
-	setclv	$f0, l.6118
-	mul.s	$f3, $f3, $f4
+	setclv	$f0, l.8054
 	mul.s	$f2, $f3, $f2
-	mul.s	$f3, $f7, $f10
-	mul.s	$f3, $f3, $f6
+	mul.s	$f3, $f5, $f6
 	add.s	$f2, $f2, $f3
-	mul.s	$f1, $f1, $f9
 	mul.s	$f1, $f1, $f8
 	add.s	$f1, $f2, $f1
 	mul.s	$f0, $f0, $f1
 	sll	$1, $1, 2
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-jr $31
-read_nth_object.2598:
+	jr $31
+read_nth_object.2600:
 	lw	$2, 4($28)
 	sw	$2, 0($29)
 	sw	$1, 4($29)
@@ -1364,10 +1138,10 @@ read_nth_object.2598:
 	addi	$29, $29, -16
 	lw	 $31, 12($29)
 	set	$2, -1
-	bne	$1, $2, beq_else.8741
+	bne	$1, $2, beq_else.10301
 	set	$1, 0
 	jr $31
-beq_else.8741:
+beq_else.10301:
 	sw	$1, 8($29)
 	sw	$31, 12($29)
 	addi	$29, $29, 16
@@ -1390,7 +1164,7 @@ beq_else.8741:
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
 	set	$2, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 20($29)
 	mov	$1, $2
 	sw	$31, 28($29)
@@ -1440,7 +1214,7 @@ beq_else.8741:
 	add	$27, $1, $2
 	swc	$f0, 0($27)
 	set	$1, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$31, 44($29)
 	addi	$29, $29, 48
 	jal	min_caml_create_float_array
@@ -1500,7 +1274,7 @@ beq_else.8741:
 	addi	$29, $29, -64
 	lw	 $31, 60($29)
 	set	$2, 2
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 56($29)
 	mov	$1, $2
 	sw	$31, 60($29)
@@ -1537,7 +1311,7 @@ beq_else.8741:
 	add	$27, $1, $2
 	swc	$f0, 0($27)
 	set	$1, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$31, 76($29)
 	addi	$29, $29, 80
 	jal	min_caml_create_float_array
@@ -1585,7 +1359,7 @@ beq_else.8741:
 	add	$27, $1, $2
 	swc	$f0, 0($27)
 	set	$1, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$31, 92($29)
 	addi	$29, $29, 96
 	jal	min_caml_create_float_array
@@ -1595,9 +1369,9 @@ beq_else.8741:
 	set	$2, 0
 	lw	$3, 20($29)
 	sw	$1, 88($29)
-	bne	$3, $2, beq_else.8742
-	j	beq_cont.8743
-beq_else.8742:
+	bne	$3, $2, beq_else.10302
+	j	beq_cont.10303
+beq_else.10302:
 	set	$2, 0
 	sw	$2, 92($29)
 	sw	$31, 100($29)
@@ -1606,12 +1380,8 @@ beq_else.8742:
 	nop
 	addi	$29, $29, -104
 	lw	 $31, 100($29)
-	sw	$31, 100($29)
-	addi	$29, $29, 104
-	jal	rad.2589
-	nop
-	addi	$29, $29, -104
-	lw	 $31, 100($29)
+	setclv	$f1, l.8017
+	mul.s	$f0, $f0, $f1
 	lw	$1, 92($29)
 	sll	$1, $1, 2
 	lw	$2, 88($29)
@@ -1625,12 +1395,8 @@ beq_else.8742:
 	nop
 	addi	$29, $29, -104
 	lw	 $31, 100($29)
-	sw	$31, 100($29)
-	addi	$29, $29, 104
-	jal	rad.2589
-	nop
-	addi	$29, $29, -104
-	lw	 $31, 100($29)
+	setclv	$f1, l.8017
+	mul.s	$f0, $f0, $f1
 	lw	$1, 96($29)
 	sll	$1, $1, 2
 	lw	$2, 88($29)
@@ -1644,28 +1410,24 @@ beq_else.8742:
 	nop
 	addi	$29, $29, -112
 	lw	 $31, 108($29)
-	sw	$31, 108($29)
-	addi	$29, $29, 112
-	jal	rad.2589
-	nop
-	addi	$29, $29, -112
-	lw	 $31, 108($29)
+	setclv	$f1, l.8017
+	mul.s	$f0, $f0, $f1
 	lw	$1, 100($29)
 	sll	$1, $1, 2
 	lw	$2, 88($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-beq_cont.8743:
+beq_cont.10303:
 	set	$1, 2
 	lw	$2, 12($29)
-	bne	$2, $1, beq_else.8744
+	bne	$2, $1, beq_else.10304
 	set	$1, 1
-	j	beq_cont.8745
-beq_else.8744:
+	j	beq_cont.10305
+beq_else.10304:
 	lw	$1, 56($29)
-beq_cont.8745:
+beq_cont.10305:
 	set	$3, 4
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 104($29)
 	mov	$1, $3
 	sw	$31, 108($29)
@@ -1703,7 +1465,7 @@ beq_cont.8745:
 	add	$27, $6, $7
 	sw	$2, 0($27)
 	set	$2, 3
-	bne	$5, $2, beq_else.8746
+	bne	$5, $2, beq_else.10306
 	set	$2, 0
 	sll	$2, $2, 2
 	add	$27, $2, $3
@@ -1718,11 +1480,11 @@ beq_cont.8745:
 	addi	$29, $29, -120
 	lw	 $31, 116($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8748
+	bne	$1, $2, beq_else.10308
 	lwc	$f0, 112($29)
 	sw	$31, 116($29)
 	addi	$29, $29, 120
-	jal	sgn.2464
+	jal	sgn.2466
 	nop
 	addi	$29, $29, -120
 	lw	 $31, 116($29)
@@ -1737,10 +1499,10 @@ beq_cont.8745:
 	lw	 $31, 124($29)
 	lwc	$f1, 116($29)
 	div.s	$f0, $f1, $f0
-	j	beq_cont.8749
-beq_else.8748:
-	setclv	$f0, l.5993
-beq_cont.8749:
+	j	beq_cont.10309
+beq_else.10308:
+	setclv	$f0, l.7945
+beq_cont.10309:
 	lw	$1, 108($29)
 	sll	$1, $1, 2
 	lw	$2, 24($29)
@@ -1760,11 +1522,11 @@ beq_cont.8749:
 	addi	$29, $29, -136
 	lw	 $31, 132($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8750
+	bne	$1, $2, beq_else.10310
 	lwc	$f0, 124($29)
 	sw	$31, 132($29)
 	addi	$29, $29, 136
-	jal	sgn.2464
+	jal	sgn.2466
 	nop
 	addi	$29, $29, -136
 	lw	 $31, 132($29)
@@ -1779,10 +1541,10 @@ beq_cont.8749:
 	lw	 $31, 132($29)
 	lwc	$f1, 128($29)
 	div.s	$f0, $f1, $f0
-	j	beq_cont.8751
-beq_else.8750:
-	setclv	$f0, l.5993
-beq_cont.8751:
+	j	beq_cont.10311
+beq_else.10310:
+	setclv	$f0, l.7945
+beq_cont.10311:
 	lw	$1, 120($29)
 	sll	$1, $1, 2
 	lw	$2, 24($29)
@@ -1802,11 +1564,11 @@ beq_cont.8751:
 	addi	$29, $29, -144
 	lw	 $31, 140($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8752
+	bne	$1, $2, beq_else.10312
 	lwc	$f0, 136($29)
 	sw	$31, 140($29)
 	addi	$29, $29, 144
-	jal	sgn.2464
+	jal	sgn.2466
 	nop
 	addi	$29, $29, -144
 	lw	 $31, 140($29)
@@ -1821,62 +1583,62 @@ beq_cont.8751:
 	lw	 $31, 148($29)
 	lwc	$f1, 140($29)
 	div.s	$f0, $f1, $f0
-	j	beq_cont.8753
-beq_else.8752:
-	setclv	$f0, l.5993
-beq_cont.8753:
+	j	beq_cont.10313
+beq_else.10312:
+	setclv	$f0, l.7945
+beq_cont.10313:
 	lw	$1, 132($29)
 	sll	$1, $1, 2
 	lw	$2, 24($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-	j	beq_cont.8747
-beq_else.8746:
+	j	beq_cont.10307
+beq_else.10306:
 	set	$2, 2
-	bne	$5, $2, beq_else.8754
+	bne	$5, $2, beq_else.10314
 	set	$2, 0
 	lw	$5, 56($29)
-	bne	$5, $2, beq_else.8756
+	bne	$5, $2, beq_else.10316
 	set	$2, 1
-	j	beq_cont.8757
-beq_else.8756:
+	j	beq_cont.10317
+beq_else.10316:
 	set	$2, 0
-beq_cont.8757:
+beq_cont.10317:
 	mov	$1, $3
 	sw	$31, 148($29)
 	addi	$29, $29, 152
-	jal	vecunit_sgn.2490
+	jal	vecunit_sgn.2492
 	nop
 	addi	$29, $29, -152
 	lw	 $31, 148($29)
-	j	beq_cont.8755
-beq_else.8754:
-beq_cont.8755:
-beq_cont.8747:
+	j	beq_cont.10315
+beq_else.10314:
+beq_cont.10315:
+beq_cont.10307:
 	set	$1, 0
 	lw	$2, 20($29)
-	bne	$2, $1, beq_else.8758
-	j	beq_cont.8759
-beq_else.8758:
+	bne	$2, $1, beq_else.10318
+	j	beq_cont.10319
+beq_else.10318:
 	lw	$1, 24($29)
 	lw	$2, 88($29)
 	sw	$31, 148($29)
 	addi	$29, $29, 152
-	jal	rotate_quadratic_matrix.2595
+	jal	rotate_quadratic_matrix.2597
 	nop
 	addi	$29, $29, -152
 	lw	 $31, 148($29)
-beq_cont.8759:
+beq_cont.10319:
 	set	$1, 1
 	jr $31
-read_object.2600:
+read_object.2602:
 	lw	$2, 8($28)
 	lw	$3, 4($28)
 	set	$4, 60
 	slt	$27, $1, $4
-	bne	$27, $0, ble_else.8760
-jr $31
-ble_else.8760:
+	bne	$27, $0, ble_else.10320
+	jr $31
+ble_else.10320:
 	sw	$28, 0($29)
 	sw	$3, 4($29)
 	sw	$1, 8($29)
@@ -1889,26 +1651,21 @@ ble_else.8760:
 	addi	$29, $29, -16
 	lw	$31, 12($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8762
+	bne	$1, $2, beq_else.10322
 	set	$1, 0
 	sll	$1, $1, 2
 	lw	$2, 4($29)
 	lw	$3, 8($29)
 	add	$27, $1, $2
 	sw	$3, 0($27)
-jr $31
-beq_else.8762:
+	jr $31
+beq_else.10322:
 	lw	$1, 8($29)
 	addi	$1, $1, 1
 	lw	$28, 0($29)
 	lw	$27, 0($28)
 	jr	$27
-read_all_object.2602:
-	lw	$28, 4($28)
-	set	$1, 0
-	lw	$27, 0($28)
-	jr	$27
-read_net_item.2604:
+read_net_item.2606:
 	sw	$1, 0($29)
 	sw	$31, 4($29)
 	addi	$29, $29, 8
@@ -1917,19 +1674,19 @@ read_net_item.2604:
 	addi	$29, $29, -8
 	lw	 $31, 4($29)
 	set	$2, -1
-	bne	$1, $2, beq_else.8764
+	bne	$1, $2, beq_else.10324
 	lw	$1, 0($29)
 	addi	$1, $1, 1
 	set	$2, -1
 	j	min_caml_create_array
-beq_else.8764:
+beq_else.10324:
 	lw	$2, 0($29)
 	addi	$3, $2, 1
 	sw	$1, 4($29)
 	mov	$1, $3
 	sw	$31, 12($29)
 	addi	$29, $29, 16
-	jal	read_net_item.2604
+	jal	read_net_item.2606
 	nop
 	addi	$29, $29, -16
 	lw	 $31, 12($29)
@@ -1939,13 +1696,13 @@ beq_else.8764:
 	add	$27, $2, $1
 	sw	$3, 0($27)
 	jr $31
-read_or_network.2606:
+read_or_network.2608:
 	set	$2, 0
 	sw	$1, 0($29)
 	mov	$1, $2
 	sw	$31, 4($29)
 	addi	$29, $29, 8
-	jal	read_net_item.2604
+	jal	read_net_item.2606
 	nop
 	addi	$29, $29, -8
 	lw	 $31, 4($29)
@@ -1955,18 +1712,18 @@ read_or_network.2606:
 	add	$27, $1, $2
 	lw	$1, 0($27)
 	set	$3, -1
-	bne	$1, $3, beq_else.8765
+	bne	$1, $3, beq_else.10325
 	lw	$1, 0($29)
 	addi	$1, $1, 1
 	j	min_caml_create_array
-beq_else.8765:
+beq_else.10325:
 	lw	$1, 0($29)
 	addi	$3, $1, 1
 	sw	$2, 4($29)
 	mov	$1, $3
 	sw	$31, 12($29)
 	addi	$29, $29, 16
-	jal	read_or_network.2606
+	jal	read_or_network.2608
 	nop
 	addi	$29, $29, -16
 	lw	 $31, 12($29)
@@ -1976,7 +1733,7 @@ beq_else.8765:
 	add	$27, $2, $1
 	sw	$3, 0($27)
 	jr $31
-read_and_network.2608:
+read_and_network.2610:
 	lw	$2, 4($28)
 	set	$3, 0
 	sw	$28, 0($29)
@@ -1985,7 +1742,7 @@ read_and_network.2608:
 	mov	$1, $3
 	sw	$31, 12($29)
 	addi	$29, $29, 16
-	jal	read_net_item.2604
+	jal	read_net_item.2606
 	nop
 	addi	$29, $29, -16
 	lw	 $31, 12($29)
@@ -1994,9 +1751,9 @@ read_and_network.2608:
 	add	$27, $2, $1
 	lw	$2, 0($27)
 	set	$3, -1
-	bne	$2, $3, beq_else.8766
-jr $31
-beq_else.8766:
+	bne	$2, $3, beq_else.10326
+	jr $31
+beq_else.10326:
 	lw	$2, 8($29)
 	sll	$3, $2, 2
 	lw	$4, 4($29)
@@ -2006,16 +1763,16 @@ beq_else.8766:
 	lw	$28, 0($29)
 	lw	$27, 0($28)
 	jr	$27
-read_parameter.2610:
+read_parameter.2612:
 	lw	$1, 20($28)
 	lw	$2, 16($28)
 	lw	$3, 12($28)
 	lw	$4, 8($28)
 	lw	$5, 4($28)
 	sw	$5, 0($29)
-	sw	$3, 4($29)
-	sw	$4, 8($29)
-	sw	$2, 12($29)
+	sw	$4, 4($29)
+	sw	$2, 8($29)
+	sw	$3, 12($29)
 	mov	$28, $1
 	sw	$31, 20($29)
 	addi	$29, $29, 24
@@ -2032,6 +1789,7 @@ read_parameter.2610:
 	nop
 	addi	$29, $29, -24
 	lw	$31, 20($29)
+	set	$1, 0
 	lw	$28, 8($29)
 	sw	$31, 20($29)
 	addi	$29, $29, 24
@@ -2055,7 +1813,7 @@ read_parameter.2610:
 	mov	$1, $2
 	sw	$31, 20($29)
 	addi	$29, $29, 24
-	jal	read_or_network.2606
+	jal	read_or_network.2608
 	nop
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
@@ -2064,8 +1822,8 @@ read_parameter.2610:
 	lw	$3, 0($29)
 	add	$27, $2, $3
 	sw	$1, 0($27)
-jr $31
-solver_rect_surface.2612:
+	jr $31
+solver_rect_surface.2614:
 	lw	$6, 4($28)
 	sll	$7, $3, 2
 	add	$27, $7, $2
@@ -2074,83 +1832,75 @@ solver_rect_surface.2612:
 	swc	$f2, 4($29)
 	sw	$5, 8($29)
 	swc	$f1, 12($29)
-	sw	$4, 16($29)
-	swc	$f0, 20($29)
-	sw	$2, 24($29)
+	sw	$2, 16($29)
+	sw	$4, 20($29)
+	swc	$f0, 24($29)
 	sw	$3, 28($29)
-	sw	$1, 32($29)
+	swc	$f3, 32($29)
+	sw	$1, 36($29)
 	mov.s	$f0, $f3
-	sw	$31, 36($29)
-	addi	$29, $29, 40
+	sw	$31, 44($29)
+	addi	$29, $29, 48
 	jal	min_caml_fiszero
 	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	set	$2, 0
-	bne	$1, $2, beq_else.8769
-	lw	$1, 32($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	o_param_abc.2534
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lw	$2, 32($29)
-	sw	$1, 36($29)
-	mov	$1, $2
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	o_isinvert.2524
-	nop
 	addi	$29, $29, -48
 	lw	 $31, 44($29)
-	lw	$2, 28($29)
-	sll	$3, $2, 2
-	lw	$4, 24($29)
-	add	$27, $3, $4
-	lwc	$f0, 0($27)
-	sw	$1, 40($29)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
+	set	$2, 0
+	bne	$1, $2, beq_else.10329
+	lw	$1, 36($29)
+	lw	$2, 16($1)
+	lw	$1, 24($1)
+	lwc	$f0, 32($29)
+	sw	$2, 40($29)
+	sw	$1, 44($29)
+	sw	$31, 52($29)
+	addi	$29, $29, 56
 	jal	min_caml_fisneg
 	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	mov	$2, $1
-	lw	$1, 40($29)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	xor.2461
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
+	addi	$29, $29, -56
+	lw	 $31, 52($29)
+	set	$2, 0
+	lw	$3, 44($29)
+	bne	$3, $2, beq_else.10330
+	j	beq_cont.10331
+beq_else.10330:
+	set	$2, 0
+	bne	$1, $2, beq_else.10332
+	set	$1, 1
+	j	beq_cont.10333
+beq_else.10332:
+	set	$1, 0
+beq_cont.10333:
+beq_cont.10331:
 	lw	$2, 28($29)
-	sll	$3, $2, 2
-	lw	$4, 36($29)
-	add	$27, $3, $4
+	sll	$2, $2, 2
+	lw	$3, 40($29)
+	add	$27, $2, $3
 	lwc	$f0, 0($27)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	fneg_cond.2466
+	set	$2, 0
+	bne	$1, $2, beq_else.10334
+	sw	$31, 52($29)
+	addi	$29, $29, 56
+	jal	min_caml_fneg
 	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lwc	$f1, 20($29)
+	addi	$29, $29, -56
+	lw	 $31, 52($29)
+	j	beq_cont.10335
+beq_else.10334:
+beq_cont.10335:
+	lwc	$f1, 24($29)
 	sub.s	$f0, $f0, $f1
-	lw	$1, 28($29)
-	sll	$1, $1, 2
-	lw	$2, 24($29)
-	add	$27, $1, $2
-	lwc	$f1, 0($27)
+	lwc	$f1, 32($29)
 	div.s	$f0, $f0, $f1
-	lw	$1, 16($29)
-	sll	$3, $1, 2
-	add	$27, $3, $2
+	lw	$1, 20($29)
+	sll	$2, $1, 2
+	lw	$3, 16($29)
+	add	$27, $2, $3
 	lwc	$f1, 0($27)
 	mul.s	$f1, $f0, $f1
 	lwc	$f2, 12($29)
 	add.s	$f1, $f1, $f2
-	swc	$f0, 44($29)
+	swc	$f0, 48($29)
 	mov.s	$f0, $f1
 	sw	$31, 52($29)
 	addi	$29, $29, 56
@@ -2158,9 +1908,9 @@ solver_rect_surface.2612:
 	nop
 	addi	$29, $29, -56
 	lw	 $31, 52($29)
-	lw	$1, 16($29)
+	lw	$1, 20($29)
 	sll	$1, $1, 2
-	lw	$2, 36($29)
+	lw	$2, 40($29)
 	add	$27, $1, $2
 	lwc	$f1, 0($27)
 	sw	$31, 52($29)
@@ -2170,16 +1920,16 @@ solver_rect_surface.2612:
 	addi	$29, $29, -56
 	lw	 $31, 52($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8770
+	bne	$1, $2, beq_else.10336
 	set	$1, 0
 	jr $31
-beq_else.8770:
+beq_else.10336:
 	lw	$1, 8($29)
 	sll	$2, $1, 2
-	lw	$3, 24($29)
+	lw	$3, 16($29)
 	add	$27, $2, $3
 	lwc	$f0, 0($27)
-	lwc	$f1, 44($29)
+	lwc	$f1, 48($29)
 	mul.s	$f0, $f1, $f0
 	lwc	$f2, 4($29)
 	add.s	$f0, $f0, $f2
@@ -2191,7 +1941,7 @@ beq_else.8770:
 	lw	 $31, 52($29)
 	lw	$1, 8($29)
 	sll	$1, $1, 2
-	lw	$2, 36($29)
+	lw	$2, 40($29)
 	add	$27, $1, $2
 	lwc	$f1, 0($27)
 	sw	$31, 52($29)
@@ -2201,22 +1951,22 @@ beq_else.8770:
 	addi	$29, $29, -56
 	lw	 $31, 52($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8771
+	bne	$1, $2, beq_else.10337
 	set	$1, 0
 	jr $31
-beq_else.8771:
+beq_else.10337:
 	set	$1, 0
 	sll	$1, $1, 2
 	lw	$2, 0($29)
-	lwc	$f0, 44($29)
+	lwc	$f0, 48($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
 	set	$1, 1
 	jr $31
-beq_else.8769:
+beq_else.10329:
 	set	$1, 0
 	jr $31
-solver_rect.2621:
+solver_rect.2623:
 	lw	$28, 4($28)
 	set	$3, 0
 	set	$4, 1
@@ -2235,7 +1985,7 @@ solver_rect.2621:
 	addi	$29, $29, -32
 	lw	$31, 28($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8772
+	bne	$1, $2, beq_else.10338
 	set	$3, 1
 	set	$4, 2
 	set	$5, 0
@@ -2253,7 +2003,7 @@ solver_rect.2621:
 	addi	$29, $29, -32
 	lw	$31, 28($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8773
+	bne	$1, $2, beq_else.10339
 	set	$3, 2
 	set	$4, 0
 	set	$5, 1
@@ -2271,41 +2021,36 @@ solver_rect.2621:
 	addi	$29, $29, -32
 	lw	$31, 28($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8774
+	bne	$1, $2, beq_else.10340
 	set	$1, 0
 	jr $31
-beq_else.8774:
+beq_else.10340:
 	set	$1, 3
 	jr $31
-beq_else.8773:
+beq_else.10339:
 	set	$1, 2
 	jr $31
-beq_else.8772:
+beq_else.10338:
 	set	$1, 1
 	jr $31
-solver_surface.2627:
+solver_surface.2629:
 	lw	$3, 4($28)
+	lw	$1, 16($1)
 	sw	$3, 0($29)
 	swc	$f2, 4($29)
 	swc	$f1, 8($29)
 	swc	$f0, 12($29)
-	sw	$2, 16($29)
+	sw	$1, 16($29)
+	mov	$27, $2
+	mov	$2, $1
+	mov	$1, $27
 	sw	$31, 20($29)
 	addi	$29, $29, 24
-	jal	o_param_abc.2534
+	jal	veciprod.2495
 	nop
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
-	mov	$2, $1
-	lw	$1, 16($29)
-	sw	$2, 20($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	veciprod.2493
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	swc	$f0, 24($29)
+	swc	$f0, 20($29)
 	sw	$31, 28($29)
 	addi	$29, $29, 32
 	jal	min_caml_fispos
@@ -2313,39 +2058,39 @@ solver_surface.2627:
 	addi	$29, $29, -32
 	lw	 $31, 28($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8775
+	bne	$1, $2, beq_else.10341
 	set	$1, 0
 	jr $31
-beq_else.8775:
+beq_else.10341:
 	set	$1, 0
 	lwc	$f0, 12($29)
 	lwc	$f1, 8($29)
 	lwc	$f2, 4($29)
-	lw	$2, 20($29)
-	sw	$1, 28($29)
+	lw	$2, 16($29)
+	sw	$1, 24($29)
 	mov	$1, $2
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	veciprod2.2496
+	sw	$31, 28($29)
+	addi	$29, $29, 32
+	jal	veciprod2.2498
 	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
+	addi	$29, $29, -32
+	lw	 $31, 28($29)
+	sw	$31, 28($29)
+	addi	$29, $29, 32
 	jal	min_caml_fneg
 	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lwc	$f1, 24($29)
+	addi	$29, $29, -32
+	lw	 $31, 28($29)
+	lwc	$f1, 20($29)
 	div.s	$f0, $f0, $f1
-	lw	$1, 28($29)
+	lw	$1, 24($29)
 	sll	$1, $1, 2
 	lw	$2, 0($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
 	set	$1, 1
 	jr $31
-quadratic.2633:
+quadratic.2635:
 	swc	$f0, 0($29)
 	swc	$f2, 4($29)
 	swc	$f1, 8($29)
@@ -2357,16 +2102,31 @@ quadratic.2633:
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
 	lw	$1, 12($29)
+	lw	$2, 16($1)
+	set	$3, 0
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f1, 0($27)
+	mul.s	$f0, $f0, $f1
+	lwc	$f1, 8($29)
 	swc	$f0, 16($29)
+	mov.s	$f0, $f1
 	sw	$31, 20($29)
 	addi	$29, $29, 24
-	jal	o_param_a.2528
+	jal	min_caml_fsqr
 	nop
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
+	lw	$1, 12($29)
+	lw	$2, 16($1)
+	set	$3, 1
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f1, 0($27)
+	mul.s	$f0, $f0, $f1
 	lwc	$f1, 16($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 8($29)
+	add.s	$f0, $f1, $f0
+	lwc	$f1, 4($29)
 	swc	$f0, 20($29)
 	mov.s	$f0, $f1
 	sw	$31, 28($29)
@@ -2376,229 +2136,117 @@ quadratic.2633:
 	addi	$29, $29, -32
 	lw	 $31, 28($29)
 	lw	$1, 12($29)
-	swc	$f0, 24($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	o_param_b.2530
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	lwc	$f1, 24($29)
-	mul.s	$f0, $f1, $f0
+	lw	$2, 16($1)
+	set	$3, 2
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f1, 0($27)
+	mul.s	$f0, $f0, $f1
 	lwc	$f1, 20($29)
 	add.s	$f0, $f1, $f0
+	lw	$2, 12($1)
+	set	$3, 0
+	bne	$2, $3, beq_else.10342
+	jr $31
+beq_else.10342:
 	lwc	$f1, 4($29)
-	swc	$f0, 28($29)
-	mov.s	$f0, $f1
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	min_caml_fsqr
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lw	$1, 12($29)
-	swc	$f0, 32($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	o_param_c.2532
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lwc	$f1, 32($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 28($29)
-	add.s	$f0, $f1, $f0
-	lw	$1, 12($29)
-	swc	$f0, 36($29)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	o_isrot.2526
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	set	$2, 0
-	bne	$1, $2, beq_else.8776
-	lwc	$f0, 36($29)
-	jr $31
-beq_else.8776:
-	lwc	$f0, 4($29)
-	lwc	$f1, 8($29)
-	mul.s	$f2, $f1, $f0
-	lw	$1, 12($29)
-	swc	$f2, 40($29)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	o_param_r1.2552
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lwc	$f1, 40($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 36($29)
-	add.s	$f0, $f1, $f0
-	lwc	$f1, 0($29)
-	lwc	$f2, 4($29)
-	mul.s	$f2, $f2, $f1
-	lw	$1, 12($29)
-	swc	$f0, 44($29)
-	swc	$f2, 48($29)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	o_param_r2.2554
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	lwc	$f1, 48($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 44($29)
-	add.s	$f0, $f1, $f0
-	lwc	$f1, 8($29)
-	lwc	$f2, 0($29)
-	mul.s	$f1, $f2, $f1
-	lw	$1, 12($29)
-	swc	$f0, 52($29)
-	swc	$f1, 56($29)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	jal	o_param_r3.2556
-	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
-	lwc	$f1, 56($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 52($29)
-	add.s	$f0, $f1, $f0
-	jr $31
-bilinear.2638:
-	mul.s	$f6, $f0, $f3
-	swc	$f3, 0($29)
-	swc	$f0, 4($29)
-	swc	$f5, 8($29)
-	swc	$f2, 12($29)
-	sw	$1, 16($29)
-	swc	$f4, 20($29)
-	swc	$f1, 24($29)
-	swc	$f6, 28($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	o_param_a.2528
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lwc	$f1, 28($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 20($29)
-	lwc	$f2, 24($29)
+	lwc	$f2, 8($29)
 	mul.s	$f3, $f2, $f1
-	lw	$1, 16($29)
-	swc	$f0, 32($29)
-	swc	$f3, 36($29)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	o_param_b.2530
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lwc	$f1, 36($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 32($29)
-	add.s	$f0, $f1, $f0
-	lwc	$f1, 8($29)
-	lwc	$f2, 12($29)
-	mul.s	$f3, $f2, $f1
-	lw	$1, 16($29)
-	swc	$f0, 40($29)
-	swc	$f3, 44($29)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	o_param_c.2532
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	lwc	$f1, 44($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 40($29)
-	add.s	$f0, $f1, $f0
-	lw	$1, 16($29)
-	swc	$f0, 48($29)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	o_isrot.2526
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	set	$2, 0
-	bne	$1, $2, beq_else.8777
-	lwc	$f0, 48($29)
-	jr $31
-beq_else.8777:
-	lwc	$f0, 20($29)
-	lwc	$f1, 12($29)
-	mul.s	$f2, $f1, $f0
-	lwc	$f3, 8($29)
-	lwc	$f4, 24($29)
-	mul.s	$f5, $f4, $f3
-	add.s	$f2, $f2, $f5
-	lw	$1, 16($29)
-	swc	$f2, 52($29)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	jal	o_param_r1.2552
-	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
-	lwc	$f1, 52($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 8($29)
-	lwc	$f2, 4($29)
-	mul.s	$f1, $f2, $f1
+	lw	$2, 36($1)
+	set	$3, 0
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f4, 0($27)
+	mul.s	$f3, $f3, $f4
+	add.s	$f0, $f0, $f3
 	lwc	$f3, 0($29)
-	lwc	$f4, 12($29)
-	mul.s	$f4, $f4, $f3
-	add.s	$f1, $f1, $f4
-	lw	$1, 16($29)
-	swc	$f0, 56($29)
-	swc	$f1, 60($29)
-	sw	$31, 68($29)
-	addi	$29, $29, 72
-	jal	o_param_r2.2554
-	nop
-	addi	$29, $29, -72
-	lw	 $31, 68($29)
-	lwc	$f1, 60($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 56($29)
-	add.s	$f0, $f1, $f0
-	lwc	$f1, 20($29)
-	lwc	$f2, 4($29)
-	mul.s	$f1, $f2, $f1
-	lwc	$f2, 0($29)
-	lwc	$f3, 24($29)
-	mul.s	$f2, $f3, $f2
-	add.s	$f1, $f1, $f2
-	lw	$1, 16($29)
-	swc	$f0, 64($29)
-	swc	$f1, 68($29)
-	sw	$31, 76($29)
-	addi	$29, $29, 80
-	jal	o_param_r3.2556
-	nop
-	addi	$29, $29, -80
-	lw	 $31, 76($29)
-	lwc	$f1, 68($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 64($29)
-	add.s	$f0, $f1, $f0
-	sw	$31, 76($29)
-	addi	$29, $29, 80
+	mul.s	$f1, $f1, $f3
+	lw	$2, 36($1)
+	set	$3, 1
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f4, 0($27)
+	mul.s	$f1, $f1, $f4
+	add.s	$f0, $f0, $f1
+	mul.s	$f1, $f3, $f2
+	lw	$1, 36($1)
+	set	$2, 2
+	sll	$2, $2, 2
+	add	$27, $2, $1
+	lwc	$f2, 0($27)
+	mul.s	$f1, $f1, $f2
+	add.s	$f0, $f0, $f1
+	jr $31
+bilinear.2640:
+	mul.s	$f6, $f0, $f3
+	lw	$2, 16($1)
+	set	$3, 0
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f7, 0($27)
+	mul.s	$f6, $f6, $f7
+	mul.s	$f7, $f1, $f4
+	lw	$2, 16($1)
+	set	$3, 1
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f8, 0($27)
+	mul.s	$f7, $f7, $f8
+	add.s	$f6, $f6, $f7
+	mul.s	$f7, $f2, $f5
+	lw	$2, 16($1)
+	set	$3, 2
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f8, 0($27)
+	mul.s	$f7, $f7, $f8
+	add.s	$f6, $f6, $f7
+	lw	$2, 12($1)
+	set	$3, 0
+	bne	$2, $3, beq_else.10343
+	mov.s	$f0, $f6
+	jr $31
+beq_else.10343:
+	mul.s	$f7, $f2, $f4
+	mul.s	$f8, $f1, $f5
+	add.s	$f7, $f7, $f8
+	lw	$2, 36($1)
+	set	$3, 0
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f8, 0($27)
+	mul.s	$f7, $f7, $f8
+	mul.s	$f5, $f0, $f5
+	mul.s	$f2, $f2, $f3
+	add.s	$f2, $f5, $f2
+	lw	$2, 36($1)
+	set	$3, 1
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f5, 0($27)
+	mul.s	$f2, $f2, $f5
+	add.s	$f2, $f7, $f2
+	mul.s	$f0, $f0, $f4
+	mul.s	$f1, $f1, $f3
+	add.s	$f0, $f0, $f1
+	lw	$1, 36($1)
+	set	$2, 2
+	sll	$2, $2, 2
+	add	$27, $2, $1
+	lwc	$f1, 0($27)
+	mul.s	$f0, $f0, $f1
+	add.s	$f0, $f2, $f0
+	swc	$f6, 0($29)
+	sw	$31, 4($29)
+	addi	$29, $29, 8
 	jal	min_caml_fhalf
 	nop
-	addi	$29, $29, -80
-	lw	 $31, 76($29)
-	lwc	$f1, 48($29)
+	addi	$29, $29, -8
+	lw	 $31, 4($29)
+	lwc	$f1, 0($29)
 	add.s	$f0, $f1, $f0
 	jr $31
-solver_second.2646:
+solver_second.2648:
 	lw	$3, 4($28)
 	set	$4, 0
 	sll	$4, $4, 2
@@ -2623,7 +2271,7 @@ solver_second.2646:
 	mov.s	$f0, $f3
 	sw	$31, 28($29)
 	addi	$29, $29, 32
-	jal	quadratic.2633
+	jal	quadratic.2635
 	nop
 	addi	$29, $29, -32
 	lw	 $31, 28($29)
@@ -2635,7 +2283,7 @@ solver_second.2646:
 	addi	$29, $29, -32
 	lw	 $31, 28($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8778
+	bne	$1, $2, beq_else.10344
 	set	$1, 0
 	sll	$1, $1, 2
 	lw	$2, 20($29)
@@ -2655,7 +2303,7 @@ solver_second.2646:
 	lw	$1, 16($29)
 	sw	$31, 28($29)
 	addi	$29, $29, 32
-	jal	bilinear.2638
+	jal	bilinear.2640
 	nop
 	addi	$29, $29, -32
 	lw	 $31, 28($29)
@@ -2669,41 +2317,33 @@ solver_second.2646:
 	mov.s	$f2, $f3
 	sw	$31, 36($29)
 	addi	$29, $29, 40
-	jal	quadratic.2633
+	jal	quadratic.2635
 	nop
 	addi	$29, $29, -40
 	lw	 $31, 36($29)
 	lw	$1, 16($29)
+	lw	$2, 4($1)
+	set	$3, 3
+	bne	$2, $3, beq_else.10345
+	setclv	$f1, l.7946
+	sub.s	$f0, $f0, $f1
+	j	beq_cont.10346
+beq_else.10345:
+beq_cont.10346:
+	lwc	$f1, 28($29)
 	swc	$f0, 32($29)
+	mov.s	$f0, $f1
 	sw	$31, 36($29)
 	addi	$29, $29, 40
-	jal	o_form.2520
+	jal	min_caml_fsqr
 	nop
 	addi	$29, $29, -40
 	lw	 $31, 36($29)
-	set	$2, 3
-	bne	$1, $2, beq_else.8779
-	setclv	$f0, l.5994
 	lwc	$f1, 32($29)
-	sub.s	$f0, $f1, $f0
-	j	beq_cont.8780
-beq_else.8779:
-	lwc	$f0, 32($29)
-beq_cont.8780:
-	lwc	$f1, 28($29)
-	swc	$f0, 36($29)
-	mov.s	$f0, $f1
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	min_caml_fsqr
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lwc	$f1, 36($29)
 	lwc	$f2, 24($29)
 	mul.s	$f1, $f2, $f1
 	sub.s	$f0, $f0, $f1
-	swc	$f0, 40($29)
+	swc	$f0, 36($29)
 	sw	$31, 44($29)
 	addi	$29, $29, 48
 	jal	min_caml_fispos
@@ -2711,11 +2351,11 @@ beq_cont.8780:
 	addi	$29, $29, -48
 	lw	 $31, 44($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8781
+	bne	$1, $2, beq_else.10347
 	set	$1, 0
 	jr $31
-beq_else.8781:
-	lwc	$f0, 40($29)
+beq_else.10347:
+	lwc	$f0, 36($29)
 	sw	$31, 44($29)
 	addi	$29, $29, 48
 	jal	min_caml_sqrt
@@ -2723,26 +2363,18 @@ beq_else.8781:
 	addi	$29, $29, -48
 	lw	 $31, 44($29)
 	lw	$1, 16($29)
-	swc	$f0, 44($29)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	o_isinvert.2524
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
+	lw	$1, 24($1)
 	set	$2, 0
-	bne	$1, $2, beq_else.8782
-	lwc	$f0, 44($29)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
+	bne	$1, $2, beq_else.10348
+	sw	$31, 44($29)
+	addi	$29, $29, 48
 	jal	min_caml_fneg
 	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	j	beq_cont.8783
-beq_else.8782:
-	lwc	$f0, 44($29)
-beq_cont.8783:
+	addi	$29, $29, -48
+	lw	 $31, 44($29)
+	j	beq_cont.10349
+beq_else.10348:
+beq_cont.10349:
 	set	$1, 0
 	lwc	$f1, 28($29)
 	sub.s	$f0, $f0, $f1
@@ -2754,10 +2386,10 @@ beq_cont.8783:
 	swc	$f0, 0($27)
 	set	$1, 1
 	jr $31
-beq_else.8778:
+beq_else.10344:
 	set	$1, 0
 	jr $31
-solver.2652:
+solver.2654:
 	lw	$4, 16($28)
 	lw	$5, 12($28)
 	lw	$6, 8($28)
@@ -2769,92 +2401,49 @@ solver.2652:
 	sll	$7, $7, 2
 	add	$27, $7, $3
 	lwc	$f0, 0($27)
-	sw	$5, 0($29)
-	sw	$4, 4($29)
-	sw	$2, 8($29)
-	sw	$6, 12($29)
-	sw	$1, 16($29)
-	sw	$3, 20($29)
-	swc	$f0, 24($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	o_param_x.2536
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	lwc	$f1, 24($29)
-	sub.s	$f0, $f1, $f0
-	set	$1, 1
-	sll	$1, $1, 2
-	lw	$2, 20($29)
-	add	$27, $1, $2
+	lw	$7, 20($1)
+	set	$8, 0
+	sll	$8, $8, 2
+	add	$27, $8, $7
 	lwc	$f1, 0($27)
-	lw	$1, 16($29)
-	swc	$f0, 28($29)
-	swc	$f1, 32($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	o_param_y.2538
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lwc	$f1, 32($29)
-	sub.s	$f0, $f1, $f0
-	set	$1, 2
-	sll	$1, $1, 2
-	lw	$2, 20($29)
-	add	$27, $1, $2
+	sub.s	$f0, $f0, $f1
+	set	$7, 1
+	sll	$7, $7, 2
+	add	$27, $7, $3
 	lwc	$f1, 0($27)
-	lw	$1, 16($29)
-	swc	$f0, 36($29)
-	swc	$f1, 40($29)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	o_param_z.2540
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lwc	$f1, 40($29)
-	sub.s	$f0, $f1, $f0
-	lw	$1, 16($29)
-	swc	$f0, 44($29)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	o_form.2520
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	set	$2, 1
-	bne	$1, $2, beq_else.8784
-	lwc	$f0, 28($29)
-	lwc	$f1, 36($29)
-	lwc	$f2, 44($29)
-	lw	$1, 16($29)
-	lw	$2, 8($29)
-	lw	$28, 12($29)
+	lw	$7, 20($1)
+	set	$8, 1
+	sll	$8, $8, 2
+	add	$27, $8, $7
+	lwc	$f2, 0($27)
+	sub.s	$f1, $f1, $f2
+	set	$7, 2
+	sll	$7, $7, 2
+	add	$27, $7, $3
+	lwc	$f2, 0($27)
+	lw	$3, 20($1)
+	set	$7, 2
+	sll	$7, $7, 2
+	add	$27, $7, $3
+	lwc	$f3, 0($27)
+	sub.s	$f2, $f2, $f3
+	lw	$3, 4($1)
+	set	$7, 1
+	bne	$3, $7, beq_else.10350
+	mov	$28, $6
 	lw	$27, 0($28)
 	jr	$27
-beq_else.8784:
-	set	$2, 2
-	bne	$1, $2, beq_else.8785
-	lwc	$f0, 28($29)
-	lwc	$f1, 36($29)
-	lwc	$f2, 44($29)
-	lw	$1, 16($29)
-	lw	$2, 8($29)
-	lw	$28, 4($29)
+beq_else.10350:
+	set	$6, 2
+	bne	$3, $6, beq_else.10351
+	mov	$28, $4
 	lw	$27, 0($28)
 	jr	$27
-beq_else.8785:
-	lwc	$f0, 28($29)
-	lwc	$f1, 36($29)
-	lwc	$f2, 44($29)
-	lw	$1, 16($29)
-	lw	$2, 8($29)
-	lw	$28, 0($29)
+beq_else.10351:
+	mov	$28, $5
 	lw	$27, 0($28)
 	jr	$27
-solver_rect_fast.2656:
+solver_rect_fast.2658:
 	lw	$4, 4($28)
 	set	$5, 0
 	sll	$5, $5, 2
@@ -2888,15 +2477,11 @@ solver_rect_fast.2656:
 	addi	$29, $29, -40
 	lw	 $31, 36($29)
 	lw	$1, 28($29)
-	swc	$f0, 32($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	o_param_b.2530
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	mov.s	$f1, $f0
-	lwc	$f0, 32($29)
+	lw	$2, 16($1)
+	set	$3, 1
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f1, 0($27)
 	sw	$31, 36($29)
 	addi	$29, $29, 40
 	jal	min_caml_fless
@@ -2904,10 +2489,10 @@ solver_rect_fast.2656:
 	addi	$29, $29, -40
 	lw	 $31, 36($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8786
+	bne	$1, $2, beq_else.10352
 	set	$1, 0
-	j	beq_cont.8787
-beq_else.8786:
+	j	beq_cont.10353
+beq_else.10352:
 	set	$1, 2
 	sll	$1, $1, 2
 	lw	$2, 24($29)
@@ -2924,48 +2509,44 @@ beq_else.8786:
 	addi	$29, $29, -40
 	lw	 $31, 36($29)
 	lw	$1, 28($29)
-	swc	$f0, 36($29)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	o_param_c.2532
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	mov.s	$f1, $f0
-	lwc	$f0, 36($29)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
+	lw	$2, 16($1)
+	set	$3, 2
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f1, 0($27)
+	sw	$31, 36($29)
+	addi	$29, $29, 40
 	jal	min_caml_fless
 	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8788
+	bne	$1, $2, beq_else.10354
 	set	$1, 0
-	j	beq_cont.8789
-beq_else.8788:
+	j	beq_cont.10355
+beq_else.10354:
 	set	$1, 1
 	sll	$1, $1, 2
 	lw	$2, 12($29)
 	add	$27, $1, $2
 	lwc	$f0, 0($27)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
+	sw	$31, 36($29)
+	addi	$29, $29, 40
 	jal	min_caml_fiszero
 	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8790
+	bne	$1, $2, beq_else.10356
 	set	$1, 1
-	j	beq_cont.8791
-beq_else.8790:
+	j	beq_cont.10357
+beq_else.10356:
 	set	$1, 0
-beq_cont.8791:
-beq_cont.8789:
-beq_cont.8787:
+beq_cont.10357:
+beq_cont.10355:
+beq_cont.10353:
 	set	$2, 0
-	bne	$1, $2, beq_else.8792
+	bne	$1, $2, beq_else.10358
 	set	$1, 2
 	sll	$1, $1, 2
 	lw	$2, 12($29)
@@ -2986,93 +2567,85 @@ beq_cont.8787:
 	mul.s	$f2, $f0, $f2
 	lwc	$f3, 4($29)
 	add.s	$f2, $f2, $f3
-	swc	$f0, 40($29)
+	swc	$f0, 32($29)
 	mov.s	$f0, $f2
-	sw	$31, 44($29)
-	addi	$29, $29, 48
+	sw	$31, 36($29)
+	addi	$29, $29, 40
 	jal	min_caml_fabs
 	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
 	lw	$1, 28($29)
-	swc	$f0, 44($29)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	o_param_a.2528
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	mov.s	$f1, $f0
-	lwc	$f0, 44($29)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
+	lw	$2, 16($1)
+	set	$3, 0
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f1, 0($27)
+	sw	$31, 36($29)
+	addi	$29, $29, 40
 	jal	min_caml_fless
 	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8793
+	bne	$1, $2, beq_else.10359
 	set	$1, 0
-	j	beq_cont.8794
-beq_else.8793:
+	j	beq_cont.10360
+beq_else.10359:
 	set	$1, 2
 	sll	$1, $1, 2
 	lw	$2, 24($29)
 	add	$27, $1, $2
 	lwc	$f0, 0($27)
-	lwc	$f1, 40($29)
+	lwc	$f1, 32($29)
 	mul.s	$f0, $f1, $f0
 	lwc	$f2, 16($29)
 	add.s	$f0, $f0, $f2
-	sw	$31, 52($29)
-	addi	$29, $29, 56
+	sw	$31, 36($29)
+	addi	$29, $29, 40
 	jal	min_caml_fabs
 	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
 	lw	$1, 28($29)
-	swc	$f0, 48($29)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	o_param_c.2532
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	mov.s	$f1, $f0
-	lwc	$f0, 48($29)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
+	lw	$2, 16($1)
+	set	$3, 2
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f1, 0($27)
+	sw	$31, 36($29)
+	addi	$29, $29, 40
 	jal	min_caml_fless
 	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8795
+	bne	$1, $2, beq_else.10361
 	set	$1, 0
-	j	beq_cont.8796
-beq_else.8795:
+	j	beq_cont.10362
+beq_else.10361:
 	set	$1, 3
 	sll	$1, $1, 2
 	lw	$2, 12($29)
 	add	$27, $1, $2
 	lwc	$f0, 0($27)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
+	sw	$31, 36($29)
+	addi	$29, $29, 40
 	jal	min_caml_fiszero
 	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8797
+	bne	$1, $2, beq_else.10363
 	set	$1, 1
-	j	beq_cont.8798
-beq_else.8797:
+	j	beq_cont.10364
+beq_else.10363:
 	set	$1, 0
-beq_cont.8798:
-beq_cont.8796:
-beq_cont.8794:
+beq_cont.10364:
+beq_cont.10362:
+beq_cont.10360:
 	set	$2, 0
-	bne	$1, $2, beq_else.8799
+	bne	$1, $2, beq_else.10365
 	set	$1, 4
 	sll	$1, $1, 2
 	lw	$2, 12($29)
@@ -3093,114 +2666,106 @@ beq_cont.8794:
 	mul.s	$f1, $f0, $f1
 	lwc	$f2, 4($29)
 	add.s	$f1, $f1, $f2
-	swc	$f0, 52($29)
+	swc	$f0, 36($29)
 	mov.s	$f0, $f1
-	sw	$31, 60($29)
-	addi	$29, $29, 64
+	sw	$31, 44($29)
+	addi	$29, $29, 48
 	jal	min_caml_fabs
 	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
+	addi	$29, $29, -48
+	lw	 $31, 44($29)
 	lw	$1, 28($29)
-	swc	$f0, 56($29)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	jal	o_param_a.2528
-	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
-	mov.s	$f1, $f0
-	lwc	$f0, 56($29)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
+	lw	$2, 16($1)
+	set	$3, 0
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f1, 0($27)
+	sw	$31, 44($29)
+	addi	$29, $29, 48
 	jal	min_caml_fless
 	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
+	addi	$29, $29, -48
+	lw	 $31, 44($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8800
+	bne	$1, $2, beq_else.10366
 	set	$1, 0
-	j	beq_cont.8801
-beq_else.8800:
+	j	beq_cont.10367
+beq_else.10366:
 	set	$1, 1
 	sll	$1, $1, 2
 	lw	$2, 24($29)
 	add	$27, $1, $2
 	lwc	$f0, 0($27)
-	lwc	$f1, 52($29)
+	lwc	$f1, 36($29)
 	mul.s	$f0, $f1, $f0
 	lwc	$f2, 8($29)
 	add.s	$f0, $f0, $f2
-	sw	$31, 60($29)
-	addi	$29, $29, 64
+	sw	$31, 44($29)
+	addi	$29, $29, 48
 	jal	min_caml_fabs
 	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
+	addi	$29, $29, -48
+	lw	 $31, 44($29)
 	lw	$1, 28($29)
-	swc	$f0, 60($29)
-	sw	$31, 68($29)
-	addi	$29, $29, 72
-	jal	o_param_b.2530
-	nop
-	addi	$29, $29, -72
-	lw	 $31, 68($29)
-	mov.s	$f1, $f0
-	lwc	$f0, 60($29)
-	sw	$31, 68($29)
-	addi	$29, $29, 72
+	lw	$1, 16($1)
+	set	$2, 1
+	sll	$2, $2, 2
+	add	$27, $2, $1
+	lwc	$f1, 0($27)
+	sw	$31, 44($29)
+	addi	$29, $29, 48
 	jal	min_caml_fless
 	nop
-	addi	$29, $29, -72
-	lw	 $31, 68($29)
+	addi	$29, $29, -48
+	lw	 $31, 44($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8802
+	bne	$1, $2, beq_else.10368
 	set	$1, 0
-	j	beq_cont.8803
-beq_else.8802:
+	j	beq_cont.10369
+beq_else.10368:
 	set	$1, 5
 	sll	$1, $1, 2
 	lw	$2, 12($29)
 	add	$27, $1, $2
 	lwc	$f0, 0($27)
-	sw	$31, 68($29)
-	addi	$29, $29, 72
+	sw	$31, 44($29)
+	addi	$29, $29, 48
 	jal	min_caml_fiszero
 	nop
-	addi	$29, $29, -72
-	lw	 $31, 68($29)
+	addi	$29, $29, -48
+	lw	 $31, 44($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8804
+	bne	$1, $2, beq_else.10370
 	set	$1, 1
-	j	beq_cont.8805
-beq_else.8804:
+	j	beq_cont.10371
+beq_else.10370:
 	set	$1, 0
-beq_cont.8805:
-beq_cont.8803:
-beq_cont.8801:
+beq_cont.10371:
+beq_cont.10369:
+beq_cont.10367:
 	set	$2, 0
-	bne	$1, $2, beq_else.8806
+	bne	$1, $2, beq_else.10372
 	set	$1, 0
 	jr $31
-beq_else.8806:
+beq_else.10372:
 	set	$1, 0
 	sll	$1, $1, 2
 	lw	$2, 0($29)
-	lwc	$f0, 52($29)
+	lwc	$f0, 36($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
 	set	$1, 3
 	jr $31
-beq_else.8799:
+beq_else.10365:
 	set	$1, 0
 	sll	$1, $1, 2
 	lw	$2, 0($29)
-	lwc	$f0, 40($29)
+	lwc	$f0, 32($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
 	set	$1, 2
 	jr $31
-beq_else.8792:
+beq_else.10358:
 	set	$1, 0
 	sll	$1, $1, 2
 	lw	$2, 0($29)
@@ -3209,7 +2774,7 @@ beq_else.8792:
 	swc	$f0, 0($27)
 	set	$1, 1
 	jr $31
-solver_surface_fast.2663:
+solver_surface_fast.2665:
 	lw	$1, 4($28)
 	set	$3, 0
 	sll	$3, $3, 2
@@ -3228,10 +2793,10 @@ solver_surface_fast.2663:
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8807
+	bne	$1, $2, beq_else.10373
 	set	$1, 0
 	jr $31
-beq_else.8807:
+beq_else.10373:
 	set	$1, 0
 	set	$2, 1
 	sll	$2, $2, 2
@@ -3260,7 +2825,7 @@ beq_else.8807:
 	swc	$f0, 0($27)
 	set	$1, 1
 	jr $31
-solver_second_fast.2669:
+solver_second_fast.2671:
 	lw	$3, 4($28)
 	set	$4, 0
 	sll	$4, $4, 2
@@ -3281,7 +2846,7 @@ solver_second_fast.2669:
 	addi	$29, $29, -32
 	lw	 $31, 28($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8808
+	bne	$1, $2, beq_else.10374
 	set	$1, 1
 	sll	$1, $1, 2
 	lw	$2, 24($29)
@@ -3310,41 +2875,33 @@ solver_second_fast.2669:
 	mov.s	$f1, $f3
 	sw	$31, 36($29)
 	addi	$29, $29, 40
-	jal	quadratic.2633
+	jal	quadratic.2635
 	nop
 	addi	$29, $29, -40
 	lw	 $31, 36($29)
 	lw	$1, 8($29)
+	lw	$2, 4($1)
+	set	$3, 3
+	bne	$2, $3, beq_else.10375
+	setclv	$f1, l.7946
+	sub.s	$f0, $f0, $f1
+	j	beq_cont.10376
+beq_else.10375:
+beq_cont.10376:
+	lwc	$f1, 28($29)
 	swc	$f0, 32($29)
+	mov.s	$f0, $f1
 	sw	$31, 36($29)
 	addi	$29, $29, 40
-	jal	o_form.2520
+	jal	min_caml_fsqr
 	nop
 	addi	$29, $29, -40
 	lw	 $31, 36($29)
-	set	$2, 3
-	bne	$1, $2, beq_else.8809
-	setclv	$f0, l.5994
 	lwc	$f1, 32($29)
-	sub.s	$f0, $f1, $f0
-	j	beq_cont.8810
-beq_else.8809:
-	lwc	$f0, 32($29)
-beq_cont.8810:
-	lwc	$f1, 28($29)
-	swc	$f0, 36($29)
-	mov.s	$f0, $f1
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	min_caml_fsqr
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lwc	$f1, 36($29)
 	lwc	$f2, 4($29)
 	mul.s	$f1, $f2, $f1
 	sub.s	$f0, $f0, $f1
-	swc	$f0, 40($29)
+	swc	$f0, 36($29)
 	sw	$31, 44($29)
 	addi	$29, $29, 48
 	jal	min_caml_fispos
@@ -3352,28 +2909,23 @@ beq_cont.8810:
 	addi	$29, $29, -48
 	lw	 $31, 44($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8811
+	bne	$1, $2, beq_else.10377
 	set	$1, 0
 	jr $31
-beq_else.8811:
+beq_else.10377:
 	lw	$1, 8($29)
+	lw	$1, 24($1)
+	set	$2, 0
+	bne	$1, $2, beq_else.10378
+	set	$1, 0
+	lwc	$f0, 36($29)
+	sw	$1, 40($29)
 	sw	$31, 44($29)
 	addi	$29, $29, 48
-	jal	o_isinvert.2524
+	jal	min_caml_sqrt
 	nop
 	addi	$29, $29, -48
 	lw	 $31, 44($29)
-	set	$2, 0
-	bne	$1, $2, beq_else.8812
-	set	$1, 0
-	lwc	$f0, 40($29)
-	sw	$1, 44($29)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	min_caml_sqrt
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
 	lwc	$f1, 28($29)
 	sub.s	$f0, $f1, $f0
 	set	$1, 4
@@ -3382,16 +2934,16 @@ beq_else.8811:
 	add	$27, $1, $2
 	lwc	$f1, 0($27)
 	mul.s	$f0, $f0, $f1
-	lw	$1, 44($29)
+	lw	$1, 40($29)
 	sll	$1, $1, 2
 	lw	$2, 0($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-	j	beq_cont.8813
-beq_else.8812:
+	j	beq_cont.10379
+beq_else.10378:
 	set	$1, 0
-	lwc	$f0, 40($29)
-	sw	$1, 48($29)
+	lwc	$f0, 36($29)
+	sw	$1, 44($29)
 	sw	$31, 52($29)
 	addi	$29, $29, 56
 	jal	min_caml_sqrt
@@ -3406,18 +2958,18 @@ beq_else.8812:
 	add	$27, $1, $2
 	lwc	$f1, 0($27)
 	mul.s	$f0, $f0, $f1
-	lw	$1, 48($29)
+	lw	$1, 44($29)
 	sll	$1, $1, 2
 	lw	$2, 0($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-beq_cont.8813:
+beq_cont.10379:
 	set	$1, 1
 	jr $31
-beq_else.8808:
+beq_else.10374:
 	set	$1, 0
 	jr $31
-solver_fast.2675:
+solver_fast.2677:
 	lw	$4, 16($28)
 	lw	$5, 12($28)
 	lw	$6, 8($28)
@@ -3429,115 +2981,59 @@ solver_fast.2675:
 	sll	$8, $8, 2
 	add	$27, $8, $3
 	lwc	$f0, 0($27)
-	sw	$5, 0($29)
-	sw	$4, 4($29)
-	sw	$6, 8($29)
-	sw	$1, 12($29)
-	sw	$2, 16($29)
-	sw	$7, 20($29)
-	sw	$3, 24($29)
-	swc	$f0, 28($29)
+	lw	$8, 20($7)
+	set	$9, 0
+	sll	$9, $9, 2
+	add	$27, $9, $8
+	lwc	$f1, 0($27)
+	sub.s	$f0, $f0, $f1
+	set	$8, 1
+	sll	$8, $8, 2
+	add	$27, $8, $3
+	lwc	$f1, 0($27)
+	lw	$8, 20($7)
+	set	$9, 1
+	sll	$9, $9, 2
+	add	$27, $9, $8
+	lwc	$f2, 0($27)
+	sub.s	$f1, $f1, $f2
+	set	$8, 2
+	sll	$8, $8, 2
+	add	$27, $8, $3
+	lwc	$f2, 0($27)
+	lw	$3, 20($7)
+	set	$8, 2
+	sll	$8, $8, 2
+	add	$27, $8, $3
+	lwc	$f3, 0($27)
+	sub.s	$f2, $f2, $f3
+	lw	$3, 4($2)
+	sll	$1, $1, 2
+	add	$27, $1, $3
+	lw	$3, 0($27)
+	lw	$1, 4($7)
+	set	$8, 1
+	bne	$1, $8, beq_else.10380
+	lw	$2, 0($2)
 	mov	$1, $7
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	o_param_x.2536
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lwc	$f1, 28($29)
-	sub.s	$f0, $f1, $f0
-	set	$1, 1
-	sll	$1, $1, 2
-	lw	$2, 24($29)
-	add	$27, $1, $2
-	lwc	$f1, 0($27)
-	lw	$1, 20($29)
-	swc	$f0, 32($29)
-	swc	$f1, 36($29)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	o_param_y.2538
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lwc	$f1, 36($29)
-	sub.s	$f0, $f1, $f0
-	set	$1, 2
-	sll	$1, $1, 2
-	lw	$2, 24($29)
-	add	$27, $1, $2
-	lwc	$f1, 0($27)
-	lw	$1, 20($29)
-	swc	$f0, 40($29)
-	swc	$f1, 44($29)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	o_param_z.2540
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	lwc	$f1, 44($29)
-	sub.s	$f0, $f1, $f0
-	lw	$1, 16($29)
-	swc	$f0, 48($29)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	d_const.2581
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	lw	$2, 12($29)
-	sll	$2, $2, 2
-	add	$27, $2, $1
-	lw	$1, 0($27)
-	lw	$2, 20($29)
-	sw	$1, 52($29)
-	mov	$1, $2
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	jal	o_form.2520
-	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
-	set	$2, 1
-	bne	$1, $2, beq_else.8814
-	lw	$1, 16($29)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	jal	d_vec.2579
-	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
-	mov	$2, $1
-	lwc	$f0, 32($29)
-	lwc	$f1, 40($29)
-	lwc	$f2, 48($29)
-	lw	$1, 20($29)
-	lw	$3, 52($29)
-	lw	$28, 8($29)
+	mov	$28, $6
 	lw	$27, 0($28)
 	jr	$27
-beq_else.8814:
+beq_else.10380:
 	set	$2, 2
-	bne	$1, $2, beq_else.8815
-	lwc	$f0, 32($29)
-	lwc	$f1, 40($29)
-	lwc	$f2, 48($29)
-	lw	$1, 20($29)
-	lw	$2, 52($29)
-	lw	$28, 4($29)
+	bne	$1, $2, beq_else.10381
+	mov	$2, $3
+	mov	$1, $7
+	mov	$28, $4
 	lw	$27, 0($28)
 	jr	$27
-beq_else.8815:
-	lwc	$f0, 32($29)
-	lwc	$f1, 40($29)
-	lwc	$f2, 48($29)
-	lw	$1, 20($29)
-	lw	$2, 52($29)
-	lw	$28, 0($29)
+beq_else.10381:
+	mov	$2, $3
+	mov	$1, $7
+	mov	$28, $5
 	lw	$27, 0($28)
 	jr	$27
-solver_surface_fast2.2679:
+solver_surface_fast2.2681:
 	lw	$1, 4($28)
 	set	$4, 0
 	sll	$4, $4, 2
@@ -3553,10 +3049,10 @@ solver_surface_fast2.2679:
 	addi	$29, $29, -16
 	lw	 $31, 12($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8816
+	bne	$1, $2, beq_else.10382
 	set	$1, 0
 	jr $31
-beq_else.8816:
+beq_else.10382:
 	set	$1, 0
 	set	$2, 0
 	sll	$2, $2, 2
@@ -3575,7 +3071,7 @@ beq_else.8816:
 	swc	$f0, 0($27)
 	set	$1, 1
 	jr $31
-solver_second_fast2.2686:
+solver_second_fast2.2688:
 	lw	$4, 4($28)
 	set	$5, 0
 	sll	$5, $5, 2
@@ -3597,7 +3093,7 @@ solver_second_fast2.2686:
 	addi	$29, $29, -40
 	lw	 $31, 36($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8817
+	bne	$1, $2, beq_else.10383
 	set	$1, 1
 	sll	$1, $1, 2
 	lw	$2, 28($29)
@@ -3644,19 +3140,14 @@ solver_second_fast2.2686:
 	addi	$29, $29, -48
 	lw	 $31, 44($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8818
+	bne	$1, $2, beq_else.10384
 	set	$1, 0
 	jr $31
-beq_else.8818:
+beq_else.10384:
 	lw	$1, 4($29)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	o_isinvert.2524
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
+	lw	$1, 24($1)
 	set	$2, 0
-	bne	$1, $2, beq_else.8819
+	bne	$1, $2, beq_else.10385
 	set	$1, 0
 	lwc	$f0, 40($29)
 	sw	$1, 44($29)
@@ -3679,8 +3170,8 @@ beq_else.8818:
 	lw	$2, 0($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-	j	beq_cont.8820
-beq_else.8819:
+	j	beq_cont.10386
+beq_else.10385:
 	set	$1, 0
 	lwc	$f0, 40($29)
 	sw	$1, 48($29)
@@ -3703,13 +3194,13 @@ beq_else.8819:
 	lw	$2, 0($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-beq_cont.8820:
+beq_cont.10386:
 	set	$1, 1
 	jr $31
-beq_else.8817:
+beq_else.10383:
 	set	$1, 0
 	jr $31
-solver_fast2.2693:
+solver_fast2.2695:
 	lw	$3, 16($28)
 	lw	$4, 12($28)
 	lw	$5, 8($28)
@@ -3717,99 +3208,51 @@ solver_fast2.2693:
 	sll	$7, $1, 2
 	add	$27, $7, $6
 	lw	$6, 0($27)
-	sw	$4, 0($29)
-	sw	$3, 4($29)
-	sw	$5, 8($29)
-	sw	$6, 12($29)
-	sw	$1, 16($29)
-	sw	$2, 20($29)
-	mov	$1, $6
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	o_param_ctbl.2558
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	set	$2, 0
-	sll	$2, $2, 2
-	add	$27, $2, $1
+	lw	$7, 40($6)
+	set	$8, 0
+	sll	$8, $8, 2
+	add	$27, $8, $7
 	lwc	$f0, 0($27)
-	set	$2, 1
-	sll	$2, $2, 2
-	add	$27, $2, $1
+	set	$8, 1
+	sll	$8, $8, 2
+	add	$27, $8, $7
 	lwc	$f1, 0($27)
-	set	$2, 2
-	sll	$2, $2, 2
-	add	$27, $2, $1
+	set	$8, 2
+	sll	$8, $8, 2
+	add	$27, $8, $7
 	lwc	$f2, 0($27)
-	lw	$2, 20($29)
-	sw	$1, 24($29)
-	swc	$f2, 28($29)
-	swc	$f1, 32($29)
-	swc	$f0, 36($29)
-	mov	$1, $2
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	d_const.2581
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lw	$2, 16($29)
-	sll	$2, $2, 2
-	add	$27, $2, $1
+	lw	$8, 4($2)
+	sll	$1, $1, 2
+	add	$27, $1, $8
 	lw	$1, 0($27)
-	lw	$2, 12($29)
-	sw	$1, 40($29)
-	mov	$1, $2
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	o_form.2520
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	set	$2, 1
-	bne	$1, $2, beq_else.8821
-	lw	$1, 20($29)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	d_vec.2579
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	mov	$2, $1
-	lwc	$f0, 36($29)
-	lwc	$f1, 32($29)
-	lwc	$f2, 28($29)
-	lw	$1, 12($29)
-	lw	$3, 40($29)
-	lw	$28, 8($29)
+	lw	$8, 4($6)
+	set	$9, 1
+	bne	$8, $9, beq_else.10387
+	lw	$2, 0($2)
+	mov	$3, $1
+	mov	$28, $5
+	mov	$1, $6
 	lw	$27, 0($28)
 	jr	$27
-beq_else.8821:
+beq_else.10387:
 	set	$2, 2
-	bne	$1, $2, beq_else.8822
-	lwc	$f0, 36($29)
-	lwc	$f1, 32($29)
-	lwc	$f2, 28($29)
-	lw	$1, 12($29)
-	lw	$2, 40($29)
-	lw	$3, 24($29)
-	lw	$28, 4($29)
+	bne	$8, $2, beq_else.10388
+	mov	$2, $1
+	mov	$28, $3
+	mov	$3, $7
+	mov	$1, $6
 	lw	$27, 0($28)
 	jr	$27
-beq_else.8822:
-	lwc	$f0, 36($29)
-	lwc	$f1, 32($29)
-	lwc	$f2, 28($29)
-	lw	$1, 12($29)
-	lw	$2, 40($29)
-	lw	$3, 24($29)
-	lw	$28, 0($29)
+beq_else.10388:
+	mov	$3, $7
+	mov	$2, $1
+	mov	$28, $4
+	mov	$1, $6
 	lw	$27, 0($28)
 	jr	$27
-setup_rect_table.2696:
+setup_rect_table.2698:
 	set	$3, 6
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$2, 0($29)
 	sw	$1, 4($29)
 	mov	$1, $3
@@ -3832,60 +3275,60 @@ setup_rect_table.2696:
 	addi	$29, $29, -16
 	lw	 $31, 12($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8823
+	bne	$1, $2, beq_else.10389
 	set	$1, 0
 	lw	$2, 0($29)
-	sw	$1, 12($29)
-	mov	$1, $2
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	o_isinvert.2524
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
-	set	$2, 0
-	sll	$2, $2, 2
-	lw	$3, 4($29)
-	add	$27, $2, $3
+	lw	$3, 24($2)
+	set	$4, 0
+	sll	$4, $4, 2
+	lw	$5, 4($29)
+	add	$27, $4, $5
 	lwc	$f0, 0($27)
-	sw	$1, 16($29)
+	sw	$1, 12($29)
+	sw	$3, 16($29)
 	sw	$31, 20($29)
 	addi	$29, $29, 24
 	jal	min_caml_fisneg
 	nop
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
-	mov	$2, $1
-	lw	$1, 16($29)
+	set	$2, 0
+	lw	$3, 16($29)
+	bne	$3, $2, beq_else.10391
+	j	beq_cont.10392
+beq_else.10391:
+	set	$2, 0
+	bne	$1, $2, beq_else.10393
+	set	$1, 1
+	j	beq_cont.10394
+beq_else.10393:
+	set	$1, 0
+beq_cont.10394:
+beq_cont.10392:
+	lw	$2, 0($29)
+	lw	$3, 16($2)
+	set	$4, 0
+	sll	$4, $4, 2
+	add	$27, $4, $3
+	lwc	$f0, 0($27)
+	set	$3, 0
+	bne	$1, $3, beq_else.10395
 	sw	$31, 20($29)
 	addi	$29, $29, 24
-	jal	xor.2461
+	jal	min_caml_fneg
 	nop
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
-	lw	$2, 0($29)
-	sw	$1, 20($29)
-	mov	$1, $2
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	o_param_a.2528
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	lw	$1, 20($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	fneg_cond.2466
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
+	j	beq_cont.10396
+beq_else.10395:
+beq_cont.10396:
 	lw	$1, 12($29)
 	sll	$1, $1, 2
 	lw	$2, 8($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
 	set	$1, 1
-	setclv	$f0, l.5994
+	setclv	$f0, l.7946
 	set	$3, 0
 	sll	$3, $3, 2
 	lw	$4, 4($29)
@@ -3895,81 +3338,81 @@ setup_rect_table.2696:
 	sll	$1, $1, 2
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-	j	beq_cont.8824
-beq_else.8823:
+	j	beq_cont.10390
+beq_else.10389:
 	set	$1, 1
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sll	$1, $1, 2
 	lw	$2, 8($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-beq_cont.8824:
+beq_cont.10390:
 	set	$1, 1
 	sll	$1, $1, 2
 	lw	$3, 4($29)
 	add	$27, $1, $3
 	lwc	$f0, 0($27)
+	sw	$31, 20($29)
+	addi	$29, $29, 24
+	jal	min_caml_fiszero
+	nop
+	addi	$29, $29, -24
+	lw	 $31, 20($29)
+	set	$2, 0
+	bne	$1, $2, beq_else.10397
+	set	$1, 2
+	lw	$2, 0($29)
+	lw	$3, 24($2)
+	set	$4, 1
+	sll	$4, $4, 2
+	lw	$5, 4($29)
+	add	$27, $4, $5
+	lwc	$f0, 0($27)
+	sw	$1, 20($29)
+	sw	$3, 24($29)
 	sw	$31, 28($29)
 	addi	$29, $29, 32
-	jal	min_caml_fiszero
+	jal	min_caml_fisneg
 	nop
 	addi	$29, $29, -32
 	lw	 $31, 28($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8825
-	set	$1, 2
+	lw	$3, 24($29)
+	bne	$3, $2, beq_else.10399
+	j	beq_cont.10400
+beq_else.10399:
+	set	$2, 0
+	bne	$1, $2, beq_else.10401
+	set	$1, 1
+	j	beq_cont.10402
+beq_else.10401:
+	set	$1, 0
+beq_cont.10402:
+beq_cont.10400:
 	lw	$2, 0($29)
-	sw	$1, 24($29)
-	mov	$1, $2
+	lw	$3, 16($2)
+	set	$4, 1
+	sll	$4, $4, 2
+	add	$27, $4, $3
+	lwc	$f0, 0($27)
+	set	$3, 0
+	bne	$1, $3, beq_else.10403
 	sw	$31, 28($29)
 	addi	$29, $29, 32
-	jal	o_isinvert.2524
+	jal	min_caml_fneg
 	nop
 	addi	$29, $29, -32
 	lw	 $31, 28($29)
-	set	$2, 1
-	sll	$2, $2, 2
-	lw	$3, 4($29)
-	add	$27, $2, $3
-	lwc	$f0, 0($27)
-	sw	$1, 28($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	min_caml_fisneg
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	mov	$2, $1
-	lw	$1, 28($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	xor.2461
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lw	$2, 0($29)
-	sw	$1, 32($29)
-	mov	$1, $2
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	o_param_b.2530
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lw	$1, 32($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	fneg_cond.2466
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lw	$1, 24($29)
+	j	beq_cont.10404
+beq_else.10403:
+beq_cont.10404:
+	lw	$1, 20($29)
 	sll	$1, $1, 2
 	lw	$2, 8($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
 	set	$1, 3
-	setclv	$f0, l.5994
+	setclv	$f0, l.7946
 	set	$3, 1
 	sll	$3, $3, 2
 	lw	$4, 4($29)
@@ -3979,81 +3422,81 @@ beq_cont.8824:
 	sll	$1, $1, 2
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-	j	beq_cont.8826
-beq_else.8825:
+	j	beq_cont.10398
+beq_else.10397:
 	set	$1, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sll	$1, $1, 2
 	lw	$2, 8($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-beq_cont.8826:
+beq_cont.10398:
 	set	$1, 2
 	sll	$1, $1, 2
 	lw	$3, 4($29)
 	add	$27, $1, $3
 	lwc	$f0, 0($27)
+	sw	$31, 28($29)
+	addi	$29, $29, 32
+	jal	min_caml_fiszero
+	nop
+	addi	$29, $29, -32
+	lw	 $31, 28($29)
+	set	$2, 0
+	bne	$1, $2, beq_else.10405
+	set	$1, 4
+	lw	$2, 0($29)
+	lw	$3, 24($2)
+	set	$4, 2
+	sll	$4, $4, 2
+	lw	$5, 4($29)
+	add	$27, $4, $5
+	lwc	$f0, 0($27)
+	sw	$1, 28($29)
+	sw	$3, 32($29)
 	sw	$31, 36($29)
 	addi	$29, $29, 40
-	jal	min_caml_fiszero
+	jal	min_caml_fisneg
 	nop
 	addi	$29, $29, -40
 	lw	 $31, 36($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8827
-	set	$1, 4
+	lw	$3, 32($29)
+	bne	$3, $2, beq_else.10407
+	j	beq_cont.10408
+beq_else.10407:
+	set	$2, 0
+	bne	$1, $2, beq_else.10409
+	set	$1, 1
+	j	beq_cont.10410
+beq_else.10409:
+	set	$1, 0
+beq_cont.10410:
+beq_cont.10408:
 	lw	$2, 0($29)
-	sw	$1, 36($29)
-	mov	$1, $2
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	o_isinvert.2524
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	set	$2, 2
-	sll	$2, $2, 2
-	lw	$3, 4($29)
-	add	$27, $2, $3
+	lw	$2, 16($2)
+	set	$3, 2
+	sll	$3, $3, 2
+	add	$27, $3, $2
 	lwc	$f0, 0($27)
-	sw	$1, 40($29)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	min_caml_fisneg
+	set	$2, 0
+	bne	$1, $2, beq_else.10411
+	sw	$31, 36($29)
+	addi	$29, $29, 40
+	jal	min_caml_fneg
 	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	mov	$2, $1
-	lw	$1, 40($29)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	xor.2461
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lw	$2, 0($29)
-	sw	$1, 44($29)
-	mov	$1, $2
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	o_param_c.2532
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	lw	$1, 44($29)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	fneg_cond.2466
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	lw	$1, 36($29)
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
+	j	beq_cont.10412
+beq_else.10411:
+beq_cont.10412:
+	lw	$1, 28($29)
 	sll	$1, $1, 2
 	lw	$2, 8($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
 	set	$1, 5
-	setclv	$f0, l.5994
+	setclv	$f0, l.7946
 	set	$3, 2
 	sll	$3, $3, 2
 	lw	$4, 4($29)
@@ -4063,20 +3506,20 @@ beq_cont.8826:
 	sll	$1, $1, 2
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-	j	beq_cont.8828
-beq_else.8827:
+	j	beq_cont.10406
+beq_else.10405:
 	set	$1, 5
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sll	$1, $1, 2
 	lw	$2, 8($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-beq_cont.8828:
+beq_cont.10406:
 	mov	$1, $2
 	jr $31
-setup_surface_table.2699:
+setup_surface_table.2701:
 	set	$3, 4
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$2, 0($29)
 	sw	$1, 4($29)
 	mov	$1, $3
@@ -4092,153 +3535,128 @@ setup_surface_table.2699:
 	add	$27, $2, $3
 	lwc	$f0, 0($27)
 	lw	$2, 0($29)
-	sw	$1, 8($29)
-	swc	$f0, 12($29)
-	mov	$1, $2
+	lw	$4, 16($2)
+	set	$5, 0
+	sll	$5, $5, 2
+	add	$27, $5, $4
+	lwc	$f1, 0($27)
+	mul.s	$f0, $f0, $f1
+	set	$4, 1
+	sll	$4, $4, 2
+	add	$27, $4, $3
+	lwc	$f1, 0($27)
+	lw	$4, 16($2)
+	set	$5, 1
+	sll	$5, $5, 2
+	add	$27, $5, $4
+	lwc	$f2, 0($27)
+	mul.s	$f1, $f1, $f2
+	add.s	$f0, $f0, $f1
+	set	$4, 2
+	sll	$4, $4, 2
+	add	$27, $4, $3
+	lwc	$f1, 0($27)
+	lw	$3, 16($2)
+	set	$4, 2
+	sll	$4, $4, 2
+	add	$27, $4, $3
+	lwc	$f2, 0($27)
+	mul.s	$f1, $f1, $f2
+	add.s	$f0, $f0, $f1
+	swc	$f0, 8($29)
+	sw	$1, 12($29)
 	sw	$31, 20($29)
 	addi	$29, $29, 24
-	jal	o_param_a.2528
+	jal	min_caml_fispos
 	nop
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
-	lwc	$f1, 12($29)
-	mul.s	$f0, $f1, $f0
-	set	$1, 1
+	set	$2, 0
+	bne	$1, $2, beq_else.10413
+	set	$1, 0
+	setclv	$f0, l.7945
 	sll	$1, $1, 2
-	lw	$2, 4($29)
+	lw	$2, 12($29)
 	add	$27, $1, $2
-	lwc	$f1, 0($27)
-	lw	$1, 0($29)
-	swc	$f0, 16($29)
-	swc	$f1, 20($29)
+	swc	$f0, 0($27)
+	j	beq_cont.10414
+beq_else.10413:
+	set	$1, 0
+	setclv	$f0, l.7947
+	lwc	$f1, 8($29)
+	div.s	$f0, $f0, $f1
+	sll	$1, $1, 2
+	lw	$2, 12($29)
+	add	$27, $1, $2
+	swc	$f0, 0($27)
+	set	$1, 1
+	lw	$3, 0($29)
+	lw	$4, 16($3)
+	set	$5, 0
+	sll	$5, $5, 2
+	add	$27, $5, $4
+	lwc	$f0, 0($27)
+	div.s	$f0, $f0, $f1
+	sw	$1, 16($29)
+	sw	$31, 20($29)
+	addi	$29, $29, 24
+	jal	min_caml_fneg
+	nop
+	addi	$29, $29, -24
+	lw	 $31, 20($29)
+	lw	$1, 16($29)
+	sll	$1, $1, 2
+	lw	$2, 12($29)
+	add	$27, $1, $2
+	swc	$f0, 0($27)
+	set	$1, 2
+	lw	$3, 0($29)
+	lw	$4, 16($3)
+	set	$5, 1
+	sll	$5, $5, 2
+	add	$27, $5, $4
+	lwc	$f0, 0($27)
+	lwc	$f1, 8($29)
+	div.s	$f0, $f0, $f1
+	sw	$1, 20($29)
 	sw	$31, 28($29)
 	addi	$29, $29, 32
-	jal	o_param_b.2530
+	jal	min_caml_fneg
 	nop
 	addi	$29, $29, -32
 	lw	 $31, 28($29)
-	lwc	$f1, 20($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 16($29)
-	add.s	$f0, $f1, $f0
-	set	$1, 2
+	lw	$1, 20($29)
 	sll	$1, $1, 2
-	lw	$2, 4($29)
-	add	$27, $1, $2
-	lwc	$f1, 0($27)
-	lw	$1, 0($29)
-	swc	$f0, 24($29)
-	swc	$f1, 28($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	o_param_c.2532
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lwc	$f1, 28($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 24($29)
-	add.s	$f0, $f1, $f0
-	swc	$f0, 32($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	min_caml_fispos
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	set	$2, 0
-	bne	$1, $2, beq_else.8829
-	set	$1, 0
-	setclv	$f0, l.5993
-	sll	$1, $1, 2
-	lw	$2, 8($29)
-	add	$27, $1, $2
-	swc	$f0, 0($27)
-	j	beq_cont.8830
-beq_else.8829:
-	set	$1, 0
-	setclv	$f0, l.5995
-	lwc	$f1, 32($29)
-	div.s	$f0, $f0, $f1
-	sll	$1, $1, 2
-	lw	$2, 8($29)
-	add	$27, $1, $2
-	swc	$f0, 0($27)
-	set	$1, 1
-	lw	$3, 0($29)
-	sw	$1, 36($29)
-	mov	$1, $3
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	o_param_a.2528
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lwc	$f1, 32($29)
-	div.s	$f0, $f0, $f1
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	min_caml_fneg
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lw	$1, 36($29)
-	sll	$1, $1, 2
-	lw	$2, 8($29)
-	add	$27, $1, $2
-	swc	$f0, 0($27)
-	set	$1, 2
-	lw	$3, 0($29)
-	sw	$1, 40($29)
-	mov	$1, $3
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	o_param_b.2530
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lwc	$f1, 32($29)
-	div.s	$f0, $f0, $f1
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	min_caml_fneg
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lw	$1, 40($29)
-	sll	$1, $1, 2
-	lw	$2, 8($29)
+	lw	$2, 12($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
 	set	$1, 3
 	lw	$3, 0($29)
-	sw	$1, 44($29)
-	mov	$1, $3
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	o_param_c.2532
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	lwc	$f1, 32($29)
+	lw	$3, 16($3)
+	set	$4, 2
+	sll	$4, $4, 2
+	add	$27, $4, $3
+	lwc	$f0, 0($27)
+	lwc	$f1, 8($29)
 	div.s	$f0, $f0, $f1
-	sw	$31, 52($29)
-	addi	$29, $29, 56
+	sw	$1, 24($29)
+	sw	$31, 28($29)
+	addi	$29, $29, 32
 	jal	min_caml_fneg
 	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	lw	$1, 44($29)
+	addi	$29, $29, -32
+	lw	 $31, 28($29)
+	lw	$1, 24($29)
 	sll	$1, $1, 2
-	lw	$2, 8($29)
+	lw	$2, 12($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-beq_cont.8830:
+beq_cont.10414:
 	mov	$1, $2
 	jr $31
-setup_second_table.2702:
+setup_second_table.2704:
 	set	$3, 5
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$2, 0($29)
 	sw	$1, 4($29)
 	mov	$1, $3
@@ -4266,7 +3684,7 @@ setup_second_table.2702:
 	mov	$1, $2
 	sw	$31, 12($29)
 	addi	$29, $29, 16
-	jal	quadratic.2633
+	jal	quadratic.2635
 	nop
 	addi	$29, $29, -16
 	lw	 $31, 12($29)
@@ -4276,16 +3694,14 @@ setup_second_table.2702:
 	add	$27, $1, $2
 	lwc	$f1, 0($27)
 	lw	$1, 0($29)
+	lw	$3, 16($1)
+	set	$4, 0
+	sll	$4, $4, 2
+	add	$27, $4, $3
+	lwc	$f2, 0($27)
+	mul.s	$f1, $f1, $f2
 	swc	$f0, 12($29)
-	swc	$f1, 16($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	o_param_a.2528
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
-	lwc	$f1, 16($29)
-	mul.s	$f0, $f1, $f0
+	mov.s	$f0, $f1
 	sw	$31, 20($29)
 	addi	$29, $29, 24
 	jal	min_caml_fneg
@@ -4298,44 +3714,40 @@ setup_second_table.2702:
 	add	$27, $1, $2
 	lwc	$f1, 0($27)
 	lw	$1, 0($29)
-	swc	$f0, 20($29)
-	swc	$f1, 24($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	o_param_b.2530
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	lwc	$f1, 24($29)
-	mul.s	$f0, $f1, $f0
-	sw	$31, 28($29)
-	addi	$29, $29, 32
+	lw	$3, 16($1)
+	set	$4, 1
+	sll	$4, $4, 2
+	add	$27, $4, $3
+	lwc	$f2, 0($27)
+	mul.s	$f1, $f1, $f2
+	swc	$f0, 16($29)
+	mov.s	$f0, $f1
+	sw	$31, 20($29)
+	addi	$29, $29, 24
 	jal	min_caml_fneg
 	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
+	addi	$29, $29, -24
+	lw	 $31, 20($29)
 	set	$1, 2
 	sll	$1, $1, 2
 	lw	$2, 4($29)
 	add	$27, $1, $2
 	lwc	$f1, 0($27)
 	lw	$1, 0($29)
-	swc	$f0, 28($29)
-	swc	$f1, 32($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	o_param_c.2532
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lwc	$f1, 32($29)
-	mul.s	$f0, $f1, $f0
-	sw	$31, 36($29)
-	addi	$29, $29, 40
+	lw	$3, 16($1)
+	set	$4, 2
+	sll	$4, $4, 2
+	add	$27, $4, $3
+	lwc	$f2, 0($27)
+	mul.s	$f1, $f1, $f2
+	swc	$f0, 20($29)
+	mov.s	$f0, $f1
+	sw	$31, 28($29)
+	addi	$29, $29, 32
 	jal	min_caml_fneg
 	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
+	addi	$29, $29, -32
+	lw	 $31, 28($29)
 	set	$1, 0
 	sll	$1, $1, 2
 	lw	$2, 8($29)
@@ -4343,78 +3755,60 @@ setup_second_table.2702:
 	add	$27, $1, $2
 	swc	$f1, 0($27)
 	lw	$1, 0($29)
-	swc	$f0, 36($29)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	o_isrot.2526
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	set	$2, 0
-	bne	$1, $2, beq_else.8831
+	lw	$3, 12($1)
+	set	$4, 0
+	bne	$3, $4, beq_else.10415
 	set	$1, 1
 	sll	$1, $1, 2
-	lw	$2, 8($29)
-	lwc	$f0, 20($29)
+	lwc	$f2, 16($29)
 	add	$27, $1, $2
-	swc	$f0, 0($27)
+	swc	$f2, 0($27)
 	set	$1, 2
 	sll	$1, $1, 2
-	lwc	$f0, 28($29)
+	lwc	$f2, 20($29)
 	add	$27, $1, $2
-	swc	$f0, 0($27)
+	swc	$f2, 0($27)
 	set	$1, 3
 	sll	$1, $1, 2
-	lwc	$f0, 36($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-	j	beq_cont.8832
-beq_else.8831:
-	set	$1, 1
-	set	$2, 2
-	sll	$2, $2, 2
-	lw	$3, 4($29)
-	add	$27, $2, $3
-	lwc	$f0, 0($27)
-	lw	$2, 0($29)
-	sw	$1, 40($29)
-	swc	$f0, 44($29)
-	mov	$1, $2
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	o_param_r2.2554
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	lwc	$f1, 44($29)
-	mul.s	$f0, $f1, $f0
-	set	$1, 1
-	sll	$1, $1, 2
-	lw	$2, 4($29)
-	add	$27, $1, $2
-	lwc	$f1, 0($27)
-	lw	$1, 0($29)
-	swc	$f0, 48($29)
-	swc	$f1, 52($29)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	jal	o_param_r3.2556
-	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
-	lwc	$f1, 52($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 48($29)
-	add.s	$f0, $f1, $f0
-	sw	$31, 60($29)
-	addi	$29, $29, 64
+	j	beq_cont.10416
+beq_else.10415:
+	set	$3, 1
+	set	$4, 2
+	sll	$4, $4, 2
+	lw	$5, 4($29)
+	add	$27, $4, $5
+	lwc	$f2, 0($27)
+	lw	$4, 36($1)
+	set	$6, 1
+	sll	$6, $6, 2
+	add	$27, $6, $4
+	lwc	$f3, 0($27)
+	mul.s	$f2, $f2, $f3
+	set	$4, 1
+	sll	$4, $4, 2
+	add	$27, $4, $5
+	lwc	$f3, 0($27)
+	lw	$4, 36($1)
+	set	$6, 2
+	sll	$6, $6, 2
+	add	$27, $6, $4
+	lwc	$f4, 0($27)
+	mul.s	$f3, $f3, $f4
+	add.s	$f2, $f2, $f3
+	swc	$f0, 24($29)
+	sw	$3, 28($29)
+	mov.s	$f0, $f2
+	sw	$31, 36($29)
+	addi	$29, $29, 40
 	jal	min_caml_fhalf
 	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
-	lwc	$f1, 20($29)
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
+	lwc	$f1, 16($29)
 	sub.s	$f0, $f1, $f0
-	lw	$1, 40($29)
+	lw	$1, 28($29)
 	sll	$1, $1, 2
 	lw	$2, 8($29)
 	add	$27, $1, $2
@@ -4426,44 +3820,33 @@ beq_else.8831:
 	add	$27, $3, $4
 	lwc	$f0, 0($27)
 	lw	$3, 0($29)
-	sw	$1, 56($29)
-	swc	$f0, 60($29)
-	mov	$1, $3
-	sw	$31, 68($29)
-	addi	$29, $29, 72
-	jal	o_param_r1.2552
-	nop
-	addi	$29, $29, -72
-	lw	 $31, 68($29)
-	lwc	$f1, 60($29)
-	mul.s	$f0, $f1, $f0
-	set	$1, 0
-	sll	$1, $1, 2
-	lw	$2, 4($29)
-	add	$27, $1, $2
+	lw	$5, 36($3)
+	set	$6, 0
+	sll	$6, $6, 2
+	add	$27, $6, $5
 	lwc	$f1, 0($27)
-	lw	$1, 0($29)
-	swc	$f0, 64($29)
-	swc	$f1, 68($29)
-	sw	$31, 76($29)
-	addi	$29, $29, 80
-	jal	o_param_r3.2556
-	nop
-	addi	$29, $29, -80
-	lw	 $31, 76($29)
-	lwc	$f1, 68($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 64($29)
-	add.s	$f0, $f1, $f0
-	sw	$31, 76($29)
-	addi	$29, $29, 80
+	mul.s	$f0, $f0, $f1
+	set	$5, 0
+	sll	$5, $5, 2
+	add	$27, $5, $4
+	lwc	$f1, 0($27)
+	lw	$5, 36($3)
+	set	$6, 2
+	sll	$6, $6, 2
+	add	$27, $6, $5
+	lwc	$f2, 0($27)
+	mul.s	$f1, $f1, $f2
+	add.s	$f0, $f0, $f1
+	sw	$1, 32($29)
+	sw	$31, 36($29)
+	addi	$29, $29, 40
 	jal	min_caml_fhalf
 	nop
-	addi	$29, $29, -80
-	lw	 $31, 76($29)
-	lwc	$f1, 28($29)
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
+	lwc	$f1, 20($29)
 	sub.s	$f0, $f1, $f0
-	lw	$1, 56($29)
+	lw	$1, 32($29)
 	sll	$1, $1, 2
 	lw	$2, 8($29)
 	add	$27, $1, $2
@@ -4475,361 +3858,274 @@ beq_else.8831:
 	add	$27, $3, $4
 	lwc	$f0, 0($27)
 	lw	$3, 0($29)
-	sw	$1, 72($29)
-	swc	$f0, 76($29)
-	mov	$1, $3
-	sw	$31, 84($29)
-	addi	$29, $29, 88
-	jal	o_param_r1.2552
-	nop
-	addi	$29, $29, -88
-	lw	 $31, 84($29)
-	lwc	$f1, 76($29)
-	mul.s	$f0, $f1, $f0
-	set	$1, 0
-	sll	$1, $1, 2
-	lw	$2, 4($29)
-	add	$27, $1, $2
+	lw	$5, 36($3)
+	set	$6, 0
+	sll	$6, $6, 2
+	add	$27, $6, $5
 	lwc	$f1, 0($27)
-	lw	$1, 0($29)
-	swc	$f0, 80($29)
-	swc	$f1, 84($29)
-	sw	$31, 92($29)
-	addi	$29, $29, 96
-	jal	o_param_r2.2554
-	nop
-	addi	$29, $29, -96
-	lw	 $31, 92($29)
-	lwc	$f1, 84($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 80($29)
-	add.s	$f0, $f1, $f0
-	sw	$31, 92($29)
-	addi	$29, $29, 96
+	mul.s	$f0, $f0, $f1
+	set	$5, 0
+	sll	$5, $5, 2
+	add	$27, $5, $4
+	lwc	$f1, 0($27)
+	lw	$3, 36($3)
+	set	$4, 1
+	sll	$4, $4, 2
+	add	$27, $4, $3
+	lwc	$f2, 0($27)
+	mul.s	$f1, $f1, $f2
+	add.s	$f0, $f0, $f1
+	sw	$1, 36($29)
+	sw	$31, 44($29)
+	addi	$29, $29, 48
 	jal	min_caml_fhalf
 	nop
-	addi	$29, $29, -96
-	lw	 $31, 92($29)
-	lwc	$f1, 36($29)
+	addi	$29, $29, -48
+	lw	 $31, 44($29)
+	lwc	$f1, 24($29)
 	sub.s	$f0, $f1, $f0
-	lw	$1, 72($29)
+	lw	$1, 36($29)
 	sll	$1, $1, 2
 	lw	$2, 8($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-beq_cont.8832:
+beq_cont.10416:
 	lwc	$f0, 12($29)
-	sw	$31, 92($29)
-	addi	$29, $29, 96
+	sw	$31, 44($29)
+	addi	$29, $29, 48
 	jal	min_caml_fiszero
 	nop
-	addi	$29, $29, -96
-	lw	 $31, 92($29)
+	addi	$29, $29, -48
+	lw	 $31, 44($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8833
+	bne	$1, $2, beq_else.10417
 	set	$1, 4
-	setclv	$f0, l.5994
+	setclv	$f0, l.7946
 	lwc	$f1, 12($29)
 	div.s	$f0, $f0, $f1
 	sll	$1, $1, 2
 	lw	$2, 8($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-	j	beq_cont.8834
-beq_else.8833:
-beq_cont.8834:
+	j	beq_cont.10418
+beq_else.10417:
+beq_cont.10418:
 	lw	$1, 8($29)
 	jr $31
-iter_setup_dirvec_constants.2705:
+iter_setup_dirvec_constants.2707:
 	lw	$3, 4($28)
 	set	$4, 0
 	slt	$27, $2, $4
-	bne	$27, $0, ble_else.8835
+	bne	$27, $0, ble_else.10419
 	sll	$4, $2, 2
 	add	$27, $4, $3
 	lw	$3, 0($27)
-	sw	$28, 0($29)
-	sw	$2, 4($29)
-	sw	$3, 8($29)
-	sw	$1, 12($29)
+	lw	$4, 4($1)
+	lw	$5, 0($1)
+	lw	$6, 4($3)
+	set	$7, 1
+	sw	$1, 0($29)
+	sw	$28, 4($29)
+	bne	$6, $7, beq_else.10420
+	sw	$4, 8($29)
+	sw	$2, 12($29)
+	mov	$2, $3
+	mov	$1, $5
 	sw	$31, 20($29)
 	addi	$29, $29, 24
-	jal	d_const.2581
+	jal	setup_rect_table.2698
 	nop
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
 	lw	$2, 12($29)
-	sw	$1, 16($29)
-	mov	$1, $2
+	sll	$3, $2, 2
+	lw	$4, 8($29)
+	add	$27, $3, $4
+	sw	$1, 0($27)
+	j	beq_cont.10421
+beq_else.10420:
+	set	$7, 2
+	bne	$6, $7, beq_else.10422
+	sw	$4, 8($29)
+	sw	$2, 12($29)
+	mov	$2, $3
+	mov	$1, $5
 	sw	$31, 20($29)
 	addi	$29, $29, 24
-	jal	d_vec.2579
+	jal	setup_surface_table.2701
 	nop
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
-	lw	$2, 8($29)
-	sw	$1, 20($29)
-	mov	$1, $2
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	o_form.2520
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	set	$2, 1
-	bne	$1, $2, beq_else.8836
-	lw	$1, 20($29)
-	lw	$2, 8($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	setup_rect_table.2696
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	lw	$2, 4($29)
+	lw	$2, 12($29)
 	sll	$3, $2, 2
-	lw	$4, 16($29)
+	lw	$4, 8($29)
 	add	$27, $3, $4
 	sw	$1, 0($27)
-	j	beq_cont.8837
-beq_else.8836:
-	set	$2, 2
-	bne	$1, $2, beq_else.8838
-	lw	$1, 20($29)
-	lw	$2, 8($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	setup_surface_table.2699
+	j	beq_cont.10423
+beq_else.10422:
+	sw	$4, 8($29)
+	sw	$2, 12($29)
+	mov	$2, $3
+	mov	$1, $5
+	sw	$31, 20($29)
+	addi	$29, $29, 24
+	jal	setup_second_table.2704
 	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	lw	$2, 4($29)
+	addi	$29, $29, -24
+	lw	 $31, 20($29)
+	lw	$2, 12($29)
 	sll	$3, $2, 2
-	lw	$4, 16($29)
+	lw	$4, 8($29)
 	add	$27, $3, $4
 	sw	$1, 0($27)
-	j	beq_cont.8839
-beq_else.8838:
-	lw	$1, 20($29)
-	lw	$2, 8($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	setup_second_table.2702
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	lw	$2, 4($29)
-	sll	$3, $2, 2
-	lw	$4, 16($29)
-	add	$27, $3, $4
-	sw	$1, 0($27)
-beq_cont.8839:
-beq_cont.8837:
+beq_cont.10423:
+beq_cont.10421:
 	set	$1, 1
 	sub	$2, $2, $1
-	lw	$1, 12($29)
-	lw	$28, 0($29)
+	lw	$1, 0($29)
+	lw	$28, 4($29)
 	lw	$27, 0($28)
 	jr	$27
-ble_else.8835:
-jr $31
-setup_dirvec_constants.2708:
-	lw	$2, 8($28)
-	lw	$28, 4($28)
-	set	$3, 0
-	sll	$3, $3, 2
-	add	$27, $3, $2
-	lw	$2, 0($27)
-	set	$3, 1
-	sub	$2, $2, $3
-	lw	$27, 0($28)
-	jr	$27
-setup_startp_constants.2710:
+ble_else.10419:
+	jr $31
+setup_startp_constants.2712:
 	lw	$3, 4($28)
 	set	$4, 0
 	slt	$27, $2, $4
-	bne	$27, $0, ble_else.8841
+	bne	$27, $0, ble_else.10425
 	sll	$4, $2, 2
 	add	$27, $4, $3
 	lw	$3, 0($27)
-	sw	$28, 0($29)
-	sw	$2, 4($29)
-	sw	$1, 8($29)
-	sw	$3, 12($29)
+	lw	$4, 40($3)
+	lw	$5, 4($3)
+	set	$6, 0
+	set	$7, 0
+	sll	$7, $7, 2
+	add	$27, $7, $1
+	lwc	$f0, 0($27)
+	lw	$7, 20($3)
+	set	$8, 0
+	sll	$8, $8, 2
+	add	$27, $8, $7
+	lwc	$f1, 0($27)
+	sub.s	$f0, $f0, $f1
+	sll	$6, $6, 2
+	add	$27, $6, $4
+	swc	$f0, 0($27)
+	set	$6, 1
+	set	$7, 1
+	sll	$7, $7, 2
+	add	$27, $7, $1
+	lwc	$f0, 0($27)
+	lw	$7, 20($3)
+	set	$8, 1
+	sll	$8, $8, 2
+	add	$27, $8, $7
+	lwc	$f1, 0($27)
+	sub.s	$f0, $f0, $f1
+	sll	$6, $6, 2
+	add	$27, $6, $4
+	swc	$f0, 0($27)
+	set	$6, 2
+	set	$7, 2
+	sll	$7, $7, 2
+	add	$27, $7, $1
+	lwc	$f0, 0($27)
+	lw	$7, 20($3)
+	set	$8, 2
+	sll	$8, $8, 2
+	add	$27, $8, $7
+	lwc	$f1, 0($27)
+	sub.s	$f0, $f0, $f1
+	sll	$6, $6, 2
+	add	$27, $6, $4
+	swc	$f0, 0($27)
+	set	$6, 2
+	sw	$1, 0($29)
+	sw	$28, 4($29)
+	sw	$2, 8($29)
+	bne	$5, $6, beq_else.10426
+	set	$5, 3
+	lw	$3, 16($3)
+	set	$6, 0
+	sll	$6, $6, 2
+	add	$27, $6, $4
+	lwc	$f0, 0($27)
+	set	$6, 1
+	sll	$6, $6, 2
+	add	$27, $6, $4
+	lwc	$f1, 0($27)
+	set	$6, 2
+	sll	$6, $6, 2
+	add	$27, $6, $4
+	lwc	$f2, 0($27)
+	sw	$4, 12($29)
+	sw	$5, 16($29)
 	mov	$1, $3
 	sw	$31, 20($29)
 	addi	$29, $29, 24
-	jal	o_param_ctbl.2558
+	jal	veciprod2.2498
 	nop
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
+	lw	$1, 16($29)
+	sll	$1, $1, 2
 	lw	$2, 12($29)
-	sw	$1, 16($29)
-	mov	$1, $2
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	o_form.2520
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
-	set	$2, 0
-	set	$3, 0
-	sll	$3, $3, 2
-	lw	$4, 8($29)
-	add	$27, $3, $4
-	lwc	$f0, 0($27)
-	lw	$3, 12($29)
-	sw	$1, 20($29)
-	sw	$2, 24($29)
-	swc	$f0, 28($29)
-	mov	$1, $3
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	o_param_x.2536
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lwc	$f1, 28($29)
-	sub.s	$f0, $f1, $f0
-	lw	$1, 24($29)
-	sll	$1, $1, 2
-	lw	$2, 16($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-	set	$1, 1
-	set	$3, 1
-	sll	$3, $3, 2
-	lw	$4, 8($29)
-	add	$27, $3, $4
+	j	beq_cont.10427
+beq_else.10426:
+	set	$6, 2
+	slt	$27, $6, $5
+	bne	$27, $0, ble_else.10428
+	j	ble_cont.10429
+ble_else.10428:
+	set	$6, 0
+	sll	$6, $6, 2
+	add	$27, $6, $4
 	lwc	$f0, 0($27)
-	lw	$3, 12($29)
-	sw	$1, 32($29)
-	swc	$f0, 36($29)
-	mov	$1, $3
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	o_param_y.2538
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lwc	$f1, 36($29)
-	sub.s	$f0, $f1, $f0
-	lw	$1, 32($29)
-	sll	$1, $1, 2
-	lw	$2, 16($29)
-	add	$27, $1, $2
-	swc	$f0, 0($27)
-	set	$1, 2
-	set	$3, 2
-	sll	$3, $3, 2
-	lw	$4, 8($29)
-	add	$27, $3, $4
-	lwc	$f0, 0($27)
-	lw	$3, 12($29)
-	sw	$1, 40($29)
-	swc	$f0, 44($29)
-	mov	$1, $3
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	o_param_z.2540
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	lwc	$f1, 44($29)
-	sub.s	$f0, $f1, $f0
-	lw	$1, 40($29)
-	sll	$1, $1, 2
-	lw	$2, 16($29)
-	add	$27, $1, $2
-	swc	$f0, 0($27)
-	set	$1, 2
-	lw	$3, 20($29)
-	bne	$3, $1, beq_else.8842
-	set	$1, 3
-	lw	$3, 12($29)
-	sw	$1, 48($29)
-	mov	$1, $3
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	o_param_abc.2534
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	set	$2, 0
-	sll	$2, $2, 2
-	lw	$3, 16($29)
-	add	$27, $2, $3
-	lwc	$f0, 0($27)
-	set	$2, 1
-	sll	$2, $2, 2
-	add	$27, $2, $3
+	set	$6, 1
+	sll	$6, $6, 2
+	add	$27, $6, $4
 	lwc	$f1, 0($27)
-	set	$2, 2
-	sll	$2, $2, 2
-	add	$27, $2, $3
+	set	$6, 2
+	sll	$6, $6, 2
+	add	$27, $6, $4
 	lwc	$f2, 0($27)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	veciprod2.2496
+	sw	$4, 12($29)
+	sw	$5, 20($29)
+	mov	$1, $3
+	sw	$31, 28($29)
+	addi	$29, $29, 32
+	jal	quadratic.2635
 	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	lw	$1, 48($29)
-	sll	$1, $1, 2
-	lw	$2, 16($29)
-	add	$27, $1, $2
-	swc	$f0, 0($27)
-	j	beq_cont.8843
-beq_else.8842:
-	set	$1, 2
-	slt	$27, $1, $3
-	bne	$27, $0, ble_else.8844
-	j	ble_cont.8845
-ble_else.8844:
-	set	$1, 0
-	sll	$1, $1, 2
-	add	$27, $1, $2
-	lwc	$f0, 0($27)
-	set	$1, 1
-	sll	$1, $1, 2
-	add	$27, $1, $2
-	lwc	$f1, 0($27)
-	set	$1, 2
-	sll	$1, $1, 2
-	add	$27, $1, $2
-	lwc	$f2, 0($27)
-	lw	$1, 12($29)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	quadratic.2633
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
+	addi	$29, $29, -32
+	lw	 $31, 28($29)
 	set	$1, 3
 	set	$2, 3
 	lw	$3, 20($29)
-	bne	$3, $2, beq_else.8846
-	setclv	$f1, l.5994
+	bne	$3, $2, beq_else.10430
+	setclv	$f1, l.7946
 	sub.s	$f0, $f0, $f1
-	j	beq_cont.8847
-beq_else.8846:
-beq_cont.8847:
+	j	beq_cont.10431
+beq_else.10430:
+beq_cont.10431:
 	sll	$1, $1, 2
-	lw	$2, 16($29)
+	lw	$2, 12($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-ble_cont.8845:
-beq_cont.8843:
+ble_cont.10429:
+beq_cont.10427:
 	set	$1, 1
-	lw	$2, 4($29)
+	lw	$2, 8($29)
 	sub	$2, $2, $1
-	lw	$1, 8($29)
-	lw	$28, 0($29)
+	lw	$1, 0($29)
+	lw	$28, 4($29)
 	lw	$27, 0($28)
 	jr	$27
-ble_else.8841:
-jr $31
-setup_startp.2713:
+ble_else.10425:
+	jr $31
+setup_startp.2715:
 	lw	$2, 12($28)
 	lw	$3, 8($28)
 	lw	$4, 4($28)
@@ -4841,7 +4137,7 @@ setup_startp.2713:
 	mov	$1, $27
 	sw	$31, 12($29)
 	addi	$29, $29, 16
-	jal	veccpy.2482
+	jal	veccpy.2484
 	nop
 	addi	$29, $29, -16
 	lw	 $31, 12($29)
@@ -4856,7 +4152,7 @@ setup_startp.2713:
 	lw	$28, 4($29)
 	lw	$27, 0($28)
 	jr	$27
-is_rect_outside.2715:
+is_rect_outside.2717:
 	swc	$f2, 0($29)
 	swc	$f1, 4($29)
 	sw	$1, 8($29)
@@ -4867,277 +4163,205 @@ is_rect_outside.2715:
 	addi	$29, $29, -16
 	lw	 $31, 12($29)
 	lw	$1, 8($29)
-	swc	$f0, 12($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	o_param_a.2528
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
-	mov.s	$f1, $f0
-	lwc	$f0, 12($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
+	lw	$2, 16($1)
+	set	$3, 0
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f1, 0($27)
+	sw	$31, 12($29)
+	addi	$29, $29, 16
 	jal	min_caml_fless
 	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
+	addi	$29, $29, -16
+	lw	 $31, 12($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8849
+	bne	$1, $2, beq_else.10433
 	set	$1, 0
-	j	beq_cont.8850
-beq_else.8849:
+	j	beq_cont.10434
+beq_else.10433:
 	lwc	$f0, 4($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
+	sw	$31, 12($29)
+	addi	$29, $29, 16
 	jal	min_caml_fabs
 	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
+	addi	$29, $29, -16
+	lw	 $31, 12($29)
 	lw	$1, 8($29)
-	swc	$f0, 16($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	o_param_b.2530
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
-	mov.s	$f1, $f0
-	lwc	$f0, 16($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
+	lw	$2, 16($1)
+	set	$3, 1
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f1, 0($27)
+	sw	$31, 12($29)
+	addi	$29, $29, 16
 	jal	min_caml_fless
 	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
+	addi	$29, $29, -16
+	lw	 $31, 12($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8851
+	bne	$1, $2, beq_else.10435
 	set	$1, 0
-	j	beq_cont.8852
-beq_else.8851:
+	j	beq_cont.10436
+beq_else.10435:
 	lwc	$f0, 0($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
+	sw	$31, 12($29)
+	addi	$29, $29, 16
 	jal	min_caml_fabs
 	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
+	addi	$29, $29, -16
+	lw	 $31, 12($29)
 	lw	$1, 8($29)
-	swc	$f0, 20($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	o_param_c.2532
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	mov.s	$f1, $f0
-	lwc	$f0, 20($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
+	lw	$2, 16($1)
+	set	$3, 2
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f1, 0($27)
+	sw	$31, 12($29)
+	addi	$29, $29, 16
 	jal	min_caml_fless
 	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-beq_cont.8852:
-beq_cont.8850:
+	addi	$29, $29, -16
+	lw	 $31, 12($29)
+beq_cont.10436:
+beq_cont.10434:
 	set	$2, 0
-	bne	$1, $2, beq_else.8853
+	bne	$1, $2, beq_else.10437
 	lw	$1, 8($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	o_isinvert.2524
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
+	lw	$1, 24($1)
 	set	$2, 0
-	bne	$1, $2, beq_else.8854
+	bne	$1, $2, beq_else.10438
 	set	$1, 1
 	jr $31
-beq_else.8854:
+beq_else.10438:
 	set	$1, 0
 	jr $31
-beq_else.8853:
+beq_else.10437:
 	lw	$1, 8($29)
-	j	o_isinvert.2524
-is_plane_outside.2720:
-	sw	$1, 0($29)
-	swc	$f2, 4($29)
-	swc	$f1, 8($29)
-	swc	$f0, 12($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	o_param_abc.2534
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
-	lwc	$f0, 12($29)
-	lwc	$f1, 8($29)
-	lwc	$f2, 4($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	veciprod2.2496
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
-	lw	$1, 0($29)
-	swc	$f0, 16($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	o_isinvert.2524
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
-	lwc	$f0, 16($29)
-	sw	$1, 20($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	min_caml_fisneg
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	mov	$2, $1
-	lw	$1, 20($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	xor.2461
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	set	$2, 0
-	bne	$1, $2, beq_else.8855
-	set	$1, 1
+	lw	$1, 24($1)
 	jr $31
-beq_else.8855:
-	set	$1, 0
-	jr $31
-is_second_outside.2725:
+is_plane_outside.2722:
+	lw	$2, 16($1)
 	sw	$1, 0($29)
+	mov	$1, $2
 	sw	$31, 4($29)
 	addi	$29, $29, 8
-	jal	quadratic.2633
+	jal	veciprod2.2498
 	nop
 	addi	$29, $29, -8
 	lw	 $31, 4($29)
 	lw	$1, 0($29)
-	swc	$f0, 4($29)
+	lw	$1, 24($1)
+	sw	$1, 4($29)
 	sw	$31, 12($29)
 	addi	$29, $29, 16
-	jal	o_form.2520
-	nop
-	addi	$29, $29, -16
-	lw	 $31, 12($29)
-	set	$2, 3
-	bne	$1, $2, beq_else.8856
-	setclv	$f0, l.5994
-	lwc	$f1, 4($29)
-	sub.s	$f0, $f1, $f0
-	j	beq_cont.8857
-beq_else.8856:
-	lwc	$f0, 4($29)
-beq_cont.8857:
-	lw	$1, 0($29)
-	swc	$f0, 8($29)
-	sw	$31, 12($29)
-	addi	$29, $29, 16
-	jal	o_isinvert.2524
-	nop
-	addi	$29, $29, -16
-	lw	 $31, 12($29)
-	lwc	$f0, 8($29)
-	sw	$1, 12($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
 	jal	min_caml_fisneg
 	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
-	mov	$2, $1
-	lw	$1, 12($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	xor.2461
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
+	addi	$29, $29, -16
+	lw	 $31, 12($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8858
+	lw	$3, 4($29)
+	bne	$3, $2, beq_else.10439
+	j	beq_cont.10440
+beq_else.10439:
+	set	$2, 0
+	bne	$1, $2, beq_else.10441
+	set	$1, 1
+	j	beq_cont.10442
+beq_else.10441:
+	set	$1, 0
+beq_cont.10442:
+beq_cont.10440:
+	set	$2, 0
+	bne	$1, $2, beq_else.10443
 	set	$1, 1
 	jr $31
-beq_else.8858:
+beq_else.10443:
 	set	$1, 0
 	jr $31
-is_outside.2730:
-	swc	$f2, 0($29)
-	swc	$f1, 4($29)
-	sw	$1, 8($29)
-	swc	$f0, 12($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	o_param_x.2536
+is_second_outside.2727:
+	sw	$1, 0($29)
+	sw	$31, 4($29)
+	addi	$29, $29, 8
+	jal	quadratic.2635
 	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
-	lwc	$f1, 12($29)
-	sub.s	$f0, $f1, $f0
-	lw	$1, 8($29)
-	swc	$f0, 16($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	o_param_y.2538
+	addi	$29, $29, -8
+	lw	 $31, 4($29)
+	lw	$1, 0($29)
+	lw	$2, 4($1)
+	set	$3, 3
+	bne	$2, $3, beq_else.10444
+	setclv	$f1, l.7946
+	sub.s	$f0, $f0, $f1
+	j	beq_cont.10445
+beq_else.10444:
+beq_cont.10445:
+	lw	$1, 24($1)
+	sw	$1, 4($29)
+	sw	$31, 12($29)
+	addi	$29, $29, 16
+	jal	min_caml_fisneg
 	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
-	lwc	$f1, 4($29)
-	sub.s	$f0, $f1, $f0
-	lw	$1, 8($29)
-	swc	$f0, 20($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	o_param_z.2540
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	lwc	$f1, 0($29)
-	sub.s	$f0, $f1, $f0
-	lw	$1, 8($29)
-	swc	$f0, 24($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	o_form.2520
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	set	$2, 1
-	bne	$1, $2, beq_else.8859
-	lwc	$f0, 16($29)
-	lwc	$f1, 20($29)
-	lwc	$f2, 24($29)
-	lw	$1, 8($29)
-	j	is_rect_outside.2715
-beq_else.8859:
-	set	$2, 2
-	bne	$1, $2, beq_else.8860
-	lwc	$f0, 16($29)
-	lwc	$f1, 20($29)
-	lwc	$f2, 24($29)
-	lw	$1, 8($29)
-	j	is_plane_outside.2720
-beq_else.8860:
-	lwc	$f0, 16($29)
-	lwc	$f1, 20($29)
-	lwc	$f2, 24($29)
-	lw	$1, 8($29)
-	j	is_second_outside.2725
-check_all_inside.2735:
+	addi	$29, $29, -16
+	lw	 $31, 12($29)
+	set	$2, 0
+	lw	$3, 4($29)
+	bne	$3, $2, beq_else.10446
+	j	beq_cont.10447
+beq_else.10446:
+	set	$2, 0
+	bne	$1, $2, beq_else.10448
+	set	$1, 1
+	j	beq_cont.10449
+beq_else.10448:
+	set	$1, 0
+beq_cont.10449:
+beq_cont.10447:
+	set	$2, 0
+	bne	$1, $2, beq_else.10450
+	set	$1, 1
+	jr $31
+beq_else.10450:
+	set	$1, 0
+	jr $31
+is_outside.2732:
+	lw	$2, 20($1)
+	set	$3, 0
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f3, 0($27)
+	sub.s	$f0, $f0, $f3
+	lw	$2, 20($1)
+	set	$3, 1
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f3, 0($27)
+	sub.s	$f1, $f1, $f3
+	lw	$2, 20($1)
+	set	$3, 2
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f3, 0($27)
+	sub.s	$f2, $f2, $f3
+	lw	$2, 4($1)
+	set	$3, 1
+	bne	$2, $3, beq_else.10451
+	j	is_rect_outside.2717
+beq_else.10451:
+	set	$3, 2
+	bne	$2, $3, beq_else.10452
+	j	is_plane_outside.2722
+beq_else.10452:
+	j	is_second_outside.2727
+check_all_inside.2737:
 	lw	$3, 4($28)
 	sll	$4, $1, 2
 	add	$27, $4, $2
 	lw	$4, 0($27)
 	set	$5, -1
-	bne	$4, $5, beq_else.8861
+	bne	$4, $5, beq_else.10453
 	set	$1, 1
 	jr $31
-beq_else.8861:
+beq_else.10453:
 	sll	$4, $4, 2
 	add	$27, $4, $3
 	lw	$3, 0($27)
@@ -5150,12 +4374,12 @@ beq_else.8861:
 	mov	$1, $3
 	sw	$31, 28($29)
 	addi	$29, $29, 32
-	jal	is_outside.2730
+	jal	is_outside.2732
 	nop
 	addi	$29, $29, -32
 	lw	 $31, 28($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8862
+	bne	$1, $2, beq_else.10454
 	lw	$1, 20($29)
 	addi	$1, $1, 1
 	lwc	$f0, 8($29)
@@ -5165,10 +4389,10 @@ beq_else.8861:
 	lw	$28, 16($29)
 	lw	$27, 0($28)
 	jr	$27
-beq_else.8862:
+beq_else.10454:
 	set	$1, 0
 	jr $31
-shadow_check_and_group.2741:
+shadow_check_and_group.2743:
 	lw	$3, 28($28)
 	lw	$4, 24($28)
 	lw	$5, 20($28)
@@ -5180,13 +4404,10 @@ shadow_check_and_group.2741:
 	add	$27, $10, $2
 	lw	$10, 0($27)
 	set	$11, -1
-	bne	$10, $11, beq_else.8863
+	bne	$10, $11, beq_else.10455
 	set	$1, 0
 	jr $31
-beq_else.8863:
-	sll	$10, $1, 2
-	add	$27, $10, $2
-	lw	$10, 0($27)
+beq_else.10455:
 	sw	$9, 0($29)
 	sw	$8, 4($29)
 	sw	$7, 8($29)
@@ -5214,44 +4435,39 @@ beq_else.8863:
 	lwc	$f0, 0($27)
 	set	$2, 0
 	swc	$f0, 36($29)
-	bne	$1, $2, beq_else.8864
+	bne	$1, $2, beq_else.10456
 	set	$1, 0
-	j	beq_cont.8865
-beq_else.8864:
-	setclv	$f1, l.6309
+	j	beq_cont.10457
+beq_else.10456:
+	setclv	$f1, l.8292
 	sw	$31, 44($29)
 	addi	$29, $29, 48
 	jal	min_caml_fless
 	nop
 	addi	$29, $29, -48
 	lw	 $31, 44($29)
-beq_cont.8865:
+beq_cont.10457:
 	set	$2, 0
-	bne	$1, $2, beq_else.8866
+	bne	$1, $2, beq_else.10458
 	lw	$1, 28($29)
 	sll	$1, $1, 2
 	lw	$2, 24($29)
 	add	$27, $1, $2
 	lw	$1, 0($27)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	o_isinvert.2524
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
+	lw	$1, 24($1)
 	set	$2, 0
-	bne	$1, $2, beq_else.8867
+	bne	$1, $2, beq_else.10459
 	set	$1, 0
 	jr $31
-beq_else.8867:
+beq_else.10459:
 	lw	$1, 20($29)
 	addi	$1, $1, 1
 	lw	$2, 12($29)
 	lw	$28, 16($29)
 	lw	$27, 0($28)
 	jr	$27
-beq_else.8866:
-	setclv	$f0, l.6310
+beq_else.10458:
+	setclv	$f0, l.8293
 	lwc	$f1, 36($29)
 	add.s	$f0, $f1, $f0
 	set	$1, 0
@@ -5301,27 +4517,27 @@ beq_else.8866:
 	addi	$29, $29, -48
 	lw	$31, 44($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8868
+	bne	$1, $2, beq_else.10460
 	lw	$1, 20($29)
 	addi	$1, $1, 1
 	lw	$2, 12($29)
 	lw	$28, 16($29)
 	lw	$27, 0($28)
 	jr	$27
-beq_else.8868:
+beq_else.10460:
 	set	$1, 1
 	jr $31
-shadow_check_one_or_group.2744:
+shadow_check_one_or_group.2746:
 	lw	$3, 8($28)
 	lw	$4, 4($28)
 	sll	$5, $1, 2
 	add	$27, $5, $2
 	lw	$5, 0($27)
 	set	$6, -1
-	bne	$5, $6, beq_else.8869
+	bne	$5, $6, beq_else.10461
 	set	$1, 0
 	jr $31
-beq_else.8869:
+beq_else.10461:
 	sll	$5, $5, 2
 	add	$27, $5, $4
 	lw	$4, 0($27)
@@ -5340,17 +4556,17 @@ beq_else.8869:
 	addi	$29, $29, -16
 	lw	$31, 12($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8870
+	bne	$1, $2, beq_else.10462
 	lw	$1, 8($29)
 	addi	$1, $1, 1
 	lw	$2, 0($29)
 	lw	$28, 4($29)
 	lw	$27, 0($28)
 	jr	$27
-beq_else.8870:
+beq_else.10462:
 	set	$1, 1
 	jr $31
-shadow_check_one_or_matrix.2747:
+shadow_check_one_or_matrix.2749:
 	lw	$3, 20($28)
 	lw	$4, 16($28)
 	lw	$5, 12($28)
@@ -5364,20 +4580,20 @@ shadow_check_one_or_matrix.2747:
 	add	$27, $9, $8
 	lw	$9, 0($27)
 	set	$10, -1
-	bne	$9, $10, beq_else.8871
+	bne	$9, $10, beq_else.10463
 	set	$1, 0
 	jr $31
-beq_else.8871:
+beq_else.10463:
 	set	$10, 99
 	sw	$8, 0($29)
 	sw	$5, 4($29)
 	sw	$2, 8($29)
 	sw	$28, 12($29)
 	sw	$1, 16($29)
-	bne	$9, $10, beq_else.8872
+	bne	$9, $10, beq_else.10464
 	set	$1, 1
-	j	beq_cont.8873
-beq_else.8872:
+	j	beq_cont.10465
+beq_else.10464:
 	sw	$4, 20($29)
 	mov	$2, $6
 	mov	$1, $9
@@ -5391,16 +4607,16 @@ beq_else.8872:
 	addi	$29, $29, -32
 	lw	$31, 28($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8874
+	bne	$1, $2, beq_else.10466
 	set	$1, 0
-	j	beq_cont.8875
-beq_else.8874:
+	j	beq_cont.10467
+beq_else.10466:
 	set	$1, 0
 	sll	$1, $1, 2
 	lw	$2, 20($29)
 	add	$27, $1, $2
 	lwc	$f0, 0($27)
-	setclv	$f1, l.6323
+	setclv	$f1, l.8306
 	sw	$31, 28($29)
 	addi	$29, $29, 32
 	jal	min_caml_fless
@@ -5408,10 +4624,10 @@ beq_else.8874:
 	addi	$29, $29, -32
 	lw	 $31, 28($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8876
+	bne	$1, $2, beq_else.10468
 	set	$1, 0
-	j	beq_cont.8877
-beq_else.8876:
+	j	beq_cont.10469
+beq_else.10468:
 	set	$1, 1
 	lw	$2, 0($29)
 	lw	$28, 4($29)
@@ -5423,24 +4639,24 @@ beq_else.8876:
 	addi	$29, $29, -32
 	lw	$31, 28($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8878
+	bne	$1, $2, beq_else.10470
 	set	$1, 0
-	j	beq_cont.8879
-beq_else.8878:
+	j	beq_cont.10471
+beq_else.10470:
 	set	$1, 1
-beq_cont.8879:
-beq_cont.8877:
-beq_cont.8875:
-beq_cont.8873:
+beq_cont.10471:
+beq_cont.10469:
+beq_cont.10467:
+beq_cont.10465:
 	set	$2, 0
-	bne	$1, $2, beq_else.8880
+	bne	$1, $2, beq_else.10472
 	lw	$1, 16($29)
 	addi	$1, $1, 1
 	lw	$2, 8($29)
 	lw	$28, 12($29)
 	lw	$27, 0($28)
 	jr	$27
-beq_else.8880:
+beq_else.10472:
 	set	$1, 1
 	lw	$2, 0($29)
 	lw	$28, 4($29)
@@ -5452,17 +4668,17 @@ beq_else.8880:
 	addi	$29, $29, -32
 	lw	$31, 28($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8881
+	bne	$1, $2, beq_else.10473
 	lw	$1, 16($29)
 	addi	$1, $1, 1
 	lw	$2, 8($29)
 	lw	$28, 12($29)
 	lw	$27, 0($28)
 	jr	$27
-beq_else.8881:
+beq_else.10473:
 	set	$1, 1
 	jr $31
-solve_each_element.2750:
+solve_each_element.2752:
 	lw	$4, 36($28)
 	lw	$5, 32($28)
 	lw	$6, 28($28)
@@ -5476,9 +4692,9 @@ solve_each_element.2750:
 	add	$27, $13, $2
 	lw	$13, 0($27)
 	set	$14, -1
-	bne	$13, $14, beq_else.8882
-jr $31
-beq_else.8882:
+	bne	$13, $14, beq_else.10474
+	jr $31
+beq_else.10474:
 	sw	$9, 0($29)
 	sw	$11, 4($29)
 	sw	$10, 8($29)
@@ -5504,22 +4720,17 @@ beq_else.8882:
 	addi	$29, $29, -56
 	lw	$31, 52($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8884
+	bne	$1, $2, beq_else.10476
 	lw	$1, 48($29)
 	sll	$1, $1, 2
 	lw	$2, 44($29)
 	add	$27, $1, $2
 	lw	$1, 0($27)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	o_isinvert.2524
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
+	lw	$1, 24($1)
 	set	$2, 0
-	bne	$1, $2, beq_else.8885
-jr $31
-beq_else.8885:
+	bne	$1, $2, beq_else.10477
+	jr $31
+beq_else.10477:
 	lw	$1, 40($29)
 	addi	$1, $1, 1
 	lw	$2, 32($29)
@@ -5527,13 +4738,13 @@ beq_else.8885:
 	lw	$28, 36($29)
 	lw	$27, 0($28)
 	jr	$27
-beq_else.8884:
+beq_else.10476:
 	set	$2, 0
 	sll	$2, $2, 2
 	lw	$3, 24($29)
 	add	$27, $2, $3
 	lwc	$f1, 0($27)
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 52($29)
 	swc	$f1, 56($29)
 	sw	$31, 60($29)
@@ -5543,9 +4754,9 @@ beq_else.8884:
 	addi	$29, $29, -64
 	lw	 $31, 60($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8887
-	j	beq_cont.8888
-beq_else.8887:
+	bne	$1, $2, beq_else.10479
+	j	beq_cont.10480
+beq_else.10479:
 	set	$1, 0
 	sll	$1, $1, 2
 	lw	$2, 20($29)
@@ -5559,10 +4770,10 @@ beq_else.8887:
 	addi	$29, $29, -64
 	lw	 $31, 60($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8889
-	j	beq_cont.8890
-beq_else.8889:
-	setclv	$f0, l.6310
+	bne	$1, $2, beq_else.10481
+	j	beq_cont.10482
+beq_else.10481:
+	setclv	$f0, l.8293
 	lwc	$f1, 56($29)
 	add.s	$f0, $f1, $f0
 	set	$1, 0
@@ -5616,9 +4827,9 @@ beq_else.8889:
 	addi	$29, $29, -80
 	lw	$31, 76($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8891
-	j	beq_cont.8892
-beq_else.8891:
+	bne	$1, $2, beq_else.10483
+	j	beq_cont.10484
+beq_else.10483:
 	set	$1, 0
 	sll	$1, $1, 2
 	lw	$2, 20($29)
@@ -5631,7 +4842,7 @@ beq_else.8891:
 	lw	$1, 8($29)
 	sw	$31, 76($29)
 	addi	$29, $29, 80
-	jal	vecset.2472
+	jal	vecset.2474
 	nop
 	addi	$29, $29, -80
 	lw	 $31, 76($29)
@@ -5647,9 +4858,9 @@ beq_else.8891:
 	lw	$3, 52($29)
 	add	$27, $1, $2
 	sw	$3, 0($27)
-beq_cont.8892:
-beq_cont.8890:
-beq_cont.8888:
+beq_cont.10484:
+beq_cont.10482:
+beq_cont.10480:
 	lw	$1, 40($29)
 	addi	$1, $1, 1
 	lw	$2, 32($29)
@@ -5657,16 +4868,16 @@ beq_cont.8888:
 	lw	$28, 36($29)
 	lw	$27, 0($28)
 	jr	$27
-solve_one_or_network.2754:
+solve_one_or_network.2756:
 	lw	$4, 8($28)
 	lw	$5, 4($28)
 	sll	$6, $1, 2
 	add	$27, $6, $2
 	lw	$6, 0($27)
 	set	$7, -1
-	bne	$6, $7, beq_else.8893
-jr $31
-beq_else.8893:
+	bne	$6, $7, beq_else.10485
+	jr $31
+beq_else.10485:
 	sll	$6, $6, 2
 	add	$27, $6, $5
 	lw	$5, 0($27)
@@ -5692,7 +4903,7 @@ beq_else.8893:
 	lw	$28, 8($29)
 	lw	$27, 0($28)
 	jr	$27
-trace_or_matrix.2758:
+trace_or_matrix.2760:
 	lw	$4, 20($28)
 	lw	$5, 16($28)
 	lw	$6, 12($28)
@@ -5706,15 +4917,15 @@ trace_or_matrix.2758:
 	add	$27, $10, $9
 	lw	$10, 0($27)
 	set	$11, -1
-	bne	$10, $11, beq_else.8895
-jr $31
-beq_else.8895:
+	bne	$10, $11, beq_else.10487
+	jr $31
+beq_else.10487:
 	set	$11, 99
 	sw	$3, 0($29)
 	sw	$2, 4($29)
 	sw	$28, 8($29)
 	sw	$1, 12($29)
-	bne	$10, $11, beq_else.8897
+	bne	$10, $11, beq_else.10489
 	set	$4, 1
 	mov	$2, $9
 	mov	$1, $4
@@ -5726,8 +4937,8 @@ beq_else.8895:
 	nop
 	addi	$29, $29, -24
 	lw	$31, 20($29)
-	j	beq_cont.8898
-beq_else.8897:
+	j	beq_cont.10490
+beq_else.10489:
 	sw	$9, 16($29)
 	sw	$8, 20($29)
 	sw	$4, 24($29)
@@ -5744,9 +4955,9 @@ beq_else.8897:
 	addi	$29, $29, -40
 	lw	$31, 36($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8899
-	j	beq_cont.8900
-beq_else.8899:
+	bne	$1, $2, beq_else.10491
+	j	beq_cont.10492
+beq_else.10491:
 	set	$1, 0
 	sll	$1, $1, 2
 	lw	$2, 28($29)
@@ -5764,9 +4975,9 @@ beq_else.8899:
 	addi	$29, $29, -40
 	lw	 $31, 36($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8901
-	j	beq_cont.8902
-beq_else.8901:
+	bne	$1, $2, beq_else.10493
+	j	beq_cont.10494
+beq_else.10493:
 	set	$1, 1
 	lw	$2, 16($29)
 	lw	$3, 0($29)
@@ -5778,9 +4989,9 @@ beq_else.8901:
 	nop
 	addi	$29, $29, -40
 	lw	$31, 36($29)
-beq_cont.8902:
-beq_cont.8900:
-beq_cont.8898:
+beq_cont.10494:
+beq_cont.10492:
+beq_cont.10490:
 	lw	$1, 12($29)
 	addi	$1, $1, 1
 	lw	$2, 4($29)
@@ -5788,12 +4999,12 @@ beq_cont.8898:
 	lw	$28, 8($29)
 	lw	$27, 0($28)
 	jr	$27
-judge_intersection.2762:
+judge_intersection.2764:
 	lw	$2, 12($28)
 	lw	$3, 8($28)
 	lw	$4, 4($28)
 	set	$5, 0
-	setclv	$f0, l.6343
+	setclv	$f0, l.8326
 	sll	$5, $5, 2
 	add	$27, $5, $3
 	swc	$f0, 0($27)
@@ -5819,7 +5030,7 @@ judge_intersection.2762:
 	lw	$2, 0($29)
 	add	$27, $1, $2
 	lwc	$f1, 0($27)
-	setclv	$f0, l.6323
+	setclv	$f0, l.8306
 	swc	$f1, 4($29)
 	sw	$31, 12($29)
 	addi	$29, $29, 16
@@ -5828,14 +5039,14 @@ judge_intersection.2762:
 	addi	$29, $29, -16
 	lw	 $31, 12($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8903
+	bne	$1, $2, beq_else.10495
 	set	$1, 0
 	jr $31
-beq_else.8903:
-	setclv	$f1, l.6347
+beq_else.10495:
+	setclv	$f1, l.8330
 	lwc	$f0, 4($29)
 	j	min_caml_fless
-solve_each_element_fast.2764:
+solve_each_element_fast.2766:
 	lw	$4, 36($28)
 	lw	$5, 32($28)
 	lw	$6, 28($28)
@@ -5845,41 +5056,31 @@ solve_each_element_fast.2764:
 	lw	$10, 12($28)
 	lw	$11, 8($28)
 	lw	$12, 4($28)
+	lw	$13, 0($3)
+	sll	$14, $1, 2
+	add	$27, $14, $2
+	lw	$14, 0($27)
+	set	$15, -1
+	bne	$14, $15, beq_else.10496
+	jr $31
+beq_else.10496:
 	sw	$9, 0($29)
 	sw	$11, 4($29)
 	sw	$10, 8($29)
 	sw	$12, 12($29)
 	sw	$5, 16($29)
-	sw	$4, 20($29)
-	sw	$7, 24($29)
-	sw	$28, 28($29)
-	sw	$8, 32($29)
-	sw	$3, 36($29)
-	sw	$6, 40($29)
-	sw	$2, 44($29)
-	sw	$1, 48($29)
-	mov	$1, $3
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	d_vec.2579
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	lw	$2, 48($29)
-	sll	$3, $2, 2
-	lw	$4, 44($29)
-	add	$27, $3, $4
-	lw	$3, 0($27)
-	set	$5, -1
-	bne	$3, $5, beq_else.8904
-jr $31
-beq_else.8904:
-	lw	$5, 36($29)
-	lw	$28, 40($29)
-	sw	$1, 52($29)
-	sw	$3, 56($29)
-	mov	$2, $5
-	mov	$1, $3
+	sw	$13, 20($29)
+	sw	$4, 24($29)
+	sw	$7, 28($29)
+	sw	$3, 32($29)
+	sw	$2, 36($29)
+	sw	$28, 40($29)
+	sw	$1, 44($29)
+	sw	$8, 48($29)
+	sw	$14, 52($29)
+	mov	$2, $3
+	mov	$1, $14
+	mov	$28, $6
 	sw	$31, 60($29)
 	addi	$29, $29, 64
 	lw	$27, 0($28)
@@ -5888,38 +5089,33 @@ beq_else.8904:
 	addi	$29, $29, -64
 	lw	$31, 60($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8906
-	lw	$1, 56($29)
+	bne	$1, $2, beq_else.10498
+	lw	$1, 52($29)
 	sll	$1, $1, 2
-	lw	$2, 32($29)
+	lw	$2, 48($29)
 	add	$27, $1, $2
 	lw	$1, 0($27)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	jal	o_isinvert.2524
-	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
+	lw	$1, 24($1)
 	set	$2, 0
-	bne	$1, $2, beq_else.8907
-jr $31
-beq_else.8907:
-	lw	$1, 48($29)
+	bne	$1, $2, beq_else.10499
+	jr $31
+beq_else.10499:
+	lw	$1, 44($29)
 	addi	$1, $1, 1
-	lw	$2, 44($29)
-	lw	$3, 36($29)
-	lw	$28, 28($29)
+	lw	$2, 36($29)
+	lw	$3, 32($29)
+	lw	$28, 40($29)
 	lw	$27, 0($28)
 	jr	$27
-beq_else.8906:
+beq_else.10498:
 	set	$2, 0
 	sll	$2, $2, 2
-	lw	$3, 24($29)
+	lw	$3, 28($29)
 	add	$27, $2, $3
 	lwc	$f1, 0($27)
-	setclv	$f0, l.5993
-	sw	$1, 60($29)
-	swc	$f1, 64($29)
+	setclv	$f0, l.7945
+	sw	$1, 56($29)
+	swc	$f1, 60($29)
 	sw	$31, 68($29)
 	addi	$29, $29, 72
 	jal	min_caml_fless
@@ -5927,15 +5123,15 @@ beq_else.8906:
 	addi	$29, $29, -72
 	lw	 $31, 68($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8909
-	j	beq_cont.8910
-beq_else.8909:
+	bne	$1, $2, beq_else.10501
+	j	beq_cont.10502
+beq_else.10501:
 	set	$1, 0
 	sll	$1, $1, 2
-	lw	$2, 20($29)
+	lw	$2, 24($29)
 	add	$27, $1, $2
 	lwc	$f1, 0($27)
-	lwc	$f0, 64($29)
+	lwc	$f0, 60($29)
 	sw	$31, 68($29)
 	addi	$29, $29, 72
 	jal	min_caml_fless
@@ -5943,15 +5139,15 @@ beq_else.8909:
 	addi	$29, $29, -72
 	lw	 $31, 68($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8911
-	j	beq_cont.8912
-beq_else.8911:
-	setclv	$f0, l.6310
-	lwc	$f1, 64($29)
+	bne	$1, $2, beq_else.10503
+	j	beq_cont.10504
+beq_else.10503:
+	setclv	$f0, l.8293
+	lwc	$f1, 60($29)
 	add.s	$f0, $f1, $f0
 	set	$1, 0
 	sll	$1, $1, 2
-	lw	$2, 52($29)
+	lw	$2, 20($29)
 	add	$27, $1, $2
 	lwc	$f1, 0($27)
 	mul.s	$f1, $f1, $f0
@@ -5982,12 +5178,12 @@ beq_else.8911:
 	lwc	$f4, 0($27)
 	add.s	$f3, $f3, $f4
 	set	$1, 0
-	lw	$2, 44($29)
+	lw	$2, 36($29)
 	lw	$28, 12($29)
-	swc	$f3, 68($29)
-	swc	$f2, 72($29)
-	swc	$f1, 76($29)
-	swc	$f0, 80($29)
+	swc	$f3, 64($29)
+	swc	$f2, 68($29)
+	swc	$f1, 72($29)
+	swc	$f0, 76($29)
 	mov.s	$f0, $f1
 	mov.s	$f1, $f2
 	mov.s	$f2, $f3
@@ -5999,57 +5195,57 @@ beq_else.8911:
 	addi	$29, $29, -88
 	lw	$31, 84($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8913
-	j	beq_cont.8914
-beq_else.8913:
+	bne	$1, $2, beq_else.10505
+	j	beq_cont.10506
+beq_else.10505:
 	set	$1, 0
 	sll	$1, $1, 2
-	lw	$2, 20($29)
-	lwc	$f0, 80($29)
+	lw	$2, 24($29)
+	lwc	$f0, 76($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-	lwc	$f0, 76($29)
-	lwc	$f1, 72($29)
-	lwc	$f2, 68($29)
+	lwc	$f0, 72($29)
+	lwc	$f1, 68($29)
+	lwc	$f2, 64($29)
 	lw	$1, 8($29)
 	sw	$31, 84($29)
 	addi	$29, $29, 88
-	jal	vecset.2472
+	jal	vecset.2474
 	nop
 	addi	$29, $29, -88
 	lw	 $31, 84($29)
 	set	$1, 0
 	sll	$1, $1, 2
 	lw	$2, 4($29)
-	lw	$3, 56($29)
+	lw	$3, 52($29)
 	add	$27, $1, $2
 	sw	$3, 0($27)
 	set	$1, 0
 	sll	$1, $1, 2
 	lw	$2, 0($29)
-	lw	$3, 60($29)
+	lw	$3, 56($29)
 	add	$27, $1, $2
 	sw	$3, 0($27)
-beq_cont.8914:
-beq_cont.8912:
-beq_cont.8910:
-	lw	$1, 48($29)
+beq_cont.10506:
+beq_cont.10504:
+beq_cont.10502:
+	lw	$1, 44($29)
 	addi	$1, $1, 1
-	lw	$2, 44($29)
-	lw	$3, 36($29)
-	lw	$28, 28($29)
+	lw	$2, 36($29)
+	lw	$3, 32($29)
+	lw	$28, 40($29)
 	lw	$27, 0($28)
 	jr	$27
-solve_one_or_network_fast.2768:
+solve_one_or_network_fast.2770:
 	lw	$4, 8($28)
 	lw	$5, 4($28)
 	sll	$6, $1, 2
 	add	$27, $6, $2
 	lw	$6, 0($27)
 	set	$7, -1
-	bne	$6, $7, beq_else.8915
-jr $31
-beq_else.8915:
+	bne	$6, $7, beq_else.10507
+	jr $31
+beq_else.10507:
 	sll	$6, $6, 2
 	add	$27, $6, $5
 	lw	$5, 0($27)
@@ -6075,7 +5271,7 @@ beq_else.8915:
 	lw	$28, 8($29)
 	lw	$27, 0($28)
 	jr	$27
-trace_or_matrix_fast.2772:
+trace_or_matrix_fast.2774:
 	lw	$4, 16($28)
 	lw	$5, 12($28)
 	lw	$6, 8($28)
@@ -6088,15 +5284,15 @@ trace_or_matrix_fast.2772:
 	add	$27, $9, $8
 	lw	$9, 0($27)
 	set	$10, -1
-	bne	$9, $10, beq_else.8917
-jr $31
-beq_else.8917:
+	bne	$9, $10, beq_else.10509
+	jr $31
+beq_else.10509:
 	set	$10, 99
 	sw	$3, 0($29)
 	sw	$2, 4($29)
 	sw	$28, 8($29)
 	sw	$1, 12($29)
-	bne	$9, $10, beq_else.8919
+	bne	$9, $10, beq_else.10511
 	set	$4, 1
 	mov	$2, $8
 	mov	$1, $4
@@ -6108,8 +5304,8 @@ beq_else.8917:
 	nop
 	addi	$29, $29, -24
 	lw	$31, 20($29)
-	j	beq_cont.8920
-beq_else.8919:
+	j	beq_cont.10512
+beq_else.10511:
 	sw	$8, 16($29)
 	sw	$7, 20($29)
 	sw	$4, 24($29)
@@ -6125,9 +5321,9 @@ beq_else.8919:
 	addi	$29, $29, -40
 	lw	$31, 36($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8921
-	j	beq_cont.8922
-beq_else.8921:
+	bne	$1, $2, beq_else.10513
+	j	beq_cont.10514
+beq_else.10513:
 	set	$1, 0
 	sll	$1, $1, 2
 	lw	$2, 28($29)
@@ -6145,9 +5341,9 @@ beq_else.8921:
 	addi	$29, $29, -40
 	lw	 $31, 36($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8923
-	j	beq_cont.8924
-beq_else.8923:
+	bne	$1, $2, beq_else.10515
+	j	beq_cont.10516
+beq_else.10515:
 	set	$1, 1
 	lw	$2, 16($29)
 	lw	$3, 0($29)
@@ -6159,9 +5355,9 @@ beq_else.8923:
 	nop
 	addi	$29, $29, -40
 	lw	$31, 36($29)
-beq_cont.8924:
-beq_cont.8922:
-beq_cont.8920:
+beq_cont.10516:
+beq_cont.10514:
+beq_cont.10512:
 	lw	$1, 12($29)
 	addi	$1, $1, 1
 	lw	$2, 4($29)
@@ -6169,12 +5365,12 @@ beq_cont.8920:
 	lw	$28, 8($29)
 	lw	$27, 0($28)
 	jr	$27
-judge_intersection_fast.2776:
+judge_intersection_fast.2778:
 	lw	$2, 12($28)
 	lw	$3, 8($28)
 	lw	$4, 4($28)
 	set	$5, 0
-	setclv	$f0, l.6343
+	setclv	$f0, l.8326
 	sll	$5, $5, 2
 	add	$27, $5, $3
 	swc	$f0, 0($27)
@@ -6200,7 +5396,7 @@ judge_intersection_fast.2776:
 	lw	$2, 0($29)
 	add	$27, $1, $2
 	lwc	$f1, 0($27)
-	setclv	$f0, l.6323
+	setclv	$f0, l.8306
 	swc	$f1, 4($29)
 	sw	$31, 12($29)
 	addi	$29, $29, 16
@@ -6209,27 +5405,28 @@ judge_intersection_fast.2776:
 	addi	$29, $29, -16
 	lw	 $31, 12($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8925
+	bne	$1, $2, beq_else.10517
 	set	$1, 0
 	jr $31
-beq_else.8925:
-	setclv	$f1, l.6347
+beq_else.10517:
+	setclv	$f1, l.8330
 	lwc	$f0, 4($29)
 	j	min_caml_fless
-get_nvector_rect.2778:
+get_nvector_rect.2780:
 	lw	$2, 8($28)
 	lw	$3, 4($28)
 	set	$4, 0
 	sll	$4, $4, 2
 	add	$27, $4, $3
 	lw	$3, 0($27)
+	setclv	$f0, l.7945
 	sw	$2, 0($29)
 	sw	$1, 4($29)
 	sw	$3, 8($29)
 	mov	$1, $2
 	sw	$31, 12($29)
 	addi	$29, $29, 16
-	jal	vecbzero.2480
+	jal	vecfill.2479
 	nop
 	addi	$29, $29, -16
 	lw	 $31, 12($29)
@@ -6245,7 +5442,7 @@ get_nvector_rect.2778:
 	sw	$1, 12($29)
 	sw	$31, 20($29)
 	addi	$29, $29, 24
-	jal	sgn.2464
+	jal	sgn.2466
 	nop
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
@@ -6260,19 +5457,18 @@ get_nvector_rect.2778:
 	lw	$2, 0($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-jr $31
-get_nvector_plane.2780:
+	jr $31
+get_nvector_plane.2782:
 	lw	$2, 4($28)
 	set	$3, 0
+	lw	$4, 16($1)
+	set	$5, 0
+	sll	$5, $5, 2
+	add	$27, $5, $4
+	lwc	$f0, 0($27)
 	sw	$1, 0($29)
 	sw	$2, 4($29)
 	sw	$3, 8($29)
-	sw	$31, 12($29)
-	addi	$29, $29, 16
-	jal	o_param_a.2528
-	nop
-	addi	$29, $29, -16
-	lw	 $31, 12($29)
 	sw	$31, 12($29)
 	addi	$29, $29, 16
 	jal	min_caml_fneg
@@ -6286,14 +5482,12 @@ get_nvector_plane.2780:
 	swc	$f0, 0($27)
 	set	$1, 1
 	lw	$3, 0($29)
+	lw	$4, 16($3)
+	set	$5, 1
+	sll	$5, $5, 2
+	add	$27, $5, $4
+	lwc	$f0, 0($27)
 	sw	$1, 12($29)
-	mov	$1, $3
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	o_param_b.2530
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
 	sw	$31, 20($29)
 	addi	$29, $29, 24
 	jal	min_caml_fneg
@@ -6307,14 +5501,12 @@ get_nvector_plane.2780:
 	swc	$f0, 0($27)
 	set	$1, 2
 	lw	$3, 0($29)
+	lw	$3, 16($3)
+	set	$4, 2
+	sll	$4, $4, 2
+	add	$27, $4, $3
+	lwc	$f0, 0($27)
 	sw	$1, 16($29)
-	mov	$1, $3
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	o_param_c.2532
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
 	sw	$31, 20($29)
 	addi	$29, $29, 24
 	jal	min_caml_fneg
@@ -6326,843 +5518,696 @@ get_nvector_plane.2780:
 	lw	$2, 4($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-jr $31
-get_nvector_second.2782:
+	jr $31
+get_nvector_second.2784:
 	lw	$2, 8($28)
 	lw	$3, 4($28)
 	set	$4, 0
 	sll	$4, $4, 2
 	add	$27, $4, $3
 	lwc	$f0, 0($27)
-	sw	$2, 0($29)
-	sw	$1, 4($29)
-	sw	$3, 8($29)
-	swc	$f0, 12($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	o_param_x.2536
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
-	lwc	$f1, 12($29)
-	sub.s	$f0, $f1, $f0
-	set	$1, 1
-	sll	$1, $1, 2
-	lw	$2, 8($29)
-	add	$27, $1, $2
+	lw	$4, 20($1)
+	set	$5, 0
+	sll	$5, $5, 2
+	add	$27, $5, $4
 	lwc	$f1, 0($27)
-	lw	$1, 4($29)
-	swc	$f0, 16($29)
-	swc	$f1, 20($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	o_param_y.2538
+	sub.s	$f0, $f0, $f1
+	set	$4, 1
+	sll	$4, $4, 2
+	add	$27, $4, $3
+	lwc	$f1, 0($27)
+	lw	$4, 20($1)
+	set	$5, 1
+	sll	$5, $5, 2
+	add	$27, $5, $4
+	lwc	$f2, 0($27)
+	sub.s	$f1, $f1, $f2
+	set	$4, 2
+	sll	$4, $4, 2
+	add	$27, $4, $3
+	lwc	$f2, 0($27)
+	lw	$3, 20($1)
+	set	$4, 2
+	sll	$4, $4, 2
+	add	$27, $4, $3
+	lwc	$f3, 0($27)
+	sub.s	$f2, $f2, $f3
+	lw	$3, 16($1)
+	set	$4, 0
+	sll	$4, $4, 2
+	add	$27, $4, $3
+	lwc	$f3, 0($27)
+	mul.s	$f3, $f0, $f3
+	lw	$3, 16($1)
+	set	$4, 1
+	sll	$4, $4, 2
+	add	$27, $4, $3
+	lwc	$f4, 0($27)
+	mul.s	$f4, $f1, $f4
+	lw	$3, 16($1)
+	set	$4, 2
+	sll	$4, $4, 2
+	add	$27, $4, $3
+	lwc	$f5, 0($27)
+	mul.s	$f5, $f2, $f5
+	lw	$3, 12($1)
+	set	$4, 0
+	sw	$1, 0($29)
+	bne	$3, $4, beq_else.10520
+	set	$3, 0
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	swc	$f3, 0($27)
+	set	$3, 1
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	swc	$f4, 0($27)
+	set	$3, 2
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	swc	$f5, 0($27)
+	j	beq_cont.10521
+beq_else.10520:
+	set	$3, 0
+	lw	$4, 36($1)
+	set	$5, 2
+	sll	$5, $5, 2
+	add	$27, $5, $4
+	lwc	$f6, 0($27)
+	mul.s	$f6, $f1, $f6
+	lw	$4, 36($1)
+	set	$5, 1
+	sll	$5, $5, 2
+	add	$27, $5, $4
+	lwc	$f7, 0($27)
+	mul.s	$f7, $f2, $f7
+	add.s	$f6, $f6, $f7
+	swc	$f5, 4($29)
+	swc	$f1, 8($29)
+	swc	$f4, 12($29)
+	swc	$f2, 16($29)
+	swc	$f0, 20($29)
+	sw	$2, 24($29)
+	sw	$3, 28($29)
+	swc	$f3, 32($29)
+	mov.s	$f0, $f6
+	sw	$31, 36($29)
+	addi	$29, $29, 40
+	jal	min_caml_fhalf
 	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
+	lwc	$f1, 32($29)
+	add.s	$f0, $f1, $f0
+	lw	$1, 28($29)
+	sll	$1, $1, 2
+	lw	$2, 24($29)
+	add	$27, $1, $2
+	swc	$f0, 0($27)
+	set	$1, 1
+	lw	$3, 0($29)
+	lw	$4, 36($3)
+	set	$5, 2
+	sll	$5, $5, 2
+	add	$27, $5, $4
+	lwc	$f0, 0($27)
 	lwc	$f1, 20($29)
-	sub.s	$f0, $f1, $f0
-	set	$1, 2
+	mul.s	$f0, $f1, $f0
+	lw	$4, 36($3)
+	set	$5, 0
+	sll	$5, $5, 2
+	add	$27, $5, $4
+	lwc	$f2, 0($27)
+	lwc	$f3, 16($29)
+	mul.s	$f2, $f3, $f2
+	add.s	$f0, $f0, $f2
+	sw	$1, 36($29)
+	sw	$31, 44($29)
+	addi	$29, $29, 48
+	jal	min_caml_fhalf
+	nop
+	addi	$29, $29, -48
+	lw	 $31, 44($29)
+	lwc	$f1, 12($29)
+	add.s	$f0, $f1, $f0
+	lw	$1, 36($29)
 	sll	$1, $1, 2
-	lw	$2, 8($29)
+	lw	$2, 24($29)
 	add	$27, $1, $2
+	swc	$f0, 0($27)
+	set	$1, 2
+	lw	$3, 0($29)
+	lw	$4, 36($3)
+	set	$5, 1
+	sll	$5, $5, 2
+	add	$27, $5, $4
+	lwc	$f0, 0($27)
+	lwc	$f1, 20($29)
+	mul.s	$f0, $f1, $f0
+	lw	$4, 36($3)
+	set	$5, 0
+	sll	$5, $5, 2
+	add	$27, $5, $4
 	lwc	$f1, 0($27)
-	lw	$1, 4($29)
-	swc	$f0, 24($29)
-	swc	$f1, 28($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	o_param_z.2540
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lwc	$f1, 28($29)
-	sub.s	$f0, $f1, $f0
-	lw	$1, 4($29)
-	swc	$f0, 32($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	o_param_a.2528
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lwc	$f1, 16($29)
-	mul.s	$f0, $f1, $f0
-	lw	$1, 4($29)
-	swc	$f0, 36($29)
+	lwc	$f2, 8($29)
+	mul.s	$f1, $f2, $f1
+	add.s	$f0, $f0, $f1
+	sw	$1, 40($29)
 	sw	$31, 44($29)
 	addi	$29, $29, 48
-	jal	o_param_b.2530
+	jal	min_caml_fhalf
 	nop
 	addi	$29, $29, -48
 	lw	 $31, 44($29)
-	lwc	$f1, 24($29)
-	mul.s	$f0, $f1, $f0
-	lw	$1, 4($29)
-	swc	$f0, 40($29)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	o_param_c.2532
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lwc	$f1, 32($29)
-	mul.s	$f0, $f1, $f0
-	lw	$1, 4($29)
-	swc	$f0, 44($29)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	o_isrot.2526
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	set	$2, 0
-	bne	$1, $2, beq_else.8928
-	set	$1, 0
-	sll	$1, $1, 2
-	lw	$2, 0($29)
-	lwc	$f0, 36($29)
-	add	$27, $1, $2
-	swc	$f0, 0($27)
-	set	$1, 1
-	sll	$1, $1, 2
-	lwc	$f0, 40($29)
-	add	$27, $1, $2
-	swc	$f0, 0($27)
-	set	$1, 2
-	sll	$1, $1, 2
-	lwc	$f0, 44($29)
-	add	$27, $1, $2
-	swc	$f0, 0($27)
-	j	beq_cont.8929
-beq_else.8928:
-	set	$1, 0
-	lw	$2, 4($29)
-	sw	$1, 48($29)
-	mov	$1, $2
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	o_param_r3.2556
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	lwc	$f1, 24($29)
-	mul.s	$f0, $f1, $f0
-	lw	$1, 4($29)
-	swc	$f0, 52($29)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	jal	o_param_r2.2554
-	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
-	lwc	$f1, 32($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f2, 52($29)
-	add.s	$f0, $f2, $f0
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	jal	min_caml_fhalf
-	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
-	lwc	$f1, 36($29)
+	lwc	$f1, 4($29)
 	add.s	$f0, $f1, $f0
-	lw	$1, 48($29)
+	lw	$1, 40($29)
 	sll	$1, $1, 2
-	lw	$2, 0($29)
+	lw	$2, 24($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-	set	$1, 1
-	lw	$3, 4($29)
-	sw	$1, 56($29)
-	mov	$1, $3
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	jal	o_param_r3.2556
-	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
-	lwc	$f1, 16($29)
-	mul.s	$f0, $f1, $f0
-	lw	$1, 4($29)
-	swc	$f0, 60($29)
-	sw	$31, 68($29)
-	addi	$29, $29, 72
-	jal	o_param_r1.2552
-	nop
-	addi	$29, $29, -72
-	lw	 $31, 68($29)
-	lwc	$f1, 32($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 60($29)
-	add.s	$f0, $f1, $f0
-	sw	$31, 68($29)
-	addi	$29, $29, 72
-	jal	min_caml_fhalf
-	nop
-	addi	$29, $29, -72
-	lw	 $31, 68($29)
-	lwc	$f1, 40($29)
-	add.s	$f0, $f1, $f0
-	lw	$1, 56($29)
-	sll	$1, $1, 2
-	lw	$2, 0($29)
-	add	$27, $1, $2
-	swc	$f0, 0($27)
-	set	$1, 2
-	lw	$3, 4($29)
-	sw	$1, 64($29)
-	mov	$1, $3
-	sw	$31, 68($29)
-	addi	$29, $29, 72
-	jal	o_param_r2.2554
-	nop
-	addi	$29, $29, -72
-	lw	 $31, 68($29)
-	lwc	$f1, 16($29)
-	mul.s	$f0, $f1, $f0
-	lw	$1, 4($29)
-	swc	$f0, 68($29)
-	sw	$31, 76($29)
-	addi	$29, $29, 80
-	jal	o_param_r1.2552
-	nop
-	addi	$29, $29, -80
-	lw	 $31, 76($29)
-	lwc	$f1, 24($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 68($29)
-	add.s	$f0, $f1, $f0
-	sw	$31, 76($29)
-	addi	$29, $29, 80
-	jal	min_caml_fhalf
-	nop
-	addi	$29, $29, -80
-	lw	 $31, 76($29)
-	lwc	$f1, 44($29)
-	add.s	$f0, $f1, $f0
-	lw	$1, 64($29)
-	sll	$1, $1, 2
-	lw	$2, 0($29)
-	add	$27, $1, $2
-	swc	$f0, 0($27)
-beq_cont.8929:
-	lw	$1, 4($29)
-	sw	$31, 76($29)
-	addi	$29, $29, 80
-	jal	o_isinvert.2524
-	nop
-	addi	$29, $29, -80
-	lw	 $31, 76($29)
-	mov	$2, $1
+beq_cont.10521:
 	lw	$1, 0($29)
-	j	vecunit_sgn.2490
-get_nvector.2784:
-	lw	$3, 12($28)
-	lw	$4, 8($28)
-	lw	$5, 4($28)
+	lw	$1, 24($1)
+	mov	$27, $2
+	mov	$2, $1
+	mov	$1, $27
+	j	vecunit_sgn.2492
+utexture.2789:
+	lw	$3, 4($28)
+	lw	$4, 0($1)
+	set	$5, 0
+	lw	$6, 32($1)
+	set	$7, 0
+	sll	$7, $7, 2
+	add	$27, $7, $6
+	lwc	$f0, 0($27)
+	sll	$5, $5, 2
+	add	$27, $5, $3
+	swc	$f0, 0($27)
+	set	$5, 1
+	lw	$6, 32($1)
+	set	$7, 1
+	sll	$7, $7, 2
+	add	$27, $7, $6
+	lwc	$f0, 0($27)
+	sll	$5, $5, 2
+	add	$27, $5, $3
+	swc	$f0, 0($27)
+	set	$5, 2
+	lw	$6, 32($1)
+	set	$7, 2
+	sll	$7, $7, 2
+	add	$27, $7, $6
+	lwc	$f0, 0($27)
+	sll	$5, $5, 2
+	add	$27, $5, $3
+	swc	$f0, 0($27)
+	set	$5, 1
+	bne	$4, $5, beq_else.10522
+	set	$4, 0
+	sll	$4, $4, 2
+	add	$27, $4, $2
+	lwc	$f0, 0($27)
+	lw	$4, 20($1)
+	set	$5, 0
+	sll	$5, $5, 2
+	add	$27, $5, $4
+	lwc	$f1, 0($27)
+	sub.s	$f0, $f0, $f1
+	setclv	$f1, l.8420
+	mul.s	$f1, $f0, $f1
 	sw	$3, 0($29)
 	sw	$1, 4($29)
-	sw	$5, 8($29)
-	sw	$2, 12($29)
-	sw	$4, 16($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	o_form.2520
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
-	set	$2, 1
-	bne	$1, $2, beq_else.8930
-	lw	$1, 12($29)
-	lw	$28, 16($29)
-	lw	$27, 0($28)
-	jr	$27
-beq_else.8930:
-	set	$2, 2
-	bne	$1, $2, beq_else.8931
-	lw	$1, 4($29)
-	lw	$28, 8($29)
-	lw	$27, 0($28)
-	jr	$27
-beq_else.8931:
-	lw	$1, 4($29)
-	lw	$28, 0($29)
-	lw	$27, 0($28)
-	jr	$27
-utexture.2787:
-	lw	$3, 4($28)
-	sw	$2, 0($29)
-	sw	$3, 4($29)
-	sw	$1, 8($29)
-	sw	$31, 12($29)
-	addi	$29, $29, 16
-	jal	o_texturetype.2518
-	nop
-	addi	$29, $29, -16
-	lw	 $31, 12($29)
-	set	$2, 0
-	lw	$3, 8($29)
-	sw	$1, 12($29)
-	sw	$2, 16($29)
-	mov	$1, $3
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	o_color_red.2546
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
-	lw	$1, 16($29)
-	sll	$1, $1, 2
-	lw	$2, 4($29)
-	add	$27, $1, $2
-	swc	$f0, 0($27)
-	set	$1, 1
-	lw	$3, 8($29)
-	sw	$1, 20($29)
-	mov	$1, $3
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	o_color_green.2548
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	lw	$1, 20($29)
-	sll	$1, $1, 2
-	lw	$2, 4($29)
-	add	$27, $1, $2
-	swc	$f0, 0($27)
-	set	$1, 2
-	lw	$3, 8($29)
-	sw	$1, 24($29)
-	mov	$1, $3
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	o_color_blue.2550
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	lw	$1, 24($29)
-	sll	$1, $1, 2
-	lw	$2, 4($29)
-	add	$27, $1, $2
-	swc	$f0, 0($27)
-	set	$1, 1
-	lw	$3, 12($29)
-	bne	$3, $1, beq_else.8932
-	set	$1, 0
-	sll	$1, $1, 2
-	lw	$3, 0($29)
-	add	$27, $1, $3
-	lwc	$f0, 0($27)
-	lw	$1, 8($29)
-	swc	$f0, 28($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	o_param_x.2536
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lwc	$f1, 28($29)
-	sub.s	$f0, $f1, $f0
-	setclv	$f1, l.6410
-	mul.s	$f1, $f0, $f1
-	swc	$f0, 32($29)
+	sw	$2, 8($29)
+	swc	$f0, 12($29)
 	mov.s	$f0, $f1
-	sw	$31, 36($29)
-	addi	$29, $29, 40
+	sw	$31, 20($29)
+	addi	$29, $29, 24
 	jal	min_caml_floor
 	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	setclv	$f1, l.6411
+	addi	$29, $29, -24
+	lw	 $31, 20($29)
+	setclv	$f1, l.8421
 	mul.s	$f0, $f0, $f1
-	lwc	$f1, 32($29)
+	lwc	$f1, 12($29)
 	sub.s	$f0, $f1, $f0
-	setclv	$f1, l.6402
-	sw	$31, 36($29)
-	addi	$29, $29, 40
+	setclv	$f1, l.8411
+	sw	$31, 20($29)
+	addi	$29, $29, 24
 	jal	min_caml_fless
 	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
+	addi	$29, $29, -24
+	lw	 $31, 20($29)
 	set	$2, 2
 	sll	$2, $2, 2
-	lw	$3, 0($29)
+	lw	$3, 8($29)
 	add	$27, $2, $3
 	lwc	$f0, 0($27)
-	lw	$2, 8($29)
-	sw	$1, 36($29)
-	swc	$f0, 40($29)
-	mov	$1, $2
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	o_param_z.2540
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lwc	$f1, 40($29)
-	sub.s	$f0, $f1, $f0
-	setclv	$f1, l.6410
+	lw	$2, 4($29)
+	lw	$2, 20($2)
+	set	$3, 2
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f1, 0($27)
+	sub.s	$f0, $f0, $f1
+	setclv	$f1, l.8420
 	mul.s	$f1, $f0, $f1
-	swc	$f0, 44($29)
+	sw	$1, 16($29)
+	swc	$f0, 20($29)
 	mov.s	$f0, $f1
-	sw	$31, 52($29)
-	addi	$29, $29, 56
+	sw	$31, 28($29)
+	addi	$29, $29, 32
 	jal	min_caml_floor
 	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	setclv	$f1, l.6411
+	addi	$29, $29, -32
+	lw	 $31, 28($29)
+	setclv	$f1, l.8421
 	mul.s	$f0, $f0, $f1
-	lwc	$f1, 44($29)
+	lwc	$f1, 20($29)
 	sub.s	$f0, $f1, $f0
-	setclv	$f1, l.6402
-	sw	$31, 52($29)
-	addi	$29, $29, 56
+	setclv	$f1, l.8411
+	sw	$31, 28($29)
+	addi	$29, $29, 32
 	jal	min_caml_fless
 	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
+	addi	$29, $29, -32
+	lw	 $31, 28($29)
 	set	$2, 1
 	set	$3, 0
-	lw	$4, 36($29)
-	bne	$4, $3, beq_else.8933
+	lw	$4, 16($29)
+	bne	$4, $3, beq_else.10523
 	set	$3, 0
-	bne	$1, $3, beq_else.8935
-	setclv	$f0, l.6397
-	j	beq_cont.8936
-beq_else.8935:
-	setclv	$f0, l.5993
-beq_cont.8936:
-	j	beq_cont.8934
-beq_else.8933:
+	bne	$1, $3, beq_else.10525
+	setclv	$f0, l.8404
+	j	beq_cont.10526
+beq_else.10525:
+	setclv	$f0, l.7945
+beq_cont.10526:
+	j	beq_cont.10524
+beq_else.10523:
 	set	$3, 0
-	bne	$1, $3, beq_else.8937
-	setclv	$f0, l.5993
-	j	beq_cont.8938
-beq_else.8937:
-	setclv	$f0, l.6397
-beq_cont.8938:
-beq_cont.8934:
+	bne	$1, $3, beq_else.10527
+	setclv	$f0, l.7945
+	j	beq_cont.10528
+beq_else.10527:
+	setclv	$f0, l.8404
+beq_cont.10528:
+beq_cont.10524:
 	sll	$1, $2, 2
-	lw	$2, 4($29)
+	lw	$2, 0($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-jr $31
-beq_else.8932:
-	set	$1, 2
-	bne	$3, $1, beq_else.8940
+	jr $31
+beq_else.10522:
+	set	$5, 2
+	bne	$4, $5, beq_else.10530
 	set	$1, 1
 	sll	$1, $1, 2
-	lw	$3, 0($29)
-	add	$27, $1, $3
+	add	$27, $1, $2
 	lwc	$f0, 0($27)
-	setclv	$f1, l.6406
+	setclv	$f1, l.8415
 	mul.s	$f0, $f0, $f1
-	sw	$31, 52($29)
-	addi	$29, $29, 56
+	sw	$3, 0($29)
+	sw	$31, 28($29)
+	addi	$29, $29, 32
 	jal	min_caml_sin
 	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
+	addi	$29, $29, -32
+	lw	 $31, 28($29)
+	sw	$31, 28($29)
+	addi	$29, $29, 32
 	jal	min_caml_fsqr
 	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
+	addi	$29, $29, -32
+	lw	 $31, 28($29)
 	set	$1, 0
-	setclv	$f1, l.6397
+	setclv	$f1, l.8404
 	mul.s	$f1, $f1, $f0
 	sll	$1, $1, 2
-	lw	$2, 4($29)
+	lw	$2, 0($29)
 	add	$27, $1, $2
 	swc	$f1, 0($27)
 	set	$1, 1
-	setclv	$f1, l.6397
-	setclv	$f2, l.5994
+	setclv	$f1, l.8404
+	setclv	$f2, l.7946
 	sub.s	$f0, $f2, $f0
 	mul.s	$f0, $f1, $f0
 	sll	$1, $1, 2
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-jr $31
-beq_else.8940:
-	set	$1, 3
-	bne	$3, $1, beq_else.8942
-	set	$1, 0
-	sll	$1, $1, 2
-	lw	$3, 0($29)
-	add	$27, $1, $3
+	jr $31
+beq_else.10530:
+	set	$5, 3
+	bne	$4, $5, beq_else.10532
+	set	$4, 0
+	sll	$4, $4, 2
+	add	$27, $4, $2
 	lwc	$f0, 0($27)
-	lw	$1, 8($29)
-	swc	$f0, 48($29)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	o_param_x.2536
+	lw	$4, 20($1)
+	set	$5, 0
+	sll	$5, $5, 2
+	add	$27, $5, $4
+	lwc	$f1, 0($27)
+	sub.s	$f0, $f0, $f1
+	set	$4, 2
+	sll	$4, $4, 2
+	add	$27, $4, $2
+	lwc	$f1, 0($27)
+	lw	$1, 20($1)
+	set	$2, 2
+	sll	$2, $2, 2
+	add	$27, $2, $1
+	lwc	$f2, 0($27)
+	sub.s	$f1, $f1, $f2
+	sw	$3, 0($29)
+	swc	$f1, 24($29)
+	sw	$31, 28($29)
+	addi	$29, $29, 32
+	jal	min_caml_fsqr
 	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	lwc	$f1, 48($29)
+	addi	$29, $29, -32
+	lw	 $31, 28($29)
+	lwc	$f1, 24($29)
+	swc	$f0, 28($29)
+	mov.s	$f0, $f1
+	sw	$31, 36($29)
+	addi	$29, $29, 40
+	jal	min_caml_fsqr
+	nop
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
+	lwc	$f1, 28($29)
+	add.s	$f0, $f1, $f0
+	sw	$31, 36($29)
+	addi	$29, $29, 40
+	jal	min_caml_sqrt
+	nop
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
+	setclv	$f1, l.8411
+	div.s	$f0, $f0, $f1
+	swc	$f0, 32($29)
+	sw	$31, 36($29)
+	addi	$29, $29, 40
+	jal	min_caml_floor
+	nop
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
+	lwc	$f1, 32($29)
 	sub.s	$f0, $f1, $f0
-	set	$1, 2
+	setclv	$f1, l.8398
+	mul.s	$f0, $f0, $f1
+	sw	$31, 36($29)
+	addi	$29, $29, 40
+	jal	min_caml_cos
+	nop
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
+	sw	$31, 36($29)
+	addi	$29, $29, 40
+	jal	min_caml_fsqr
+	nop
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
+	set	$1, 1
+	setclv	$f1, l.8404
+	mul.s	$f1, $f0, $f1
 	sll	$1, $1, 2
 	lw	$2, 0($29)
 	add	$27, $1, $2
-	lwc	$f1, 0($27)
-	lw	$1, 8($29)
-	swc	$f0, 52($29)
-	swc	$f1, 56($29)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	jal	o_param_z.2540
-	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
-	lwc	$f1, 56($29)
-	sub.s	$f0, $f1, $f0
-	lwc	$f1, 52($29)
-	swc	$f0, 60($29)
-	mov.s	$f0, $f1
-	sw	$31, 68($29)
-	addi	$29, $29, 72
-	jal	min_caml_fsqr
-	nop
-	addi	$29, $29, -72
-	lw	 $31, 68($29)
-	lwc	$f1, 60($29)
-	swc	$f0, 64($29)
-	mov.s	$f0, $f1
-	sw	$31, 68($29)
-	addi	$29, $29, 72
-	jal	min_caml_fsqr
-	nop
-	addi	$29, $29, -72
-	lw	 $31, 68($29)
-	lwc	$f1, 64($29)
-	add.s	$f0, $f1, $f0
-	sw	$31, 68($29)
-	addi	$29, $29, 72
-	jal	min_caml_sqrt
-	nop
-	addi	$29, $29, -72
-	lw	 $31, 68($29)
-	setclv	$f1, l.6402
-	div.s	$f0, $f0, $f1
-	swc	$f0, 68($29)
-	sw	$31, 76($29)
-	addi	$29, $29, 80
-	jal	min_caml_floor
-	nop
-	addi	$29, $29, -80
-	lw	 $31, 76($29)
-	lwc	$f1, 68($29)
-	sub.s	$f0, $f1, $f0
-	setclv	$f1, l.6393
-	mul.s	$f0, $f0, $f1
-	sw	$31, 76($29)
-	addi	$29, $29, 80
-	jal	min_caml_cos
-	nop
-	addi	$29, $29, -80
-	lw	 $31, 76($29)
-	sw	$31, 76($29)
-	addi	$29, $29, 80
-	jal	min_caml_fsqr
-	nop
-	addi	$29, $29, -80
-	lw	 $31, 76($29)
-	set	$1, 1
-	setclv	$f1, l.6397
-	mul.s	$f1, $f0, $f1
-	sll	$1, $1, 2
-	lw	$2, 4($29)
-	add	$27, $1, $2
 	swc	$f1, 0($27)
 	set	$1, 2
-	setclv	$f1, l.5994
+	setclv	$f1, l.7946
 	sub.s	$f0, $f1, $f0
-	setclv	$f1, l.6397
+	setclv	$f1, l.8404
 	mul.s	$f0, $f0, $f1
 	sll	$1, $1, 2
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-jr $31
-beq_else.8942:
-	set	$1, 4
-	bne	$3, $1, beq_else.8944
-	set	$1, 0
-	sll	$1, $1, 2
-	lw	$3, 0($29)
-	add	$27, $1, $3
+	jr $31
+beq_else.10532:
+	set	$5, 4
+	bne	$4, $5, beq_else.10534
+	set	$4, 0
+	sll	$4, $4, 2
+	add	$27, $4, $2
 	lwc	$f0, 0($27)
-	lw	$1, 8($29)
-	swc	$f0, 72($29)
+	lw	$4, 20($1)
+	set	$5, 0
+	sll	$5, $5, 2
+	add	$27, $5, $4
+	lwc	$f1, 0($27)
+	sub.s	$f0, $f0, $f1
+	lw	$4, 16($1)
+	set	$5, 0
+	sll	$5, $5, 2
+	add	$27, $5, $4
+	lwc	$f1, 0($27)
+	sw	$3, 0($29)
+	sw	$1, 4($29)
+	sw	$2, 8($29)
+	swc	$f0, 36($29)
+	mov.s	$f0, $f1
+	sw	$31, 44($29)
+	addi	$29, $29, 48
+	jal	min_caml_sqrt
+	nop
+	addi	$29, $29, -48
+	lw	 $31, 44($29)
+	lwc	$f1, 36($29)
+	mul.s	$f0, $f1, $f0
+	set	$1, 2
+	sll	$1, $1, 2
+	lw	$2, 8($29)
+	add	$27, $1, $2
+	lwc	$f1, 0($27)
+	lw	$1, 4($29)
+	lw	$3, 20($1)
+	set	$4, 2
+	sll	$4, $4, 2
+	add	$27, $4, $3
+	lwc	$f2, 0($27)
+	sub.s	$f1, $f1, $f2
+	lw	$3, 16($1)
+	set	$4, 2
+	sll	$4, $4, 2
+	add	$27, $4, $3
+	lwc	$f2, 0($27)
+	swc	$f0, 40($29)
+	swc	$f1, 44($29)
+	mov.s	$f0, $f2
+	sw	$31, 52($29)
+	addi	$29, $29, 56
+	jal	min_caml_sqrt
+	nop
+	addi	$29, $29, -56
+	lw	 $31, 52($29)
+	lwc	$f1, 44($29)
+	mul.s	$f0, $f1, $f0
+	lwc	$f1, 40($29)
+	swc	$f0, 48($29)
+	mov.s	$f0, $f1
+	sw	$31, 52($29)
+	addi	$29, $29, 56
+	jal	min_caml_fsqr
+	nop
+	addi	$29, $29, -56
+	lw	 $31, 52($29)
+	lwc	$f1, 48($29)
+	swc	$f0, 52($29)
+	mov.s	$f0, $f1
+	sw	$31, 60($29)
+	addi	$29, $29, 64
+	jal	min_caml_fsqr
+	nop
+	addi	$29, $29, -64
+	lw	 $31, 60($29)
+	lwc	$f1, 52($29)
+	add.s	$f0, $f1, $f0
+	lwc	$f1, 40($29)
+	swc	$f0, 56($29)
+	mov.s	$f0, $f1
+	sw	$31, 60($29)
+	addi	$29, $29, 64
+	jal	min_caml_fabs
+	nop
+	addi	$29, $29, -64
+	lw	 $31, 60($29)
+	setclv	$f1, l.8395
+	sw	$31, 60($29)
+	addi	$29, $29, 64
+	jal	min_caml_fless
+	nop
+	addi	$29, $29, -64
+	lw	 $31, 60($29)
+	set	$2, 0
+	bne	$1, $2, beq_else.10535
+	lwc	$f0, 40($29)
+	lwc	$f1, 48($29)
+	div.s	$f0, $f1, $f0
+	sw	$31, 60($29)
+	addi	$29, $29, 64
+	jal	min_caml_fabs
+	nop
+	addi	$29, $29, -64
+	lw	 $31, 60($29)
+	sw	$31, 60($29)
+	addi	$29, $29, 64
+	jal	min_caml_atan
+	nop
+	addi	$29, $29, -64
+	lw	 $31, 60($29)
+	setclv	$f1, l.8397
+	mul.s	$f0, $f0, $f1
+	setclv	$f1, l.8398
+	div.s	$f0, $f0, $f1
+	j	beq_cont.10536
+beq_else.10535:
+	setclv	$f0, l.8396
+beq_cont.10536:
+	swc	$f0, 60($29)
+	sw	$31, 68($29)
+	addi	$29, $29, 72
+	jal	min_caml_floor
+	nop
+	addi	$29, $29, -72
+	lw	 $31, 68($29)
+	lwc	$f1, 60($29)
+	sub.s	$f0, $f1, $f0
+	set	$1, 1
+	sll	$1, $1, 2
+	lw	$2, 8($29)
+	add	$27, $1, $2
+	lwc	$f1, 0($27)
+	lw	$1, 4($29)
+	lw	$2, 20($1)
+	set	$3, 1
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f2, 0($27)
+	sub.s	$f1, $f1, $f2
+	lw	$1, 16($1)
+	set	$2, 1
+	sll	$2, $2, 2
+	add	$27, $2, $1
+	lwc	$f2, 0($27)
+	swc	$f0, 64($29)
+	swc	$f1, 68($29)
+	mov.s	$f0, $f2
 	sw	$31, 76($29)
 	addi	$29, $29, 80
-	jal	o_param_x.2536
+	jal	min_caml_sqrt
 	nop
 	addi	$29, $29, -80
 	lw	 $31, 76($29)
+	lwc	$f1, 68($29)
+	mul.s	$f0, $f1, $f0
+	lwc	$f1, 56($29)
+	swc	$f0, 72($29)
+	mov.s	$f0, $f1
+	sw	$31, 76($29)
+	addi	$29, $29, 80
+	jal	min_caml_fabs
+	nop
+	addi	$29, $29, -80
+	lw	 $31, 76($29)
+	setclv	$f1, l.8395
+	sw	$31, 76($29)
+	addi	$29, $29, 80
+	jal	min_caml_fless
+	nop
+	addi	$29, $29, -80
+	lw	 $31, 76($29)
+	set	$2, 0
+	bne	$1, $2, beq_else.10537
+	lwc	$f0, 56($29)
 	lwc	$f1, 72($29)
-	sub.s	$f0, $f1, $f0
-	lw	$1, 8($29)
+	div.s	$f0, $f1, $f0
+	sw	$31, 76($29)
+	addi	$29, $29, 80
+	jal	min_caml_fabs
+	nop
+	addi	$29, $29, -80
+	lw	 $31, 76($29)
+	sw	$31, 76($29)
+	addi	$29, $29, 80
+	jal	min_caml_atan
+	nop
+	addi	$29, $29, -80
+	lw	 $31, 76($29)
+	setclv	$f1, l.8397
+	mul.s	$f0, $f0, $f1
+	setclv	$f1, l.8398
+	div.s	$f0, $f0, $f1
+	j	beq_cont.10538
+beq_else.10537:
+	setclv	$f0, l.8396
+beq_cont.10538:
 	swc	$f0, 76($29)
 	sw	$31, 84($29)
 	addi	$29, $29, 88
-	jal	o_param_a.2528
-	nop
-	addi	$29, $29, -88
-	lw	 $31, 84($29)
-	sw	$31, 84($29)
-	addi	$29, $29, 88
-	jal	min_caml_sqrt
+	jal	min_caml_floor
 	nop
 	addi	$29, $29, -88
 	lw	 $31, 84($29)
 	lwc	$f1, 76($29)
-	mul.s	$f0, $f1, $f0
-	set	$1, 2
-	sll	$1, $1, 2
-	lw	$2, 0($29)
-	add	$27, $1, $2
-	lwc	$f1, 0($27)
-	lw	$1, 8($29)
+	sub.s	$f0, $f1, $f0
+	setclv	$f1, l.8402
+	setclv	$f2, l.8403
+	lwc	$f3, 64($29)
+	sub.s	$f2, $f2, $f3
 	swc	$f0, 80($29)
 	swc	$f1, 84($29)
+	mov.s	$f0, $f2
 	sw	$31, 92($29)
 	addi	$29, $29, 96
-	jal	o_param_z.2540
+	jal	min_caml_fsqr
 	nop
 	addi	$29, $29, -96
 	lw	 $31, 92($29)
 	lwc	$f1, 84($29)
 	sub.s	$f0, $f1, $f0
-	lw	$1, 8($29)
+	setclv	$f1, l.8403
+	lwc	$f2, 80($29)
+	sub.s	$f1, $f1, $f2
 	swc	$f0, 88($29)
+	mov.s	$f0, $f1
 	sw	$31, 92($29)
 	addi	$29, $29, 96
-	jal	o_param_c.2532
-	nop
-	addi	$29, $29, -96
-	lw	 $31, 92($29)
-	sw	$31, 92($29)
-	addi	$29, $29, 96
-	jal	min_caml_sqrt
+	jal	min_caml_fsqr
 	nop
 	addi	$29, $29, -96
 	lw	 $31, 92($29)
 	lwc	$f1, 88($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 80($29)
-	swc	$f0, 92($29)
-	mov.s	$f0, $f1
-	sw	$31, 100($29)
-	addi	$29, $29, 104
-	jal	min_caml_fsqr
-	nop
-	addi	$29, $29, -104
-	lw	 $31, 100($29)
-	lwc	$f1, 92($29)
-	swc	$f0, 96($29)
-	mov.s	$f0, $f1
-	sw	$31, 100($29)
-	addi	$29, $29, 104
-	jal	min_caml_fsqr
-	nop
-	addi	$29, $29, -104
-	lw	 $31, 100($29)
-	lwc	$f1, 96($29)
-	add.s	$f0, $f1, $f0
-	lwc	$f1, 80($29)
-	swc	$f0, 100($29)
-	mov.s	$f0, $f1
-	sw	$31, 108($29)
-	addi	$29, $29, 112
-	jal	min_caml_fabs
-	nop
-	addi	$29, $29, -112
-	lw	 $31, 108($29)
-	setclv	$f1, l.6390
-	sw	$31, 108($29)
-	addi	$29, $29, 112
-	jal	min_caml_fless
-	nop
-	addi	$29, $29, -112
-	lw	 $31, 108($29)
-	set	$2, 0
-	bne	$1, $2, beq_else.8945
-	lwc	$f0, 80($29)
-	lwc	$f1, 92($29)
-	div.s	$f0, $f1, $f0
-	sw	$31, 108($29)
-	addi	$29, $29, 112
-	jal	min_caml_fabs
-	nop
-	addi	$29, $29, -112
-	lw	 $31, 108($29)
-	sw	$31, 108($29)
-	addi	$29, $29, 112
-	jal	min_caml_atan
-	nop
-	addi	$29, $29, -112
-	lw	 $31, 108($29)
-	setclv	$f1, l.6392
-	mul.s	$f0, $f0, $f1
-	setclv	$f1, l.6393
-	div.s	$f0, $f0, $f1
-	j	beq_cont.8946
-beq_else.8945:
-	setclv	$f0, l.6391
-beq_cont.8946:
-	swc	$f0, 104($29)
-	sw	$31, 108($29)
-	addi	$29, $29, 112
-	jal	min_caml_floor
-	nop
-	addi	$29, $29, -112
-	lw	 $31, 108($29)
-	lwc	$f1, 104($29)
 	sub.s	$f0, $f1, $f0
-	set	$1, 1
+	swc	$f0, 92($29)
+	sw	$31, 100($29)
+	addi	$29, $29, 104
+	jal	min_caml_fisneg
+	nop
+	addi	$29, $29, -104
+	lw	 $31, 100($29)
+	set	$2, 0
+	bne	$1, $2, beq_else.10539
+	lwc	$f0, 92($29)
+	j	beq_cont.10540
+beq_else.10539:
+	setclv	$f0, l.7945
+beq_cont.10540:
+	set	$1, 2
+	setclv	$f1, l.8404
+	mul.s	$f0, $f1, $f0
+	setclv	$f1, l.8405
+	div.s	$f0, $f0, $f1
 	sll	$1, $1, 2
 	lw	$2, 0($29)
 	add	$27, $1, $2
-	lwc	$f1, 0($27)
-	lw	$1, 8($29)
-	swc	$f0, 108($29)
-	swc	$f1, 112($29)
-	sw	$31, 116($29)
-	addi	$29, $29, 120
-	jal	o_param_y.2538
-	nop
-	addi	$29, $29, -120
-	lw	 $31, 116($29)
-	lwc	$f1, 112($29)
-	sub.s	$f0, $f1, $f0
-	lw	$1, 8($29)
-	swc	$f0, 116($29)
-	sw	$31, 124($29)
-	addi	$29, $29, 128
-	jal	o_param_b.2530
-	nop
-	addi	$29, $29, -128
-	lw	 $31, 124($29)
-	sw	$31, 124($29)
-	addi	$29, $29, 128
-	jal	min_caml_sqrt
-	nop
-	addi	$29, $29, -128
-	lw	 $31, 124($29)
-	lwc	$f1, 116($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 100($29)
-	swc	$f0, 120($29)
-	mov.s	$f0, $f1
-	sw	$31, 124($29)
-	addi	$29, $29, 128
-	jal	min_caml_fabs
-	nop
-	addi	$29, $29, -128
-	lw	 $31, 124($29)
-	setclv	$f1, l.6390
-	sw	$31, 124($29)
-	addi	$29, $29, 128
-	jal	min_caml_fless
-	nop
-	addi	$29, $29, -128
-	lw	 $31, 124($29)
-	set	$2, 0
-	bne	$1, $2, beq_else.8947
-	lwc	$f0, 100($29)
-	lwc	$f1, 120($29)
-	div.s	$f0, $f1, $f0
-	sw	$31, 124($29)
-	addi	$29, $29, 128
-	jal	min_caml_fabs
-	nop
-	addi	$29, $29, -128
-	lw	 $31, 124($29)
-	sw	$31, 124($29)
-	addi	$29, $29, 128
-	jal	min_caml_atan
-	nop
-	addi	$29, $29, -128
-	lw	 $31, 124($29)
-	setclv	$f1, l.6392
-	mul.s	$f0, $f0, $f1
-	setclv	$f1, l.6393
-	div.s	$f0, $f0, $f1
-	j	beq_cont.8948
-beq_else.8947:
-	setclv	$f0, l.6391
-beq_cont.8948:
-	swc	$f0, 124($29)
-	sw	$31, 132($29)
-	addi	$29, $29, 136
-	jal	min_caml_floor
-	nop
-	addi	$29, $29, -136
-	lw	 $31, 132($29)
-	lwc	$f1, 124($29)
-	sub.s	$f0, $f1, $f0
-	setclv	$f1, l.6395
-	setclv	$f2, l.6396
-	lwc	$f3, 108($29)
-	sub.s	$f2, $f2, $f3
-	swc	$f0, 128($29)
-	swc	$f1, 132($29)
-	mov.s	$f0, $f2
-	sw	$31, 140($29)
-	addi	$29, $29, 144
-	jal	min_caml_fsqr
-	nop
-	addi	$29, $29, -144
-	lw	 $31, 140($29)
-	lwc	$f1, 132($29)
-	sub.s	$f0, $f1, $f0
-	setclv	$f1, l.6396
-	lwc	$f2, 128($29)
-	sub.s	$f1, $f1, $f2
-	swc	$f0, 136($29)
-	mov.s	$f0, $f1
-	sw	$31, 140($29)
-	addi	$29, $29, 144
-	jal	min_caml_fsqr
-	nop
-	addi	$29, $29, -144
-	lw	 $31, 140($29)
-	lwc	$f1, 136($29)
-	sub.s	$f0, $f1, $f0
-	swc	$f0, 140($29)
-	sw	$31, 148($29)
-	addi	$29, $29, 152
-	jal	min_caml_fisneg
-	nop
-	addi	$29, $29, -152
-	lw	 $31, 148($29)
-	set	$2, 0
-	bne	$1, $2, beq_else.8949
-	lwc	$f0, 140($29)
-	j	beq_cont.8950
-beq_else.8949:
-	setclv	$f0, l.5993
-beq_cont.8950:
-	set	$1, 2
-	setclv	$f1, l.6397
-	mul.s	$f0, $f1, $f0
-	setclv	$f1, l.6398
-	div.s	$f0, $f0, $f1
-	sll	$1, $1, 2
-	lw	$2, 4($29)
-	add	$27, $1, $2
 	swc	$f0, 0($27)
-jr $31
-beq_else.8944:
-jr $31
-add_light.2790:
+	jr $31
+beq_else.10534:
+	jr $31
+add_light.2792:
 	lw	$1, 8($28)
 	lw	$2, 4($28)
 	swc	$f2, 0($29)
@@ -7177,19 +6222,19 @@ add_light.2790:
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8953
-	j	beq_cont.8954
-beq_else.8953:
+	bne	$1, $2, beq_else.10543
+	j	beq_cont.10544
+beq_else.10543:
 	lwc	$f0, 8($29)
 	lw	$1, 16($29)
 	lw	$2, 12($29)
 	sw	$31, 20($29)
 	addi	$29, $29, 24
-	jal	vecaccum.2501
+	jal	vecaccum.2503
 	nop
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
-beq_cont.8954:
+beq_cont.10544:
 	lwc	$f0, 4($29)
 	sw	$31, 20($29)
 	addi	$29, $29, 24
@@ -7198,9 +6243,9 @@ beq_cont.8954:
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8955
-jr $31
-beq_else.8955:
+	bne	$1, $2, beq_else.10545
+	jr $31
+beq_else.10545:
 	lwc	$f0, 4($29)
 	sw	$31, 20($29)
 	addi	$29, $29, 24
@@ -7244,8 +6289,8 @@ beq_else.8955:
 	sll	$1, $1, 2
 	add	$27, $1, $3
 	swc	$f0, 0($27)
-jr $31
-trace_reflections.2794:
+	jr $31
+trace_reflections.2796:
 	lw	$3, 32($28)
 	lw	$4, 28($28)
 	lw	$5, 24($28)
@@ -7256,10 +6301,11 @@ trace_reflections.2794:
 	lw	$10, 4($28)
 	set	$11, 0
 	slt	$27, $1, $11
-	bne	$27, $0, ble_else.8958
+	bne	$27, $0, ble_else.10548
 	sll	$11, $1, 2
 	add	$27, $11, $4
 	lw	$4, 0($27)
+	lw	$11, 4($4)
 	sw	$28, 0($29)
 	sw	$1, 4($29)
 	swc	$f1, 8($29)
@@ -7267,62 +6313,88 @@ trace_reflections.2794:
 	sw	$2, 16($29)
 	swc	$f0, 20($29)
 	sw	$6, 24($29)
-	sw	$3, 28($29)
-	sw	$5, 32($29)
-	sw	$4, 36($29)
-	sw	$8, 40($29)
-	sw	$9, 44($29)
-	sw	$7, 48($29)
-	mov	$1, $4
+	sw	$11, 28($29)
+	sw	$3, 32($29)
+	sw	$5, 36($29)
+	sw	$4, 40($29)
+	sw	$8, 44($29)
+	sw	$9, 48($29)
+	mov	$1, $11
+	mov	$28, $7
 	sw	$31, 52($29)
 	addi	$29, $29, 56
-	jal	r_dvec.2585
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	lw	$28, 48($29)
-	sw	$1, 52($29)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
 	lw	$27, 0($28)
 	jal	closure_indirect
 	nop
-	addi	$29, $29, -64
-	lw	$31, 60($29)
+	addi	$29, $29, -56
+	lw	$31, 52($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8959
-	j	beq_cont.8960
-beq_else.8959:
+	bne	$1, $2, beq_else.10549
+	j	beq_cont.10550
+beq_else.10549:
 	set	$1, 0
 	sll	$1, $1, 2
-	lw	$2, 44($29)
+	lw	$2, 48($29)
 	add	$27, $1, $2
 	lw	$1, 0($27)
 	sll	$1, $1, 2
 	set	$2, 0
 	sll	$2, $2, 2
-	lw	$3, 40($29)
+	lw	$3, 44($29)
 	add	$27, $2, $3
 	lw	$2, 0($27)
 	add	$1, $1, $2
-	lw	$2, 36($29)
-	sw	$1, 56($29)
-	mov	$1, $2
+	lw	$2, 40($29)
+	lw	$3, 0($2)
+	bne	$1, $3, beq_else.10551
+	set	$1, 0
+	set	$3, 0
+	sll	$3, $3, 2
+	lw	$4, 36($29)
+	add	$27, $3, $4
+	lw	$3, 0($27)
+	lw	$28, 32($29)
+	mov	$2, $3
+	sw	$31, 52($29)
+	addi	$29, $29, 56
+	lw	$27, 0($28)
+	jal	closure_indirect
+	nop
+	addi	$29, $29, -56
+	lw	$31, 52($29)
+	set	$2, 0
+	bne	$1, $2, beq_else.10553
+	lw	$1, 28($29)
+	lw	$2, 0($1)
+	lw	$3, 24($29)
+	mov	$1, $3
+	sw	$31, 52($29)
+	addi	$29, $29, 56
+	jal	veciprod.2495
+	nop
+	addi	$29, $29, -56
+	lw	 $31, 52($29)
+	lw	$1, 40($29)
+	lwc	$f1, 8($1)
+	lwc	$f2, 20($29)
+	mul.s	$f3, $f1, $f2
+	mul.s	$f0, $f3, $f0
+	lw	$1, 28($29)
+	lw	$2, 0($1)
+	lw	$1, 16($29)
+	swc	$f0, 52($29)
+	swc	$f1, 56($29)
 	sw	$31, 60($29)
 	addi	$29, $29, 64
-	jal	r_surface_id.2583
+	jal	veciprod.2495
 	nop
 	addi	$29, $29, -64
 	lw	 $31, 60($29)
-	lw	$2, 56($29)
-	bne	$2, $1, beq_else.8961
-	set	$1, 0
-	set	$2, 0
-	sll	$2, $2, 2
-	lw	$3, 32($29)
-	add	$27, $2, $3
-	lw	$2, 0($27)
-	lw	$28, 28($29)
+	lwc	$f1, 56($29)
+	mul.s	$f1, $f1, $f0
+	lwc	$f0, 52($29)
+	lwc	$f2, 8($29)
+	lw	$28, 12($29)
 	sw	$31, 60($29)
 	addi	$29, $29, 64
 	lw	$27, 0($28)
@@ -7330,71 +6402,13 @@ beq_else.8959:
 	nop
 	addi	$29, $29, -64
 	lw	$31, 60($29)
-	set	$2, 0
-	bne	$1, $2, beq_else.8963
-	lw	$1, 52($29)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	jal	d_vec.2579
-	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
-	mov	$2, $1
-	lw	$1, 24($29)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	jal	veciprod.2493
-	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
-	lw	$1, 36($29)
-	swc	$f0, 60($29)
-	sw	$31, 68($29)
-	addi	$29, $29, 72
-	jal	r_bright.2587
-	nop
-	addi	$29, $29, -72
-	lw	 $31, 68($29)
-	lwc	$f1, 20($29)
-	mul.s	$f2, $f0, $f1
-	lwc	$f3, 60($29)
-	mul.s	$f2, $f2, $f3
-	lw	$1, 52($29)
-	swc	$f2, 64($29)
-	swc	$f0, 68($29)
-	sw	$31, 76($29)
-	addi	$29, $29, 80
-	jal	d_vec.2579
-	nop
-	addi	$29, $29, -80
-	lw	 $31, 76($29)
-	mov	$2, $1
-	lw	$1, 16($29)
-	sw	$31, 76($29)
-	addi	$29, $29, 80
-	jal	veciprod.2493
-	nop
-	addi	$29, $29, -80
-	lw	 $31, 76($29)
-	lwc	$f1, 68($29)
-	mul.s	$f1, $f1, $f0
-	lwc	$f0, 64($29)
-	lwc	$f2, 8($29)
-	lw	$28, 12($29)
-	sw	$31, 76($29)
-	addi	$29, $29, 80
-	lw	$27, 0($28)
-	jal	closure_indirect
-	nop
-	addi	$29, $29, -80
-	lw	$31, 76($29)
-	j	beq_cont.8964
-beq_else.8963:
-beq_cont.8964:
-	j	beq_cont.8962
-beq_else.8961:
-beq_cont.8962:
-beq_cont.8960:
+	j	beq_cont.10554
+beq_else.10553:
+beq_cont.10554:
+	j	beq_cont.10552
+beq_else.10551:
+beq_cont.10552:
+beq_cont.10550:
 	set	$1, 1
 	lw	$2, 4($29)
 	sub	$1, $2, $1
@@ -7404,39 +6418,42 @@ beq_cont.8960:
 	lw	$28, 0($29)
 	lw	$27, 0($28)
 	jr	$27
-ble_else.8958:
-jr $31
-trace_ray.2799:
-	lw	$4, 80($28)
-	lw	$5, 76($28)
-	lw	$6, 72($28)
-	lw	$7, 68($28)
-	lw	$8, 64($28)
-	lw	$9, 60($28)
-	lw	$10, 56($28)
-	lw	$11, 52($28)
-	lw	$12, 48($28)
-	lw	$13, 44($28)
-	lw	$14, 40($28)
-	lw	$15, 36($28)
-	lw	$16, 32($28)
-	lw	$17, 28($28)
-	lw	$18, 24($28)
-	lw	$19, 20($28)
-	lw	$20, 16($28)
-	lw	$21, 12($28)
-	lw	$22, 8($28)
-	lw	$23, 4($28)
-	set	$24, 4
-	slt	$27, $24, $1
-	bne	$27, $0, ble_else.8966
+ble_else.10548:
+	jr $31
+trace_ray.2801:
+	lw	$4, 88($28)
+	lw	$5, 84($28)
+	lw	$6, 80($28)
+	lw	$7, 76($28)
+	lw	$8, 72($28)
+	lw	$9, 68($28)
+	lw	$10, 64($28)
+	lw	$11, 60($28)
+	lw	$12, 56($28)
+	lw	$13, 52($28)
+	lw	$14, 48($28)
+	lw	$15, 44($28)
+	lw	$16, 40($28)
+	lw	$17, 36($28)
+	lw	$18, 32($28)
+	lw	$19, 28($28)
+	lw	$20, 24($28)
+	lw	$21, 20($28)
+	lw	$22, 16($28)
+	lw	$23, 12($28)
+	lw	$24, 8($28)
+	lw	$25, 4($28)
+	set	$26, 4
+	slt	$27, $26, $1
+	bne	$27, $0, ble_else.10556
+	lw	$26, 8($3)
 	sw	$28, 0($29)
 	swc	$f1, 4($29)
 	sw	$6, 8($29)
 	sw	$5, 12($29)
 	sw	$15, 16($29)
 	sw	$10, 20($29)
-	sw	$23, 24($29)
+	sw	$25, 24($29)
 	sw	$9, 28($29)
 	sw	$12, 32($29)
 	sw	$14, 36($29)
@@ -7447,60 +6464,53 @@ trace_ray.2799:
 	sw	$19, 56($29)
 	sw	$8, 60($29)
 	sw	$21, 64($29)
-	sw	$13, 68($29)
-	sw	$20, 72($29)
-	sw	$11, 76($29)
-	sw	$22, 80($29)
-	swc	$f0, 84($29)
-	sw	$16, 88($29)
-	sw	$1, 92($29)
-	sw	$2, 96($29)
-	sw	$17, 100($29)
-	mov	$1, $3
-	sw	$31, 108($29)
-	addi	$29, $29, 112
-	jal	p_surface_ids.2564
-	nop
-	addi	$29, $29, -112
-	lw	 $31, 108($29)
-	lw	$2, 96($29)
-	lw	$28, 100($29)
-	sw	$1, 104($29)
+	sw	$23, 68($29)
+	sw	$22, 72($29)
+	sw	$13, 76($29)
+	sw	$20, 80($29)
+	sw	$11, 84($29)
+	sw	$24, 88($29)
+	swc	$f0, 92($29)
+	sw	$16, 96($29)
+	sw	$2, 100($29)
+	sw	$26, 104($29)
+	sw	$1, 108($29)
 	mov	$1, $2
-	sw	$31, 108($29)
-	addi	$29, $29, 112
+	mov	$28, $17
+	sw	$31, 116($29)
+	addi	$29, $29, 120
 	lw	$27, 0($28)
 	jal	closure_indirect
 	nop
-	addi	$29, $29, -112
-	lw	$31, 108($29)
+	addi	$29, $29, -120
+	lw	$31, 116($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8967
+	bne	$1, $2, beq_else.10557
 	set	$1, -1
-	lw	$2, 92($29)
+	lw	$2, 108($29)
 	sll	$3, $2, 2
 	lw	$4, 104($29)
 	add	$27, $3, $4
 	sw	$1, 0($27)
 	set	$1, 0
-	bne	$2, $1, beq_else.8968
-jr $31
-beq_else.8968:
-	lw	$1, 96($29)
-	lw	$2, 88($29)
-	sw	$31, 108($29)
-	addi	$29, $29, 112
-	jal	veciprod.2493
+	bne	$2, $1, beq_else.10558
+	jr $31
+beq_else.10558:
+	lw	$1, 100($29)
+	lw	$2, 96($29)
+	sw	$31, 116($29)
+	addi	$29, $29, 120
+	jal	veciprod.2495
 	nop
-	addi	$29, $29, -112
-	lw	 $31, 108($29)
-	sw	$31, 108($29)
-	addi	$29, $29, 112
+	addi	$29, $29, -120
+	lw	 $31, 116($29)
+	sw	$31, 116($29)
+	addi	$29, $29, 120
 	jal	min_caml_fneg
 	nop
-	addi	$29, $29, -112
-	lw	 $31, 108($29)
-	swc	$f0, 108($29)
+	addi	$29, $29, -120
+	lw	 $31, 116($29)
+	swc	$f0, 112($29)
 	sw	$31, 116($29)
 	addi	$29, $29, 120
 	jal	min_caml_fispos
@@ -7508,30 +6518,30 @@ beq_else.8968:
 	addi	$29, $29, -120
 	lw	 $31, 116($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8970
-jr $31
-beq_else.8970:
-	lwc	$f0, 108($29)
+	bne	$1, $2, beq_else.10560
+	jr $31
+beq_else.10560:
+	lwc	$f0, 112($29)
 	sw	$31, 116($29)
 	addi	$29, $29, 120
 	jal	min_caml_fsqr
 	nop
 	addi	$29, $29, -120
 	lw	 $31, 116($29)
-	lwc	$f1, 108($29)
+	lwc	$f1, 112($29)
 	mul.s	$f0, $f0, $f1
-	lwc	$f1, 84($29)
+	lwc	$f1, 92($29)
 	mul.s	$f0, $f0, $f1
 	set	$1, 0
 	sll	$1, $1, 2
-	lw	$2, 80($29)
+	lw	$2, 88($29)
 	add	$27, $1, $2
 	lwc	$f1, 0($27)
 	mul.s	$f0, $f0, $f1
 	set	$1, 0
 	set	$2, 0
 	sll	$2, $2, 2
-	lw	$3, 76($29)
+	lw	$3, 84($29)
 	add	$27, $2, $3
 	lwc	$f1, 0($27)
 	add.s	$f1, $f1, $f0
@@ -7556,41 +6566,35 @@ beq_else.8970:
 	sll	$1, $1, 2
 	add	$27, $1, $3
 	swc	$f0, 0($27)
-jr $31
-beq_else.8967:
+	jr $31
+beq_else.10557:
 	set	$1, 0
 	sll	$1, $1, 2
-	lw	$2, 72($29)
+	lw	$2, 80($29)
 	add	$27, $1, $2
 	lw	$1, 0($27)
 	sll	$2, $1, 2
-	lw	$3, 68($29)
+	lw	$3, 76($29)
 	add	$27, $2, $3
 	lw	$2, 0($27)
-	sw	$1, 112($29)
-	sw	$2, 116($29)
-	mov	$1, $2
-	sw	$31, 124($29)
-	addi	$29, $29, 128
-	jal	o_reflectiontype.2522
-	nop
-	addi	$29, $29, -128
-	lw	 $31, 124($29)
-	lw	$2, 116($29)
-	sw	$1, 120($29)
-	mov	$1, $2
-	sw	$31, 124($29)
-	addi	$29, $29, 128
-	jal	o_diffuse.2542
-	nop
-	addi	$29, $29, -128
-	lw	 $31, 124($29)
-	lwc	$f1, 84($29)
+	lw	$3, 8($2)
+	lw	$4, 28($2)
+	set	$5, 0
+	sll	$5, $5, 2
+	add	$27, $5, $4
+	lwc	$f0, 0($27)
+	lwc	$f1, 92($29)
 	mul.s	$f0, $f0, $f1
-	lw	$1, 116($29)
-	lw	$2, 96($29)
-	lw	$28, 64($29)
-	swc	$f0, 124($29)
+	lw	$4, 4($2)
+	set	$5, 1
+	sw	$3, 116($29)
+	swc	$f0, 120($29)
+	sw	$1, 124($29)
+	sw	$2, 128($29)
+	bne	$4, $5, beq_else.10563
+	lw	$4, 100($29)
+	lw	$28, 72($29)
+	mov	$1, $4
 	sw	$31, 132($29)
 	addi	$29, $29, 136
 	lw	$27, 0($28)
@@ -7598,15 +6602,41 @@ beq_else.8967:
 	nop
 	addi	$29, $29, -136
 	lw	$31, 132($29)
+	j	beq_cont.10564
+beq_else.10563:
+	set	$5, 2
+	bne	$4, $5, beq_else.10565
+	lw	$28, 68($29)
+	mov	$1, $2
+	sw	$31, 132($29)
+	addi	$29, $29, 136
+	lw	$27, 0($28)
+	jal	closure_indirect
+	nop
+	addi	$29, $29, -136
+	lw	$31, 132($29)
+	j	beq_cont.10566
+beq_else.10565:
+	lw	$28, 64($29)
+	mov	$1, $2
+	sw	$31, 132($29)
+	addi	$29, $29, 136
+	lw	$27, 0($28)
+	jal	closure_indirect
+	nop
+	addi	$29, $29, -136
+	lw	$31, 132($29)
+beq_cont.10566:
+beq_cont.10564:
 	lw	$1, 60($29)
 	lw	$2, 56($29)
 	sw	$31, 132($29)
 	addi	$29, $29, 136
-	jal	veccpy.2482
+	jal	veccpy.2484
 	nop
 	addi	$29, $29, -136
 	lw	 $31, 132($29)
-	lw	$1, 116($29)
+	lw	$1, 128($29)
 	lw	$2, 56($29)
 	lw	$28, 52($29)
 	sw	$31, 132($29)
@@ -7616,7 +6646,7 @@ beq_else.8967:
 	nop
 	addi	$29, $29, -136
 	lw	$31, 132($29)
-	lw	$1, 112($29)
+	lw	$1, 124($29)
 	sll	$1, $1, 2
 	set	$2, 0
 	sll	$2, $2, 2
@@ -7624,176 +6654,150 @@ beq_else.8967:
 	add	$27, $2, $3
 	lw	$2, 0($27)
 	add	$1, $1, $2
-	lw	$2, 92($29)
+	lw	$2, 108($29)
 	sll	$3, $2, 2
 	lw	$4, 104($29)
 	add	$27, $3, $4
 	sw	$1, 0($27)
 	lw	$1, 44($29)
+	lw	$3, 4($1)
+	sll	$5, $2, 2
+	add	$27, $5, $3
+	lw	$3, 0($27)
+	lw	$5, 56($29)
+	mov	$2, $5
+	mov	$1, $3
 	sw	$31, 132($29)
 	addi	$29, $29, 136
-	jal	p_intersection_points.2562
-	nop
-	addi	$29, $29, -136
-	lw	 $31, 132($29)
-	lw	$2, 92($29)
-	sll	$3, $2, 2
-	add	$27, $3, $1
-	lw	$1, 0($27)
-	lw	$3, 56($29)
-	mov	$2, $3
-	sw	$31, 132($29)
-	addi	$29, $29, 136
-	jal	veccpy.2482
+	jal	veccpy.2484
 	nop
 	addi	$29, $29, -136
 	lw	 $31, 132($29)
 	lw	$1, 44($29)
-	sw	$31, 132($29)
-	addi	$29, $29, 136
-	jal	p_calc_diffuse.2566
-	nop
-	addi	$29, $29, -136
-	lw	 $31, 132($29)
-	lw	$2, 116($29)
-	sw	$1, 128($29)
-	mov	$1, $2
-	sw	$31, 132($29)
-	addi	$29, $29, 136
-	jal	o_diffuse.2542
-	nop
-	addi	$29, $29, -136
-	lw	 $31, 132($29)
-	setclv	$f1, l.6396
-	sw	$31, 132($29)
-	addi	$29, $29, 136
+	lw	$2, 12($1)
+	lw	$3, 128($29)
+	lw	$4, 28($3)
+	set	$5, 0
+	sll	$5, $5, 2
+	add	$27, $5, $4
+	lwc	$f0, 0($27)
+	setclv	$f1, l.8403
+	sw	$2, 132($29)
+	sw	$31, 140($29)
+	addi	$29, $29, 144
 	jal	min_caml_fless
 	nop
-	addi	$29, $29, -136
-	lw	 $31, 132($29)
+	addi	$29, $29, -144
+	lw	 $31, 140($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8973
+	bne	$1, $2, beq_else.10567
 	set	$1, 1
-	lw	$2, 92($29)
+	lw	$2, 108($29)
 	sll	$3, $2, 2
-	lw	$4, 128($29)
+	lw	$4, 132($29)
 	add	$27, $3, $4
 	sw	$1, 0($27)
 	lw	$1, 44($29)
-	sw	$31, 132($29)
-	addi	$29, $29, 136
-	jal	p_energy.2568
-	nop
-	addi	$29, $29, -136
-	lw	 $31, 132($29)
-	lw	$2, 92($29)
-	sll	$3, $2, 2
-	add	$27, $3, $1
+	lw	$3, 16($1)
+	sll	$4, $2, 2
+	add	$27, $4, $3
 	lw	$3, 0($27)
 	lw	$4, 40($29)
-	sw	$1, 132($29)
+	sw	$3, 136($29)
 	mov	$2, $4
 	mov	$1, $3
 	sw	$31, 140($29)
 	addi	$29, $29, 144
-	jal	veccpy.2482
+	jal	veccpy.2484
 	nop
 	addi	$29, $29, -144
 	lw	 $31, 140($29)
-	lw	$1, 92($29)
-	sll	$2, $1, 2
-	lw	$3, 132($29)
-	add	$27, $2, $3
-	lw	$2, 0($27)
-	setclv	$f0, l.6433
-	lwc	$f1, 124($29)
+	setclv	$f0, l.8445
+	lwc	$f1, 120($29)
 	mul.s	$f0, $f0, $f1
-	mov	$1, $2
+	lw	$1, 136($29)
 	sw	$31, 140($29)
 	addi	$29, $29, 144
-	jal	vecscale.2511
+	jal	vecscale.2513
 	nop
 	addi	$29, $29, -144
 	lw	 $31, 140($29)
 	lw	$1, 44($29)
+	lw	$2, 28($1)
+	lw	$3, 108($29)
+	sll	$4, $3, 2
+	add	$27, $4, $2
+	lw	$2, 0($27)
+	lw	$4, 36($29)
+	mov	$1, $2
+	mov	$2, $4
 	sw	$31, 140($29)
 	addi	$29, $29, 144
-	jal	p_nvectors.2577
+	jal	veccpy.2484
 	nop
 	addi	$29, $29, -144
 	lw	 $31, 140($29)
-	lw	$2, 92($29)
-	sll	$3, $2, 2
-	add	$27, $3, $1
-	lw	$1, 0($27)
-	lw	$3, 36($29)
-	mov	$2, $3
-	sw	$31, 140($29)
-	addi	$29, $29, 144
-	jal	veccpy.2482
-	nop
-	addi	$29, $29, -144
-	lw	 $31, 140($29)
-	j	beq_cont.8974
-beq_else.8973:
+	j	beq_cont.10568
+beq_else.10567:
 	set	$1, 0
-	lw	$2, 92($29)
+	lw	$2, 108($29)
 	sll	$3, $2, 2
-	lw	$4, 128($29)
+	lw	$4, 132($29)
 	add	$27, $3, $4
 	sw	$1, 0($27)
-beq_cont.8974:
-	setclv	$f0, l.6435
-	lw	$1, 96($29)
+beq_cont.10568:
+	setclv	$f0, l.8447
+	lw	$1, 100($29)
 	lw	$2, 36($29)
-	swc	$f0, 136($29)
-	sw	$31, 140($29)
-	addi	$29, $29, 144
-	jal	veciprod.2493
-	nop
-	addi	$29, $29, -144
-	lw	 $31, 140($29)
-	lwc	$f1, 136($29)
-	mul.s	$f0, $f1, $f0
-	lw	$1, 96($29)
-	lw	$2, 36($29)
-	sw	$31, 140($29)
-	addi	$29, $29, 144
-	jal	vecaccum.2501
-	nop
-	addi	$29, $29, -144
-	lw	 $31, 140($29)
-	lw	$1, 116($29)
-	sw	$31, 140($29)
-	addi	$29, $29, 144
-	jal	o_hilight.2544
-	nop
-	addi	$29, $29, -144
-	lw	 $31, 140($29)
-	lwc	$f1, 84($29)
-	mul.s	$f0, $f1, $f0
-	set	$1, 0
-	set	$2, 0
-	sll	$2, $2, 2
-	lw	$3, 32($29)
-	add	$27, $2, $3
-	lw	$2, 0($27)
-	lw	$28, 28($29)
 	swc	$f0, 140($29)
 	sw	$31, 148($29)
 	addi	$29, $29, 152
+	jal	veciprod.2495
+	nop
+	addi	$29, $29, -152
+	lw	 $31, 148($29)
+	lwc	$f1, 140($29)
+	mul.s	$f0, $f1, $f0
+	lw	$1, 100($29)
+	lw	$2, 36($29)
+	sw	$31, 148($29)
+	addi	$29, $29, 152
+	jal	vecaccum.2503
+	nop
+	addi	$29, $29, -152
+	lw	 $31, 148($29)
+	lw	$1, 128($29)
+	lw	$2, 28($1)
+	set	$3, 1
+	sll	$3, $3, 2
+	add	$27, $3, $2
+	lwc	$f0, 0($27)
+	lwc	$f1, 92($29)
+	mul.s	$f0, $f1, $f0
+	set	$2, 0
+	set	$3, 0
+	sll	$3, $3, 2
+	lw	$4, 32($29)
+	add	$27, $3, $4
+	lw	$3, 0($27)
+	lw	$28, 28($29)
+	swc	$f0, 144($29)
+	mov	$1, $2
+	mov	$2, $3
+	sw	$31, 148($29)
+	addi	$29, $29, 152
 	lw	$27, 0($28)
 	jal	closure_indirect
 	nop
 	addi	$29, $29, -152
 	lw	$31, 148($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8975
+	bne	$1, $2, beq_else.10569
 	lw	$1, 36($29)
-	lw	$2, 88($29)
+	lw	$2, 96($29)
 	sw	$31, 148($29)
 	addi	$29, $29, 152
-	jal	veciprod.2493
+	jal	veciprod.2495
 	nop
 	addi	$29, $29, -152
 	lw	 $31, 148($29)
@@ -7803,46 +6807,46 @@ beq_cont.8974:
 	nop
 	addi	$29, $29, -152
 	lw	 $31, 148($29)
-	lwc	$f1, 124($29)
+	lwc	$f1, 120($29)
 	mul.s	$f0, $f0, $f1
-	lw	$1, 96($29)
-	lw	$2, 88($29)
-	swc	$f0, 144($29)
-	sw	$31, 148($29)
-	addi	$29, $29, 152
-	jal	veciprod.2493
+	lw	$1, 100($29)
+	lw	$2, 96($29)
+	swc	$f0, 148($29)
+	sw	$31, 156($29)
+	addi	$29, $29, 160
+	jal	veciprod.2495
 	nop
-	addi	$29, $29, -152
-	lw	 $31, 148($29)
-	sw	$31, 148($29)
-	addi	$29, $29, 152
+	addi	$29, $29, -160
+	lw	 $31, 156($29)
+	sw	$31, 156($29)
+	addi	$29, $29, 160
 	jal	min_caml_fneg
 	nop
-	addi	$29, $29, -152
-	lw	 $31, 148($29)
+	addi	$29, $29, -160
+	lw	 $31, 156($29)
 	mov.s	$f1, $f0
-	lwc	$f0, 144($29)
-	lwc	$f2, 140($29)
+	lwc	$f0, 148($29)
+	lwc	$f2, 144($29)
 	lw	$28, 24($29)
-	sw	$31, 148($29)
-	addi	$29, $29, 152
+	sw	$31, 156($29)
+	addi	$29, $29, 160
 	lw	$27, 0($28)
 	jal	closure_indirect
 	nop
-	addi	$29, $29, -152
-	lw	$31, 148($29)
-	j	beq_cont.8976
-beq_else.8975:
-beq_cont.8976:
+	addi	$29, $29, -160
+	lw	$31, 156($29)
+	j	beq_cont.10570
+beq_else.10569:
+beq_cont.10570:
 	lw	$1, 56($29)
 	lw	$28, 20($29)
-	sw	$31, 148($29)
-	addi	$29, $29, 152
+	sw	$31, 156($29)
+	addi	$29, $29, 160
 	lw	$27, 0($28)
 	jal	closure_indirect
 	nop
-	addi	$29, $29, -152
-	lw	$31, 148($29)
+	addi	$29, $29, -160
+	lw	$31, 156($29)
 	set	$1, 0
 	sll	$1, $1, 2
 	lw	$2, 16($29)
@@ -7850,60 +6854,56 @@ beq_cont.8976:
 	lw	$1, 0($27)
 	set	$2, 1
 	sub	$1, $1, $2
-	lwc	$f0, 124($29)
-	lwc	$f1, 140($29)
-	lw	$2, 96($29)
+	lwc	$f0, 120($29)
+	lwc	$f1, 144($29)
+	lw	$2, 100($29)
 	lw	$28, 12($29)
-	sw	$31, 148($29)
-	addi	$29, $29, 152
+	sw	$31, 156($29)
+	addi	$29, $29, 160
 	lw	$27, 0($28)
 	jal	closure_indirect
 	nop
-	addi	$29, $29, -152
-	lw	$31, 148($29)
-	setclv	$f0, l.6438
-	lwc	$f1, 84($29)
-	sw	$31, 148($29)
-	addi	$29, $29, 152
+	addi	$29, $29, -160
+	lw	$31, 156($29)
+	setclv	$f0, l.8451
+	lwc	$f1, 92($29)
+	sw	$31, 156($29)
+	addi	$29, $29, 160
 	jal	min_caml_fless
 	nop
-	addi	$29, $29, -152
-	lw	 $31, 148($29)
+	addi	$29, $29, -160
+	lw	 $31, 156($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8977
-jr $31
-beq_else.8977:
+	bne	$1, $2, beq_else.10571
+	jr $31
+beq_else.10571:
 	set	$1, 4
-	lw	$2, 92($29)
+	lw	$2, 108($29)
 	slt	$27, $2, $1
-	bne	$27, $0, ble_else.8979
-	j	ble_cont.8980
-ble_else.8979:
+	bne	$27, $0, ble_else.10573
+	j	ble_cont.10574
+ble_else.10573:
 	addi	$1, $2, 1
 	set	$3, -1
 	sll	$1, $1, 2
 	lw	$4, 104($29)
 	add	$27, $1, $4
 	sw	$3, 0($27)
-ble_cont.8980:
+ble_cont.10574:
 	set	$1, 2
-	lw	$3, 120($29)
-	bne	$3, $1, beq_else.8981
-	setclv	$f0, l.5994
-	lw	$1, 116($29)
-	swc	$f0, 148($29)
-	sw	$31, 156($29)
-	addi	$29, $29, 160
-	jal	o_diffuse.2542
-	nop
-	addi	$29, $29, -160
-	lw	 $31, 156($29)
-	lwc	$f1, 148($29)
-	sub.s	$f0, $f1, $f0
-	lwc	$f1, 84($29)
+	lw	$3, 116($29)
+	bne	$3, $1, beq_else.10575
+	setclv	$f0, l.7946
+	lw	$1, 128($29)
+	lw	$1, 28($1)
+	set	$3, 0
+	sll	$3, $3, 2
+	add	$27, $3, $1
+	lwc	$f1, 0($27)
+	sub.s	$f0, $f0, $f1
+	lwc	$f1, 92($29)
 	mul.s	$f0, $f1, $f0
-	lw	$1, 92($29)
-	addi	$1, $1, 1
+	addi	$1, $2, 1
 	set	$2, 0
 	sll	$2, $2, 2
 	lw	$3, 8($29)
@@ -7911,30 +6911,32 @@ ble_cont.8980:
 	lwc	$f1, 0($27)
 	lwc	$f2, 4($29)
 	add.s	$f1, $f2, $f1
-	lw	$2, 96($29)
+	lw	$2, 100($29)
 	lw	$3, 44($29)
 	lw	$28, 0($29)
 	lw	$27, 0($28)
 	jr	$27
-beq_else.8981:
-jr $31
-ble_else.8966:
-jr $31
-trace_diffuse_ray.2805:
-	lw	$2, 48($28)
-	lw	$3, 44($28)
-	lw	$4, 40($28)
-	lw	$5, 36($28)
-	lw	$6, 32($28)
-	lw	$7, 28($28)
-	lw	$8, 24($28)
-	lw	$9, 20($28)
-	lw	$10, 16($28)
-	lw	$11, 12($28)
-	lw	$12, 8($28)
-	lw	$13, 4($28)
+beq_else.10575:
+	jr $31
+ble_else.10556:
+	jr $31
+trace_diffuse_ray.2807:
+	lw	$2, 56($28)
+	lw	$3, 52($28)
+	lw	$4, 48($28)
+	lw	$5, 44($28)
+	lw	$6, 40($28)
+	lw	$7, 36($28)
+	lw	$8, 32($28)
+	lw	$9, 28($28)
+	lw	$10, 24($28)
+	lw	$11, 20($28)
+	lw	$12, 16($28)
+	lw	$13, 12($28)
+	lw	$14, 8($28)
+	lw	$15, 4($28)
 	sw	$3, 0($29)
-	sw	$13, 4($29)
+	sw	$15, 4($29)
 	swc	$f0, 8($29)
 	sw	$8, 12($29)
 	sw	$7, 16($29)
@@ -7943,59 +6945,81 @@ trace_diffuse_ray.2805:
 	sw	$10, 28($29)
 	sw	$2, 32($29)
 	sw	$12, 36($29)
-	sw	$1, 40($29)
-	sw	$6, 44($29)
-	sw	$11, 48($29)
+	sw	$14, 40($29)
+	sw	$13, 44($29)
+	sw	$1, 48($29)
+	sw	$6, 52($29)
+	sw	$11, 56($29)
 	mov	$28, $9
-	sw	$31, 52($29)
-	addi	$29, $29, 56
+	sw	$31, 60($29)
+	addi	$29, $29, 64
 	lw	$27, 0($28)
 	jal	closure_indirect
 	nop
-	addi	$29, $29, -56
-	lw	$31, 52($29)
+	addi	$29, $29, -64
+	lw	$31, 60($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8984
-jr $31
-beq_else.8984:
+	bne	$1, $2, beq_else.10578
+	jr $31
+beq_else.10578:
 	set	$1, 0
 	sll	$1, $1, 2
-	lw	$2, 48($29)
+	lw	$2, 56($29)
 	add	$27, $1, $2
 	lw	$1, 0($27)
 	sll	$1, $1, 2
-	lw	$2, 44($29)
+	lw	$2, 52($29)
 	add	$27, $1, $2
 	lw	$1, 0($27)
-	lw	$2, 40($29)
-	sw	$1, 52($29)
+	lw	$2, 48($29)
+	lw	$2, 0($2)
+	lw	$3, 4($1)
+	set	$4, 1
+	sw	$1, 60($29)
+	bne	$3, $4, beq_else.10580
+	lw	$28, 44($29)
 	mov	$1, $2
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	jal	d_vec.2579
-	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
-	mov	$2, $1
-	lw	$1, 52($29)
-	lw	$28, 36($29)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
+	sw	$31, 68($29)
+	addi	$29, $29, 72
 	lw	$27, 0($28)
 	jal	closure_indirect
 	nop
-	addi	$29, $29, -64
-	lw	$31, 60($29)
-	lw	$1, 52($29)
+	addi	$29, $29, -72
+	lw	$31, 68($29)
+	j	beq_cont.10581
+beq_else.10580:
+	set	$2, 2
+	bne	$3, $2, beq_else.10582
+	lw	$28, 40($29)
+	sw	$31, 68($29)
+	addi	$29, $29, 72
+	lw	$27, 0($28)
+	jal	closure_indirect
+	nop
+	addi	$29, $29, -72
+	lw	$31, 68($29)
+	j	beq_cont.10583
+beq_else.10582:
+	lw	$28, 36($29)
+	sw	$31, 68($29)
+	addi	$29, $29, 72
+	lw	$27, 0($28)
+	jal	closure_indirect
+	nop
+	addi	$29, $29, -72
+	lw	$31, 68($29)
+beq_cont.10583:
+beq_cont.10581:
+	lw	$1, 60($29)
 	lw	$2, 28($29)
 	lw	$28, 32($29)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
+	sw	$31, 68($29)
+	addi	$29, $29, 72
 	lw	$27, 0($28)
 	jal	closure_indirect
 	nop
-	addi	$29, $29, -64
-	lw	$31, 60($29)
+	addi	$29, $29, -72
+	lw	$31, 68($29)
 	set	$1, 0
 	set	$2, 0
 	sll	$2, $2, 2
@@ -8003,127 +7027,154 @@ beq_else.8984:
 	add	$27, $2, $3
 	lw	$2, 0($27)
 	lw	$28, 20($29)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
+	sw	$31, 68($29)
+	addi	$29, $29, 72
 	lw	$27, 0($28)
 	jal	closure_indirect
 	nop
-	addi	$29, $29, -64
-	lw	$31, 60($29)
+	addi	$29, $29, -72
+	lw	$31, 68($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8986
+	bne	$1, $2, beq_else.10584
 	lw	$1, 16($29)
 	lw	$2, 12($29)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	jal	veciprod.2493
-	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	jal	min_caml_fneg
-	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
-	swc	$f0, 56($29)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	jal	min_caml_fispos
-	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
-	set	$2, 0
-	bne	$1, $2, beq_else.8987
-	setclv	$f0, l.5993
-	j	beq_cont.8988
-beq_else.8987:
-	lwc	$f0, 56($29)
-beq_cont.8988:
-	lwc	$f1, 8($29)
-	mul.s	$f0, $f1, $f0
-	lw	$1, 52($29)
-	swc	$f0, 60($29)
 	sw	$31, 68($29)
 	addi	$29, $29, 72
-	jal	o_diffuse.2542
+	jal	veciprod.2495
 	nop
 	addi	$29, $29, -72
 	lw	 $31, 68($29)
-	lwc	$f1, 60($29)
+	sw	$31, 68($29)
+	addi	$29, $29, 72
+	jal	min_caml_fneg
+	nop
+	addi	$29, $29, -72
+	lw	 $31, 68($29)
+	swc	$f0, 64($29)
+	sw	$31, 68($29)
+	addi	$29, $29, 72
+	jal	min_caml_fispos
+	nop
+	addi	$29, $29, -72
+	lw	 $31, 68($29)
+	set	$2, 0
+	bne	$1, $2, beq_else.10585
+	setclv	$f0, l.7945
+	j	beq_cont.10586
+beq_else.10585:
+	lwc	$f0, 64($29)
+beq_cont.10586:
+	lwc	$f1, 8($29)
 	mul.s	$f0, $f1, $f0
+	lw	$1, 60($29)
+	lw	$1, 28($1)
+	set	$2, 0
+	sll	$2, $2, 2
+	add	$27, $2, $1
+	lwc	$f1, 0($27)
+	mul.s	$f0, $f0, $f1
 	lw	$1, 4($29)
 	lw	$2, 0($29)
-	j	vecaccum.2501
-beq_else.8986:
-jr $31
-iter_trace_diffuse_rays.2808:
+	j	vecaccum.2503
+beq_else.10584:
+	jr $31
+iter_trace_diffuse_rays.2810:
 	lw	$5, 4($28)
 	set	$6, 0
 	slt	$27, $4, $6
-	bne	$27, $0, ble_else.8990
+	bne	$27, $0, ble_else.10588
 	sll	$6, $4, 2
 	add	$27, $6, $1
 	lw	$6, 0($27)
+	lw	$7, 0($6)
 	sw	$3, 0($29)
-	sw	$28, 4($29)
-	sw	$5, 8($29)
+	sw	$2, 4($29)
+	sw	$28, 8($29)
 	sw	$1, 12($29)
 	sw	$4, 16($29)
-	sw	$2, 20($29)
-	mov	$1, $6
+	sw	$6, 20($29)
+	sw	$5, 24($29)
+	mov	$1, $7
 	sw	$31, 28($29)
 	addi	$29, $29, 32
-	jal	d_vec.2579
+	jal	veciprod.2495
 	nop
 	addi	$29, $29, -32
 	lw	 $31, 28($29)
-	lw	$2, 20($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	veciprod.2493
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	swc	$f0, 24($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
+	swc	$f0, 28($29)
+	sw	$31, 36($29)
+	addi	$29, $29, 40
 	jal	min_caml_fisneg
 	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.8991
-	lw	$1, 16($29)
-	sll	$2, $1, 2
-	lw	$3, 12($29)
-	add	$27, $2, $3
-	lw	$2, 0($27)
-	setclv	$f0, l.6456
-	lwc	$f1, 24($29)
+	bne	$1, $2, beq_else.10589
+	setclv	$f0, l.8470
+	lwc	$f1, 28($29)
 	div.s	$f0, $f1, $f0
-	lw	$28, 8($29)
-	mov	$1, $2
-	sw	$31, 28($29)
-	addi	$29, $29, 32
+	lw	$1, 20($29)
+	lw	$28, 24($29)
+	sw	$31, 36($29)
+	addi	$29, $29, 40
 	lw	$27, 0($28)
 	jal	closure_indirect
 	nop
-	addi	$29, $29, -32
-	lw	$31, 28($29)
-	j	beq_cont.8992
-beq_else.8991:
+	addi	$29, $29, -40
+	lw	$31, 36($29)
+	j	beq_cont.10590
+beq_else.10589:
 	lw	$1, 16($29)
 	addi	$2, $1, 1
 	sll	$2, $2, 2
 	lw	$3, 12($29)
 	add	$27, $2, $3
 	lw	$2, 0($27)
-	setclv	$f0, l.6454
-	lwc	$f1, 24($29)
+	setclv	$f0, l.8469
+	lwc	$f1, 28($29)
 	div.s	$f0, $f1, $f0
-	lw	$28, 8($29)
+	lw	$28, 24($29)
 	mov	$1, $2
+	sw	$31, 36($29)
+	addi	$29, $29, 40
+	lw	$27, 0($28)
+	jal	closure_indirect
+	nop
+	addi	$29, $29, -40
+	lw	$31, 36($29)
+beq_cont.10590:
+	set	$1, 2
+	lw	$2, 16($29)
+	sub	$4, $2, $1
+	lw	$1, 12($29)
+	lw	$2, 4($29)
+	lw	$3, 0($29)
+	lw	$28, 8($29)
+	lw	$27, 0($28)
+	jr	$27
+ble_else.10588:
+	jr $31
+trace_diffuse_ray_80percent.2819:
+	lw	$4, 12($28)
+	lw	$5, 8($28)
+	lw	$6, 4($28)
+	set	$7, 0
+	sw	$2, 0($29)
+	sw	$5, 4($29)
+	sw	$3, 8($29)
+	sw	$4, 12($29)
+	sw	$6, 16($29)
+	sw	$1, 20($29)
+	bne	$1, $7, beq_else.10592
+	j	beq_cont.10593
+beq_else.10592:
+	set	$7, 0
+	sll	$7, $7, 2
+	add	$27, $7, $6
+	lw	$7, 0($27)
+	sw	$7, 24($29)
+	mov	$1, $3
+	mov	$28, $4
 	sw	$31, 28($29)
 	addi	$29, $29, 32
 	lw	$27, 0($28)
@@ -8131,225 +7182,192 @@ beq_else.8991:
 	nop
 	addi	$29, $29, -32
 	lw	$31, 28($29)
-beq_cont.8992:
-	set	$1, 2
-	lw	$2, 16($29)
-	sub	$4, $2, $1
-	lw	$1, 12($29)
+	set	$4, 118
+	lw	$1, 24($29)
+	lw	$2, 0($29)
+	lw	$3, 8($29)
+	lw	$28, 4($29)
+	sw	$31, 28($29)
+	addi	$29, $29, 32
+	lw	$27, 0($28)
+	jal	closure_indirect
+	nop
+	addi	$29, $29, -32
+	lw	$31, 28($29)
+beq_cont.10593:
+	set	$1, 1
 	lw	$2, 20($29)
-	lw	$3, 0($29)
+	bne	$2, $1, beq_else.10594
+	j	beq_cont.10595
+beq_else.10594:
+	set	$1, 1
+	sll	$1, $1, 2
+	lw	$3, 16($29)
+	add	$27, $1, $3
+	lw	$1, 0($27)
+	lw	$4, 8($29)
+	lw	$28, 12($29)
+	sw	$1, 28($29)
+	mov	$1, $4
+	sw	$31, 36($29)
+	addi	$29, $29, 40
+	lw	$27, 0($28)
+	jal	closure_indirect
+	nop
+	addi	$29, $29, -40
+	lw	$31, 36($29)
+	set	$4, 118
+	lw	$1, 28($29)
+	lw	$2, 0($29)
+	lw	$3, 8($29)
+	lw	$28, 4($29)
+	sw	$31, 36($29)
+	addi	$29, $29, 40
+	lw	$27, 0($28)
+	jal	closure_indirect
+	nop
+	addi	$29, $29, -40
+	lw	$31, 36($29)
+beq_cont.10595:
+	set	$1, 2
+	lw	$2, 20($29)
+	bne	$2, $1, beq_else.10596
+	j	beq_cont.10597
+beq_else.10596:
+	set	$1, 2
+	sll	$1, $1, 2
+	lw	$3, 16($29)
+	add	$27, $1, $3
+	lw	$1, 0($27)
+	lw	$4, 8($29)
+	lw	$28, 12($29)
+	sw	$1, 32($29)
+	mov	$1, $4
+	sw	$31, 36($29)
+	addi	$29, $29, 40
+	lw	$27, 0($28)
+	jal	closure_indirect
+	nop
+	addi	$29, $29, -40
+	lw	$31, 36($29)
+	set	$4, 118
+	lw	$1, 32($29)
+	lw	$2, 0($29)
+	lw	$3, 8($29)
+	lw	$28, 4($29)
+	sw	$31, 36($29)
+	addi	$29, $29, 40
+	lw	$27, 0($28)
+	jal	closure_indirect
+	nop
+	addi	$29, $29, -40
+	lw	$31, 36($29)
+beq_cont.10597:
+	set	$1, 3
+	lw	$2, 20($29)
+	bne	$2, $1, beq_else.10598
+	j	beq_cont.10599
+beq_else.10598:
+	set	$1, 3
+	sll	$1, $1, 2
+	lw	$3, 16($29)
+	add	$27, $1, $3
+	lw	$1, 0($27)
+	lw	$4, 8($29)
+	lw	$28, 12($29)
+	sw	$1, 36($29)
+	mov	$1, $4
+	sw	$31, 44($29)
+	addi	$29, $29, 48
+	lw	$27, 0($28)
+	jal	closure_indirect
+	nop
+	addi	$29, $29, -48
+	lw	$31, 44($29)
+	set	$4, 118
+	lw	$1, 36($29)
+	lw	$2, 0($29)
+	lw	$3, 8($29)
+	lw	$28, 4($29)
+	sw	$31, 44($29)
+	addi	$29, $29, 48
+	lw	$27, 0($28)
+	jal	closure_indirect
+	nop
+	addi	$29, $29, -48
+	lw	$31, 44($29)
+beq_cont.10599:
+	set	$1, 4
+	lw	$2, 20($29)
+	bne	$2, $1, beq_else.10600
+	jr $31
+beq_else.10600:
+	set	$1, 4
+	sll	$1, $1, 2
+	lw	$2, 16($29)
+	add	$27, $1, $2
+	lw	$1, 0($27)
+	lw	$2, 8($29)
+	lw	$28, 12($29)
+	sw	$1, 40($29)
+	mov	$1, $2
+	sw	$31, 44($29)
+	addi	$29, $29, 48
+	lw	$27, 0($28)
+	jal	closure_indirect
+	nop
+	addi	$29, $29, -48
+	lw	$31, 44($29)
+	set	$4, 118
+	lw	$1, 40($29)
+	lw	$2, 0($29)
+	lw	$3, 8($29)
 	lw	$28, 4($29)
 	lw	$27, 0($28)
 	jr	$27
-ble_else.8990:
-jr $31
-trace_diffuse_rays.2813:
-	lw	$4, 8($28)
-	lw	$5, 4($28)
-	sw	$3, 0($29)
-	sw	$2, 4($29)
-	sw	$1, 8($29)
-	sw	$5, 12($29)
-	mov	$1, $3
-	mov	$28, $4
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	lw	$27, 0($28)
-	jal	closure_indirect
-	nop
-	addi	$29, $29, -24
-	lw	$31, 20($29)
-	set	$4, 118
-	lw	$1, 8($29)
-	lw	$2, 4($29)
-	lw	$3, 0($29)
-	lw	$28, 12($29)
-	lw	$27, 0($28)
-	jr	$27
-trace_diffuse_ray_80percent.2817:
-	lw	$4, 8($28)
-	lw	$5, 4($28)
-	set	$6, 0
-	sw	$3, 0($29)
-	sw	$2, 4($29)
-	sw	$4, 8($29)
-	sw	$5, 12($29)
-	sw	$1, 16($29)
-	bne	$1, $6, beq_else.8994
-	j	beq_cont.8995
-beq_else.8994:
-	set	$6, 0
-	sll	$6, $6, 2
-	add	$27, $6, $5
-	lw	$6, 0($27)
-	mov	$1, $6
-	mov	$28, $4
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	lw	$27, 0($28)
-	jal	closure_indirect
-	nop
-	addi	$29, $29, -24
-	lw	$31, 20($29)
-beq_cont.8995:
-	set	$1, 1
-	lw	$2, 16($29)
-	bne	$2, $1, beq_else.8996
-	j	beq_cont.8997
-beq_else.8996:
-	set	$1, 1
-	sll	$1, $1, 2
-	lw	$3, 12($29)
-	add	$27, $1, $3
-	lw	$1, 0($27)
-	lw	$4, 4($29)
-	lw	$5, 0($29)
-	lw	$28, 8($29)
-	mov	$3, $5
-	mov	$2, $4
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	lw	$27, 0($28)
-	jal	closure_indirect
-	nop
-	addi	$29, $29, -24
-	lw	$31, 20($29)
-beq_cont.8997:
-	set	$1, 2
-	lw	$2, 16($29)
-	bne	$2, $1, beq_else.8998
-	j	beq_cont.8999
-beq_else.8998:
-	set	$1, 2
-	sll	$1, $1, 2
-	lw	$3, 12($29)
-	add	$27, $1, $3
-	lw	$1, 0($27)
-	lw	$4, 4($29)
-	lw	$5, 0($29)
-	lw	$28, 8($29)
-	mov	$3, $5
-	mov	$2, $4
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	lw	$27, 0($28)
-	jal	closure_indirect
-	nop
-	addi	$29, $29, -24
-	lw	$31, 20($29)
-beq_cont.8999:
-	set	$1, 3
-	lw	$2, 16($29)
-	bne	$2, $1, beq_else.9000
-	j	beq_cont.9001
-beq_else.9000:
-	set	$1, 3
-	sll	$1, $1, 2
-	lw	$3, 12($29)
-	add	$27, $1, $3
-	lw	$1, 0($27)
-	lw	$4, 4($29)
-	lw	$5, 0($29)
-	lw	$28, 8($29)
-	mov	$3, $5
-	mov	$2, $4
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	lw	$27, 0($28)
-	jal	closure_indirect
-	nop
-	addi	$29, $29, -24
-	lw	$31, 20($29)
-beq_cont.9001:
-	set	$1, 4
-	lw	$2, 16($29)
-	bne	$2, $1, beq_else.9002
-jr $31
-beq_else.9002:
-	set	$1, 4
-	sll	$1, $1, 2
-	lw	$2, 12($29)
-	add	$27, $1, $2
-	lw	$1, 0($27)
-	lw	$2, 4($29)
-	lw	$3, 0($29)
-	lw	$28, 8($29)
-	lw	$27, 0($28)
-	jr	$27
-calc_diffuse_using_1point.2821:
+calc_diffuse_using_1point.2823:
 	lw	$3, 12($28)
 	lw	$4, 8($28)
 	lw	$5, 4($28)
-	sw	$4, 0($29)
-	sw	$3, 4($29)
-	sw	$5, 8($29)
-	sw	$2, 12($29)
-	sw	$1, 16($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	p_received_ray_20percent.2570
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
-	lw	$2, 16($29)
-	sw	$1, 20($29)
-	mov	$1, $2
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	p_nvectors.2577
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	lw	$2, 16($29)
-	sw	$1, 24($29)
-	mov	$1, $2
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	p_intersection_points.2562
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	lw	$2, 16($29)
+	lw	$6, 20($1)
+	lw	$7, 28($1)
+	lw	$8, 4($1)
+	lw	$9, 16($1)
+	sll	$10, $2, 2
+	add	$27, $10, $6
+	lw	$6, 0($27)
+	sw	$5, 0($29)
+	sw	$4, 4($29)
+	sw	$9, 8($29)
+	sw	$3, 12($29)
+	sw	$8, 16($29)
+	sw	$7, 20($29)
+	sw	$2, 24($29)
 	sw	$1, 28($29)
-	mov	$1, $2
+	mov	$2, $6
+	mov	$1, $5
 	sw	$31, 36($29)
 	addi	$29, $29, 40
-	jal	p_energy.2568
+	jal	veccpy.2484
 	nop
 	addi	$29, $29, -40
 	lw	 $31, 36($29)
-	lw	$2, 12($29)
+	lw	$1, 28($29)
+	lw	$1, 24($1)
+	set	$2, 0
+	sll	$2, $2, 2
+	add	$27, $2, $1
+	lw	$1, 0($27)
+	lw	$2, 24($29)
 	sll	$3, $2, 2
 	lw	$4, 20($29)
 	add	$27, $3, $4
 	lw	$3, 0($27)
-	lw	$4, 8($29)
-	sw	$1, 32($29)
-	mov	$2, $3
-	mov	$1, $4
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	veccpy.2482
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lw	$1, 16($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	p_group_id.2572
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lw	$2, 12($29)
-	sll	$3, $2, 2
-	lw	$4, 24($29)
-	add	$27, $3, $4
-	lw	$3, 0($27)
 	sll	$4, $2, 2
-	lw	$5, 28($29)
+	lw	$5, 16($29)
 	add	$27, $4, $5
 	lw	$4, 0($27)
-	lw	$28, 4($29)
+	lw	$28, 12($29)
 	mov	$2, $3
 	mov	$3, $4
 	sw	$31, 36($29)
@@ -8359,231 +7377,162 @@ calc_diffuse_using_1point.2821:
 	nop
 	addi	$29, $29, -40
 	lw	$31, 36($29)
-	lw	$1, 12($29)
+	lw	$1, 24($29)
 	sll	$1, $1, 2
-	lw	$2, 32($29)
+	lw	$2, 8($29)
 	add	$27, $1, $2
 	lw	$2, 0($27)
-	lw	$1, 0($29)
-	lw	$3, 8($29)
-	j	vecaccumv.2514
-calc_diffuse_using_5points.2824:
+	lw	$1, 4($29)
+	lw	$3, 0($29)
+	j	vecaccumv.2516
+calc_diffuse_using_5points.2826:
 	lw	$6, 8($28)
 	lw	$7, 4($28)
 	sll	$8, $1, 2
 	add	$27, $8, $2
 	lw	$2, 0($27)
-	sw	$6, 0($29)
-	sw	$7, 4($29)
-	sw	$5, 8($29)
-	sw	$4, 12($29)
-	sw	$3, 16($29)
-	sw	$1, 20($29)
-	mov	$1, $2
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	p_received_ray_20percent.2570
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	set	$2, 1
-	lw	$3, 20($29)
-	sub	$2, $3, $2
-	sll	$2, $2, 2
-	lw	$4, 16($29)
-	add	$27, $2, $4
-	lw	$2, 0($27)
-	sw	$1, 24($29)
-	mov	$1, $2
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	p_received_ray_20percent.2570
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	lw	$2, 20($29)
-	sll	$3, $2, 2
-	lw	$4, 16($29)
-	add	$27, $3, $4
+	lw	$2, 20($2)
+	set	$8, 1
+	sub	$8, $1, $8
+	sll	$8, $8, 2
+	add	$27, $8, $3
+	lw	$8, 0($27)
+	lw	$8, 20($8)
+	sll	$9, $1, 2
+	add	$27, $9, $3
+	lw	$9, 0($27)
+	lw	$10, 20($9)
+	addi	$11, $1, 1
+	sll	$11, $11, 2
+	add	$27, $11, $3
 	lw	$3, 0($27)
-	sw	$1, 28($29)
-	mov	$1, $3
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	p_received_ray_20percent.2570
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lw	$2, 20($29)
-	addi	$3, $2, 1
-	sll	$3, $3, 2
-	lw	$4, 16($29)
-	add	$27, $3, $4
-	lw	$3, 0($27)
-	sw	$1, 32($29)
-	mov	$1, $3
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	p_received_ray_20percent.2570
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lw	$2, 20($29)
-	sll	$3, $2, 2
-	lw	$4, 12($29)
-	add	$27, $3, $4
-	lw	$3, 0($27)
-	sw	$1, 36($29)
-	mov	$1, $3
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	p_received_ray_20percent.2570
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lw	$2, 8($29)
-	sll	$3, $2, 2
-	lw	$4, 24($29)
-	add	$27, $3, $4
-	lw	$3, 0($27)
-	lw	$4, 4($29)
-	sw	$1, 40($29)
-	mov	$2, $3
-	mov	$1, $4
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	veccpy.2482
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lw	$1, 8($29)
-	sll	$2, $1, 2
-	lw	$3, 28($29)
-	add	$27, $2, $3
-	lw	$2, 0($27)
-	lw	$3, 4($29)
-	mov	$1, $3
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	vecadd.2505
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lw	$1, 8($29)
-	sll	$2, $1, 2
-	lw	$3, 32($29)
-	add	$27, $2, $3
-	lw	$2, 0($27)
-	lw	$3, 4($29)
-	mov	$1, $3
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	vecadd.2505
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lw	$1, 8($29)
-	sll	$2, $1, 2
-	lw	$3, 36($29)
-	add	$27, $2, $3
-	lw	$2, 0($27)
-	lw	$3, 4($29)
-	mov	$1, $3
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	vecadd.2505
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lw	$1, 8($29)
-	sll	$2, $1, 2
-	lw	$3, 40($29)
-	add	$27, $2, $3
-	lw	$2, 0($27)
-	lw	$3, 4($29)
-	mov	$1, $3
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	vecadd.2505
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lw	$1, 20($29)
+	lw	$3, 20($3)
 	sll	$1, $1, 2
-	lw	$2, 16($29)
-	add	$27, $1, $2
+	add	$27, $1, $4
 	lw	$1, 0($27)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	p_energy.2568
+	lw	$1, 20($1)
+	sll	$4, $5, 2
+	add	$27, $4, $2
+	lw	$2, 0($27)
+	sw	$6, 0($29)
+	sw	$9, 4($29)
+	sw	$1, 8($29)
+	sw	$3, 12($29)
+	sw	$10, 16($29)
+	sw	$7, 20($29)
+	sw	$8, 24($29)
+	sw	$5, 28($29)
+	mov	$1, $7
+	sw	$31, 36($29)
+	addi	$29, $29, 40
+	jal	veccpy.2484
 	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lw	$2, 8($29)
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
+	lw	$1, 28($29)
+	sll	$2, $1, 2
+	lw	$3, 24($29)
+	add	$27, $2, $3
+	lw	$2, 0($27)
+	lw	$3, 20($29)
+	mov	$1, $3
+	sw	$31, 36($29)
+	addi	$29, $29, 40
+	jal	vecadd.2507
+	nop
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
+	lw	$1, 28($29)
+	sll	$2, $1, 2
+	lw	$3, 16($29)
+	add	$27, $2, $3
+	lw	$2, 0($27)
+	lw	$3, 20($29)
+	mov	$1, $3
+	sw	$31, 36($29)
+	addi	$29, $29, 40
+	jal	vecadd.2507
+	nop
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
+	lw	$1, 28($29)
+	sll	$2, $1, 2
+	lw	$3, 12($29)
+	add	$27, $2, $3
+	lw	$2, 0($27)
+	lw	$3, 20($29)
+	mov	$1, $3
+	sw	$31, 36($29)
+	addi	$29, $29, 40
+	jal	vecadd.2507
+	nop
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
+	lw	$1, 28($29)
+	sll	$2, $1, 2
+	lw	$3, 8($29)
+	add	$27, $2, $3
+	lw	$2, 0($27)
+	lw	$3, 20($29)
+	mov	$1, $3
+	sw	$31, 36($29)
+	addi	$29, $29, 40
+	jal	vecadd.2507
+	nop
+	addi	$29, $29, -40
+	lw	 $31, 36($29)
+	lw	$1, 4($29)
+	lw	$1, 16($1)
+	lw	$2, 28($29)
 	sll	$2, $2, 2
 	add	$27, $2, $1
 	lw	$2, 0($27)
 	lw	$1, 0($29)
-	lw	$3, 4($29)
-	j	vecaccumv.2514
-do_without_neighbors.2830:
+	lw	$3, 20($29)
+	j	vecaccumv.2516
+do_without_neighbors.2832:
 	lw	$3, 4($28)
 	set	$4, 4
 	slt	$27, $4, $2
-	bne	$27, $0, ble_else.9004
-	sw	$28, 0($29)
-	sw	$3, 4($29)
-	sw	$1, 8($29)
-	sw	$2, 12($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	p_surface_ids.2564
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
-	set	$2, 0
-	lw	$3, 12($29)
-	sll	$4, $3, 2
-	add	$27, $4, $1
-	lw	$1, 0($27)
-	slt	$27, $1, $2
-	bne	$27, $0, ble_else.9005
-	lw	$1, 8($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	p_calc_diffuse.2566
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
-	lw	$2, 12($29)
-	sll	$3, $2, 2
-	add	$27, $3, $1
-	lw	$1, 0($27)
-	set	$3, 0
-	bne	$1, $3, beq_else.9006
-	j	beq_cont.9007
-beq_else.9006:
-	lw	$1, 8($29)
-	lw	$28, 4($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
+	bne	$27, $0, ble_else.10602
+	lw	$4, 8($1)
+	set	$5, 0
+	sll	$6, $2, 2
+	add	$27, $6, $4
+	lw	$4, 0($27)
+	slt	$27, $4, $5
+	bne	$27, $0, ble_else.10603
+	lw	$4, 12($1)
+	sll	$5, $2, 2
+	add	$27, $5, $4
+	lw	$4, 0($27)
+	set	$5, 0
+	sw	$1, 0($29)
+	sw	$28, 4($29)
+	sw	$2, 8($29)
+	bne	$4, $5, beq_else.10604
+	j	beq_cont.10605
+beq_else.10604:
+	mov	$28, $3
+	sw	$31, 12($29)
+	addi	$29, $29, 16
 	lw	$27, 0($28)
 	jal	closure_indirect
 	nop
-	addi	$29, $29, -24
-	lw	$31, 20($29)
-beq_cont.9007:
-	lw	$1, 12($29)
-	addi	$2, $1, 1
+	addi	$29, $29, -16
+	lw	$31, 12($29)
+beq_cont.10605:
 	lw	$1, 8($29)
-	lw	$28, 0($29)
+	addi	$2, $1, 1
+	lw	$1, 0($29)
+	lw	$28, 4($29)
 	lw	$27, 0($28)
 	jr	$27
-ble_else.9005:
-jr $31
-ble_else.9004:
-jr $31
-neighbors_exist.2833:
+ble_else.10603:
+	jr $31
+ble_else.10602:
+	jr $31
+neighbors_exist.2835:
 	lw	$3, 4($28)
 	set	$4, 1
 	sll	$4, $4, 2
@@ -8591,145 +7540,92 @@ neighbors_exist.2833:
 	lw	$4, 0($27)
 	addi	$5, $2, 1
 	slt	$27, $5, $4
-	bne	$27, $0, ble_else.9010
+	bne	$27, $0, ble_else.10608
 	set	$1, 0
 	jr $31
-ble_else.9010:
+ble_else.10608:
 	set	$4, 0
 	slt	$27, $4, $2
-	bne	$27, $0, ble_else.9011
+	bne	$27, $0, ble_else.10609
 	set	$1, 0
 	jr $31
-ble_else.9011:
+ble_else.10609:
 	set	$2, 0
 	sll	$2, $2, 2
 	add	$27, $2, $3
 	lw	$2, 0($27)
 	addi	$3, $1, 1
 	slt	$27, $3, $2
-	bne	$27, $0, ble_else.9012
+	bne	$27, $0, ble_else.10610
 	set	$1, 0
 	jr $31
-ble_else.9012:
+ble_else.10610:
 	set	$2, 0
 	slt	$27, $2, $1
-	bne	$27, $0, ble_else.9013
+	bne	$27, $0, ble_else.10611
 	set	$1, 0
 	jr $31
-ble_else.9013:
+ble_else.10611:
 	set	$1, 1
 	jr $31
-get_surface_id.2837:
-	sw	$2, 0($29)
-	sw	$31, 4($29)
-	addi	$29, $29, 8
-	jal	p_surface_ids.2564
-	nop
-	addi	$29, $29, -8
-	lw	 $31, 4($29)
-	lw	$2, 0($29)
-	sll	$2, $2, 2
-	add	$27, $2, $1
-	lw	$1, 0($27)
-	jr $31
-neighbors_are_available.2840:
+neighbors_are_available.2842:
 	sll	$6, $1, 2
 	add	$27, $6, $3
 	lw	$6, 0($27)
-	sw	$3, 0($29)
-	sw	$4, 4($29)
-	sw	$5, 8($29)
-	sw	$2, 12($29)
-	sw	$1, 16($29)
-	mov	$2, $5
-	mov	$1, $6
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	get_surface_id.2837
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
-	lw	$2, 16($29)
-	sll	$3, $2, 2
-	lw	$4, 12($29)
-	add	$27, $3, $4
-	lw	$3, 0($27)
-	lw	$4, 8($29)
-	sw	$1, 20($29)
-	mov	$2, $4
-	mov	$1, $3
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	get_surface_id.2837
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	lw	$2, 20($29)
-	bne	$1, $2, beq_else.9014
-	lw	$1, 16($29)
-	sll	$3, $1, 2
-	lw	$4, 4($29)
-	add	$27, $3, $4
-	lw	$3, 0($27)
-	lw	$4, 8($29)
-	mov	$2, $4
-	mov	$1, $3
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	get_surface_id.2837
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	lw	$2, 20($29)
-	bne	$1, $2, beq_else.9015
-	set	$1, 1
-	lw	$3, 16($29)
-	sub	$1, $3, $1
-	sll	$1, $1, 2
-	lw	$4, 0($29)
-	add	$27, $1, $4
-	lw	$1, 0($27)
-	lw	$5, 8($29)
-	mov	$2, $5
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	get_surface_id.2837
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	lw	$2, 20($29)
-	bne	$1, $2, beq_else.9016
-	lw	$1, 16($29)
+	lw	$6, 8($6)
+	sll	$7, $5, 2
+	add	$27, $7, $6
+	lw	$6, 0($27)
+	sll	$7, $1, 2
+	add	$27, $7, $2
+	lw	$2, 0($27)
+	lw	$2, 8($2)
+	sll	$7, $5, 2
+	add	$27, $7, $2
+	lw	$2, 0($27)
+	bne	$2, $6, beq_else.10612
+	sll	$2, $1, 2
+	add	$27, $2, $4
+	lw	$2, 0($27)
+	lw	$2, 8($2)
+	sll	$4, $5, 2
+	add	$27, $4, $2
+	lw	$2, 0($27)
+	bne	$2, $6, beq_else.10613
+	set	$2, 1
+	sub	$2, $1, $2
+	sll	$2, $2, 2
+	add	$27, $2, $3
+	lw	$2, 0($27)
+	lw	$2, 8($2)
+	sll	$4, $5, 2
+	add	$27, $4, $2
+	lw	$2, 0($27)
+	bne	$2, $6, beq_else.10614
 	addi	$1, $1, 1
 	sll	$1, $1, 2
-	lw	$3, 0($29)
 	add	$27, $1, $3
 	lw	$1, 0($27)
-	lw	$3, 8($29)
-	mov	$2, $3
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	get_surface_id.2837
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	lw	$2, 20($29)
-	bne	$1, $2, beq_else.9017
+	lw	$1, 8($1)
+	sll	$2, $5, 2
+	add	$27, $2, $1
+	lw	$1, 0($27)
+	bne	$1, $6, beq_else.10615
 	set	$1, 1
 	jr $31
-beq_else.9017:
+beq_else.10615:
 	set	$1, 0
 	jr $31
-beq_else.9016:
+beq_else.10614:
 	set	$1, 0
 	jr $31
-beq_else.9015:
+beq_else.10613:
 	set	$1, 0
 	jr $31
-beq_else.9014:
+beq_else.10612:
 	set	$1, 0
 	jr $31
-try_exploit_neighbors.2846:
+try_exploit_neighbors.2848:
 	lw	$7, 8($28)
 	lw	$8, 4($28)
 	sll	$9, $1, 2
@@ -8737,73 +7633,57 @@ try_exploit_neighbors.2846:
 	lw	$9, 0($27)
 	set	$10, 4
 	slt	$27, $10, $6
-	bne	$27, $0, ble_else.9018
+	bne	$27, $0, ble_else.10616
 	set	$10, 0
+	lw	$11, 8($9)
+	sll	$12, $6, 2
+	add	$27, $12, $11
+	lw	$11, 0($27)
+	slt	$27, $11, $10
+	bne	$27, $0, ble_else.10617
 	sw	$2, 0($29)
 	sw	$28, 4($29)
-	sw	$8, 8($29)
-	sw	$9, 12($29)
-	sw	$7, 16($29)
-	sw	$6, 20($29)
-	sw	$5, 24($29)
-	sw	$4, 28($29)
-	sw	$3, 32($29)
-	sw	$1, 36($29)
-	sw	$10, 40($29)
-	mov	$2, $6
-	mov	$1, $9
+	sw	$5, 8($29)
+	sw	$4, 12($29)
+	sw	$3, 16($29)
+	sw	$1, 20($29)
+	sw	$8, 24($29)
+	sw	$6, 28($29)
+	sw	$9, 32($29)
+	sw	$7, 36($29)
+	mov	$2, $3
+	mov	$3, $4
+	mov	$4, $5
+	mov	$5, $6
 	sw	$31, 44($29)
 	addi	$29, $29, 48
-	jal	get_surface_id.2837
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lw	$2, 40($29)
-	slt	$27, $1, $2
-	bne	$27, $0, ble_else.9019
-	lw	$1, 36($29)
-	lw	$2, 32($29)
-	lw	$3, 28($29)
-	lw	$4, 24($29)
-	lw	$5, 20($29)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	neighbors_are_available.2840
+	jal	neighbors_are_available.2842
 	nop
 	addi	$29, $29, -48
 	lw	 $31, 44($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.9020
-	lw	$1, 36($29)
-	sll	$1, $1, 2
+	bne	$1, $2, beq_else.10618
+	lw	$1, 32($29)
 	lw	$2, 28($29)
-	add	$27, $1, $2
-	lw	$1, 0($27)
-	lw	$2, 20($29)
-	lw	$28, 16($29)
+	lw	$28, 36($29)
 	lw	$27, 0($28)
 	jr	$27
-beq_else.9020:
-	lw	$1, 12($29)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	p_calc_diffuse.2566
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lw	$5, 20($29)
+beq_else.10618:
+	lw	$1, 32($29)
+	lw	$1, 12($1)
+	lw	$5, 28($29)
 	sll	$2, $5, 2
 	add	$27, $2, $1
 	lw	$1, 0($27)
 	set	$2, 0
-	bne	$1, $2, beq_else.9021
-	j	beq_cont.9022
-beq_else.9021:
-	lw	$1, 36($29)
-	lw	$2, 32($29)
-	lw	$3, 28($29)
-	lw	$4, 24($29)
-	lw	$28, 8($29)
+	bne	$1, $2, beq_else.10619
+	j	beq_cont.10620
+beq_else.10619:
+	lw	$1, 20($29)
+	lw	$2, 16($29)
+	lw	$3, 12($29)
+	lw	$4, 8($29)
+	lw	$28, 24($29)
 	sw	$31, 44($29)
 	addi	$29, $29, 48
 	lw	$27, 0($28)
@@ -8811,22 +7691,22 @@ beq_else.9021:
 	nop
 	addi	$29, $29, -48
 	lw	$31, 44($29)
-beq_cont.9022:
-	lw	$1, 20($29)
+beq_cont.10620:
+	lw	$1, 28($29)
 	addi	$6, $1, 1
-	lw	$1, 36($29)
+	lw	$1, 20($29)
 	lw	$2, 0($29)
-	lw	$3, 32($29)
-	lw	$4, 28($29)
-	lw	$5, 24($29)
+	lw	$3, 16($29)
+	lw	$4, 12($29)
+	lw	$5, 8($29)
 	lw	$28, 4($29)
 	lw	$27, 0($28)
 	jr	$27
-ble_else.9019:
-jr $31
-ble_else.9018:
-jr $31
-write_ppm_header.2853:
+ble_else.10617:
+	jr $31
+ble_else.10616:
+	jr $31
+write_ppm_header.2855:
 	lw	$1, 4($28)
 	set	$2, 80
 	sw	$1, 0($29)
@@ -8896,7 +7776,7 @@ write_ppm_header.2853:
 	lw	 $31, 4($29)
 	set	$1, 10
 	j	min_caml_print_char
-write_rgb_element.2855:
+write_rgb_element.2857:
 	sw	$31, 4($29)
 	addi	$29, $29, 8
 	jal	min_caml_int_of_float
@@ -8905,20 +7785,20 @@ write_rgb_element.2855:
 	lw	 $31, 4($29)
 	set	$2, 255
 	slt	$27, $2, $1
-	bne	$27, $0, ble_else.9025
+	bne	$27, $0, ble_else.10623
 	set	$2, 0
 	slt	$27, $1, $2
-	bne	$27, $0, ble_else.9027
-	j	ble_cont.9028
-ble_else.9027:
+	bne	$27, $0, ble_else.10625
+	j	ble_cont.10626
+ble_else.10625:
 	set	$1, 0
-ble_cont.9028:
-	j	ble_cont.9026
-ble_else.9025:
+ble_cont.10626:
+	j	ble_cont.10624
+ble_else.10623:
 	set	$1, 255
-ble_cont.9026:
+ble_cont.10624:
 	j	min_caml_print_int
-write_rgb.2857:
+write_rgb.2859:
 	lw	$1, 4($28)
 	set	$2, 0
 	sll	$2, $2, 2
@@ -8927,7 +7807,7 @@ write_rgb.2857:
 	sw	$1, 0($29)
 	sw	$31, 4($29)
 	addi	$29, $29, 8
-	jal	write_rgb_element.2855
+	jal	write_rgb_element.2857
 	nop
 	addi	$29, $29, -8
 	lw	 $31, 4($29)
@@ -8945,7 +7825,7 @@ write_rgb.2857:
 	lwc	$f0, 0($27)
 	sw	$31, 4($29)
 	addi	$29, $29, 8
-	jal	write_rgb_element.2855
+	jal	write_rgb_element.2857
 	nop
 	addi	$29, $29, -8
 	lw	 $31, 4($29)
@@ -8963,136 +7843,122 @@ write_rgb.2857:
 	lwc	$f0, 0($27)
 	sw	$31, 4($29)
 	addi	$29, $29, 8
-	jal	write_rgb_element.2855
+	jal	write_rgb_element.2857
 	nop
 	addi	$29, $29, -8
 	lw	 $31, 4($29)
 	set	$1, 10
 	j	min_caml_print_char
-pretrace_diffuse_rays.2859:
-	lw	$3, 12($28)
-	lw	$4, 8($28)
-	lw	$5, 4($28)
-	set	$6, 4
-	slt	$27, $6, $2
-	bne	$27, $0, ble_else.9029
-	sw	$28, 0($29)
-	sw	$3, 4($29)
-	sw	$4, 8($29)
-	sw	$5, 12($29)
-	sw	$2, 16($29)
-	sw	$1, 20($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	get_surface_id.2837
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	set	$2, 0
-	slt	$27, $1, $2
-	bne	$27, $0, ble_else.9030
-	lw	$1, 20($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	p_calc_diffuse.2566
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	lw	$2, 16($29)
-	sll	$3, $2, 2
-	add	$27, $3, $1
-	lw	$1, 0($27)
-	set	$3, 0
-	bne	$1, $3, beq_else.9031
-	j	beq_cont.9032
-beq_else.9031:
-	lw	$1, 20($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	p_group_id.2572
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	lw	$2, 12($29)
-	sw	$1, 24($29)
-	mov	$1, $2
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	vecbzero.2480
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	lw	$1, 20($29)
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	p_nvectors.2577
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	lw	$2, 20($29)
-	sw	$1, 28($29)
-	mov	$1, $2
+pretrace_diffuse_rays.2861:
+	lw	$3, 16($28)
+	lw	$4, 12($28)
+	lw	$5, 8($28)
+	lw	$6, 4($28)
+	set	$7, 4
+	slt	$27, $7, $2
+	bne	$27, $0, ble_else.10627
+	lw	$7, 8($1)
+	sll	$8, $2, 2
+	add	$27, $8, $7
+	lw	$7, 0($27)
+	set	$8, 0
+	slt	$27, $7, $8
+	bne	$27, $0, ble_else.10628
+	lw	$7, 12($1)
+	sll	$8, $2, 2
+	add	$27, $8, $7
+	lw	$7, 0($27)
+	set	$8, 0
+	sw	$1, 0($29)
+	sw	$28, 4($29)
+	sw	$2, 8($29)
+	bne	$7, $8, beq_else.10629
+	j	beq_cont.10630
+beq_else.10629:
+	lw	$7, 24($1)
+	set	$8, 0
+	sll	$8, $8, 2
+	add	$27, $8, $7
+	lw	$7, 0($27)
+	setclv	$f0, l.7945
+	sw	$6, 12($29)
+	sw	$4, 16($29)
+	sw	$3, 20($29)
+	sw	$5, 24($29)
+	sw	$7, 28($29)
+	mov	$1, $6
 	sw	$31, 36($29)
 	addi	$29, $29, 40
-	jal	p_intersection_points.2562
+	jal	vecfill.2479
 	nop
 	addi	$29, $29, -40
 	lw	 $31, 36($29)
-	lw	$2, 24($29)
-	sll	$2, $2, 2
-	lw	$3, 8($29)
-	add	$27, $2, $3
-	lw	$2, 0($27)
-	lw	$3, 16($29)
-	sll	$4, $3, 2
-	lw	$5, 28($29)
+	lw	$1, 0($29)
+	lw	$2, 28($1)
+	lw	$3, 4($1)
+	lw	$4, 28($29)
+	sll	$4, $4, 2
+	lw	$5, 24($29)
 	add	$27, $4, $5
 	lw	$4, 0($27)
-	sll	$5, $3, 2
-	add	$27, $5, $1
-	lw	$1, 0($27)
-	lw	$28, 4($29)
-	mov	$3, $1
-	mov	$1, $2
-	mov	$2, $4
-	sw	$31, 36($29)
-	addi	$29, $29, 40
+	lw	$5, 8($29)
+	sll	$6, $5, 2
+	add	$27, $6, $2
+	lw	$2, 0($27)
+	sll	$6, $5, 2
+	add	$27, $6, $3
+	lw	$3, 0($27)
+	lw	$28, 20($29)
+	sw	$3, 32($29)
+	sw	$2, 36($29)
+	sw	$4, 40($29)
+	mov	$1, $3
+	sw	$31, 44($29)
+	addi	$29, $29, 48
 	lw	$27, 0($28)
 	jal	closure_indirect
 	nop
-	addi	$29, $29, -40
-	lw	$31, 36($29)
-	lw	$1, 20($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	p_received_ray_20percent.2570
+	addi	$29, $29, -48
+	lw	$31, 44($29)
+	set	$4, 118
+	lw	$1, 40($29)
+	lw	$2, 36($29)
+	lw	$3, 32($29)
+	lw	$28, 16($29)
+	sw	$31, 44($29)
+	addi	$29, $29, 48
+	lw	$27, 0($28)
+	jal	closure_indirect
 	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lw	$2, 16($29)
-	sll	$3, $2, 2
-	add	$27, $3, $1
-	lw	$1, 0($27)
-	lw	$3, 12($29)
-	mov	$2, $3
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	veccpy.2482
+	addi	$29, $29, -48
+	lw	$31, 44($29)
+	lw	$1, 0($29)
+	lw	$2, 20($1)
+	lw	$3, 8($29)
+	sll	$4, $3, 2
+	add	$27, $4, $2
+	lw	$2, 0($27)
+	lw	$4, 12($29)
+	mov	$1, $2
+	mov	$2, $4
+	sw	$31, 44($29)
+	addi	$29, $29, 48
+	jal	veccpy.2484
 	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-beq_cont.9032:
-	lw	$1, 16($29)
+	addi	$29, $29, -48
+	lw	 $31, 44($29)
+beq_cont.10630:
+	lw	$1, 8($29)
 	addi	$2, $1, 1
-	lw	$1, 20($29)
-	lw	$28, 0($29)
+	lw	$1, 0($29)
+	lw	$28, 4($29)
 	lw	$27, 0($28)
 	jr	$27
-ble_else.9030:
-jr $31
-ble_else.9029:
-jr $31
-pretrace_pixels.2862:
+ble_else.10628:
+	jr $31
+ble_else.10627:
+	jr $31
+pretrace_pixels.2864:
 	lw	$4, 36($28)
 	lw	$5, 32($28)
 	lw	$6, 28($28)
@@ -9104,7 +7970,7 @@ pretrace_pixels.2862:
 	lw	$12, 4($28)
 	set	$13, 0
 	slt	$27, $2, $13
-	bne	$27, $0, ble_else.9035
+	bne	$27, $0, ble_else.10633
 	set	$13, 0
 	sll	$13, $13, 2
 	add	$27, $13, $8
@@ -9179,14 +8045,15 @@ pretrace_pixels.2862:
 	mov	$1, $27
 	sw	$31, 60($29)
 	addi	$29, $29, 64
-	jal	vecunit_sgn.2490
+	jal	vecunit_sgn.2492
 	nop
 	addi	$29, $29, -64
 	lw	 $31, 60($29)
+	setclv	$f0, l.7945
 	lw	$1, 32($29)
 	sw	$31, 60($29)
 	addi	$29, $29, 64
-	jal	vecbzero.2480
+	jal	vecfill.2479
 	nop
 	addi	$29, $29, -64
 	lw	 $31, 60($29)
@@ -9194,102 +8061,80 @@ pretrace_pixels.2862:
 	lw	$2, 24($29)
 	sw	$31, 60($29)
 	addi	$29, $29, 64
-	jal	veccpy.2482
+	jal	veccpy.2484
 	nop
 	addi	$29, $29, -64
 	lw	 $31, 60($29)
 	set	$1, 0
-	setclv	$f0, l.5994
+	setclv	$f0, l.7946
 	lw	$2, 20($29)
 	sll	$3, $2, 2
 	lw	$4, 16($29)
 	add	$27, $3, $4
 	lw	$3, 0($27)
-	setclv	$f1, l.5993
+	setclv	$f1, l.7945
 	lw	$5, 44($29)
 	lw	$28, 12($29)
+	sw	$3, 60($29)
 	mov	$2, $5
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	lw	$27, 0($28)
-	jal	closure_indirect
-	nop
-	addi	$29, $29, -64
-	lw	$31, 60($29)
-	lw	$1, 20($29)
-	sll	$2, $1, 2
-	lw	$3, 16($29)
-	add	$27, $2, $3
-	lw	$2, 0($27)
-	mov	$1, $2
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	jal	p_rgb.2560
-	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
-	lw	$2, 32($29)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	jal	veccpy.2482
-	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
-	lw	$1, 20($29)
-	sll	$2, $1, 2
-	lw	$3, 16($29)
-	add	$27, $2, $3
-	lw	$2, 0($27)
-	lw	$4, 8($29)
-	mov	$1, $2
-	mov	$2, $4
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	jal	p_set_group_id.2574
-	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
-	lw	$1, 20($29)
-	sll	$2, $1, 2
-	lw	$3, 16($29)
-	add	$27, $2, $3
-	lw	$2, 0($27)
-	set	$4, 0
-	lw	$28, 4($29)
-	mov	$1, $2
-	mov	$2, $4
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	lw	$27, 0($28)
-	jal	closure_indirect
-	nop
-	addi	$29, $29, -64
-	lw	$31, 60($29)
-	set	$1, 1
-	lw	$2, 20($29)
-	sub	$1, $2, $1
-	set	$2, 1
-	lw	$3, 8($29)
-	sw	$1, 60($29)
-	mov	$1, $3
 	sw	$31, 68($29)
 	addi	$29, $29, 72
-	jal	add_mod5.2469
+	lw	$27, 0($28)
+	jal	closure_indirect
+	nop
+	addi	$29, $29, -72
+	lw	$31, 68($29)
+	lw	$1, 60($29)
+	lw	$2, 0($1)
+	lw	$3, 32($29)
+	mov	$1, $2
+	mov	$2, $3
+	sw	$31, 68($29)
+	addi	$29, $29, 72
+	jal	veccpy.2484
 	nop
 	addi	$29, $29, -72
 	lw	 $31, 68($29)
+	lw	$1, 60($29)
+	lw	$2, 24($1)
+	set	$3, 0
+	sll	$3, $3, 2
+	lw	$4, 8($29)
+	add	$27, $3, $2
+	sw	$4, 0($27)
+	set	$2, 0
+	lw	$28, 4($29)
+	sw	$31, 68($29)
+	addi	$29, $29, 72
+	lw	$27, 0($28)
+	jal	closure_indirect
+	nop
+	addi	$29, $29, -72
+	lw	$31, 68($29)
+	set	$1, 1
+	lw	$2, 20($29)
+	sub	$2, $2, $1
+	lw	$1, 8($29)
+	addi	$1, $1, 1
+	set	$3, 5
+	slt	$27, $1, $3
+	bne	$27, $0, ble_else.10634
+	set	$3, 5
+	sub	$3, $1, $3
+	j	ble_cont.10635
+ble_else.10634:
 	mov	$3, $1
+ble_cont.10635:
 	lwc	$f0, 48($29)
 	lwc	$f1, 40($29)
 	lwc	$f2, 36($29)
 	lw	$1, 16($29)
-	lw	$2, 60($29)
 	lw	$28, 0($29)
 	lw	$27, 0($28)
 	jr	$27
-ble_else.9035:
-jr $31
-pretrace_line.2869:
+ble_else.10633:
+	jr $31
+pretrace_line.2871:
 	lw	$4, 24($28)
 	lw	$5, 20($28)
 	lw	$6, 16($28)
@@ -9369,7 +8214,7 @@ pretrace_line.2869:
 	mov.s	$f1, $f31
 	lw	$27, 0($28)
 	jr	$27
-scan_pixel.2873:
+scan_pixel.2875:
 	lw	$6, 24($28)
 	lw	$7, 20($28)
 	lw	$8, 16($28)
@@ -9381,42 +8226,36 @@ scan_pixel.2873:
 	add	$27, $12, $10
 	lw	$10, 0($27)
 	slt	$27, $1, $10
-	bne	$27, $0, ble_else.9037
-jr $31
-ble_else.9037:
+	bne	$27, $0, ble_else.10637
+	jr $31
+ble_else.10637:
 	sll	$10, $1, 2
 	add	$27, $10, $4
 	lw	$10, 0($27)
+	lw	$12, 0($10)
 	sw	$28, 0($29)
 	sw	$6, 4($29)
-	sw	$3, 8($29)
-	sw	$7, 12($29)
-	sw	$11, 16($29)
-	sw	$4, 20($29)
-	sw	$5, 24($29)
-	sw	$2, 28($29)
-	sw	$1, 32($29)
-	sw	$9, 36($29)
-	sw	$8, 40($29)
-	mov	$1, $10
+	sw	$4, 8($29)
+	sw	$3, 12($29)
+	sw	$7, 16($29)
+	sw	$10, 20($29)
+	sw	$11, 24($29)
+	sw	$5, 28($29)
+	sw	$2, 32($29)
+	sw	$1, 36($29)
+	sw	$9, 40($29)
+	mov	$2, $12
+	mov	$1, $8
 	sw	$31, 44($29)
 	addi	$29, $29, 48
-	jal	p_rgb.2560
+	jal	veccpy.2484
 	nop
 	addi	$29, $29, -48
 	lw	 $31, 44($29)
-	mov	$2, $1
-	lw	$1, 40($29)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	veccpy.2482
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lw	$1, 32($29)
-	lw	$2, 28($29)
-	lw	$3, 24($29)
-	lw	$28, 36($29)
+	lw	$1, 36($29)
+	lw	$2, 32($29)
+	lw	$3, 28($29)
+	lw	$28, 40($29)
 	sw	$31, 44($29)
 	addi	$29, $29, 48
 	lw	$27, 0($28)
@@ -9425,16 +8264,10 @@ ble_else.9037:
 	addi	$29, $29, -48
 	lw	$31, 44($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.9039
-	lw	$1, 32($29)
-	sll	$2, $1, 2
-	lw	$3, 20($29)
-	add	$27, $2, $3
-	lw	$2, 0($27)
-	set	$4, 0
-	lw	$28, 16($29)
-	mov	$1, $2
-	mov	$2, $4
+	bne	$1, $2, beq_else.10639
+	set	$2, 0
+	lw	$1, 20($29)
+	lw	$28, 24($29)
 	sw	$31, 44($29)
 	addi	$29, $29, 48
 	lw	$27, 0($28)
@@ -9442,15 +8275,15 @@ ble_else.9037:
 	nop
 	addi	$29, $29, -48
 	lw	$31, 44($29)
-	j	beq_cont.9040
-beq_else.9039:
+	j	beq_cont.10640
+beq_else.10639:
 	set	$6, 0
-	lw	$1, 32($29)
-	lw	$2, 28($29)
-	lw	$3, 8($29)
-	lw	$4, 20($29)
-	lw	$5, 24($29)
-	lw	$28, 12($29)
+	lw	$1, 36($29)
+	lw	$2, 32($29)
+	lw	$3, 12($29)
+	lw	$4, 8($29)
+	lw	$5, 28($29)
+	lw	$28, 16($29)
 	sw	$31, 44($29)
 	addi	$29, $29, 48
 	lw	$27, 0($28)
@@ -9458,7 +8291,7 @@ beq_else.9039:
 	nop
 	addi	$29, $29, -48
 	lw	$31, 44($29)
-beq_cont.9040:
+beq_cont.10640:
 	lw	$28, 4($29)
 	sw	$31, 44($29)
 	addi	$29, $29, 48
@@ -9467,16 +8300,16 @@ beq_cont.9040:
 	nop
 	addi	$29, $29, -48
 	lw	$31, 44($29)
-	lw	$1, 32($29)
+	lw	$1, 36($29)
 	addi	$1, $1, 1
-	lw	$2, 28($29)
-	lw	$3, 8($29)
-	lw	$4, 20($29)
-	lw	$5, 24($29)
+	lw	$2, 32($29)
+	lw	$3, 12($29)
+	lw	$4, 8($29)
+	lw	$5, 28($29)
 	lw	$28, 0($29)
 	lw	$27, 0($28)
 	jr	$27
-scan_line.2879:
+scan_line.2881:
 	lw	$6, 12($28)
 	lw	$7, 8($28)
 	lw	$8, 4($28)
@@ -9485,9 +8318,9 @@ scan_line.2879:
 	add	$27, $9, $8
 	lw	$9, 0($27)
 	slt	$27, $1, $9
-	bne	$27, $0, ble_else.9041
-jr $31
-ble_else.9041:
+	bne	$27, $0, ble_else.10641
+	jr $31
+ble_else.10641:
 	set	$9, 1
 	sll	$9, $9, 2
 	add	$27, $9, $8
@@ -9502,9 +8335,9 @@ ble_else.9041:
 	sw	$1, 20($29)
 	sw	$6, 24($29)
 	slt	$27, $1, $8
-	bne	$27, $0, ble_else.9043
-	j	ble_cont.9044
-ble_else.9043:
+	bne	$27, $0, ble_else.10643
+	j	ble_cont.10644
+ble_else.10643:
 	addi	$8, $1, 1
 	mov	$3, $5
 	mov	$2, $8
@@ -9517,7 +8350,7 @@ ble_else.9043:
 	nop
 	addi	$29, $29, -32
 	lw	$31, 28($29)
-ble_cont.9044:
+ble_cont.10644:
 	set	$1, 0
 	lw	$2, 20($29)
 	lw	$3, 16($29)
@@ -9533,27 +8366,26 @@ ble_cont.9044:
 	lw	$31, 28($29)
 	lw	$1, 20($29)
 	addi	$1, $1, 1
-	set	$2, 2
-	lw	$3, 4($29)
-	sw	$1, 28($29)
-	mov	$1, $3
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	add_mod5.2469
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	mov	$5, $1
-	lw	$1, 28($29)
+	lw	$2, 4($29)
+	addi	$2, $2, 2
+	set	$3, 5
+	slt	$27, $2, $3
+	bne	$27, $0, ble_else.10645
+	set	$3, 5
+	sub	$5, $2, $3
+	j	ble_cont.10646
+ble_else.10645:
+	mov	$5, $2
+ble_cont.10646:
 	lw	$2, 12($29)
 	lw	$3, 8($29)
 	lw	$4, 16($29)
 	lw	$28, 0($29)
 	lw	$27, 0($28)
 	jr	$27
-create_float5x3array.2885:
+create_float5x3array.2887:
 	set	$1, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$31, 4($29)
 	addi	$29, $29, 8
 	jal	min_caml_create_float_array
@@ -9570,7 +8402,7 @@ create_float5x3array.2885:
 	lw	 $31, 4($29)
 	set	$2, 1
 	set	$3, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 0($29)
 	sw	$2, 4($29)
 	mov	$1, $3
@@ -9587,7 +8419,7 @@ create_float5x3array.2885:
 	sw	$1, 0($27)
 	set	$1, 2
 	set	$2, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 8($29)
 	mov	$1, $2
 	sw	$31, 12($29)
@@ -9603,7 +8435,7 @@ create_float5x3array.2885:
 	sw	$1, 0($27)
 	set	$1, 3
 	set	$2, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 12($29)
 	mov	$1, $2
 	sw	$31, 20($29)
@@ -9619,7 +8451,7 @@ create_float5x3array.2885:
 	sw	$1, 0($27)
 	set	$1, 4
 	set	$2, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 16($29)
 	mov	$1, $2
 	sw	$31, 20($29)
@@ -9635,9 +8467,9 @@ create_float5x3array.2885:
 	sw	$1, 0($27)
 	mov	$1, $3
 	jr $31
-create_pixel.2887:
+create_pixel.2889:
 	set	$1, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$31, 4($29)
 	addi	$29, $29, 8
 	jal	min_caml_create_float_array
@@ -9647,7 +8479,7 @@ create_pixel.2887:
 	sw	$1, 0($29)
 	sw	$31, 4($29)
 	addi	$29, $29, 8
-	jal	create_float5x3array.2885
+	jal	create_float5x3array.2887
 	nop
 	addi	$29, $29, -8
 	lw	 $31, 4($29)
@@ -9676,14 +8508,14 @@ create_pixel.2887:
 	sw	$1, 12($29)
 	sw	$31, 20($29)
 	addi	$29, $29, 24
-	jal	create_float5x3array.2885
+	jal	create_float5x3array.2887
 	nop
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
 	sw	$1, 16($29)
 	sw	$31, 20($29)
 	addi	$29, $29, 24
-	jal	create_float5x3array.2885
+	jal	create_float5x3array.2887
 	nop
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
@@ -9701,7 +8533,7 @@ create_pixel.2887:
 	sw	$1, 24($29)
 	sw	$31, 28($29)
 	addi	$29, $29, 32
-	jal	create_float5x3array.2885
+	jal	create_float5x3array.2887
 	nop
 	addi	$29, $29, -32
 	lw	 $31, 28($29)
@@ -9724,15 +8556,15 @@ create_pixel.2887:
 	sw	$1, 0($2)
 	mov	$1, $2
 	jr $31
-init_line_elements.2889:
+init_line_elements.2891:
 	set	$3, 0
 	slt	$27, $2, $3
-	bne	$27, $0, ble_else.9045
+	bne	$27, $0, ble_else.10647
 	sw	$1, 0($29)
 	sw	$2, 4($29)
 	sw	$31, 12($29)
 	addi	$29, $29, 16
-	jal	create_pixel.2887
+	jal	create_pixel.2889
 	nop
 	addi	$29, $29, -16
 	lw	 $31, 12($29)
@@ -9744,10 +8576,10 @@ init_line_elements.2889:
 	set	$1, 1
 	sub	$2, $2, $1
 	mov	$1, $4
-	j	init_line_elements.2889
-ble_else.9045:
+	j	init_line_elements.2891
+ble_else.10647:
 	jr $31
-create_pixelline.2892:
+create_pixelline.2894:
 	lw	$1, 4($28)
 	set	$2, 0
 	sll	$2, $2, 2
@@ -9757,7 +8589,7 @@ create_pixelline.2892:
 	sw	$2, 4($29)
 	sw	$31, 12($29)
 	addi	$29, $29, 16
-	jal	create_pixel.2887
+	jal	create_pixel.2889
 	nop
 	addi	$29, $29, -16
 	lw	 $31, 12($29)
@@ -9776,30 +8608,10 @@ create_pixelline.2892:
 	lw	$2, 0($27)
 	set	$3, 2
 	sub	$2, $2, $3
-	j	init_line_elements.2889
-tan.2894:
-	swc	$f0, 0($29)
-	sw	$31, 4($29)
-	addi	$29, $29, 8
-	jal	min_caml_sin
-	nop
-	addi	$29, $29, -8
-	lw	 $31, 4($29)
-	lwc	$f1, 0($29)
-	swc	$f0, 4($29)
-	mov.s	$f0, $f1
-	sw	$31, 12($29)
-	addi	$29, $29, 16
-	jal	min_caml_cos
-	nop
-	addi	$29, $29, -16
-	lw	 $31, 12($29)
-	lwc	$f1, 4($29)
-	div.s	$f0, $f1, $f0
-	jr $31
-adjust_position.2896:
+	j	init_line_elements.2891
+adjust_position.2898:
 	mul.s	$f0, $f0, $f0
-	setclv	$f2, l.6438
+	setclv	$f2, l.8451
 	add.s	$f0, $f0, $f2
 	swc	$f1, 0($29)
 	sw	$31, 4($29)
@@ -9808,7 +8620,7 @@ adjust_position.2896:
 	nop
 	addi	$29, $29, -8
 	lw	 $31, 4($29)
-	setclv	$f1, l.5994
+	setclv	$f1, l.7946
 	div.s	$f1, $f1, $f0
 	swc	$f0, 4($29)
 	mov.s	$f0, $f1
@@ -9820,20 +8632,32 @@ adjust_position.2896:
 	lw	 $31, 12($29)
 	lwc	$f1, 0($29)
 	mul.s	$f0, $f0, $f1
+	swc	$f0, 8($29)
 	sw	$31, 12($29)
 	addi	$29, $29, 16
-	jal	tan.2894
+	jal	min_caml_sin
 	nop
 	addi	$29, $29, -16
 	lw	 $31, 12($29)
+	lwc	$f1, 8($29)
+	swc	$f0, 12($29)
+	mov.s	$f0, $f1
+	sw	$31, 20($29)
+	addi	$29, $29, 24
+	jal	min_caml_cos
+	nop
+	addi	$29, $29, -24
+	lw	 $31, 20($29)
+	lwc	$f1, 12($29)
+	div.s	$f0, $f1, $f0
 	lwc	$f1, 4($29)
 	mul.s	$f0, $f0, $f1
 	jr $31
-calc_dirvec.2899:
+calc_dirvec.2901:
 	lw	$4, 4($28)
 	set	$5, 5
 	slt	$27, $1, $5
-	bne	$27, $0, ble_else.9046
+	bne	$27, $0, ble_else.10648
 	sw	$3, 0($29)
 	sw	$4, 4($29)
 	sw	$2, 8($29)
@@ -9856,7 +8680,7 @@ calc_dirvec.2899:
 	lw	 $31, 28($29)
 	lwc	$f1, 20($29)
 	add.s	$f0, $f1, $f0
-	setclv	$f1, l.5994
+	setclv	$f1, l.7946
 	add.s	$f0, $f0, $f1
 	sw	$31, 28($29)
 	addi	$29, $29, 32
@@ -9868,7 +8692,7 @@ calc_dirvec.2899:
 	div.s	$f1, $f1, $f0
 	lwc	$f2, 16($29)
 	div.s	$f2, $f2, $f0
-	setclv	$f3, l.5994
+	setclv	$f3, l.7946
 	div.s	$f0, $f3, $f0
 	lw	$1, 8($29)
 	sll	$1, $1, 2
@@ -9879,41 +8703,31 @@ calc_dirvec.2899:
 	sll	$3, $2, 2
 	add	$27, $3, $1
 	lw	$3, 0($27)
-	sw	$1, 24($29)
-	swc	$f0, 28($29)
+	lw	$3, 0($3)
+	swc	$f0, 24($29)
+	swc	$f1, 28($29)
 	swc	$f2, 32($29)
-	swc	$f1, 36($29)
+	sw	$1, 36($29)
 	mov	$1, $3
+	mov.s	$f31, $f2
+	mov.s	$f2, $f0
+	mov.s	$f0, $f1
+	mov.s	$f1, $f31
 	sw	$31, 44($29)
 	addi	$29, $29, 48
-	jal	d_vec.2579
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lwc	$f0, 36($29)
-	lwc	$f1, 32($29)
-	lwc	$f2, 28($29)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	vecset.2472
+	jal	vecset.2474
 	nop
 	addi	$29, $29, -48
 	lw	 $31, 44($29)
 	lw	$1, 0($29)
 	addi	$2, $1, 40
 	sll	$2, $2, 2
-	lw	$3, 24($29)
+	lw	$3, 36($29)
 	add	$27, $2, $3
 	lw	$2, 0($27)
-	mov	$1, $2
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	d_vec.2579
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
+	lw	$2, 0($2)
 	lwc	$f0, 32($29)
-	sw	$1, 40($29)
+	sw	$2, 40($29)
 	sw	$31, 44($29)
 	addi	$29, $29, 48
 	jal	min_caml_fneg
@@ -9921,30 +8735,24 @@ calc_dirvec.2899:
 	addi	$29, $29, -48
 	lw	 $31, 44($29)
 	mov.s	$f2, $f0
-	lwc	$f0, 36($29)
-	lwc	$f1, 28($29)
+	lwc	$f0, 28($29)
+	lwc	$f1, 24($29)
 	lw	$1, 40($29)
 	sw	$31, 44($29)
 	addi	$29, $29, 48
-	jal	vecset.2472
+	jal	vecset.2474
 	nop
 	addi	$29, $29, -48
 	lw	 $31, 44($29)
 	lw	$1, 0($29)
 	addi	$2, $1, 80
 	sll	$2, $2, 2
-	lw	$3, 24($29)
+	lw	$3, 36($29)
 	add	$27, $2, $3
 	lw	$2, 0($27)
-	mov	$1, $2
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	d_vec.2579
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lwc	$f0, 36($29)
-	sw	$1, 44($29)
+	lw	$2, 0($2)
+	lwc	$f0, 28($29)
+	sw	$2, 44($29)
 	sw	$31, 52($29)
 	addi	$29, $29, 56
 	jal	min_caml_fneg
@@ -9961,30 +8769,24 @@ calc_dirvec.2899:
 	addi	$29, $29, -56
 	lw	 $31, 52($29)
 	mov.s	$f2, $f0
-	lwc	$f0, 28($29)
+	lwc	$f0, 24($29)
 	lwc	$f1, 48($29)
 	lw	$1, 44($29)
 	sw	$31, 52($29)
 	addi	$29, $29, 56
-	jal	vecset.2472
+	jal	vecset.2474
 	nop
 	addi	$29, $29, -56
 	lw	 $31, 52($29)
 	lw	$1, 0($29)
 	addi	$2, $1, 1
 	sll	$2, $2, 2
-	lw	$3, 24($29)
+	lw	$3, 36($29)
 	add	$27, $2, $3
 	lw	$2, 0($27)
-	mov	$1, $2
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	d_vec.2579
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	lwc	$f0, 36($29)
-	sw	$1, 52($29)
+	lw	$2, 0($2)
+	lwc	$f0, 28($29)
+	sw	$2, 52($29)
 	sw	$31, 60($29)
 	addi	$29, $29, 64
 	jal	min_caml_fneg
@@ -10000,7 +8802,7 @@ calc_dirvec.2899:
 	nop
 	addi	$29, $29, -64
 	lw	 $31, 60($29)
-	lwc	$f1, 28($29)
+	lwc	$f1, 24($29)
 	swc	$f0, 60($29)
 	mov.s	$f0, $f1
 	sw	$31, 68($29)
@@ -10015,32 +8817,26 @@ calc_dirvec.2899:
 	lw	$1, 52($29)
 	sw	$31, 68($29)
 	addi	$29, $29, 72
-	jal	vecset.2472
+	jal	vecset.2474
 	nop
 	addi	$29, $29, -72
 	lw	 $31, 68($29)
 	lw	$1, 0($29)
 	addi	$2, $1, 41
 	sll	$2, $2, 2
-	lw	$3, 24($29)
+	lw	$3, 36($29)
 	add	$27, $2, $3
 	lw	$2, 0($27)
-	mov	$1, $2
-	sw	$31, 68($29)
-	addi	$29, $29, 72
-	jal	d_vec.2579
-	nop
-	addi	$29, $29, -72
-	lw	 $31, 68($29)
-	lwc	$f0, 36($29)
-	sw	$1, 64($29)
+	lw	$2, 0($2)
+	lwc	$f0, 28($29)
+	sw	$2, 64($29)
 	sw	$31, 68($29)
 	addi	$29, $29, 72
 	jal	min_caml_fneg
 	nop
 	addi	$29, $29, -72
 	lw	 $31, 68($29)
-	lwc	$f1, 28($29)
+	lwc	$f1, 24($29)
 	swc	$f0, 68($29)
 	mov.s	$f0, $f1
 	sw	$31, 76($29)
@@ -10055,23 +8851,18 @@ calc_dirvec.2899:
 	lw	$1, 64($29)
 	sw	$31, 76($29)
 	addi	$29, $29, 80
-	jal	vecset.2472
+	jal	vecset.2474
 	nop
 	addi	$29, $29, -80
 	lw	 $31, 76($29)
 	lw	$1, 0($29)
 	addi	$1, $1, 81
 	sll	$1, $1, 2
-	lw	$2, 24($29)
+	lw	$2, 36($29)
 	add	$27, $1, $2
 	lw	$1, 0($27)
-	sw	$31, 76($29)
-	addi	$29, $29, 80
-	jal	d_vec.2579
-	nop
-	addi	$29, $29, -80
-	lw	 $31, 76($29)
-	lwc	$f0, 28($29)
+	lw	$1, 0($1)
+	lwc	$f0, 24($29)
 	sw	$1, 72($29)
 	sw	$31, 76($29)
 	addi	$29, $29, 80
@@ -10079,11 +8870,11 @@ calc_dirvec.2899:
 	nop
 	addi	$29, $29, -80
 	lw	 $31, 76($29)
-	lwc	$f1, 36($29)
+	lwc	$f1, 28($29)
 	lwc	$f2, 32($29)
 	lw	$1, 72($29)
-	j	vecset.2472
-ble_else.9046:
+	j	vecset.2474
+ble_else.10648:
 	swc	$f2, 76($29)
 	sw	$3, 0($29)
 	sw	$2, 8($29)
@@ -10094,7 +8885,7 @@ ble_else.9046:
 	mov.s	$f1, $f2
 	sw	$31, 92($29)
 	addi	$29, $29, 96
-	jal	adjust_position.2896
+	jal	adjust_position.2898
 	nop
 	addi	$29, $29, -96
 	lw	 $31, 92($29)
@@ -10105,7 +8896,7 @@ ble_else.9046:
 	sw	$1, 96($29)
 	sw	$31, 100($29)
 	addi	$29, $29, 104
-	jal	adjust_position.2896
+	jal	adjust_position.2898
 	nop
 	addi	$29, $29, -104
 	lw	 $31, 100($29)
@@ -10119,11 +8910,11 @@ ble_else.9046:
 	lw	$28, 80($29)
 	lw	$27, 0($28)
 	jr	$27
-calc_dirvecs.2907:
+calc_dirvecs.2909:
 	lw	$4, 4($28)
 	set	$5, 0
 	slt	$27, $1, $5
-	bne	$27, $0, ble_else.9047
+	bne	$27, $0, ble_else.10649
 	sw	$28, 0($29)
 	sw	$1, 4($29)
 	swc	$f0, 8($29)
@@ -10136,13 +8927,13 @@ calc_dirvecs.2907:
 	nop
 	addi	$29, $29, -32
 	lw	 $31, 28($29)
-	setclv	$f1, l.6550
+	setclv	$f1, l.8567
 	mul.s	$f0, $f0, $f1
-	setclv	$f1, l.6551
+	setclv	$f1, l.8568
 	sub.s	$f2, $f0, $f1
 	set	$1, 0
-	setclv	$f0, l.5993
-	setclv	$f1, l.5993
+	setclv	$f0, l.7945
+	setclv	$f1, l.7945
 	lwc	$f3, 8($29)
 	lw	$2, 16($29)
 	lw	$3, 12($29)
@@ -10161,13 +8952,13 @@ calc_dirvecs.2907:
 	nop
 	addi	$29, $29, -32
 	lw	 $31, 28($29)
-	setclv	$f1, l.6550
+	setclv	$f1, l.8567
 	mul.s	$f0, $f0, $f1
-	setclv	$f1, l.6438
+	setclv	$f1, l.8451
 	add.s	$f2, $f0, $f1
 	set	$1, 0
-	setclv	$f0, l.5993
-	setclv	$f1, l.5993
+	setclv	$f0, l.7945
+	setclv	$f1, l.7945
 	lw	$2, 12($29)
 	addi	$3, $2, 2
 	lwc	$f3, 8($29)
@@ -10184,30 +8975,28 @@ calc_dirvecs.2907:
 	set	$1, 1
 	lw	$2, 4($29)
 	sub	$1, $2, $1
-	set	$2, 1
-	lw	$3, 16($29)
-	sw	$1, 24($29)
-	mov	$1, $3
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	add_mod5.2469
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	mov	$2, $1
+	lw	$2, 16($29)
+	addi	$2, $2, 1
+	set	$3, 5
+	slt	$27, $2, $3
+	bne	$27, $0, ble_else.10650
+	set	$3, 5
+	sub	$2, $2, $3
+	j	ble_cont.10651
+ble_else.10650:
+ble_cont.10651:
 	lwc	$f0, 8($29)
-	lw	$1, 24($29)
 	lw	$3, 12($29)
 	lw	$28, 0($29)
 	lw	$27, 0($28)
 	jr	$27
-ble_else.9047:
-jr $31
-calc_dirvec_rows.2912:
+ble_else.10649:
+	jr $31
+calc_dirvec_rows.2914:
 	lw	$4, 4($28)
 	set	$5, 0
 	slt	$27, $1, $5
-	bne	$27, $0, ble_else.9049
+	bne	$27, $0, ble_else.10653
 	sw	$28, 0($29)
 	sw	$1, 4($29)
 	sw	$3, 8($29)
@@ -10219,9 +9008,9 @@ calc_dirvec_rows.2912:
 	nop
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
-	setclv	$f1, l.6550
+	setclv	$f1, l.8567
 	mul.s	$f0, $f0, $f1
-	setclv	$f1, l.6551
+	setclv	$f1, l.8568
 	sub.s	$f0, $f0, $f1
 	set	$1, 4
 	lw	$2, 12($29)
@@ -10237,29 +9026,27 @@ calc_dirvec_rows.2912:
 	set	$1, 1
 	lw	$2, 4($29)
 	sub	$1, $2, $1
-	set	$2, 2
-	lw	$3, 12($29)
-	sw	$1, 20($29)
-	mov	$1, $3
-	sw	$31, 28($29)
-	addi	$29, $29, 32
-	jal	add_mod5.2469
-	nop
-	addi	$29, $29, -32
-	lw	 $31, 28($29)
-	mov	$2, $1
-	lw	$1, 8($29)
-	addi	$3, $1, 4
-	lw	$1, 20($29)
+	lw	$2, 12($29)
+	addi	$2, $2, 2
+	set	$3, 5
+	slt	$27, $2, $3
+	bne	$27, $0, ble_else.10654
+	set	$3, 5
+	sub	$2, $2, $3
+	j	ble_cont.10655
+ble_else.10654:
+ble_cont.10655:
+	lw	$3, 8($29)
+	addi	$3, $3, 4
 	lw	$28, 0($29)
 	lw	$27, 0($28)
 	jr	$27
-ble_else.9049:
-jr $31
-create_dirvec.2916:
+ble_else.10653:
+	jr $31
+create_dirvec.2918:
 	lw	$1, 4($28)
 	set	$2, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 0($29)
 	mov	$1, $2
 	sw	$31, 4($29)
@@ -10288,11 +9075,11 @@ create_dirvec.2916:
 	sw	$1, 0($2)
 	mov	$1, $2
 	jr $31
-create_dirvec_elements.2918:
+create_dirvec_elements.2920:
 	lw	$3, 4($28)
 	set	$4, 0
 	slt	$27, $2, $4
-	bne	$27, $0, ble_else.9051
+	bne	$27, $0, ble_else.10657
 	sw	$28, 0($29)
 	sw	$1, 4($29)
 	sw	$2, 8($29)
@@ -10315,15 +9102,15 @@ create_dirvec_elements.2918:
 	mov	$1, $4
 	lw	$27, 0($28)
 	jr	$27
-ble_else.9051:
-jr $31
-create_dirvecs.2921:
+ble_else.10657:
+	jr $31
+create_dirvecs.2923:
 	lw	$2, 12($28)
 	lw	$3, 8($28)
 	lw	$4, 4($28)
 	set	$5, 0
 	slt	$27, $1, $5
-	bne	$27, $0, ble_else.9053
+	bne	$27, $0, ble_else.10659
 	set	$5, 120
 	sw	$28, 0($29)
 	sw	$3, 4($29)
@@ -10370,21 +9157,29 @@ create_dirvecs.2921:
 	lw	$28, 0($29)
 	lw	$27, 0($28)
 	jr	$27
-ble_else.9053:
-jr $31
-init_dirvec_constants.2923:
-	lw	$3, 4($28)
-	set	$4, 0
-	slt	$27, $2, $4
-	bne	$27, $0, ble_else.9055
-	sll	$4, $2, 2
-	add	$27, $4, $1
-	lw	$4, 0($27)
+ble_else.10659:
+	jr $31
+init_dirvec_constants.2925:
+	lw	$3, 8($28)
+	lw	$4, 4($28)
+	set	$5, 0
+	slt	$27, $2, $5
+	bne	$27, $0, ble_else.10661
+	sll	$5, $2, 2
+	add	$27, $5, $1
+	lw	$5, 0($27)
+	set	$6, 0
+	sll	$6, $6, 2
+	add	$27, $6, $3
+	lw	$3, 0($27)
+	set	$6, 1
+	sub	$3, $3, $6
 	sw	$1, 0($29)
 	sw	$28, 4($29)
 	sw	$2, 8($29)
-	mov	$1, $4
-	mov	$28, $3
+	mov	$2, $3
+	mov	$1, $5
+	mov	$28, $4
 	sw	$31, 12($29)
 	addi	$29, $29, 16
 	lw	$27, 0($28)
@@ -10399,14 +9194,14 @@ init_dirvec_constants.2923:
 	lw	$28, 4($29)
 	lw	$27, 0($28)
 	jr	$27
-ble_else.9055:
-jr $31
-init_vecset_constants.2926:
+ble_else.10661:
+	jr $31
+init_vecset_constants.2928:
 	lw	$2, 8($28)
 	lw	$3, 4($28)
 	set	$4, 0
 	slt	$27, $1, $4
-	bne	$27, $0, ble_else.9057
+	bne	$27, $0, ble_else.10663
 	sll	$4, $1, 2
 	add	$27, $4, $3
 	lw	$3, 0($27)
@@ -10429,9 +9224,9 @@ init_vecset_constants.2926:
 	lw	$28, 0($29)
 	lw	$27, 0($28)
 	jr	$27
-ble_else.9057:
-jr $31
-init_dirvecs.2928:
+ble_else.10663:
+	jr $31
+init_dirvecs.2930:
 	lw	$1, 12($28)
 	lw	$2, 8($28)
 	lw	$3, 4($28)
@@ -10462,18 +9257,20 @@ init_dirvecs.2928:
 	lw	$28, 0($29)
 	lw	$27, 0($28)
 	jr	$27
-add_reflection.2930:
-	lw	$3, 12($28)
-	lw	$4, 8($28)
+add_reflection.2932:
+	lw	$3, 16($28)
+	lw	$4, 12($28)
+	lw	$5, 8($28)
 	lw	$28, 4($28)
-	sw	$4, 0($29)
+	sw	$3, 0($29)
 	sw	$1, 4($29)
 	sw	$2, 8($29)
 	swc	$f0, 12($29)
-	sw	$3, 16($29)
-	swc	$f3, 20($29)
-	swc	$f2, 24($29)
-	swc	$f1, 28($29)
+	sw	$5, 16($29)
+	sw	$4, 20($29)
+	swc	$f3, 24($29)
+	swc	$f2, 28($29)
+	swc	$f1, 32($29)
 	sw	$31, 36($29)
 	addi	$29, $29, 40
 	lw	$27, 0($28)
@@ -10481,36 +9278,39 @@ add_reflection.2930:
 	nop
 	addi	$29, $29, -40
 	lw	$31, 36($29)
-	sw	$1, 32($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	d_vec.2579
+	lw	$2, 0($1)
+	lwc	$f0, 32($29)
+	lwc	$f1, 28($29)
+	lwc	$f2, 24($29)
+	sw	$1, 36($29)
+	mov	$1, $2
+	sw	$31, 44($29)
+	addi	$29, $29, 48
+	jal	vecset.2474
 	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lwc	$f0, 28($29)
-	lwc	$f1, 24($29)
-	lwc	$f2, 20($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	vecset.2472
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	lw	$1, 32($29)
+	addi	$29, $29, -48
+	lw	 $31, 44($29)
+	set	$1, 0
+	sll	$1, $1, 2
+	lw	$2, 20($29)
+	add	$27, $1, $2
+	lw	$1, 0($27)
+	set	$2, 1
+	sub	$2, $1, $2
+	lw	$1, 36($29)
 	lw	$28, 16($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
+	sw	$31, 44($29)
+	addi	$29, $29, 48
 	lw	$27, 0($28)
 	jal	closure_indirect
 	nop
-	addi	$29, $29, -40
-	lw	$31, 36($29)
+	addi	$29, $29, -48
+	lw	$31, 44($29)
 	mov	$1, $30
 	addi	$30, $30, 16
 	lwc	$f0, 12($29)
 	swc	$f0, 8($1)
-	lw	$2, 32($29)
+	lw	$2, 36($29)
 	sw	$2, 4($1)
 	lw	$2, 8($29)
 	sw	$2, 0($1)
@@ -10519,8 +9319,8 @@ add_reflection.2930:
 	lw	$3, 0($29)
 	add	$27, $2, $3
 	sw	$1, 0($27)
-jr $31
-setup_rect_reflection.2937:
+	jr $31
+setup_rect_reflection.2939:
 	lw	$3, 12($28)
 	lw	$4, 8($28)
 	lw	$5, 4($28)
@@ -10529,25 +9329,33 @@ setup_rect_reflection.2937:
 	sll	$6, $6, 2
 	add	$27, $6, $3
 	lw	$6, 0($27)
-	setclv	$f0, l.5994
+	setclv	$f0, l.7946
+	lw	$2, 28($2)
+	set	$7, 0
+	sll	$7, $7, 2
+	add	$27, $7, $2
+	lwc	$f1, 0($27)
+	sub.s	$f0, $f0, $f1
+	set	$2, 0
+	sll	$2, $2, 2
+	add	$27, $2, $4
+	lwc	$f1, 0($27)
 	sw	$3, 0($29)
-	sw	$6, 4($29)
-	sw	$5, 8($29)
-	sw	$1, 12($29)
-	sw	$4, 16($29)
-	swc	$f0, 20($29)
-	mov	$1, $2
+	swc	$f0, 4($29)
+	sw	$6, 8($29)
+	sw	$5, 12($29)
+	sw	$1, 16($29)
+	sw	$4, 20($29)
+	mov.s	$f0, $f1
 	sw	$31, 28($29)
 	addi	$29, $29, 32
-	jal	o_diffuse.2542
+	jal	min_caml_fneg
 	nop
 	addi	$29, $29, -32
 	lw	 $31, 28($29)
-	lwc	$f1, 20($29)
-	sub.s	$f0, $f1, $f0
-	set	$1, 0
+	set	$1, 1
 	sll	$1, $1, 2
-	lw	$2, 16($29)
+	lw	$2, 20($29)
 	add	$27, $1, $2
 	lwc	$f1, 0($27)
 	swc	$f0, 24($29)
@@ -10558,9 +9366,9 @@ setup_rect_reflection.2937:
 	nop
 	addi	$29, $29, -32
 	lw	 $31, 28($29)
-	set	$1, 1
+	set	$1, 2
 	sll	$1, $1, 2
-	lw	$2, 16($29)
+	lw	$2, 20($29)
 	add	$27, $1, $2
 	lwc	$f1, 0($27)
 	swc	$f0, 28($29)
@@ -10571,93 +9379,80 @@ setup_rect_reflection.2937:
 	nop
 	addi	$29, $29, -40
 	lw	 $31, 36($29)
-	set	$1, 2
-	sll	$1, $1, 2
-	lw	$2, 16($29)
-	add	$27, $1, $2
-	lwc	$f1, 0($27)
-	swc	$f0, 32($29)
-	mov.s	$f0, $f1
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	min_caml_fneg
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
 	mov.s	$f3, $f0
-	lw	$1, 12($29)
+	lw	$1, 16($29)
 	addi	$2, $1, 1
 	set	$3, 0
 	sll	$3, $3, 2
-	lw	$4, 16($29)
+	lw	$4, 20($29)
 	add	$27, $3, $4
 	lwc	$f1, 0($27)
-	lwc	$f0, 24($29)
-	lwc	$f2, 32($29)
-	lw	$3, 4($29)
-	lw	$28, 8($29)
-	swc	$f3, 36($29)
+	lwc	$f0, 4($29)
+	lwc	$f2, 28($29)
+	lw	$3, 8($29)
+	lw	$28, 12($29)
+	swc	$f3, 32($29)
 	mov	$1, $3
-	sw	$31, 44($29)
-	addi	$29, $29, 48
+	sw	$31, 36($29)
+	addi	$29, $29, 40
 	lw	$27, 0($28)
 	jal	closure_indirect
 	nop
-	addi	$29, $29, -48
-	lw	$31, 44($29)
-	lw	$1, 4($29)
+	addi	$29, $29, -40
+	lw	$31, 36($29)
+	lw	$1, 8($29)
 	addi	$2, $1, 1
-	lw	$3, 12($29)
+	lw	$3, 16($29)
 	addi	$4, $3, 2
 	set	$5, 1
 	sll	$5, $5, 2
-	lw	$6, 16($29)
+	lw	$6, 20($29)
 	add	$27, $5, $6
 	lwc	$f2, 0($27)
-	lwc	$f0, 24($29)
-	lwc	$f1, 28($29)
-	lwc	$f3, 36($29)
-	lw	$28, 8($29)
+	lwc	$f0, 4($29)
+	lwc	$f1, 24($29)
+	lwc	$f3, 32($29)
+	lw	$28, 12($29)
 	mov	$1, $2
 	mov	$2, $4
-	sw	$31, 44($29)
-	addi	$29, $29, 48
+	sw	$31, 36($29)
+	addi	$29, $29, 40
 	lw	$27, 0($28)
 	jal	closure_indirect
 	nop
-	addi	$29, $29, -48
-	lw	$31, 44($29)
-	lw	$1, 4($29)
+	addi	$29, $29, -40
+	lw	$31, 36($29)
+	lw	$1, 8($29)
 	addi	$2, $1, 2
-	lw	$3, 12($29)
+	lw	$3, 16($29)
 	addi	$3, $3, 3
 	set	$4, 2
 	sll	$4, $4, 2
-	lw	$5, 16($29)
+	lw	$5, 20($29)
 	add	$27, $4, $5
 	lwc	$f3, 0($27)
-	lwc	$f0, 24($29)
-	lwc	$f1, 28($29)
-	lwc	$f2, 32($29)
-	lw	$28, 8($29)
+	lwc	$f0, 4($29)
+	lwc	$f1, 24($29)
+	lwc	$f2, 28($29)
+	lw	$28, 12($29)
 	mov	$1, $2
 	mov	$2, $3
-	sw	$31, 44($29)
-	addi	$29, $29, 48
+	sw	$31, 36($29)
+	addi	$29, $29, 40
 	lw	$27, 0($28)
 	jal	closure_indirect
 	nop
-	addi	$29, $29, -48
-	lw	$31, 44($29)
+	addi	$29, $29, -40
+	lw	$31, 36($29)
 	set	$1, 0
-	lw	$2, 4($29)
+	lw	$2, 8($29)
 	addi	$2, $2, 3
 	sll	$1, $1, 2
 	lw	$3, 0($29)
 	add	$27, $1, $3
 	sw	$2, 0($27)
-jr $31
-setup_surface_reflection.2940:
+	jr $31
+setup_surface_reflection.2942:
 	lw	$3, 12($28)
 	lw	$4, 8($28)
 	lw	$5, 4($28)
@@ -10667,151 +9462,112 @@ setup_surface_reflection.2940:
 	sll	$6, $6, 2
 	add	$27, $6, $3
 	lw	$6, 0($27)
-	setclv	$f0, l.5994
+	setclv	$f0, l.7946
+	lw	$7, 28($2)
+	set	$8, 0
+	sll	$8, $8, 2
+	add	$27, $8, $7
+	lwc	$f1, 0($27)
+	sub.s	$f0, $f0, $f1
+	lw	$7, 16($2)
 	sw	$3, 0($29)
-	sw	$1, 4($29)
-	sw	$6, 8($29)
-	sw	$5, 12($29)
-	sw	$4, 16($29)
-	sw	$2, 20($29)
-	swc	$f0, 24($29)
-	mov	$1, $2
+	swc	$f0, 4($29)
+	sw	$1, 8($29)
+	sw	$6, 12($29)
+	sw	$5, 16($29)
+	sw	$4, 20($29)
+	sw	$2, 24($29)
+	mov	$2, $7
+	mov	$1, $4
 	sw	$31, 28($29)
 	addi	$29, $29, 32
-	jal	o_diffuse.2542
+	jal	veciprod.2495
 	nop
 	addi	$29, $29, -32
 	lw	 $31, 28($29)
-	lwc	$f1, 24($29)
-	sub.s	$f0, $f1, $f0
-	lw	$1, 20($29)
-	swc	$f0, 28($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	o_param_abc.2534
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	mov	$2, $1
-	lw	$1, 16($29)
-	sw	$31, 36($29)
-	addi	$29, $29, 40
-	jal	veciprod.2493
-	nop
-	addi	$29, $29, -40
-	lw	 $31, 36($29)
-	setclv	$f1, l.6118
-	lw	$1, 20($29)
-	swc	$f0, 32($29)
-	swc	$f1, 36($29)
-	sw	$31, 44($29)
-	addi	$29, $29, 48
-	jal	o_param_a.2528
-	nop
-	addi	$29, $29, -48
-	lw	 $31, 44($29)
-	lwc	$f1, 36($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 32($29)
-	mul.s	$f0, $f0, $f1
-	set	$1, 0
-	sll	$1, $1, 2
-	lw	$2, 16($29)
-	add	$27, $1, $2
+	setclv	$f1, l.8054
+	lw	$1, 24($29)
+	lw	$2, 16($1)
+	set	$3, 0
+	sll	$3, $3, 2
+	add	$27, $3, $2
 	lwc	$f2, 0($27)
-	sub.s	$f0, $f0, $f2
-	setclv	$f2, l.6118
-	lw	$1, 20($29)
-	swc	$f0, 40($29)
-	swc	$f2, 44($29)
-	sw	$31, 52($29)
-	addi	$29, $29, 56
-	jal	o_param_b.2530
-	nop
-	addi	$29, $29, -56
-	lw	 $31, 52($29)
-	lwc	$f1, 44($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 32($29)
-	mul.s	$f0, $f0, $f1
-	set	$1, 1
-	sll	$1, $1, 2
-	lw	$2, 16($29)
-	add	$27, $1, $2
+	mul.s	$f1, $f1, $f2
+	mul.s	$f1, $f1, $f0
+	set	$2, 0
+	sll	$2, $2, 2
+	lw	$3, 20($29)
+	add	$27, $2, $3
 	lwc	$f2, 0($27)
-	sub.s	$f0, $f0, $f2
-	setclv	$f2, l.6118
-	lw	$1, 20($29)
-	swc	$f0, 48($29)
-	swc	$f2, 52($29)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	jal	o_param_c.2532
-	nop
-	addi	$29, $29, -64
-	lw	 $31, 60($29)
-	lwc	$f1, 52($29)
-	mul.s	$f0, $f1, $f0
-	lwc	$f1, 32($29)
-	mul.s	$f0, $f0, $f1
+	sub.s	$f1, $f1, $f2
+	setclv	$f2, l.8054
+	lw	$2, 16($1)
+	set	$4, 1
+	sll	$4, $4, 2
+	add	$27, $4, $2
+	lwc	$f3, 0($27)
+	mul.s	$f2, $f2, $f3
+	mul.s	$f2, $f2, $f0
+	set	$2, 1
+	sll	$2, $2, 2
+	add	$27, $2, $3
+	lwc	$f3, 0($27)
+	sub.s	$f2, $f2, $f3
+	setclv	$f3, l.8054
+	lw	$1, 16($1)
+	set	$2, 2
+	sll	$2, $2, 2
+	add	$27, $2, $1
+	lwc	$f4, 0($27)
+	mul.s	$f3, $f3, $f4
+	mul.s	$f0, $f3, $f0
 	set	$1, 2
 	sll	$1, $1, 2
-	lw	$2, 16($29)
-	add	$27, $1, $2
-	lwc	$f1, 0($27)
-	sub.s	$f3, $f0, $f1
-	lwc	$f0, 28($29)
-	lwc	$f1, 40($29)
-	lwc	$f2, 48($29)
-	lw	$1, 8($29)
-	lw	$2, 4($29)
-	lw	$28, 12($29)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
+	add	$27, $1, $3
+	lwc	$f3, 0($27)
+	sub.s	$f3, $f0, $f3
+	lwc	$f0, 4($29)
+	lw	$1, 12($29)
+	lw	$2, 8($29)
+	lw	$28, 16($29)
+	sw	$31, 28($29)
+	addi	$29, $29, 32
 	lw	$27, 0($28)
 	jal	closure_indirect
 	nop
-	addi	$29, $29, -64
-	lw	$31, 60($29)
+	addi	$29, $29, -32
+	lw	$31, 28($29)
 	set	$1, 0
-	lw	$2, 8($29)
+	lw	$2, 12($29)
 	addi	$2, $2, 1
 	sll	$1, $1, 2
 	lw	$3, 0($29)
 	add	$27, $1, $3
 	sw	$2, 0($27)
-jr $31
-setup_reflections.2943:
+	jr $31
+setup_reflections.2945:
 	lw	$2, 12($28)
 	lw	$3, 8($28)
 	lw	$4, 4($28)
 	set	$5, 0
 	slt	$27, $1, $5
-	bne	$27, $0, ble_else.9062
+	bne	$27, $0, ble_else.10668
 	sll	$5, $1, 2
 	add	$27, $5, $4
 	lw	$4, 0($27)
+	lw	$5, 8($4)
+	set	$6, 2
+	bne	$5, $6, beq_else.10669
+	lw	$5, 28($4)
+	set	$6, 0
+	sll	$6, $6, 2
+	add	$27, $6, $5
+	lwc	$f0, 0($27)
+	setclv	$f1, l.7946
 	sw	$2, 0($29)
 	sw	$1, 4($29)
 	sw	$3, 8($29)
 	sw	$4, 12($29)
-	mov	$1, $4
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	o_reflectiontype.2522
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
-	set	$2, 2
-	bne	$1, $2, beq_else.9063
-	lw	$1, 12($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	o_diffuse.2542
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
-	setclv	$f1, l.5994
 	sw	$31, 20($29)
 	addi	$29, $29, 24
 	jal	min_caml_fless
@@ -10819,102 +9575,97 @@ setup_reflections.2943:
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
 	set	$2, 0
-	bne	$1, $2, beq_else.9064
-jr $31
-beq_else.9064:
-	lw	$1, 12($29)
-	sw	$31, 20($29)
-	addi	$29, $29, 24
-	jal	o_form.2520
-	nop
-	addi	$29, $29, -24
-	lw	 $31, 20($29)
-	set	$2, 1
-	bne	$1, $2, beq_else.9066
-	lw	$1, 4($29)
+	bne	$1, $2, beq_else.10670
+	jr $31
+beq_else.10670:
 	lw	$2, 12($29)
+	lw	$1, 4($2)
+	set	$3, 1
+	bne	$1, $3, beq_else.10672
+	lw	$1, 4($29)
 	lw	$28, 8($29)
 	lw	$27, 0($28)
 	jr	$27
-beq_else.9066:
-	set	$2, 2
-	bne	$1, $2, beq_else.9067
+beq_else.10672:
+	set	$3, 2
+	bne	$1, $3, beq_else.10673
 	lw	$1, 4($29)
-	lw	$2, 12($29)
 	lw	$28, 0($29)
 	lw	$27, 0($28)
 	jr	$27
-beq_else.9067:
-jr $31
-beq_else.9063:
-jr $31
-ble_else.9062:
-jr $31
-rt.2945:
-	lw	$3, 56($28)
-	lw	$4, 52($28)
-	lw	$5, 48($28)
-	lw	$6, 44($28)
-	lw	$7, 40($28)
-	lw	$8, 36($28)
-	lw	$9, 32($28)
-	lw	$10, 28($28)
-	lw	$11, 24($28)
-	lw	$12, 20($28)
-	lw	$13, 16($28)
-	lw	$14, 12($28)
-	lw	$15, 8($28)
-	lw	$16, 4($28)
-	set	$17, 0
-	sll	$17, $17, 2
-	add	$27, $17, $14
+beq_else.10673:
+	jr $31
+beq_else.10669:
+	jr $31
+ble_else.10668:
+	jr $31
+rt.2947:
+	lw	$3, 60($28)
+	lw	$4, 56($28)
+	lw	$5, 52($28)
+	lw	$6, 48($28)
+	lw	$7, 44($28)
+	lw	$8, 40($28)
+	lw	$9, 36($28)
+	lw	$10, 32($28)
+	lw	$11, 28($28)
+	lw	$12, 24($28)
+	lw	$13, 20($28)
+	lw	$14, 16($28)
+	lw	$15, 12($28)
+	lw	$16, 8($28)
+	lw	$17, 4($28)
+	set	$18, 0
+	sll	$18, $18, 2
+	add	$27, $18, $15
 	sw	$1, 0($27)
-	set	$17, 1
-	sll	$17, $17, 2
-	add	$27, $17, $14
+	set	$18, 1
+	sll	$18, $18, 2
+	add	$27, $18, $15
 	sw	$2, 0($27)
-	set	$14, 0
-	set	$17, 2
-	sra	$17, $1, 1
-	sll	$14, $14, 2
-	add	$27, $14, $15
-	sw	$17, 0($27)
-	set	$14, 1
-	set	$17, 2
+	set	$15, 0
+	set	$18, 2
+	sra	$18, $1, 1
+	sll	$15, $15, 2
+	add	$27, $15, $16
+	sw	$18, 0($27)
+	set	$15, 1
+	set	$18, 2
 	sra	$2, $2, 1
-	sll	$14, $14, 2
-	add	$27, $14, $15
+	sll	$15, $15, 2
+	add	$27, $15, $16
 	sw	$2, 0($27)
 	set	$2, 0
-	setclv	$f0, l.6584
+	setclv	$f0, l.8609
 	sw	$7, 0($29)
 	sw	$9, 4($29)
-	sw	$4, 8($29)
-	sw	$10, 12($29)
-	sw	$5, 16($29)
-	sw	$12, 20($29)
-	sw	$11, 24($29)
-	sw	$13, 28($29)
-	sw	$3, 32($29)
-	sw	$8, 36($29)
-	sw	$16, 40($29)
-	sw	$6, 44($29)
-	sw	$2, 48($29)
-	swc	$f0, 52($29)
+	sw	$5, 8($29)
+	sw	$11, 12($29)
+	sw	$13, 16($29)
+	sw	$10, 20($29)
+	sw	$12, 24($29)
+	sw	$4, 28($29)
+	sw	$14, 32($29)
+	sw	$3, 36($29)
+	sw	$8, 40($29)
+	sw	$17, 44($29)
+	sw	$6, 48($29)
+	sw	$2, 52($29)
+	swc	$f0, 56($29)
 	sw	$31, 60($29)
 	addi	$29, $29, 64
 	jal	min_caml_float_of_int
 	nop
 	addi	$29, $29, -64
 	lw	 $31, 60($29)
-	lwc	$f1, 52($29)
+	lwc	$f1, 56($29)
 	div.s	$f0, $f1, $f0
-	lw	$1, 48($29)
+	lw	$1, 52($29)
 	sll	$1, $1, 2
-	lw	$2, 44($29)
+	lw	$2, 48($29)
 	add	$27, $1, $2
 	swc	$f0, 0($27)
-	lw	$28, 40($29)
+	lw	$28, 44($29)
 	sw	$31, 60($29)
 	addi	$29, $29, 64
 	lw	$27, 0($28)
@@ -10922,16 +9673,7 @@ rt.2945:
 	nop
 	addi	$29, $29, -64
 	lw	$31, 60($29)
-	lw	$28, 40($29)
-	sw	$1, 56($29)
-	sw	$31, 60($29)
-	addi	$29, $29, 64
-	lw	$27, 0($28)
-	jal	closure_indirect
-	nop
-	addi	$29, $29, -64
-	lw	$31, 60($29)
-	lw	$28, 40($29)
+	lw	$28, 44($29)
 	sw	$1, 60($29)
 	sw	$31, 68($29)
 	addi	$29, $29, 72
@@ -10940,7 +9682,7 @@ rt.2945:
 	nop
 	addi	$29, $29, -72
 	lw	$31, 68($29)
-	lw	$28, 36($29)
+	lw	$28, 44($29)
 	sw	$1, 64($29)
 	sw	$31, 68($29)
 	addi	$29, $29, 72
@@ -10949,76 +9691,96 @@ rt.2945:
 	nop
 	addi	$29, $29, -72
 	lw	$31, 68($29)
+	set	$2, 170
+	sw	$1, 68($29)
+	mov	$1, $2
+	sw	$31, 76($29)
+	addi	$29, $29, 80
+	jal	min_caml_print_char
+	nop
+	addi	$29, $29, -80
+	lw	 $31, 76($29)
+	lw	$28, 40($29)
+	sw	$31, 76($29)
+	addi	$29, $29, 80
+	lw	$27, 0($28)
+	jal	closure_indirect
+	nop
+	addi	$29, $29, -80
+	lw	$31, 76($29)
+	lw	$28, 36($29)
+	sw	$31, 76($29)
+	addi	$29, $29, 80
+	lw	$27, 0($28)
+	jal	closure_indirect
+	nop
+	addi	$29, $29, -80
+	lw	$31, 76($29)
 	lw	$28, 32($29)
-	sw	$31, 68($29)
-	addi	$29, $29, 72
+	sw	$31, 76($29)
+	addi	$29, $29, 80
 	lw	$27, 0($28)
 	jal	closure_indirect
 	nop
-	addi	$29, $29, -72
-	lw	$31, 68($29)
-	lw	$28, 28($29)
-	sw	$31, 68($29)
-	addi	$29, $29, 72
-	lw	$27, 0($28)
-	jal	closure_indirect
+	addi	$29, $29, -80
+	lw	$31, 76($29)
+	lw	$1, 28($29)
+	lw	$2, 24($29)
+	sw	$31, 76($29)
+	addi	$29, $29, 80
+	jal	veccpy.2484
 	nop
-	addi	$29, $29, -72
-	lw	$31, 68($29)
-	lw	$1, 24($29)
-	sw	$31, 68($29)
-	addi	$29, $29, 72
-	jal	d_vec.2579
-	nop
-	addi	$29, $29, -72
-	lw	 $31, 68($29)
-	lw	$2, 20($29)
-	sw	$31, 68($29)
-	addi	$29, $29, 72
-	jal	veccpy.2482
-	nop
-	addi	$29, $29, -72
-	lw	 $31, 68($29)
-	lw	$1, 24($29)
-	lw	$28, 16($29)
-	sw	$31, 68($29)
-	addi	$29, $29, 72
-	lw	$27, 0($28)
-	jal	closure_indirect
-	nop
-	addi	$29, $29, -72
-	lw	$31, 68($29)
+	addi	$29, $29, -80
+	lw	 $31, 76($29)
 	set	$1, 0
 	sll	$1, $1, 2
-	lw	$2, 12($29)
+	lw	$2, 20($29)
+	add	$27, $1, $2
+	lw	$1, 0($27)
+	set	$3, 1
+	sub	$1, $1, $3
+	lw	$3, 12($29)
+	lw	$28, 16($29)
+	mov	$2, $1
+	mov	$1, $3
+	sw	$31, 76($29)
+	addi	$29, $29, 80
+	lw	$27, 0($28)
+	jal	closure_indirect
+	nop
+	addi	$29, $29, -80
+	lw	$31, 76($29)
+	set	$1, 0
+	sll	$1, $1, 2
+	lw	$2, 20($29)
 	add	$27, $1, $2
 	lw	$1, 0($27)
 	set	$2, 1
 	sub	$1, $1, $2
 	lw	$28, 8($29)
-	sw	$31, 68($29)
-	addi	$29, $29, 72
+	sw	$31, 76($29)
+	addi	$29, $29, 80
 	lw	$27, 0($28)
 	jal	closure_indirect
 	nop
-	addi	$29, $29, -72
-	lw	$31, 68($29)
+	addi	$29, $29, -80
+	lw	$31, 76($29)
 	set	$2, 0
 	set	$3, 0
-	lw	$1, 60($29)
+	lw	$1, 64($29)
 	lw	$28, 4($29)
-	sw	$31, 68($29)
-	addi	$29, $29, 72
+	sw	$31, 76($29)
+	addi	$29, $29, 80
 	lw	$27, 0($28)
 	jal	closure_indirect
 	nop
-	addi	$29, $29, -72
-	lw	$31, 68($29)
+	addi	$29, $29, -80
+	lw	$31, 76($29)
 	set	$1, 0
 	set	$5, 2
-	lw	$2, 56($29)
-	lw	$3, 60($29)
-	lw	$4, 64($29)
+	lw	$2, 60($29)
+	lw	$3, 64($29)
+	lw	$4, 68($29)
 	lw	$28, 0($29)
 	lw	$27, 0($28)
 	jr	$27
@@ -11027,16 +9789,12 @@ min_caml_start:
 	set	$2, 0
 	sw	$31, 4($29)
 	addi	$29, $29, 8
-
-	ori	$5, $0, 0xAA
-	sw	$5, -1($0)
-	
 	jal	min_caml_create_array
 	nop
 	addi	$29, $29, -8
 	lw	 $31, 4($29)
 	set	$2, 0
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 0($29)
 	mov	$1, $2
 	sw	$31, 4($29)
@@ -11075,7 +9833,7 @@ min_caml_start:
 	addi	$29, $29, -8
 	lw	 $31, 4($29)
 	set	$2, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 4($29)
 	mov	$1, $2
 	sw	$31, 12($29)
@@ -11085,7 +9843,7 @@ min_caml_start:
 	addi	$29, $29, -16
 	lw	 $31, 12($29)
 	set	$2, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 8($29)
 	mov	$1, $2
 	sw	$31, 12($29)
@@ -11095,7 +9853,7 @@ min_caml_start:
 	addi	$29, $29, -16
 	lw	 $31, 12($29)
 	set	$2, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 12($29)
 	mov	$1, $2
 	sw	$31, 20($29)
@@ -11105,7 +9863,7 @@ min_caml_start:
 	addi	$29, $29, -24
 	lw	 $31, 20($29)
 	set	$2, 1
-	setclv	$f0, l.6397
+	setclv	$f0, l.8404
 	sw	$1, 16($29)
 	mov	$1, $2
 	sw	$31, 20($29)
@@ -11160,7 +9918,7 @@ min_caml_start:
 	addi	$29, $29, -40
 	lw	 $31, 36($29)
 	set	$2, 1
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 36($29)
 	mov	$1, $2
 	sw	$31, 44($29)
@@ -11181,7 +9939,7 @@ min_caml_start:
 	addi	$29, $29, -48
 	lw	 $31, 44($29)
 	set	$2, 1
-	setclv	$f0, l.6343
+	setclv	$f0, l.8326
 	sw	$1, 44($29)
 	mov	$1, $2
 	sw	$31, 52($29)
@@ -11191,7 +9949,7 @@ min_caml_start:
 	addi	$29, $29, -56
 	lw	 $31, 52($29)
 	set	$2, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 48($29)
 	mov	$1, $2
 	sw	$31, 52($29)
@@ -11212,7 +9970,7 @@ min_caml_start:
 	addi	$29, $29, -64
 	lw	 $31, 60($29)
 	set	$2, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 56($29)
 	mov	$1, $2
 	sw	$31, 60($29)
@@ -11222,7 +9980,7 @@ min_caml_start:
 	addi	$29, $29, -64
 	lw	 $31, 60($29)
 	set	$2, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 60($29)
 	mov	$1, $2
 	sw	$31, 68($29)
@@ -11232,7 +9990,7 @@ min_caml_start:
 	addi	$29, $29, -72
 	lw	 $31, 68($29)
 	set	$2, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 64($29)
 	mov	$1, $2
 	sw	$31, 68($29)
@@ -11242,7 +10000,7 @@ min_caml_start:
 	addi	$29, $29, -72
 	lw	 $31, 68($29)
 	set	$2, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 68($29)
 	mov	$1, $2
 	sw	$31, 76($29)
@@ -11274,7 +10032,7 @@ min_caml_start:
 	addi	$29, $29, -88
 	lw	 $31, 84($29)
 	set	$2, 1
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 80($29)
 	mov	$1, $2
 	sw	$31, 84($29)
@@ -11284,7 +10042,7 @@ min_caml_start:
 	addi	$29, $29, -88
 	lw	 $31, 84($29)
 	set	$2, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 84($29)
 	mov	$1, $2
 	sw	$31, 92($29)
@@ -11294,7 +10052,7 @@ min_caml_start:
 	addi	$29, $29, -96
 	lw	 $31, 92($29)
 	set	$2, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 88($29)
 	mov	$1, $2
 	sw	$31, 92($29)
@@ -11304,7 +10062,7 @@ min_caml_start:
 	addi	$29, $29, -96
 	lw	 $31, 92($29)
 	set	$2, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 92($29)
 	mov	$1, $2
 	sw	$31, 100($29)
@@ -11314,7 +10072,7 @@ min_caml_start:
 	addi	$29, $29, -104
 	lw	 $31, 100($29)
 	set	$2, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 96($29)
 	mov	$1, $2
 	sw	$31, 100($29)
@@ -11324,7 +10082,7 @@ min_caml_start:
 	addi	$29, $29, -104
 	lw	 $31, 100($29)
 	set	$2, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 100($29)
 	mov	$1, $2
 	sw	$31, 108($29)
@@ -11334,7 +10092,7 @@ min_caml_start:
 	addi	$29, $29, -112
 	lw	 $31, 108($29)
 	set	$2, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 104($29)
 	mov	$1, $2
 	sw	$31, 108($29)
@@ -11344,7 +10102,7 @@ min_caml_start:
 	addi	$29, $29, -112
 	lw	 $31, 108($29)
 	set	$2, 0
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 108($29)
 	mov	$1, $2
 	sw	$31, 116($29)
@@ -11387,7 +10145,7 @@ min_caml_start:
 	addi	$29, $29, -120
 	lw	 $31, 116($29)
 	set	$2, 0
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 116($29)
 	mov	$1, $2
 	sw	$31, 124($29)
@@ -11397,7 +10155,7 @@ min_caml_start:
 	addi	$29, $29, -128
 	lw	 $31, 124($29)
 	set	$2, 3
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	sw	$1, 120($29)
 	mov	$1, $2
 	sw	$31, 124($29)
@@ -11422,11 +10180,10 @@ min_caml_start:
 	sw	$1, 4($2)
 	lw	$1, 124($29)
 	sw	$1, 0($2)
-	mov	$1, $2
-	set	$2, 0
-	setclv	$f0, l.5993
-	sw	$1, 128($29)
-	mov	$1, $2
+	set	$3, 0
+	setclv	$f0, l.7945
+	sw	$2, 128($29)
+	mov	$1, $3
 	sw	$31, 132($29)
 	addi	$29, $29, 136
 	jal	min_caml_create_float_array
@@ -11450,7 +10207,7 @@ min_caml_start:
 	mov	$1, $2
 	set	$2, 180
 	set	$3, 0
-	setclv	$f0, l.5993
+	setclv	$f0, l.7945
 	mov	$4, $30
 	addi	$30, $30, 16
 	swc	$f0, 8($4)
@@ -11479,7 +10236,7 @@ min_caml_start:
 	lw	 $31, 140($29)
 	mov	$2, $30
 	addi	$30, $30, 24
-	setl	$3, read_screen_settings.2591
+	setl	$3, read_screen_settings.2593
 	sw	$3, 0($2)
 	lw	$3, 12($29)
 	sw	$3, 20($2)
@@ -11493,7 +10250,7 @@ min_caml_start:
 	sw	$7, 4($2)
 	mov	$7, $30
 	addi	$30, $30, 16
-	setl	$8, read_light.2593
+	setl	$8, read_light.2595
 	sw	$8, 0($7)
 	lw	$8, 16($29)
 	sw	$8, 8($7)
@@ -11501,62 +10258,57 @@ min_caml_start:
 	sw	$9, 4($7)
 	mov	$10, $30
 	addi	$30, $30, 8
-	setl	$11, read_nth_object.2598
+	setl	$11, read_nth_object.2600
 	sw	$11, 0($10)
 	lw	$11, 4($29)
 	sw	$11, 4($10)
 	mov	$12, $30
 	addi	$30, $30, 16
-	setl	$13, read_object.2600
+	setl	$13, read_object.2602
 	sw	$13, 0($12)
 	sw	$10, 8($12)
 	lw	$10, 0($29)
 	sw	$10, 4($12)
 	mov	$13, $30
 	addi	$30, $30, 8
-	setl	$14, read_all_object.2602
+	setl	$14, read_and_network.2610
 	sw	$14, 0($13)
-	sw	$12, 4($13)
-	mov	$12, $30
-	addi	$30, $30, 8
-	setl	$14, read_and_network.2608
-	sw	$14, 0($12)
 	lw	$14, 28($29)
-	sw	$14, 4($12)
+	sw	$14, 4($13)
 	mov	$15, $30
 	addi	$30, $30, 24
-	setl	$16, read_parameter.2610
+	setl	$16, read_parameter.2612
 	sw	$16, 0($15)
 	sw	$2, 20($15)
-	sw	$7, 16($15)
-	sw	$12, 12($15)
+	sw	$12, 16($15)
+	sw	$7, 12($15)
 	sw	$13, 8($15)
 	lw	$2, 36($29)
 	sw	$2, 4($15)
 	mov	$7, $30
 	addi	$30, $30, 8
-	setl	$12, solver_rect_surface.2612
+	setl	$12, solver_rect_surface.2614
 	sw	$12, 0($7)
 	lw	$12, 40($29)
 	sw	$12, 4($7)
 	mov	$13, $30
 	addi	$30, $30, 8
-	setl	$16, solver_rect.2621
+	setl	$16, solver_rect.2623
 	sw	$16, 0($13)
 	sw	$7, 4($13)
 	mov	$7, $30
 	addi	$30, $30, 8
-	setl	$16, solver_surface.2627
+	setl	$16, solver_surface.2629
 	sw	$16, 0($7)
 	sw	$12, 4($7)
 	mov	$16, $30
 	addi	$30, $30, 8
-	setl	$17, solver_second.2646
+	setl	$17, solver_second.2648
 	sw	$17, 0($16)
 	sw	$12, 4($16)
 	mov	$17, $30
 	addi	$30, $30, 24
-	setl	$18, solver.2652
+	setl	$18, solver.2654
 	sw	$18, 0($17)
 	sw	$7, 16($17)
 	sw	$16, 12($17)
@@ -11564,22 +10316,22 @@ min_caml_start:
 	sw	$11, 4($17)
 	mov	$7, $30
 	addi	$30, $30, 8
-	setl	$13, solver_rect_fast.2656
+	setl	$13, solver_rect_fast.2658
 	sw	$13, 0($7)
 	sw	$12, 4($7)
 	mov	$13, $30
 	addi	$30, $30, 8
-	setl	$16, solver_surface_fast.2663
+	setl	$16, solver_surface_fast.2665
 	sw	$16, 0($13)
 	sw	$12, 4($13)
 	mov	$16, $30
 	addi	$30, $30, 8
-	setl	$18, solver_second_fast.2669
+	setl	$18, solver_second_fast.2671
 	sw	$18, 0($16)
 	sw	$12, 4($16)
 	mov	$18, $30
 	addi	$30, $30, 24
-	setl	$19, solver_fast.2675
+	setl	$19, solver_fast.2677
 	sw	$19, 0($18)
 	sw	$13, 16($18)
 	sw	$16, 12($18)
@@ -11587,17 +10339,17 @@ min_caml_start:
 	sw	$11, 4($18)
 	mov	$13, $30
 	addi	$30, $30, 8
-	setl	$16, solver_surface_fast2.2679
+	setl	$16, solver_surface_fast2.2681
 	sw	$16, 0($13)
 	sw	$12, 4($13)
 	mov	$16, $30
 	addi	$30, $30, 8
-	setl	$19, solver_second_fast2.2686
+	setl	$19, solver_second_fast2.2688
 	sw	$19, 0($16)
 	sw	$12, 4($16)
 	mov	$19, $30
 	addi	$30, $30, 24
-	setl	$20, solver_fast2.2693
+	setl	$20, solver_fast2.2695
 	sw	$20, 0($19)
 	sw	$13, 16($19)
 	sw	$16, 12($19)
@@ -11605,36 +10357,30 @@ min_caml_start:
 	sw	$11, 4($19)
 	mov	$7, $30
 	addi	$30, $30, 8
-	setl	$13, iter_setup_dirvec_constants.2705
+	setl	$13, iter_setup_dirvec_constants.2707
 	sw	$13, 0($7)
 	sw	$11, 4($7)
 	mov	$13, $30
-	addi	$30, $30, 16
-	setl	$16, setup_dirvec_constants.2708
-	sw	$16, 0($13)
-	sw	$10, 8($13)
-	sw	$7, 4($13)
-	mov	$7, $30
 	addi	$30, $30, 8
-	setl	$16, setup_startp_constants.2710
-	sw	$16, 0($7)
-	sw	$11, 4($7)
+	setl	$16, setup_startp_constants.2712
+	sw	$16, 0($13)
+	sw	$11, 4($13)
 	mov	$16, $30
 	addi	$30, $30, 16
-	setl	$20, setup_startp.2713
+	setl	$20, setup_startp.2715
 	sw	$20, 0($16)
 	lw	$20, 92($29)
 	sw	$20, 12($16)
-	sw	$7, 8($16)
+	sw	$13, 8($16)
 	sw	$10, 4($16)
-	mov	$7, $30
+	mov	$13, $30
 	addi	$30, $30, 8
-	setl	$21, check_all_inside.2735
-	sw	$21, 0($7)
-	sw	$11, 4($7)
+	setl	$21, check_all_inside.2737
+	sw	$21, 0($13)
+	sw	$11, 4($13)
 	mov	$21, $30
 	addi	$30, $30, 32
-	setl	$22, shadow_check_and_group.2741
+	setl	$22, shadow_check_and_group.2743
 	sw	$22, 0($21)
 	sw	$18, 28($21)
 	sw	$12, 24($21)
@@ -11644,16 +10390,16 @@ min_caml_start:
 	sw	$8, 12($21)
 	lw	$23, 52($29)
 	sw	$23, 8($21)
-	sw	$7, 4($21)
+	sw	$13, 4($21)
 	mov	$24, $30
 	addi	$30, $30, 16
-	setl	$25, shadow_check_one_or_group.2744
+	setl	$25, shadow_check_one_or_group.2746
 	sw	$25, 0($24)
 	sw	$21, 8($24)
 	sw	$14, 4($24)
 	mov	$21, $30
 	addi	$30, $30, 24
-	setl	$25, shadow_check_one_or_matrix.2747
+	setl	$25, shadow_check_one_or_matrix.2749
 	sw	$25, 0($21)
 	sw	$18, 20($21)
 	sw	$12, 16($21)
@@ -11662,7 +10408,7 @@ min_caml_start:
 	sw	$23, 4($21)
 	mov	$18, $30
 	addi	$30, $30, 40
-	setl	$24, solve_each_element.2750
+	setl	$24, solve_each_element.2752
 	sw	$24, 0($18)
 	lw	$24, 48($29)
 	sw	$24, 36($18)
@@ -11676,16 +10422,16 @@ min_caml_start:
 	sw	$23, 12($18)
 	lw	$27, 56($29)
 	sw	$27, 8($18)
-	sw	$7, 4($18)
+	sw	$13, 4($18)
 	mov	$28, $30
 	addi	$30, $30, 16
-	setl	$22, solve_one_or_network.2754
+	setl	$22, solve_one_or_network.2756
 	sw	$22, 0($28)
 	sw	$18, 8($28)
 	sw	$14, 4($28)
 	mov	$18, $30
 	addi	$30, $30, 24
-	setl	$22, trace_or_matrix.2758
+	setl	$22, trace_or_matrix.2760
 	sw	$22, 0($18)
 	sw	$24, 20($18)
 	sw	$25, 16($18)
@@ -11694,14 +10440,14 @@ min_caml_start:
 	sw	$28, 4($18)
 	mov	$17, $30
 	addi	$30, $30, 16
-	setl	$22, judge_intersection.2762
+	setl	$22, judge_intersection.2764
 	sw	$22, 0($17)
 	sw	$18, 12($17)
 	sw	$24, 8($17)
 	sw	$2, 4($17)
 	mov	$18, $30
 	addi	$30, $30, 40
-	setl	$22, solve_each_element_fast.2764
+	setl	$22, solve_each_element_fast.2766
 	sw	$22, 0($18)
 	sw	$24, 36($18)
 	sw	$20, 32($18)
@@ -11711,333 +10457,332 @@ min_caml_start:
 	sw	$26, 16($18)
 	sw	$23, 12($18)
 	sw	$27, 8($18)
-	sw	$7, 4($18)
-	mov	$7, $30
+	sw	$13, 4($18)
+	mov	$13, $30
 	addi	$30, $30, 16
-	setl	$20, solve_one_or_network_fast.2768
-	sw	$20, 0($7)
-	sw	$18, 8($7)
-	sw	$14, 4($7)
+	setl	$20, solve_one_or_network_fast.2770
+	sw	$20, 0($13)
+	sw	$18, 8($13)
+	sw	$14, 4($13)
 	mov	$14, $30
 	addi	$30, $30, 24
-	setl	$18, trace_or_matrix_fast.2772
+	setl	$18, trace_or_matrix_fast.2774
 	sw	$18, 0($14)
 	sw	$24, 16($14)
 	sw	$19, 12($14)
 	sw	$12, 8($14)
-	sw	$7, 4($14)
-	mov	$7, $30
-	addi	$30, $30, 16
-	setl	$12, judge_intersection_fast.2776
-	sw	$12, 0($7)
-	sw	$14, 12($7)
-	sw	$24, 8($7)
-	sw	$2, 4($7)
+	sw	$13, 4($14)
 	mov	$12, $30
 	addi	$30, $30, 16
-	setl	$14, get_nvector_rect.2778
-	sw	$14, 0($12)
+	setl	$13, judge_intersection_fast.2778
+	sw	$13, 0($12)
+	sw	$14, 12($12)
+	sw	$24, 8($12)
+	sw	$2, 4($12)
+	mov	$13, $30
+	addi	$30, $30, 16
+	setl	$14, get_nvector_rect.2780
+	sw	$14, 0($13)
 	lw	$14, 60($29)
-	sw	$14, 8($12)
-	sw	$26, 4($12)
+	sw	$14, 8($13)
+	sw	$26, 4($13)
 	mov	$18, $30
 	addi	$30, $30, 8
-	setl	$19, get_nvector_plane.2780
+	setl	$19, get_nvector_plane.2782
 	sw	$19, 0($18)
 	sw	$14, 4($18)
 	mov	$19, $30
 	addi	$30, $30, 16
-	setl	$20, get_nvector_second.2782
+	setl	$20, get_nvector_second.2784
 	sw	$20, 0($19)
 	sw	$14, 8($19)
 	sw	$23, 4($19)
 	mov	$20, $30
-	addi	$30, $30, 16
-	setl	$22, get_nvector.2784
+	addi	$30, $30, 8
+	setl	$22, utexture.2789
 	sw	$22, 0($20)
-	sw	$19, 12($20)
-	sw	$12, 8($20)
-	sw	$18, 4($20)
+	lw	$22, 64($29)
+	sw	$22, 4($20)
+	mov	$28, $30
+	addi	$30, $30, 16
+	sw	$15, 140($29)
+	setl	$15, add_light.2792
+	sw	$15, 0($28)
+	sw	$22, 8($28)
+	lw	$15, 72($29)
+	sw	$15, 4($28)
+	sw	$7, 144($29)
+	mov	$7, $30
+	addi	$30, $30, 40
+	setl	$10, trace_reflections.2796
+	sw	$10, 0($7)
+	sw	$21, 32($7)
+	lw	$10, 136($29)
+	sw	$10, 28($7)
+	sw	$2, 24($7)
+	sw	$14, 20($7)
+	sw	$12, 16($7)
+	sw	$26, 12($7)
+	sw	$27, 8($7)
+	sw	$28, 4($7)
+	mov	$10, $30
+	addi	$30, $30, 96
+	setl	$5, trace_ray.2801
+	sw	$5, 0($10)
+	sw	$20, 88($10)
+	sw	$7, 84($10)
+	sw	$24, 80($10)
+	sw	$22, 76($10)
+	sw	$25, 72($10)
+	sw	$21, 68($10)
+	sw	$16, 64($10)
+	sw	$15, 60($10)
+	sw	$2, 56($10)
+	sw	$11, 52($10)
+	sw	$14, 48($10)
+	sw	$1, 44($10)
+	sw	$8, 40($10)
+	sw	$17, 36($10)
+	sw	$26, 32($10)
+	sw	$23, 28($10)
+	sw	$27, 24($10)
+	sw	$19, 20($10)
+	sw	$13, 16($10)
+	sw	$18, 12($10)
+	sw	$9, 8($10)
+	sw	$28, 4($10)
+	mov	$5, $30
+	addi	$30, $30, 64
+	setl	$7, trace_diffuse_ray.2807
+	sw	$7, 0($5)
+	sw	$20, 56($5)
+	sw	$22, 52($5)
+	sw	$21, 48($5)
+	sw	$2, 44($5)
+	sw	$11, 40($5)
+	sw	$14, 36($5)
+	sw	$8, 32($5)
+	sw	$12, 28($5)
+	sw	$23, 24($5)
+	sw	$27, 20($5)
+	sw	$19, 16($5)
+	sw	$13, 12($5)
+	sw	$18, 8($5)
+	lw	$2, 68($29)
+	sw	$2, 4($5)
+	mov	$7, $30
+	addi	$30, $30, 8
+	setl	$9, iter_trace_diffuse_rays.2810
+	sw	$9, 0($7)
+	sw	$5, 4($7)
+	mov	$5, $30
+	addi	$30, $30, 16
+	setl	$9, trace_diffuse_ray_80percent.2819
+	sw	$9, 0($5)
+	sw	$16, 12($5)
+	sw	$7, 8($5)
+	lw	$9, 116($29)
+	sw	$9, 4($5)
+	mov	$12, $30
+	addi	$30, $30, 16
+	setl	$13, calc_diffuse_using_1point.2823
+	sw	$13, 0($12)
+	sw	$5, 12($12)
+	sw	$15, 8($12)
+	sw	$2, 4($12)
+	mov	$5, $30
+	addi	$30, $30, 16
+	setl	$13, calc_diffuse_using_5points.2826
+	sw	$13, 0($5)
+	sw	$15, 8($5)
+	sw	$2, 4($5)
+	mov	$13, $30
+	addi	$30, $30, 8
+	setl	$14, do_without_neighbors.2832
+	sw	$14, 0($13)
+	sw	$12, 4($13)
 	mov	$12, $30
 	addi	$30, $30, 8
-	setl	$18, utexture.2787
-	sw	$18, 0($12)
-	lw	$18, 64($29)
-	sw	$18, 4($12)
-	mov	$19, $30
-	addi	$30, $30, 16
-	setl	$22, add_light.2790
-	sw	$22, 0($19)
-	sw	$18, 8($19)
-	lw	$22, 72($29)
-	sw	$22, 4($19)
-	mov	$28, $30
-	addi	$30, $30, 40
-	sw	$15, 140($29)
-	setl	$15, trace_reflections.2794
-	sw	$15, 0($28)
-	sw	$21, 32($28)
-	lw	$15, 136($29)
-	sw	$15, 28($28)
-	sw	$2, 24($28)
-	sw	$14, 20($28)
-	sw	$7, 16($28)
-	sw	$26, 12($28)
-	sw	$27, 8($28)
-	sw	$19, 4($28)
-	mov	$15, $30
-	addi	$30, $30, 88
-	sw	$13, 144($29)
-	setl	$13, trace_ray.2799
-	sw	$13, 0($15)
-	sw	$12, 80($15)
-	sw	$28, 76($15)
-	sw	$24, 72($15)
-	sw	$18, 68($15)
-	sw	$25, 64($15)
-	sw	$21, 60($15)
-	sw	$16, 56($15)
-	sw	$22, 52($15)
-	sw	$2, 48($15)
-	sw	$11, 44($15)
-	sw	$14, 40($15)
-	sw	$1, 36($15)
-	sw	$8, 32($15)
-	sw	$17, 28($15)
-	sw	$26, 24($15)
-	sw	$23, 20($15)
-	sw	$27, 16($15)
-	sw	$20, 12($15)
-	sw	$9, 8($15)
-	sw	$19, 4($15)
-	mov	$9, $30
-	addi	$30, $30, 56
-	setl	$13, trace_diffuse_ray.2805
-	sw	$13, 0($9)
-	sw	$12, 48($9)
-	sw	$18, 44($9)
-	sw	$21, 40($9)
-	sw	$2, 36($9)
-	sw	$11, 32($9)
-	sw	$14, 28($9)
-	sw	$8, 24($9)
-	sw	$7, 20($9)
-	sw	$23, 16($9)
-	sw	$27, 12($9)
-	sw	$20, 8($9)
-	lw	$2, 68($29)
-	sw	$2, 4($9)
-	mov	$7, $30
-	addi	$30, $30, 8
-	setl	$12, iter_trace_diffuse_rays.2808
-	sw	$12, 0($7)
-	sw	$9, 4($7)
-	mov	$9, $30
-	addi	$30, $30, 16
-	setl	$12, trace_diffuse_rays.2813
-	sw	$12, 0($9)
-	sw	$16, 8($9)
-	sw	$7, 4($9)
-	mov	$7, $30
-	addi	$30, $30, 16
-	setl	$12, trace_diffuse_ray_80percent.2817
-	sw	$12, 0($7)
-	sw	$9, 8($7)
-	lw	$12, 116($29)
-	sw	$12, 4($7)
-	mov	$13, $30
-	addi	$30, $30, 16
-	setl	$14, calc_diffuse_using_1point.2821
-	sw	$14, 0($13)
-	sw	$7, 12($13)
-	sw	$22, 8($13)
-	sw	$2, 4($13)
-	mov	$7, $30
-	addi	$30, $30, 16
-	setl	$14, calc_diffuse_using_5points.2824
-	sw	$14, 0($7)
-	sw	$22, 8($7)
-	sw	$2, 4($7)
-	mov	$14, $30
-	addi	$30, $30, 8
-	setl	$16, do_without_neighbors.2830
-	sw	$16, 0($14)
-	sw	$13, 4($14)
-	mov	$13, $30
-	addi	$30, $30, 8
-	setl	$16, neighbors_exist.2833
-	sw	$16, 0($13)
-	lw	$16, 76($29)
-	sw	$16, 4($13)
+	setl	$14, neighbors_exist.2835
+	sw	$14, 0($12)
+	lw	$14, 76($29)
+	sw	$14, 4($12)
 	mov	$17, $30
 	addi	$30, $30, 16
-	setl	$18, try_exploit_neighbors.2846
+	setl	$18, try_exploit_neighbors.2848
 	sw	$18, 0($17)
-	sw	$14, 8($17)
-	sw	$7, 4($17)
-	mov	$7, $30
+	sw	$13, 8($17)
+	sw	$5, 4($17)
+	mov	$5, $30
 	addi	$30, $30, 8
-	setl	$18, write_ppm_header.2853
-	sw	$18, 0($7)
-	sw	$16, 4($7)
+	setl	$18, write_ppm_header.2855
+	sw	$18, 0($5)
+	sw	$14, 4($5)
 	mov	$18, $30
 	addi	$30, $30, 8
-	setl	$19, write_rgb.2857
+	setl	$19, write_rgb.2859
 	sw	$19, 0($18)
-	sw	$22, 4($18)
+	sw	$15, 4($18)
 	mov	$19, $30
-	addi	$30, $30, 16
-	setl	$20, pretrace_diffuse_rays.2859
+	addi	$30, $30, 24
+	setl	$20, pretrace_diffuse_rays.2861
 	sw	$20, 0($19)
-	sw	$9, 12($19)
-	sw	$12, 8($19)
+	sw	$16, 16($19)
+	sw	$7, 12($19)
+	sw	$9, 8($19)
 	sw	$2, 4($19)
 	mov	$2, $30
 	addi	$30, $30, 40
-	setl	$9, pretrace_pixels.2862
-	sw	$9, 0($2)
+	setl	$7, pretrace_pixels.2864
+	sw	$7, 0($2)
 	sw	$3, 36($2)
-	sw	$15, 32($2)
+	sw	$10, 32($2)
 	sw	$25, 28($2)
 	sw	$6, 24($2)
 	lw	$3, 84($29)
 	sw	$3, 20($2)
-	sw	$22, 16($2)
+	sw	$15, 16($2)
 	lw	$6, 108($29)
 	sw	$6, 12($2)
 	sw	$19, 8($2)
 	lw	$6, 80($29)
 	sw	$6, 4($2)
-	mov	$9, $30
+	mov	$7, $30
 	addi	$30, $30, 32
-	setl	$15, pretrace_line.2869
-	sw	$15, 0($9)
-	sw	$4, 24($9)
-	sw	$5, 20($9)
-	sw	$3, 16($9)
-	sw	$2, 12($9)
-	sw	$16, 8($9)
-	sw	$6, 4($9)
+	setl	$10, pretrace_line.2871
+	sw	$10, 0($7)
+	sw	$4, 24($7)
+	lw	$4, 100($29)
+	sw	$4, 20($7)
+	sw	$3, 16($7)
+	sw	$2, 12($7)
+	sw	$14, 8($7)
+	sw	$6, 4($7)
 	mov	$2, $30
 	addi	$30, $30, 32
-	setl	$4, scan_pixel.2873
+	setl	$4, scan_pixel.2875
 	sw	$4, 0($2)
 	sw	$18, 24($2)
 	sw	$17, 20($2)
-	sw	$22, 16($2)
-	sw	$13, 12($2)
-	sw	$16, 8($2)
-	sw	$14, 4($2)
+	sw	$15, 16($2)
+	sw	$12, 12($2)
+	sw	$14, 8($2)
+	sw	$13, 4($2)
 	mov	$4, $30
 	addi	$30, $30, 16
-	setl	$5, scan_line.2879
-	sw	$5, 0($4)
+	setl	$10, scan_line.2881
+	sw	$10, 0($4)
 	sw	$2, 12($4)
-	sw	$9, 8($4)
-	sw	$16, 4($4)
+	sw	$7, 8($4)
+	sw	$14, 4($4)
 	mov	$2, $30
 	addi	$30, $30, 8
-	setl	$5, create_pixelline.2892
-	sw	$5, 0($2)
-	sw	$16, 4($2)
-	mov	$5, $30
+	setl	$10, create_pixelline.2894
+	sw	$10, 0($2)
+	sw	$14, 4($2)
+	mov	$10, $30
 	addi	$30, $30, 8
-	setl	$13, calc_dirvec.2899
-	sw	$13, 0($5)
-	sw	$12, 4($5)
-	mov	$13, $30
+	setl	$12, calc_dirvec.2901
+	sw	$12, 0($10)
+	sw	$9, 4($10)
+	mov	$12, $30
 	addi	$30, $30, 8
-	setl	$14, calc_dirvecs.2907
-	sw	$14, 0($13)
-	sw	$5, 4($13)
-	mov	$5, $30
+	setl	$13, calc_dirvecs.2909
+	sw	$13, 0($12)
+	sw	$10, 4($12)
+	mov	$10, $30
 	addi	$30, $30, 8
-	setl	$14, calc_dirvec_rows.2912
-	sw	$14, 0($5)
-	sw	$13, 4($5)
-	mov	$13, $30
+	setl	$13, calc_dirvec_rows.2914
+	sw	$13, 0($10)
+	sw	$12, 4($10)
+	mov	$12, $30
 	addi	$30, $30, 8
-	setl	$14, create_dirvec.2916
-	sw	$14, 0($13)
-	sw	$10, 4($13)
-	mov	$14, $30
+	setl	$13, create_dirvec.2918
+	sw	$13, 0($12)
+	lw	$13, 0($29)
+	sw	$13, 4($12)
+	mov	$15, $30
 	addi	$30, $30, 8
-	setl	$15, create_dirvec_elements.2918
-	sw	$15, 0($14)
-	sw	$13, 4($14)
+	setl	$16, create_dirvec_elements.2920
+	sw	$16, 0($15)
+	sw	$12, 4($15)
+	mov	$16, $30
+	addi	$30, $30, 16
+	setl	$17, create_dirvecs.2923
+	sw	$17, 0($16)
+	sw	$9, 12($16)
+	sw	$15, 8($16)
+	sw	$12, 4($16)
 	mov	$15, $30
 	addi	$30, $30, 16
-	setl	$17, create_dirvecs.2921
+	setl	$17, init_dirvec_constants.2925
 	sw	$17, 0($15)
-	sw	$12, 12($15)
-	sw	$14, 8($15)
-	sw	$13, 4($15)
-	mov	$14, $30
-	addi	$30, $30, 8
-	setl	$17, init_dirvec_constants.2923
-	sw	$17, 0($14)
+	sw	$13, 8($15)
 	lw	$17, 144($29)
-	sw	$17, 4($14)
+	sw	$17, 4($15)
 	mov	$18, $30
 	addi	$30, $30, 16
-	setl	$19, init_vecset_constants.2926
+	setl	$19, init_vecset_constants.2928
 	sw	$19, 0($18)
-	sw	$14, 8($18)
-	sw	$12, 4($18)
+	sw	$15, 8($18)
+	sw	$9, 4($18)
+	mov	$9, $30
+	addi	$30, $30, 16
+	setl	$15, init_dirvecs.2930
+	sw	$15, 0($9)
+	sw	$18, 12($9)
+	sw	$16, 8($9)
+	sw	$10, 4($9)
+	mov	$10, $30
+	addi	$30, $30, 24
+	setl	$15, add_reflection.2932
+	sw	$15, 0($10)
+	lw	$15, 136($29)
+	sw	$15, 16($10)
+	sw	$13, 12($10)
+	sw	$17, 8($10)
+	sw	$12, 4($10)
 	mov	$12, $30
 	addi	$30, $30, 16
-	setl	$14, init_dirvecs.2928
-	sw	$14, 0($12)
-	sw	$18, 12($12)
-	sw	$15, 8($12)
-	sw	$5, 4($12)
-	mov	$5, $30
+	setl	$15, setup_rect_reflection.2939
+	sw	$15, 0($12)
+	sw	$1, 12($12)
+	sw	$8, 8($12)
+	sw	$10, 4($12)
+	mov	$15, $30
 	addi	$30, $30, 16
-	setl	$14, add_reflection.2930
-	sw	$14, 0($5)
-	sw	$17, 12($5)
-	lw	$14, 136($29)
-	sw	$14, 8($5)
-	sw	$13, 4($5)
-	mov	$13, $30
-	addi	$30, $30, 16
-	setl	$14, setup_rect_reflection.2937
-	sw	$14, 0($13)
-	sw	$1, 12($13)
-	sw	$8, 8($13)
-	sw	$5, 4($13)
-	mov	$14, $30
-	addi	$30, $30, 16
-	setl	$15, setup_surface_reflection.2940
-	sw	$15, 0($14)
-	sw	$1, 12($14)
-	sw	$8, 8($14)
-	sw	$5, 4($14)
+	setl	$16, setup_surface_reflection.2942
+	sw	$16, 0($15)
+	sw	$1, 12($15)
+	sw	$8, 8($15)
+	sw	$10, 4($15)
 	mov	$1, $30
 	addi	$30, $30, 16
-	setl	$5, setup_reflections.2943
-	sw	$5, 0($1)
-	sw	$14, 12($1)
-	sw	$13, 8($1)
+	setl	$10, setup_reflections.2945
+	sw	$10, 0($1)
+	sw	$15, 12($1)
+	sw	$12, 8($1)
 	sw	$11, 4($1)
 	mov	$28, $30
 	addi	$30, $30, 64
-	setl	$5, rt.2945
-	sw	$5, 0($28)
-	sw	$7, 56($28)
+	setl	$10, rt.2947
+	sw	$10, 0($28)
+	sw	$5, 60($28)
+	lw	$5, 124($29)
+	sw	$5, 56($28)
 	sw	$1, 52($28)
-	sw	$17, 48($28)
-	sw	$3, 44($28)
-	sw	$4, 40($28)
+	sw	$3, 48($28)
+	sw	$4, 44($28)
 	lw	$1, 140($29)
-	sw	$1, 36($28)
-	sw	$9, 32($28)
-	sw	$10, 28($28)
+	sw	$1, 40($28)
+	sw	$7, 36($28)
+	sw	$13, 32($28)
 	lw	$1, 128($29)
-	sw	$1, 24($28)
-	sw	$8, 20($28)
-	sw	$12, 16($28)
-	sw	$16, 12($28)
+	sw	$1, 28($28)
+	sw	$8, 24($28)
+	sw	$17, 20($28)
+	sw	$9, 16($28)
+	sw	$14, 12($28)
 	sw	$6, 8($28)
 	sw	$2, 4($28)
 	set	$1, 128
@@ -12150,10 +10895,56 @@ bne $5, $0, print_int_showloop
 jr $31
 
 
+#16進ダンプします。アセンブラレベルデバッグのためなるべくレジスタ使わない方向で
+# $1...引数 $12,$13,$14使用
+
+min_caml_print_fhex:
+mfc1 $1, $f0
+
+min_caml_print_hex:
+ori $12, $0, 0x30 #'0'
+sw $12, -1($0)
+ori $12, $0, 0x78 #'x'
+sw $12, -1($0)
+
+#counter
+ori $13, $0, 32
+
+print_hex_loop:
+addi $13, $13, -4
+
+srlv $14, $1, $13
+andi $14, $14, 15
+
+addi $12, $14, -10
+slt $12, $12, $0
+
+addi $14, $14, 48
+
+bne $12, $0, print_hex_u10
+addi $14, $14, 7
+
+print_hex_u10:
+sw $14, -1($0)
+
+bne $13, $0, print_hex_loop
+
+ori $12, $0, 0x0a #\n
+sw $12, -1($0)
+jr $31
+
+
+
+
 
 min_caml_print_char:
 	sw	$1, -1($0)
 	jr	$31
+
+min_caml_print_xfloat:
+	mfc1 $1, $f0
+	j min_caml_print_int
+
 
 # print to stderr
 min_caml_prerr_int:
@@ -12173,7 +10964,11 @@ min_caml_read_int:
 	jr	$31
 
 min_caml_read_float:
-	lwc	$f0, -1($0)
+	lwc	$f0, -2($0)
+	jr	$31
+
+min_caml_read_raw:
+	lwc	$f0, -3($0)
 	jr	$31
 
 min_caml_print_newline:

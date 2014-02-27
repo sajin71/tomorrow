@@ -8,6 +8,7 @@
 
 #include "MIPSinst.h"
 #include "x86emit.h"
+#include "fadd.h"
 
 typedef int32_t  int32;
 typedef uint32_t DWORD;
@@ -52,11 +53,13 @@ DWORD MY_CDECL softfp_##name (intflt t, intflt s) { intflt ret; ret.f = func(s.f
 #define SOFTFP_COMP(name, op) \
 DWORD MY_CDECL softfp_##name (intflt t, intflt s) { return (s.f op t.f)?1:0; }
 
-
-SOFTFP_BINOP(add, +)
-SOFTFP_BINOP(sub, -)
-
-
+DWORD MY_CDECL softfp_add(intflt t, intflt s){
+    return fadd(s.i, t.i);
+}
+DWORD MY_CDECL softfp_sub (intflt t, intflt s) { 
+    t.i = t.i ^ 0x80000000; 
+    return softfp_add(t, s); 
+} 
 DWORD MY_CDECL softfp_mul (intflt t, intflt s) {
 	return fpu_fmul(s.i, t.i);
 }
