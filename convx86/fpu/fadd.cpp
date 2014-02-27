@@ -1,151 +1,126 @@
 #include "fadd.h"
+uint32_t fadd(const uint32_t a, const uint32_t b){
+    using namespace std;
+    bitset<2> cmp_abs;
+    uint32_t fin_a, fin_b, fin_l, fin_s;
+    bitset<28> frc_a, frc_b, frc_l, frc_s, frc_ss;
+    uint8_t exp_ans1, exp_gap;
+    bool sgn_ans1;
+    bool op;
 
-/*
-  rs: BitShift_R
-    port map(frc_s,exp_gap,frc_ss);
-  ls: BitShift_L1
-    port map (frc2,shift(1 downto 0),frc_ans2);
-  pr: zlc
-    port map(frc_ans1,shift);
-  ls2: BitShift_L2
-      port map (frc_ans3,shift3(4 downto 2),tmp);
-*/
-fadd::fadd(uint32_t& a, uint32_t& b, uint32_t& q) : a(a), b(b), q(q)
-						  , __tmp(shift.to_ulong() & 0x3)
-						  , __tmp2((shift3.to_ulong()>>2) & 0x7)
-						  , rs(frc_s, exp_gap, frc_ss)
-						  , ls(frc2, __tmp, frc_ans2)
-						  , pr(frc_ans1, shift)
-						  , ls2(frc_ans3, __tmp2, tmp){
-}
-fadd::~fadd(){
-}
-void fadd::update(){
-    __tmp = std::bitset<2>(shift.to_ulong() & 0x3);
-    __tmp2 = std::bitset<3>((shift3.to_ulong()>>2) & 0x7);
+    bitset<28> frc_l2, frc_s2;
+    uint8_t exp_ans2;
+    bool sgn_ans2, op2;
+    bitset<28> frc_ans1, frc_ans2, frc2;
+    bitset<5> shift;
+    bool rounding;
+    bool exp_up2 = 0;
 
-    // メモ。プロセス文以外の部分は多分逐次処理としても問題ないんじゃないか。
-    fin_a = a;
-    fin_b = b;
+    uint8_t exp_ans3, exp_ans;
+    bool sgn_ans3;
+    bitset<9> ans_head;
+    bool rounding3;
+    bitset<28> frc_ans, frc_ans3;
+    bool exp_up3;
+    bitset<5> shift3;
+    bitset<28> tmp;
+    bitset<9> tmp2;
+    { 
+	//stage 1
+	fin_a = a;
+	fin_b = b;
 
-    if((fin_a & 0x7fffffff) > (fin_b & 0x7fffffff)){
-	cmp_abs = 0x0;
-    }else if((fin_a & 0x7fffffff) == (fin_b & 0x7fffffff)){
-	cmp_abs = 0x1;
-    }else{
-	cmp_abs = 0x2;
-    }
+	cmp_abs = ((fin_a & 0x7fffffff) > (fin_b & 0x7fffffff)) ? 0 : ((fin_a&0x7fffffff) == (fin_b&0x7fffffff)) ? 1 : 2;
 
-    frc_a = fin_a << 3;
-    frc_a[27] = 0;
-    frc_a[26] = 1;
+	frc_a = fin_a << 3; frc_a[27] = 0; frc_a[26] = 1;
+	frc_b = fin_b << 3; frc_b[27] = 0; frc_b[26] = 1;
 
-    frc_b = fin_b << 3;
-    frc_b[27] = 0;
-    frc_b[26] = 1;
+	fin_l = (cmp_abs[1] == 0) ? fin_a : fin_b;
+	fin_s = (cmp_abs[1] == 0) ? fin_b : fin_a;
+	frc_l = (cmp_abs[1] == 0) ? frc_a : frc_b;
+	frc_s = (cmp_abs[1] == 0) ? frc_b : frc_a;
 
-    fin_l = (cmp_abs[1] == 0) ? fin_a : fin_b;
-    fin_s = (cmp_abs[1] == 0) ? fin_b : fin_a;
-    frc_l = (cmp_abs[1] == 0) ? frc_a : frc_b;
-    frc_s = (cmp_abs[1] == 0) ? frc_b : frc_a;
+	exp_gap = ((fin_l>>23)&0xff) - ((fin_s>>23)&0xff);
+	BitShift_R rs(frc_s, exp_gap, frc_ss);
+	rs.update();
+	
+	exp_ans1 = (fin_l >> 23)&0xff;
+	sgn_ans1 = std::bitset<32>(fin_l)[31];
 
-    uint8_t _tmp1 = fin_l >> 23;//!< \todo 自信がない
-    uint8_t _tmp2 = fin_s >> 23;
-    exp_gap = _tmp1 - _tmp2;
-    
-    rs.update();
+	op = (std::bitset<32>(fin_l)[31] == std::bitset<32>(fin_s)[31]) ? 0 : 1;
 
-    exp_ans1 = fin_l >> 23;
-    sgn_ans1 = std::bitset<32>(fin_l)[31];
-
-    op = (std::bitset<32>(fin_l)[31] == std::bitset<32>(fin_s)[31]) ? 0 : 1;
-
-    frc_ans1 = (op) ? frc_l2.to_ulong() + frc_s2.to_ulong() : frc_l2.to_ulong() - frc_s2.to_ulong();
-
-    pr.update();
-
-    bool flag = true;
-    for(int i = 2; i <= 25; i++){
-	if(!frc_ans1[i]){
-	    flag = false;
-	    break;
-	}
-    }
-    if(flag && ((frc_ans[26] || frc_ans[1]) == 1)){
-	exp_up2 = 1;
-    }else{
-	exp_up2 = 0;
-    }
-
-    bool _flag1 = true, _flag2 = true;
-    for(int i = 1; i <= 26; i++){
-	if(!frc_ans1[i]){
-	    if(i == 1){
-		_flag2 = false;
-	    }else if(i == 26){
-		_flag1 = false;
-	    }else{
-		_flag1 = _flag2 = false;
-	    }
-	}
-    }
-    if(_flag1){
-	frc2 = 0;
-	frc2[27] = 1;
-    }else if(_flag2){
-	frc2 = 0;
-	frc2[26] = 1;
-    }else{
-	frc2 = frc_ans1;
-    }
-
-    ls.update();
-
-    rounding = frc_ans2[3] && (frc_ans2[4] || frc_ans2[2] || frc_ans2[1]);
-
-    ls2.update();
-
-    if(__tmp2.to_ulong() == 0){
-	frc_ans = frc_ans3.to_ulong() + (rounding3 << 4);
-    }else{
-	frc_ans = tmp;
-    }
-
-    tmp2 = exp_ans3 + (exp_up3 << 1 + (!exp_up3)) - shift3.to_ulong();
-    
-    if(tmp2[8] == 1 || shift3.to_ulong() >= 0x1a || exp_ans3 == 0){
-	ans_head = 0;
-    }else{
-	ans_head = tmp2;
-	ans_head[8] = sgn_ans3;
-    }
-
-    q = frc_ans.to_ulong() >> 4;
-    for(int i = 0; i < 9; i++){
-	q |= (ans_head[i] << ((31-8)+i));
-    }
-}
-void fadd::clockUpdate(){
-    update();
-    {
-	// stage1
 	frc_l2 = frc_l;
 	frc_s2 = frc_ss;
 	exp_ans2 = exp_ans1;
 	sgn_ans2 = sgn_ans1;
 	op2 = op;
     }
+
     {
-	// stage2
+	frc_ans1 = (op2 == 0) ? frc_l2.to_ulong()+frc_s2.to_ulong() : frc_l2.to_ulong()- frc_s2.to_ulong();
+	
+	zlc(frc_ans1, shift).update();
+	
+	bool flag = true;
+	for(int i = 2; i <= 25; i++){
+	    if(frc_ans1[i] == 0) flag = false;
+	}
+	if(flag && (frc_ans1[26] || frc_ans1[1]) == 1) exp_up2 = 1;
+	else exp_up2 = 0;
+	
+	flag = true;
+	for(int i = 2; i <= 26; i++){
+	    if(frc_ans1[i] == 0) flag = false;
+	}
+	if(flag){
+	    frc2 = 0;
+	    frc2[27] = 1;
+	}else{
+	    flag = true;
+	    for(int i = 0; i <= 25; i++){
+		if(frc_ans1[i] == 0) flag = false;
+	    }
+	    if(flag){
+		frc2 = 0;
+		frc2[26] = 1;
+	    }else{
+		frc2 = frc_ans1;
+	    }
+	}
+
+	bitset<2> t(shift.to_ulong());
+	BitShift_L1(frc2, t, frc_ans2).update();
+	
+	rounding = frc_ans2[3] && (frc_ans2[4] || frc_ans2[2] || frc_ans2[1]);
+
 	exp_ans3 = exp_ans2;
 	sgn_ans3 = sgn_ans2;
 	rounding3 = rounding;
 	frc_ans3 = frc_ans2;
 	shift3 = shift;
 	exp_up3 = exp_up2;
+	rounding3 = rounding;
     }
-    update();
-}
-    /*
-    */
 
+    {
+	bitset<3> t(shift3.to_ulong()>>2);
+	BitShift_L2(frc_ans3, t, tmp).update();
+	
+	frc_ans = (t == 0) ? frc_ans3.to_ulong() + (rounding3 << 4) : tmp;
+	
+	tmp2 = exp_ans3 + ((exp_up3 << 1) + (!exp_up3)) - shift3.to_ulong();
+	
+	if(tmp2[8] == 1 || shift3.to_ulong() >= 0x1a || exp_ans3 == 0){
+	    ans_head = 0;
+	}else{
+	    ans_head = tmp2;
+	    ans_head[8] = sgn_ans3;
+	}
+	auto q = frc_ans.to_ulong() >> 4;
+	bitset<32> _q(q);
+	for(int i = 0; i <= 8; i++){
+	    _q[(31-8)+i] = ans_head[i];
+	}
+	return _q.to_ulong();
+    }
+}
