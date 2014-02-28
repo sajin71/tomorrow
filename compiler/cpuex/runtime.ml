@@ -6,10 +6,10 @@ let rec fispos a = (a > 0.0) in
 let rec fisneg a = (a < 0.0) in
 let rec fiszero a = (a = 0.0) in
 
-let rec fabs a =
+(*let rec fabs a =
     if a < 0.0 then -. a
     else a
-in
+in*)
 let rec abs_float x = fabs x in
 let rec fneg a = -. a in
 let rec fhalf a = a *. 0.5 in
