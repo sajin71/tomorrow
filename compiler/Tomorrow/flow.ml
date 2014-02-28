@@ -37,7 +37,7 @@ let sub_list_as_set xs lst =
 let rec make_irregular_edge_list inst_list pred_lst succ_lst del_lst n =
     if n >= List.length inst_list then pred_lst, succ_lst, del_lst
     else match List.nth inst_list n with
-    | Jump(offset) | IfEq(_, _, offset) | IfLE(_, _, offset) | IfGE(_, _, offset)
+    | IfEq(_, _, offset) | IfLE(_, _, offset) | IfGE(_, _, offset)
     | IfFEq(_, _, offset) | IfFLE(_, _, offset) -> 
         make_irregular_edge_list inst_list ((n + offset, n) :: pred_lst) ((n, n + offset) :: succ_lst) (del_lst) (n + 1)
     | Jump(offset) ->

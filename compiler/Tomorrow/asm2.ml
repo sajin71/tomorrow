@@ -52,6 +52,8 @@ type dest = Tail | NonTail of Id.t
 let add_as_set x lst =
     if List.mem x lst then lst else x::lst
 
+
+
 let add_list_as_set xs lst =
     List.fold_right add_as_set xs lst
 
@@ -61,6 +63,31 @@ let rec remove_all a = function
 
 let sub_list_as_set xs lst =
     List.fold_right remove_all xs lst
+
+let vars = function
+    | Nop | Jump(_) | Comment(_) | Return(Value(None)) -> S.empty
+    | Set(x, _) | SetL(x, _) | SetCLV(x, _) | Return(Some(x, _)) -> S.singleton x
+    | Mov(x, y) | Neg(x, y) | Add(x, y, C(_)) | Mul(x, y, C(_)) | Div(x, y, C(_))
+    | SLL(x, y, C(_)) | SRL(x, y, C(_)) | LW(x, y, C(_)) | SW(x, y, C(_)) 
+    | FMov(x, y) | FNeg(x, y) | LWC(x, y, C(_)) | SWC(x, y, C(_)) | IfEq(x, y, _) 
+    | IfLE(x, y, _) | IfGE(x, y, _) | IfFEq(x, y, _) | IfFLE(x, y, _) -> 
+            S.add x (S.singleton y)
+    | Add(x, y, V(z)) | Sub(x, y, z) | Mul(x, y, V(z)) | Div(x, y, V(z)) 
+    | SLL(x, y, V(z)) | SRL(x, y, V(z)) | LW(x, y, V(z)) | SW(x, y, V(z)) 
+    | FAdd(x, y, z) | FSub(x, y, z) | FMul(x, y, z) | FDiv(x, y, z) | LWC(x, y, V(z))
+    | SWC(x, y, V(z)) -> S.add x (S.add y (S.singleton z))
+    | CallCls(x, ys, zs, dst) -> 
+            S.add dst (S.add x (S.union (S.of_list ys) (S.of_list zs)))
+    | CallDir(_, ys, zs, dst) ->
+            S.add dst (S.union (S.of_list ys) (S.of_list zs))
+    | Return(Cls(x, ys, zs)) ->
+            S.add x (S.union (S.of_list ys) (S.of_list zs))
+    | Return(Dir(_, ys, zs)) ->
+            S.add x (S.union (S.of_list ys) (S.of_list zs))
+
+
+let all_vars inst_lst =
+    List.fold_right vars inst_lst []
 
 let rec g prev = function (* Make Instruction List(Reversed) *)
     | (dest, Asm.Ans(exp)) -> g' prev (dest, exp)

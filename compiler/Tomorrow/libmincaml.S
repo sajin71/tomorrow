@@ -1,4 +1,6 @@
 min_caml_print_int:
+#	sw	$1, -2($0)
+#	jr	$31
 mov  $19, $29 #stack pointer
 
 slt  $11, $1, $0 #負の数か？
@@ -870,59 +872,59 @@ min_caml_truncate:
 	mfc1 $1, $f0
 	jr    $31
 
-min_caml_fhalf:
-	set	$1, 0x3f000000 #0.5
-	mtc	$1, $f1
-	mul.s   $f0, $f0, $f1
-	jr  $31
-
-min_caml_fsqr:
-	mul.s   $f0, $f0, $f0
-	jr  $31
-
-min_caml_fneg:
-	neg.s $f0, $f0
-	jr $31
-
-min_caml_fispos:
-	set	$1, 0x0 #0.0
-	mtc	$1, $f1
-
-	c.olt.s $f1, $f0
-	bct ll.25
-	jr  $31
-ll.25:
-	addi    $1, $1, 1
-	jr  $31 
-
-min_caml_fisneg:
-	set	$1, 0x0 #0.0
-	mtc	$1, $f1
-
-	c.olt.s $f0, $f1
-	bct ll.26
-	jr  $31
-ll.26:
-	addi    $1, $1, 1
-	jr  $31 
-
-min_caml_fiszero:
-	set	$1, 0x0 #0.0
-	mtc	$1, $f1
-
-	c.eq.s $f1, $f0
-	bct ll.27
-	jr  $31
-ll.27:
-	addi    $1, $1, 1
-	jr  $31 
-
-min_caml_fless:
-	set $1, 0x0
-	c.olt.s $f0, $f1
-	bct ll.28
-	jr  $31
-ll.28:
-	addi    $1, $1, 1
-	jr  $31
-
+#min_caml_fhalf:
+#	set	$1, 0x3f000000 #0.5
+#	mtc	$1, $f1
+#	mul.s   $f0, $f0, $f1
+#	jr  $31
+#
+#min_caml_fsqr:
+#	mul.s   $f0, $f0, $f0
+#	jr  $31
+#
+#min_caml_fneg:
+#	neg.s $f0, $f0
+#	jr $31
+#
+#min_caml_fispos:
+#	set	$1, 0x0 #0.0
+#	mtc	$1, $f1
+#
+#	c.olt.s $f1, $f0
+#	bct ll.25
+#	jr  $31
+#ll.25:
+#	addi    $1, $1, 1
+#	jr  $31 
+#
+#min_caml_fisneg:
+#	set	$1, 0x0 #0.0
+#	mtc	$1, $f1
+#
+#	c.olt.s $f0, $f1
+#	bct ll.26
+#	jr  $31
+#ll.26:
+#	addi    $1, $1, 1
+#	jr  $31 
+#
+#min_caml_fiszero:
+#	set	$1, 0x0 #0.0
+#	mtc	$1, $f1
+#
+#	c.eq.s $f1, $f0
+#	bct ll.27
+#	jr  $31
+#ll.27:
+#	addi    $1, $1, 1
+#	jr  $31 
+#
+#min_caml_fless:
+#	set $1, 0x0
+#	c.olt.s $f0, $f1
+#	bct ll.28
+#	jr  $31
+#ll.28:
+#	addi    $1, $1, 1
+#	jr  $31
+#
