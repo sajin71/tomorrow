@@ -97,6 +97,18 @@ let rec g env = function (* generate virtual machine code *)
     -> (match separate (List.map (fun y -> (y, M.find y env)) ys) with 
             | [], [y] -> Ans(FAbs(y))
             | _ -> assert false) 
+    | Closure.AppCls("min_caml_print_char", ys)  | Closure.AppDir(Id.L("min_caml_print_char") ,ys) 
+    -> (match separate (List.map (fun y -> (y, M.find y env)) ys) with
+            | [y], [] -> Ans(SW(y, reg_zero, C(-1))) 
+            | _ -> assert false)
+    | Closure.AppCls("min_caml_read_int", ys)  | Closure.AppDir(Id.L("min_caml_read_int") ,ys) 
+    -> (match separate (List.map (fun y -> (y, M.find y env)) ys) with
+            | [], [] -> Ans(LW(reg_zero, C(-1))) 
+            | _ -> assert false)
+    | Closure.AppCls("min_caml_read_float", ys)  | Closure.AppDir(Id.L("min_caml_read_float") ,ys) 
+    -> (match separate (List.map (fun y -> (y, M.find y env)) ys) with
+            | [], [] -> Ans(LWC(reg_zero, C(-2))) 
+            | _ -> assert false)
     | Closure.AppCls(x, ys) ->
         let (int, float) = separate (List.map (fun y -> (y, M.find y env)) ys) in 
         Ans(CallCls(x, int, float))
