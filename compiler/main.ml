@@ -10,9 +10,24 @@ let rec iter n e = (* 最適化処理をくりかえす (caml2html: main_iter) *
 let lexbuf outchan l = (* バッファをコンパイルしてチャンネルへ出力する (caml2html: main_lexbuf) *)
   Id.counter := 0;
   Typing.extenv := M.empty;
+  (* let asm_t = (Simm.f
+	  (Virtual.f
+	     (Closure.f
+		(iter !limit
+        (Subexpr.f
+		   (Alpha.f
+		      (KNormal.f
+			 (Typing.f
+			    (Parser.exp Lexer.token l))))))))) in
+  let asm2_t = Asm2.f asm_t in
+  Asm2.print_prog asm2_t; print_string "\n"; 
+  let flow_result = Flow.f asm2_t in
+  (Flow.print_flow_result (flow_result)); 
+  (Live.print_liveness_result (Live.f asm2_t flow_result)); *)
+
   Emit.f outchan
     (RegAlloc.f
-       (Simm.f
+    (Simm.f
 	  (Virtual.f
 	     (Closure.f
 		(iter !limit
