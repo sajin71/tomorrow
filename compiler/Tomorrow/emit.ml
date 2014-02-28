@@ -108,6 +108,10 @@ and g' oc = function (* Emit assembly of each instruction *)
             Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg (reg_sw)) (reg z) (reg y);
             Printf.fprintf oc "\tswc\t%s, 0(%s)\n" x (reg (reg_sw))
     | NonTail(_), SWC(x, y, C(z)) -> Printf.fprintf oc "\tswc\t%s, %d(%s)\n" x z (reg y)
+    | NonTail(x), FAbs(y) ->
+            Printf.fprintf oc "\tabs.s\t%s, %s\n" x y
+    | NonTail(x), FSqrt(y) ->
+            Printf.fprintf oc "\tsqrt.s\t%s, %s\n" x y
     | NonTail(_), Comment(s) -> Printf.fprintf oc "\t# %s\n" s
     (* save *)
     | NonTail(_), Save(x, y) when List.mem x allregs && not (S.mem y !stackset) 
@@ -133,7 +137,7 @@ and g' oc = function (* Emit assembly of each instruction *)
             g' oc (NonTail(regs.(0)), exp);
             Printf.fprintf oc "\tjr $31\n"
             (*Printf.fprintf oc "\tnop\n"*)
-    | Tail, (FMov _ | FNeg _ | SetCLV _  |FAdd _ | FSub _ | FMul _ | FDiv _  | LWC _ as exp) ->
+    | Tail, (FMov _ | FNeg _ | SetCLV _  |FAdd _ | FSub _ | FMul _ | FDiv _  | LWC _ | FSqrt _ | FAbs _ as exp) ->
         g' oc (NonTail(fregs.(0)), exp);
         Printf.fprintf oc "\tjr $31\n"
         (*Printf.fprintf oc "\tnop\n"*)

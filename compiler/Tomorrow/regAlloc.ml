@@ -138,6 +138,8 @@ and g' dest cont regenv = function (* allocate registers for instruction *)
     | LWC(x, y') -> (Ans(LWC(find x Type.Int regenv, find' y' regenv)), regenv)
     | SWC(x, y, z') -> (Ans(SWC(find x Type.Float regenv, find y Type.Int regenv, find' z' regenv)), regenv)
     | LW(x, y') -> (Ans(LW(find x Type.Int regenv, find' y' regenv)), regenv)
+    | FAbs(x) -> (Ans(FAbs(find x Type.Float regenv)), regenv)
+    | FSqrt(x) -> (Ans(FSqrt(find x Type.Float regenv)), regenv)
     | IfEq(x, y, e1, e2) as exp -> g'_if dest cont regenv exp 
         (fun e1' e2' -> 
             IfEq(find x Type.Int regenv, find y Type.Int regenv, e1', e2')) e1 e2

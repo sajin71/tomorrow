@@ -4,7 +4,7 @@ echo "connecting globals and runtime" $1 1>&2
 cat cpuex/runtime.ml cpuex/globals_test.ml `echo $1` > cpuex/tmp.ml 
 
 echo "compiling" $1 1>&2
-./min-caml cpuex/tmp #`echo $1 | sed -e "s/\.ml//"`
+./min-caml cpuex/tmp -inline 10 #`echo $1 | sed -e "s/\.ml//"`
 
 echo "connecting libmincaml.S" 1>&2
 ./connect_lib.sh cpuex/tmp.s #`echo $1 | sed -e "s/\.ml/.s/"`

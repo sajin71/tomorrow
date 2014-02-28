@@ -29,6 +29,8 @@ and exp = (* represents each instructions *)
     | FDiv of Id.t * Id.t
     | LWC of Id.t * id_or_imm
     | SWC of Id.t * Id.t * id_or_imm
+    | FAbs of Id.t 
+    | FSqrt of Id.t
     | Comment of string
     (* virtual instructions *)
     | IfEq of Id.t * Id.t * t * t
@@ -95,7 +97,7 @@ let rec remove_and_uniq xs = function
 let fv_id_or_imm = function V(x) -> [x] | _ -> []
 let rec fv_exp = function
     | Nop | Set(_) | SetL(_) | SetCLV(_) | Comment(_) | Restore(_) -> []
-    | Mov(x) | Neg(x) | FMov(x) | FNeg(x) | Save(x, _) -> [x]
+    | Mov(x) | Neg(x) | FMov(x) | FNeg(x) | Save(x, _) | FSqrt(x) | FAbs(x) -> [x]
     | Add(x, y') | Mul(x, y') | Div(x, y') | SLL(x, y') | SRL(x, y') | LW(x, y') | LWC(x, y') -> 
             x :: fv_id_or_imm y' 
     | SW(x, y, z') | SWC(x, y, z') -> x :: y :: fv_id_or_imm z'

@@ -185,13 +185,13 @@ min_caml_abs_float:
 	abs.s	$f0, $f0
 	jr	$31
 
-min_caml_fabs:
-	abs.s	$f0, $f0
-	jr	$31
+#min_caml_fabs:
+#	abs.s	$f0, $f0
+#	jr	$31
 
-min_caml_sqrt:
-	sqrt.s	$f0, $f0
-	jr	$31
+#min_caml_sqrt:
+#	sqrt.s	$f0, $f0
+#	jr	$31
 
 min_caml_float_of_int:
 	mtc	$1, $f0

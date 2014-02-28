@@ -87,6 +87,16 @@ let rec g env = function (* generate virtual machine code *)
                     Let((z, Type.Int), SetL(l),  (* not sure if you need Setl *)
                     seq(SW(z, x, C(0)),
                         store_fv))))
+    | Closure.AppCls("min_caml_sqrt", ys) | Closure.AppDir(Id.L("min_caml_sqrt") ,ys)
+    (* using hardware instruction sqrt.s *)
+    -> (match separate (List.map (fun y -> (y, M.find y env)) ys) with 
+            | [], [y] -> Ans(FSqrt(y))
+            | _ -> assert false)
+    | Closure.AppCls("min_caml_fabs", ys) | Closure.AppDir(Id.L("min_caml_fabs") ,ys) 
+    (* using hardware instruction abs.s *)
+    -> (match separate (List.map (fun y -> (y, M.find y env)) ys) with 
+            | [], [y] -> Ans(FAbs(y))
+            | _ -> assert false) 
     | Closure.AppCls(x, ys) ->
         let (int, float) = separate (List.map (fun y -> (y, M.find y env)) ys) in 
         Ans(CallCls(x, int, float))

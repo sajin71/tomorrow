@@ -25,6 +25,8 @@ and exp =
     | FDiv of Id.t * Id.t
     | LWC of Id.t * id_or_imm
     | SWC of Id.t * Id.t * id_or_imm 
+    | FAbs of Id.t
+    | FSqrt of Id.t 
     | Comment of string
     (* virtual instructions *)
     | IfEq of Id.t * Id.t * t * t
