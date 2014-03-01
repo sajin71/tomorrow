@@ -68,6 +68,21 @@ let rec t_to_string = function
   | ExtArray(x) -> "ExtArray(" ^ x ^ ")"
   | ExtFunApp(x, ys) -> "ExtArray(" ^ x ^ ",(" ^ var_lst_to_string ys ^ "))"
 
+(*let rec effect env = function (* save functions without side effect in env *)
+  | Let(_, e1, e2) | IfEq(_, _, e1, e2) | IfLE(_, _, e1, e2) -> 
+          effect env e1 || effect env e2
+  | LetRec({ name = (x, _); args = _; body = e1 } , e2) ->
+          if effect_fun x env e1 then effect env e2 else effect (S.add x env) e
+  | LetTuple(_, _, e) -> effect env e
+  | App(x, _) -> not (S.mem x env)
+  | ExtFunApp(x, _) -> not (S.mem x no_effect_fun)
+  | Put _ -> true
+  | _ -> false
+and effect_fun x env exp =
+    if effect (S.add x env) exp then
+        effect env exp
+    else false
+*)
 let rec effect = function (* ÉûºîÍÑ¤ÎÍ­Ìµ (caml2html: elim_effect) *)
   | Let(_, e1, e2) | IfEq(_, _, e1, e2) | IfLE(_, _, e1, e2) -> effect e1 || effect e2
   | LetRec(_, e) | LetTuple(_, _, e) -> effect e
