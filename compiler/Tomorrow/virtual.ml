@@ -87,12 +87,16 @@ let rec g env = function (* generate virtual machine code *)
                     Let((z, Type.Int), SetL(l),  (* not sure if you need Setl *)
                     seq(SW(z, x, C(0)),
                         store_fv))))
-    | Closure.AppCls("min_caml_sqrt", ys) | Closure.AppDir(Id.L("min_caml_sqrt") ,ys)
+    | Closure.AppCls("min_caml_sqrt", ys) | Closure.AppDir(Id.L("min_caml_sqrt"), ys)  
+    when let int, float = separate (List.map (fun y -> (y, M.find y env)) ys) in
+        List.length int = 0 && List.length float = 1
     (* using hardware instruction sqrt.s *)
     -> (match separate (List.map (fun y -> (y, M.find y env)) ys) with 
             | [], [y] -> Ans(FSqrt(y))
-            | _ -> assert false)
-    | Closure.AppCls("min_caml_fabs", ys) | Closure.AppDir(Id.L("min_caml_fabs") ,ys) 
+            | _ -> assert false) 
+    | Closure.AppCls("min_caml_fabs", ys) | Closure.AppDir(Id.L("min_caml_fabs")
+    ,ys)when let int, float = separate (List.map (fun y -> (y, M.find y env)) ys) in
+        List.length int = 0 && List.length float = 1
     (* using hardware instruction abs.s *)
     -> (match separate (List.map (fun y -> (y, M.find y env)) ys) with 
             | [], [y] -> Ans(FAbs(y))
@@ -178,7 +182,7 @@ let h {Closure.name = (Id.L(x), t); Closure.args = yts; Closure.formal_fv = zts;
         match t with
         | Type.Fun(_, t2) ->
             { name = Id.L(x); args = int; fargs = float; body = load; ret = t2 }
-        | _ -> assert false
+        | _ -> Format.eprintf "fundefs error"; assert false
 
             
 
