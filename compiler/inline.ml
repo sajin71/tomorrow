@@ -95,7 +95,7 @@ let rec g env limit nest= function (* インライン展開ルーチン本体 (caml2html: inl
       let nest' = if is_recursive then nest + 1 else nest in
       let env' = 
           if (size e1 <= (!threshold) * (nest + 1)) 
-            (*|| (size e1 <= (!threshold) * (find_max_nest x + 1)) *)
+            || (size e1 <= (!threshold) * (find_max_nest x + 1)) 
             || ((find_app_count x = 1) && (size e1 <= (!threshold * one_app_weight))) 
             then M.add x (yts, e1) env else env in
       LetRec({ name = (x, t); args = yts; body = g env' limit nest' e1}, g env' limit nest e2)
@@ -103,7 +103,7 @@ let rec g env limit nest= function (* インライン展開ルーチン本体 (caml2html: inl
     when M.mem x env && ((not (M.mem x !recursive_map)) or (not (M.find x !recursive_map)))
     -> (* 関数適用の場合 (caml2html: inline_app) *)
     let (zs, e) = M.find x env in
-    (*if (size e / (nest + 1)) <= !threshold then *)
+    if (size e / (nest + 1)) <= !threshold then 
       (Format.eprintf "inlining %s@." x;
       let env' =
 	List.fold_left2
@@ -112,11 +112,11 @@ let rec g env limit nest= function (* インライン展開ルーチン本体 (caml2html: inl
 	  zs
 	  ys in
       Alpha.g env' e)
-    (*else exp *)
+    else exp 
   | App(x, ys) as exp when M.mem x env -> (* limit inline expansion of recursive functions *)
     if limit mod recursive_limit = 0 then 
       let (zs, e) = M.find x env in
-      (*if (size e / (nest + 1)) <= !threshold then *)
+      if (size e / (nest + 1)) <= !threshold then 
       (Format.eprintf "inlining %s@." x;
       let env' =
 	List.fold_left2
@@ -124,7 +124,7 @@ let rec g env limit nest= function (* インライン展開ルーチン本体 (caml2html: inl
 	  M.empty
 	  zs
 	  ys in
-      Alpha.g env' e) (* else exp *)
+      Alpha.g env' e) else exp 
     else (Format.eprintf "limiting inline expansion of recursive function %s@." x;
         App(x, ys))
   | LetTuple(xts, y, e) -> LetTuple(xts, y, g env limit nest e)
