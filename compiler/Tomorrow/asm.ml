@@ -21,6 +21,7 @@ and exp = (* represents each instructions *)
     | SRL of Id.t * id_or_imm
     | LW of Id.t * id_or_imm
     | SW of Id.t * Id.t * id_or_imm
+    | SLT of Id.t * Id.t
     | FMov of Id.t
     | FNeg of Id.t
     | FAdd of Id.t * Id.t
@@ -103,7 +104,8 @@ let rec fv_exp = function
     | Add(x, y') | Mul(x, y') | Div(x, y') | SLL(x, y') | SRL(x, y') | LW(x, y') | LWC(x, y') -> 
             x :: fv_id_or_imm y' 
     | SW(x, y, z') | SWC(x, y, z') -> x :: y :: fv_id_or_imm z'
-    | Sub(x, y) | FAdd(x, y) | FSub(x, y) | FMul(x, y) | FDiv(x, y) -> [x; y] 
+    | Sub(x, y) | SLT(x, y) | FAdd(x, y) | FSub(x, y) | FMul(x, y) 
+    | FDiv(x, y) -> [x; y] 
     | IfEq(x, y, e1, e2) -> 
             x :: y :: remove_and_uniq S.empty (fv e1 @ fv e2)
     (*| IfLE(x, y, z, e1, e2) | IfGE(x, y, z, e1, e2) -> 

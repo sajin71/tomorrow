@@ -17,6 +17,7 @@ and exp =
     | SRL of Id.t * id_or_imm
     | LW of Id.t * id_or_imm 
     | SW of Id.t * Id.t * id_or_imm 
+    | SLT of Id.t * Id.t
     | FMov of Id.t
     | FNeg of Id.t
     | FAdd of Id.t * Id.t

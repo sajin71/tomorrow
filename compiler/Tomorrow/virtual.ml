@@ -61,7 +61,10 @@ let rec g env = function (* generate virtual machine code *)
         | _ -> failwith "equality supported only for bool, int, and float")
     | Closure.IfLE(x, y, e1, e2) ->
         (match M.find x env with
-        | Type.Bool | Type.Int -> Ans(IfLE(x, y, g env e1, g env e2))(* Ans(IfLE(x, y, Id.genid "t", g env e1, g env e2)) *)
+        | Type.Bool | Type.Int -> 
+                let tmp = Id.genid "tmp" in 
+                Let((tmp, Type.Int), SLT(y, x), 
+                Ans(IfEq(tmp, reg_zero, g env e1, g env e2)))(* Ans(IfLE(x, y, Id.genid "t", g env e1, g env e2)) *)
         | Type.Float -> Ans(IfFLE(x, y, g env e1, g env e2))
         | _ -> failwith "inequality supported only for bool, int, and float")
     | Closure.Let((x, t1), e1, e2) ->

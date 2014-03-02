@@ -130,6 +130,7 @@ and g' dest cont regenv = function (* allocate registers for instruction *)
             let tmp = Id.genid "t" in
             g dest cont regenv (Let((tmp, Type.Int), Add(y, V(offset)),
             Ans(SW(x, tmp, C(0)))))
+    | SLT(x, y) -> (Ans(SLT(find x Type.Int regenv, find y Type.Int regenv)), regenv)
     | FMov(x) -> (Ans(FMov(find x Type.Float regenv)), regenv)
     | FNeg(x) -> (Ans(FNeg(find x Type.Float regenv)), regenv)
     | FAdd(x, y) -> 
