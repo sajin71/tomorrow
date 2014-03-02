@@ -8,7 +8,8 @@ let rec target' src (dest, t) = function
     | FMov(x) when x = src && is_reg dest ->
         assert (t = Type.Float);
         false, [dest]
-    | IfEq(_, _, e1, e2) | IfLE(_, _, e1, e2) | IfGE(_, _, e1, e2)
+    | IfEq(_, _, e1, e2) | IfLE(_, _, e1, e2) | IfGE(_, _, e1, e2) 
+    (* | IfLE(_, _, _, e1, e2) | IfGE(_, _, _, e1, e2) *)
     | IfFEq(_, _, e1, e2) | IfFLE(_, _, e1, e2) ->
         let c1, rs1 = target src (dest, t) e1 in
         let c2, rs2 = target src (dest ,t) e2 in
@@ -109,7 +110,7 @@ let rec g dest cont regenv = function (* allocate registers for instructions *)
         | Alloc(r) -> 
             let (e2', regenv2) = g dest cont (add x r regenv1) e in
             (concat e1' (r, t) e2', regenv2))
-and g'_and_restore dest cont regenv exp = (* restor variables from stack to registers*)
+and g'_and_restore dest cont regenv exp = (* restore variables from stack to registers*)
   try g' dest cont regenv exp
   with NoReg(x, t) ->
       (g dest cont regenv (Let((x, t), Restore(x), Ans(exp))))
@@ -123,8 +124,12 @@ and g' dest cont regenv = function (* allocate registers for instruction *)
     | Div(x, y') -> (Ans(Div(find x Type.Int regenv, find' y' regenv)), regenv)
     | SLL(x, y') -> (Ans(SLL(find x Type.Int regenv, find' y' regenv)), regenv)
     | SRL(x, y') -> (Ans(SRL(find x Type.Int regenv, find' y' regenv)), regenv)
-    | SW(x, y, z') -> 
-        (Ans( SW(find x Type.Int regenv, find y Type.Int regenv, find' z' regenv)), regenv)
+    | SW(x, y, C(offset)) -> 
+        (Ans( SW(find x Type.Int regenv, find y Type.Int regenv, C(offset))), regenv)
+    | SW(x, y, V(offset)) ->
+            let tmp = Id.genid "t" in
+            g dest cont regenv (Let((tmp, Type.Int), Add(y, V(offset)),
+            Ans(SW(x, tmp, C(0)))))
     | FMov(x) -> (Ans(FMov(find x Type.Float regenv)), regenv)
     | FNeg(x) -> (Ans(FNeg(find x Type.Float regenv)), regenv)
     | FAdd(x, y) -> 
@@ -135,20 +140,40 @@ and g' dest cont regenv = function (* allocate registers for instruction *)
         (Ans(FMul(find x Type.Float regenv, find y Type.Float regenv)), regenv)
     | FDiv(x, y) ->
         (Ans(FDiv(find x Type.Float regenv, find y Type.Float regenv)), regenv)
-    | LWC(x, y') -> (Ans(LWC(find x Type.Int regenv, find' y' regenv)), regenv)
-    | SWC(x, y, z') -> (Ans(SWC(find x Type.Float regenv, find y Type.Int regenv, find' z' regenv)), regenv)
-    | LW(x, y') -> (Ans(LW(find x Type.Int regenv, find' y' regenv)), regenv)
+    | LWC(x, C(offset)) -> (Ans(LWC(find x Type.Int regenv, C(offset))), regenv)
+    | LWC(x, V(offset)) -> let tmp = Id.genid "t" in
+            g dest cont regenv (Let((tmp, Type.Int), Add(x, V(offset)), 
+            Ans(LWC(tmp, C(0)))))
+    | SWC(x, y, C(offset)) -> (Ans(SWC(find x Type.Float regenv, find y Type.Int
+    regenv, C(offset))), regenv)
+    | SWC(x, y, V(offset)) -> 
+            let tmp = Id.genid "t" in
+            g dest cont regenv (Let((tmp, Type.Int), Add(y, V(offset)), 
+            Ans(SWC(x, tmp, C(0)))))
+    | LW(x, C(offset)) -> (Ans(LW(find x Type.Int regenv, C(offset))), regenv)
+    | LW(x, V(offset)) -> let tmp = Id.genid "t" in
+            g dest cont regenv (Let((tmp, Type.Int), Add(x, V(offset)), 
+            Ans(LW(tmp, C(0))))) 
     | FAbs(x) -> (Ans(FAbs(find x Type.Float regenv)), regenv)
     | FSqrt(x) -> (Ans(FSqrt(find x Type.Float regenv)), regenv)
     | IfEq(x, y, e1, e2) as exp -> g'_if dest cont regenv exp 
         (fun e1' e2' -> 
             IfEq(find x Type.Int regenv, find y Type.Int regenv, e1', e2')) e1 e2
+
     | IfLE(x, y, e1, e2) as exp -> g'_if dest cont regenv exp 
         (fun e1' e2' -> 
             IfLE(find x Type.Int regenv, find y Type.Int regenv, e1', e2')) e1 e2
     | IfGE(x, y, e1, e2) as exp -> g'_if dest cont regenv exp
         (fun e1' e2' -> 
-            IfGE(find x Type.Int regenv, find y Type.Int regenv, e1', e2')) e1 e2
+            IfGE(find x Type.Int regenv, find y Type.Int regenv, e1', e2')) e1 e2 
+    (* | IfLE(x, y, z, e1, e2) as exp -> g'_if dest cont regenv exp 
+        (fun e1' e2' -> 
+            IfLE(find x Type.Int regenv, find y Type.Int regenv, find z Type.Int
+            regenv, e1', e2')) e1 e2
+    | IfGE(x, y, z, e1, e2) as exp -> g'_if dest cont regenv exp
+        (fun e1' e2' -> 
+            IfGE(find x Type.Int regenv, find y Type.Int regenv, find z Type.Int
+            regenv, e1', e2')) e1 e2 *)
     | IfFEq(x, y, e1, e2) as exp -> g'_if dest cont regenv exp
         (fun e1' e2' -> 
             IfFEq(find x Type.Float regenv, find y  Type.Float regenv, e1', e2')) e1 e2

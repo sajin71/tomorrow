@@ -30,8 +30,10 @@ and exp =
     | Comment of string
     (* virtual instructions *)
     | IfEq of Id.t * Id.t * t * t
-    | IfLE of Id.t * Id.t * t * t
-    | IfGE of Id.t * Id.t * t * t
+    (* | IfLE of Id.t * Id.t * Id.t * t * t (* need tmp for slt *)
+    | IfGE of Id.t * Id.t * Id.t * t * t *)
+    | IfLE of Id.t * Id.t * t * t 
+    | IfGE of Id.t * Id.t * t * t 
     | IfFEq of Id.t * Id.t * t * t
     | IfFLE of Id.t * Id.t * t * t
     (* closure address, integer arguments and float arguments *)

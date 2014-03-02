@@ -34,6 +34,8 @@ and exp = (* represents each instructions *)
     | Comment of string
     (* virtual instructions *)
     | IfEq of Id.t * Id.t * t * t
+    (* | IfLE of Id.t * Id.t * Id.t * t * t (* need tmp for slt *)
+    | IfGE of Id.t * Id.t * Id.t * t * t *)
     | IfLE of Id.t * Id.t * t * t
     | IfGE of Id.t * Id.t * t * t
     | IfFEq of Id.t * Id.t * t * t
@@ -102,8 +104,12 @@ let rec fv_exp = function
             x :: fv_id_or_imm y' 
     | SW(x, y, z') | SWC(x, y, z') -> x :: y :: fv_id_or_imm z'
     | Sub(x, y) | FAdd(x, y) | FSub(x, y) | FMul(x, y) | FDiv(x, y) -> [x; y] 
-    | IfEq(x, y, e1, e2) | IfLE(x, y, e1, e2) | IfGE(x, y, e1, e2) -> 
-            x :: y :: remove_and_uniq S.empty (fv e1 @ fv e2) 
+    | IfEq(x, y, e1, e2) -> 
+            x :: y :: remove_and_uniq S.empty (fv e1 @ fv e2)
+    (*| IfLE(x, y, z, e1, e2) | IfGE(x, y, z, e1, e2) -> 
+            x :: y :: z :: remove_and_uniq S.empty (fv e1 @ fv e2)*) 
+    | IfLE(x, y, e1, e2) | IfGE(x, y, e1, e2) -> 
+            x :: y :: remove_and_uniq S.empty (fv e1 @ fv e2)
     | IfFEq(x, y, e1, e2) | IfFLE(x, y, e1, e2) -> 
             x :: y :: remove_and_uniq S.empty (fv e1 @ fv e2)
     | CallCls(x, ys, zs) -> x :: ys @ zs
