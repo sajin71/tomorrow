@@ -11,9 +11,11 @@
 
 (*NOMINCAML open MiniMLRuntime;;*)
 (*NOMINCAML open Globals;;*)
+(*
 (*MINCAML*) let true = 1 in 
 (*MINCAML*) let false = 0 in 
 (*MINCAML*) let rec xor x y = if x then not y else y in
+*)
 
 (******************************************************************************
    ユーティリティー
@@ -2294,6 +2296,7 @@ let rec rt size_x size_y =
  let prev = create_pixelline () in
  let cur  = create_pixelline () in
  let next = create_pixelline () in
+ print_char 170;
  read_parameter();
  write_ppm_header ();
  init_dirvecs();
@@ -2307,4 +2310,4 @@ in
 
 let _ = rt 128 128
 
-in 0
+in ()
