@@ -4,7 +4,7 @@ let threshold = ref 5
 
 let rec g env = function
   | Unit | Int _ | Float _ as e -> e
-  | e when (not (effect e)) && (size e <= !threshold) && (M.mem (t_to_string e) env) -> 
+  | e when (not (Elim.effect !Elim.no_effect_fun e)) && (size e <= !threshold) && (M.mem (t_to_string e) env) -> 
           let e_string = t_to_string e in
           Format.eprintf "eliminating subexpression %s@." e_string; 
           Var(M.find e_string env) 

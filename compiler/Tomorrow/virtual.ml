@@ -61,7 +61,10 @@ let rec g env = function (* generate virtual machine code *)
         | _ -> failwith "equality supported only for bool, int, and float")
     | Closure.IfLE(x, y, e1, e2) ->
         (match M.find x env with
-        | Type.Bool | Type.Int -> Ans(IfLE(x, y, g env e1, g env e2))
+        | Type.Bool | Type.Int -> 
+                let tmp = Id.genid "tmp" in 
+                Let((tmp, Type.Int), SLT(y, x), 
+                Ans(IfEq(tmp, reg_zero, g env e1, g env e2)))(* Ans(IfLE(x, y, Id.genid "t", g env e1, g env e2)) *)
         | Type.Float -> Ans(IfFLE(x, y, g env e1, g env e2))
         | _ -> failwith "inequality supported only for bool, int, and float")
     | Closure.Let((x, t1), e1, e2) ->
@@ -87,6 +90,32 @@ let rec g env = function (* generate virtual machine code *)
                     Let((z, Type.Int), SetL(l),  (* not sure if you need Setl *)
                     seq(SW(z, x, C(0)),
                         store_fv))))
+    | Closure.AppCls("min_caml_sqrt", ys) | Closure.AppDir(Id.L("min_caml_sqrt"), ys)  
+    when let int, float = separate (List.map (fun y -> (y, M.find y env)) ys) in
+        List.length int = 0 && List.length float = 1
+    (* using hardware instruction sqrt.s *)
+    -> (match separate (List.map (fun y -> (y, M.find y env)) ys) with 
+            | [], [y] -> Ans(FSqrt(y))
+            | _ -> assert false) 
+    | Closure.AppCls("min_caml_fabs", ys) | Closure.AppDir(Id.L("min_caml_fabs")
+    ,ys)when let int, float = separate (List.map (fun y -> (y, M.find y env)) ys) in
+        List.length int = 0 && List.length float = 1
+    (* using hardware instruction abs.s *)
+    -> (match separate (List.map (fun y -> (y, M.find y env)) ys) with 
+            | [], [y] -> Ans(FAbs(y))
+            | _ -> assert false) 
+    | Closure.AppCls("min_caml_print_char", ys)  | Closure.AppDir(Id.L("min_caml_print_char") ,ys) 
+    -> (match separate (List.map (fun y -> (y, M.find y env)) ys) with
+            | [y], [] -> Ans(SW(y, reg_zero, C(-1))) 
+            | _ -> assert false)
+    | Closure.AppCls("min_caml_read_int", ys)  | Closure.AppDir(Id.L("min_caml_read_int") ,ys) 
+    -> (match separate (List.map (fun y -> (y, M.find y env)) ys) with
+            | [], [] -> Ans(LW(reg_zero, C(-1))) 
+            | _ -> assert false)
+    | Closure.AppCls("min_caml_read_float", ys)  | Closure.AppDir(Id.L("min_caml_read_float") ,ys) 
+    -> (match separate (List.map (fun y -> (y, M.find y env)) ys) with
+            | [], [] -> Ans(LWC(reg_zero, C(-2))) 
+            | _ -> assert false)
     | Closure.AppCls(x, ys) ->
         let (int, float) = separate (List.map (fun y -> (y, M.find y env)) ys) in 
         Ans(CallCls(x, int, float))
@@ -156,7 +185,7 @@ let h {Closure.name = (Id.L(x), t); Closure.args = yts; Closure.formal_fv = zts;
         match t with
         | Type.Fun(_, t2) ->
             { name = Id.L(x); args = int; fargs = float; body = load; ret = t2 }
-        | _ -> assert false
+        | _ -> Format.eprintf "fundefs error"; assert false
 
             
 

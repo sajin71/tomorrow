@@ -17,6 +17,7 @@ and exp =
     | SRL of Id.t * id_or_imm
     | LW of Id.t * id_or_imm 
     | SW of Id.t * Id.t * id_or_imm 
+    | SLT of Id.t * Id.t
     | FMov of Id.t
     | FNeg of Id.t
     | FAdd of Id.t * Id.t
@@ -25,11 +26,15 @@ and exp =
     | FDiv of Id.t * Id.t
     | LWC of Id.t * id_or_imm
     | SWC of Id.t * Id.t * id_or_imm 
+    | FAbs of Id.t
+    | FSqrt of Id.t 
     | Comment of string
     (* virtual instructions *)
     | IfEq of Id.t * Id.t * t * t
-    | IfLE of Id.t * Id.t * t * t
-    | IfGE of Id.t * Id.t * t * t
+    (* | IfLE of Id.t * Id.t * Id.t * t * t (* need tmp for slt *)
+    | IfGE of Id.t * Id.t * Id.t * t * t *)
+    | IfLE of Id.t * Id.t * t * t 
+    | IfGE of Id.t * Id.t * t * t 
     | IfFEq of Id.t * Id.t * t * t
     | IfFLE of Id.t * Id.t * t * t
     (* closure address, integer arguments and float arguments *)

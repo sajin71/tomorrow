@@ -14,21 +14,21 @@ let save x =
     if not (List.mem x !stackmap) then
         stackmap := !stackmap @ [x]
 
-let savef x =
+(* let savef x =
     stackset := S.add x !stackset;
     if not (List.mem x !stackmap) then
         (let pad =
             if List.length !stackmap mod 2 = 0 then [] else [Id.gentmp Type.Int] in 
         stackmap := !stackmap @ pad @ [x; x])
-
+*)
 let locate x =
     let rec loc = function
         | [] -> []
-        | y :: zs when x = y -> 0 :: List.map succ(loc zs)
+        | y :: zs when x = y -> 0 :: List.map succ (loc zs)
         | y :: zs -> List.map succ (loc zs) in
         loc !stackmap
 
-let offset x = 4 * List.hd (locate x)
+let offset x = try 4 * List.hd (locate x) with Failure("hd") -> Format.eprintf "not found %s@." x; assert false
 let stacksize () = align ((List.length !stackmap + 1) * 4)
 
 let reg r =
@@ -83,13 +83,16 @@ and g' oc = function (* Emit assembly of each instruction *)
     | NonTail(x), SRL(y, V(z)) -> Printf.fprintf oc "\tsrl\t%s, %s, %s\n" (reg x) (reg y) (reg z)
     | NonTail(x), SRL(y, C(z)) -> Printf.fprintf oc "\tsrl\t%s, %s, %d\n" (reg x) (reg y) z
     | NonTail(x), LW(y, V(z)) -> 
-            Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg (reg_sw)) (reg z) (reg y);
-            Printf.fprintf oc "\tlw\t%s, 0(%s)\n" (reg x) (reg (reg_sw))
+            Format.eprintf "error variable LW@."; assert false
+            (*Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg (reg_sw)) (reg z) (reg y);
+            Printf.fprintf oc "\tlw\t%s, 0(%s)\n" (reg x) (reg (reg_sw)) *)
     | NonTail(x), LW(y, C(z)) -> Printf.fprintf oc "\tlw\t%s, %d(%s)\n" (reg x) z (reg y)
     | NonTail(_), SW(x, y, V(z)) -> 
-            Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg (reg_sw)) (reg z) (reg y);
-            Printf.fprintf oc "\tsw\t%s, 0(%s)\n" (reg x) (reg (reg_sw))
+            Format.eprintf "error variable SW@."; assert false
+            (*Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg (reg_sw)) (reg z) (reg y);
+            Printf.fprintf oc "\tsw\t%s, 0(%s)\n" (reg x) (reg (reg_sw)) *)
     | NonTail(_), SW(x, y, C(z)) -> Printf.fprintf oc "\tsw\t%s, %d(%s)\n" (reg x) z (reg y)
+    | NonTail(x), SLT(y, z) -> Printf.fprintf oc "\tslt\t%s, %s, %s\n" (reg x) (reg y) (reg z)
     | NonTail(x), FMov(y) when x = y -> ()
     | NonTail(x), FMov(y) -> 
             Printf.fprintf oc "\tmov.s\t%s, %s\n"  x y
@@ -101,13 +104,19 @@ and g' oc = function (* Emit assembly of each instruction *)
     | NonTail(x), FMul(y, z) -> Printf.fprintf oc "\tmul.s\t%s, %s, %s\n"  x y z
     | NonTail(x), FDiv(y, z) -> Printf.fprintf oc "\tdiv.s\t%s, %s, %s\n" x y z
     | NonTail(x), LWC(y, V(z)) ->
-            Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg (reg_sw)) (reg z) (reg y);
-            Printf.fprintf oc "\tlwc\t%s, 0(%s)\n" x (reg reg_sw)
+            Format.eprintf "error variable LWC@."; assert false
+            (*Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg (reg_sw)) (reg z) (reg y);
+            Printf.fprintf oc "\tlwc\t%s, 0(%s)\n" x (reg reg_sw) *)
     | NonTail(x), LWC(y, C(z)) -> Printf.fprintf oc "\tlwc\t%s, %d(%s)\n" x z (reg y)
     | NonTail(_), SWC(x, y, V(z)) -> 
-            Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg (reg_sw)) (reg z) (reg y);
-            Printf.fprintf oc "\tswc\t%s, 0(%s)\n" x (reg (reg_sw))
+            Format.eprintf "error variable SWC@."; assert false
+            (*Printf.fprintf oc "\tadd\t%s, %s, %s\n" (reg (reg_sw)) (reg z) (reg y);
+            Printf.fprintf oc "\tswc\t%s, 0(%s)\n" x (reg (reg_sw))*)
     | NonTail(_), SWC(x, y, C(z)) -> Printf.fprintf oc "\tswc\t%s, %d(%s)\n" x z (reg y)
+    | NonTail(x), FAbs(y) ->
+            Printf.fprintf oc "\tabs.s\t%s, %s\n" x y
+    | NonTail(x), FSqrt(y) ->
+            Printf.fprintf oc "\tsqrt.s\t%s, %s\n" x y
     | NonTail(_), Comment(s) -> Printf.fprintf oc "\t# %s\n" s
     (* save *)
     | NonTail(_), Save(x, y) when List.mem x allregs && not (S.mem y !stackset) 
@@ -128,12 +137,12 @@ and g' oc = function (* Emit assembly of each instruction *)
         g' oc (NonTail(Id.gentmp Type.Unit), exp);
         Printf.fprintf oc "\tjr $31\n" 
         (*Printf.fprintf oc "\tnop\n"*)
-    | Tail, (Set _ | SetL _ |  Mov _ | Neg _ | Add _ | Sub _ |Mul _ | Div _ | SLL _ | SRL _ | LW _ 
+    | Tail, (Set _ | SetL _ |  Mov _ | Neg _ | Add _ | Sub _ |Mul _ | Div _ | SLL _ | SRL _ | LW _ | SLT _
         as exp) ->
             g' oc (NonTail(regs.(0)), exp);
             Printf.fprintf oc "\tjr $31\n"
             (*Printf.fprintf oc "\tnop\n"*)
-    | Tail, (FMov _ | FNeg _ | SetCLV _  |FAdd _ | FSub _ | FMul _ | FDiv _  | LWC _ as exp) ->
+    | Tail, (FMov _ | FNeg _ | SetCLV _  |FAdd _ | FSub _ | FMul _ | FDiv _  | LWC _ | FSqrt _ | FAbs _ as exp) ->
         g' oc (NonTail(fregs.(0)), exp);
         Printf.fprintf oc "\tjr $31\n"
         (*Printf.fprintf oc "\tnop\n"*)
@@ -153,8 +162,19 @@ and g' oc = function (* Emit assembly of each instruction *)
         Printf.fprintf oc "%s:\n" b_else;
         stackset := stackset_back;
         g oc (Tail, e2)
-    | Tail, IfLE(x, y, e1, e2) ->
+    (* | Tail, IfLE(x, y, z, e1, e2) ->
         let b_else = Id.genid("ble_else") in
+        Printf.fprintf oc "\tslt\t%s, %s, %s\n" (reg z) (reg y) (reg x);
+        Printf.fprintf oc "\tbne\t%s, %s, %s\n" (reg z) (reg reg_zero) b_else;
+        (*Printf.fprintf oc "\tnop\n";*)
+        let stackset_back = !stackset in
+        g oc (Tail, e1);
+        Printf.fprintf oc "%s:\n" b_else;
+        stackset := stackset_back;
+        g oc (Tail, e2) *)
+    | Tail, IfLE(x, y, e1, e2) ->
+        Format.eprintf "Error IfLE@."; assert false
+        (* let b_else = Id.genid("ble_else") in
         Printf.fprintf oc "\tslt\t%s, %s, %s\n" (reg reg_sw) (reg y) (reg x);
         Printf.fprintf oc "\tbne\t%s, %s, %s\n" (reg reg_sw) (reg reg_zero) b_else;
         (*Printf.fprintf oc "\tnop\n";*)
@@ -162,9 +182,20 @@ and g' oc = function (* Emit assembly of each instruction *)
         g oc (Tail, e1);
         Printf.fprintf oc "%s:\n" b_else;
         stackset := stackset_back;
-        g oc (Tail, e2)
-    | Tail, IfGE(x, y, e1, e2) ->
+        g oc (Tail, e2)*)  
+    (* | Tail, IfGE(x, y, z, e1, e2) ->
         let b_else = Id.genid("bge_else") in
+        Printf.fprintf oc "\tslt\t%s, %s, %s\n" (reg z) (reg x) (reg y);
+        Printf.fprintf oc "\tbne\t%s, %s, %s\n" (reg z) (reg reg_zero) b_else;
+        (*Printf.fprintf oc "\tnop\n";*)
+        let stackset_back = !stackset in
+        g oc (Tail, e1);
+        Printf.fprintf oc "%s:\n" b_else;
+        stackset := stackset_back;
+        g oc (Tail, e2) *)
+    | Tail, IfGE(x, y, e1, e2) ->
+        Format.eprintf "Error IfGE@."; assert false
+        (*let b_else = Id.genid("bge_else") in
         Printf.fprintf oc "\tslt\t%s, %s, %s\n" (reg reg_sw) (reg x) (reg y);
         Printf.fprintf oc "\tbne\t%s, %s, %s\n" (reg reg_sw) (reg reg_zero) b_else;
         (*Printf.fprintf oc "\tnop\n";*)
@@ -172,7 +203,7 @@ and g' oc = function (* Emit assembly of each instruction *)
         g oc (Tail, e1);
         Printf.fprintf oc "%s:\n" b_else;
         stackset := stackset_back;
-        g oc (Tail, e2)
+        g oc (Tail, e2) *) 
     | Tail, IfFEq(x, y, e1, e2) -> (* TODO for float calculation *)
         let b_else = Id.genid("fbeq_else") in
         Printf.fprintf oc "\tc.eq.s\t%s, %s\n"  x y;
@@ -208,8 +239,27 @@ and g' oc = function (* Emit assembly of each instruction *)
         Printf.fprintf oc "%s:\n" b_cont;
         let stackset2 = !stackset in
         stackset := S.inter stackset1 stackset2
-    | NonTail(z), IfLE(x, y, e1, e2) -> 
+    (* | NonTail(z), IfLE(x, y, tmp, e1, e2) -> 
         let b_else = Id.genid "ble_else" in
+        let b_cont = Id.genid "ble_cont" in
+        (*Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg reg_sw) (reg y) 1;*)
+        Printf.fprintf oc "\tslt\t%s, %s, %s\n" (reg tmp) (reg y) (reg x);
+        Printf.fprintf oc "\tbne\t%s, %s, %s\n" (reg tmp) (reg reg_zero) b_else;
+        (*Printf.fprintf oc "\tnop\n";*)
+        let stackset_back = !stackset in
+        g oc (NonTail(z), e1);
+        let stackset1 = !stackset in
+        Printf.fprintf oc "\tj\t%s\n" b_cont;
+        (*Printf.fprintf oc "\tnop\n";*)
+        Printf.fprintf oc "%s:\n" b_else;
+        stackset := stackset_back;
+        g oc (NonTail(z), e2);
+        Printf.fprintf oc "%s:\n" b_cont;
+        let stackset2 = !stackset in
+        stackset := S.inter stackset1 stackset2 *)
+    | NonTail(z), IfLE(x, y, e1, e2) -> 
+        Format.eprintf "Error IfLE@."; assert false
+        (* let b_else = Id.genid "ble_else" in
         let b_cont = Id.genid "ble_cont" in
         (*Printf.fprintf oc "\taddi\t%s, %s, %d\n" (reg reg_sw) (reg y) 1;*)
         Printf.fprintf oc "\tslt\t%s, %s, %s\n" (reg reg_sw) (reg y) (reg x);
@@ -225,9 +275,27 @@ and g' oc = function (* Emit assembly of each instruction *)
         g oc (NonTail(z), e2);
         Printf.fprintf oc "%s:\n" b_cont;
         let stackset2 = !stackset in
-        stackset := S.inter stackset1 stackset2
-    | NonTail(z), IfGE(x, y, e1, e2) ->
+        stackset := S.inter stackset1 stackset2 *) 
+    (* | NonTail(z), IfGE(x, y, tmp, e1, e2) ->
         let b_else = Id.genid "beq_else" in
+        let b_cont = Id.genid "beq_cont" in
+        Printf.fprintf oc "\tslt\t%s, %s, %s\n" (reg tmp) (reg x) (reg y);
+        Printf.fprintf oc "\tbne\t%s, %s, %s\n" (reg reg_zero) (reg tmp) b_else;
+        (*Printf.fprintf oc "\tnop\n";*)
+        let stackset_back = !stackset in
+        g oc (NonTail(z), e1); 
+        let stackset1 = !stackset in
+        Printf.fprintf oc "\tj\t%s\n" b_cont;
+        (*Printf.fprintf oc "\tnop\n";*)
+        Printf.fprintf oc "%s:\n" b_else;
+        stackset := stackset_back;
+        g oc (NonTail(z), e2);
+        Printf.fprintf oc "%s:\n" b_cont;
+        let stackset2 = !stackset in
+        stackset := S.inter stackset1 stackset2 *)
+    | NonTail(z), IfGE(x, y, e1, e2) ->
+        Format.eprintf "Error IfGE@."; assert false
+        (* let b_else = Id.genid "beq_else" in
         let b_cont = Id.genid "beq_cont" in
         Printf.fprintf oc "\tslt\t%s, %s, %s\n" (reg reg_sw) (reg x) (reg y);
         Printf.fprintf oc "\tbne\t%s, %s, %s\n" (reg reg_zero) (reg reg_sw) b_else;
@@ -242,7 +310,7 @@ and g' oc = function (* Emit assembly of each instruction *)
         g oc (NonTail(z), e2);
         Printf.fprintf oc "%s:\n" b_cont;
         let stackset2 = !stackset in
-        stackset := S.inter stackset1 stackset2
+        stackset := S.inter stackset1 stackset2*) 
     | NonTail(z), IfFEq(x, y, e1, e2) -> (* TODO float calculation *)
         let b_else = Id.genid "fbeq_else" in
         let b_cont = Id.genid "fbeq_cont" in
