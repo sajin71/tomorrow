@@ -1,8 +1,17 @@
-tomorrow
-========
+asm	:アセンブラ makeでアセンブラasmを生成
+compiler:コンパイラ makeでコンパイラmin-camlを生成
+         compile.sh <MLソースコード> でコンパイルとアセンブルを行う(先にasmを生成しておく必要あり)
+convx86	:横山の作成したシミュレータ 最終的にはこれを使用 makeでシミュレータtestsimuを生成
+         testsimu <バイナリ> でシミュレート 入出力ファイルがある場合はリダイレクトで可能
+core    :コア ブロックRAMはRTL/blockram.vhdではなくsimulation/blockram_test.vhdを使用する必要があるので注意
+fpu     :水野の作成したfpu
+fpu-maru:丸中の作成したfpu
+fpu-shuyoko:横山の作成したfpu
+hobby   :余興
+simulator:三上の作成したシミュレータ
 
-Codes for CPU experiment
 
+----------
 Instructions:
 （算術命令）ADD, SUB, ADDI 
 （ロードストア）LW, SW, LUI
